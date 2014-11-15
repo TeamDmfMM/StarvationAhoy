@@ -9,7 +9,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dmfmm.StarvationAhoy.Core.lib.ModInfo;
-import dmfmm.StarvationAhoy.EventHandler.StarvationAhoy_eventFoodEaten;
+import dmfmm.StarvationAhoy.Event.IAppleCoreAccessor;
+import dmfmm.StarvationAhoy.EventHandler.FoodEatenResult;
 import dmfmm.StarvationAhoy.proxy.CommonProxy;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.VERSION)
@@ -17,6 +18,7 @@ public class StarvationAhoy {
 	
 	@Instance(value = "StarvationAhoy")
 	public static StarvationAhoy instance;
+	public static IAppleCoreAccessor accessor;
 	
 	@SidedProxy(clientSide= ModInfo.Clientproxy, serverSide= ModInfo.Serverproxy)
 	public static CommonProxy proxy;
@@ -24,7 +26,7 @@ public class StarvationAhoy {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		System.out.println("MEH");
-		MinecraftForge.EVENT_BUS.register(new StarvationAhoy_eventFoodEaten());
+		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
 	}
 	
 	@EventHandler
