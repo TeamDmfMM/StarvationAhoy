@@ -1,5 +1,7 @@
 package dmfmm.StarvationAhoy;
 
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -11,6 +13,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dmfmm.StarvationAhoy.Core.lib.ModInfo;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.FoodEdit.EventHandler.FoodEatenResult;
+import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownFoods;
+import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
 import dmfmm.StarvationAhoy.proxy.CommonProxy;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.VERSION)
@@ -31,12 +35,12 @@ public class StarvationAhoy {
 	@EventHandler
 	public void load(FMLInitializationEvent event){
 		
+		ModuleLoad.loadModules();
 		
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
-		
 		
 	}
 }

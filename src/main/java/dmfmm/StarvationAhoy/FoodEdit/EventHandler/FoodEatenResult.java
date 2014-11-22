@@ -2,20 +2,16 @@ package dmfmm.StarvationAhoy.FoodEdit.EventHandler;
 
 import java.util.Random;
 
-import akka.actor.FSM.Event;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.server.S0BPacketAnimation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import dmfmm.StarvationAhoy.Core.util.SALog;
+import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownFoods;
 
 	public class FoodEatenResult
 	{	
@@ -102,8 +98,10 @@ import dmfmm.StarvationAhoy.Core.util.SALog;
 	            int i = e.item.stackSize;
 	            ItemStack itemstack = e.item;
 	            ItemFood usingFood = (ItemFood) e.item.getItem();
-				int HealAmount = usingFood.func_150905_g(e.item) / 2;
-				float SaturationAmt = usingFood.func_150906_h(e.item) / 3;
+				//int HealAmount = usingFood.func_150905_g(e.item) / 2;
+	            //float SaturationAmt = usingFood.func_150906_h(e.item) / 3;
+	            int HealAmount = KnownFoods.getFoodHunger(e.item);
+	            float SaturationAmt = KnownFoods.getFoodSaturation(e.item);
 				e.entityPlayer.getFoodStats().addStats(HealAmount, SaturationAmt);
 				e.entityPlayer.playSound("random.eat", 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
 				Minecraft.getMinecraft().theWorld.playSoundAtEntity(e.entityPlayer, "random.burp", 0.5F, rand.nextFloat() * 0.1F + 0.9F);
