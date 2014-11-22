@@ -16,7 +16,7 @@ public class ModuleVanilla {
 		KnownFoods.insertFood(new ItemStack(Items.fish, 1, 0), 6, 5); //Raw Fish
 		KnownFoods.insertFood(new ItemStack(Items.fish, 1, 1), 6, 5); //Raw Salmon
 		KnownFoods.insertFood(new ItemStack(Items.fish, 1, 2), 6, 5); //Clownfish
-		KnownFoods.insertFood(new ItemStack(Items.fish, 1, 3), 6, 5); //Pufferfish
+		KnownFoods.insertFood(new ItemStack(Items.fish, 1, 3), 2, 5); //Pufferfish
 		KnownFoods.insertFood(new ItemStack(Items.cooked_fished, 1, 0), 6, 5);  //Cooked Fish
 		KnownFoods.insertFood(new ItemStack(Items.cooked_fished, 1, 1), 6, 5);  //Cooked Salmon
 		//KnownFoods.insertFood(new ItemStack(Items.cake, 1, 0), 6, 5);

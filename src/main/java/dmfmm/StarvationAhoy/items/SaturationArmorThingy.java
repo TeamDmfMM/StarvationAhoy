@@ -9,7 +9,7 @@ public class SaturationArmorThingy extends ItemArmor{
 	public SaturationArmorThingy(ArmorMaterial material, int type,
 			String name) {
 		super(material, 0, type);
-		this.setTextureName("StarvationAhoy:" + "stats");
+		this.setTextureName("StarvationAhoy:stats_" + type);
 		this.setUnlocalizedName(name);
 	
 		

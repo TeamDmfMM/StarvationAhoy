@@ -11,9 +11,11 @@ import dmfmm.StarvationAhoy.StarvationAhoy;
 public class ItemLoad {
 	
 	public static Item stat_helm;
+	public static Item stat_chest;
 	
 	public static void initItems(){
 		stat_helm = new SaturationArmorThingy(StarvationAhoy.StatusArmor, 0, "stat_helm");
+		stat_chest = new SaturationArmorThingy(StarvationAhoy.StatusArmor, 1, "stat_chest");
 	}
 	
 	public static void registerItems(){

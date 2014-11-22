@@ -129,6 +129,8 @@ import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownFoods;
 	<Dark> the player ate the item
 	<Dark> you can also add checks for other things
 	<dmf444> Like?
+	<mincrmatt12> Why is this here?
 	<Dark> if the hunger level changed
+	<Dark> who's breaking the 4th wall?
 	<Dark> either way gtg
 	*/
