@@ -1,5 +1,7 @@
 package dmfmm.StarvationAhoy.Core.HUD;
 
+import java.lang.reflect.Field;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.FoodStats;
@@ -11,6 +13,7 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import dmfmm.StarvationAhoy.Core.util.CRef;
+import dmfmm.StarvationAhoy.Core.util.SALog;
 
 public class OverlaySaturationBar extends Gui {
 	
@@ -54,10 +57,10 @@ public class OverlaySaturationBar extends Gui {
 			this.drawTexturedModalRect(EXHAUSTION_BAR_X, EXHAUSTION_BAR_Y, 0, 0, 62, 9);
 			float Sat = this.mc.thePlayer.getFoodStats().getSaturationLevel();
 			if(Sat >= 20){
-				this.drawTexturedModalRect(EXHAUSTION_BAR_X + 50, EXHAUSTION_BAR_Y + 3, 0, 10, 1, 5);
+				this.drawTexturedModalRect(EXHAUSTION_BAR_X + 50, EXHAUSTION_BAR_Y + 2, 0, 9, 1, 5);
 			} else if (Sat < 20){
 				float i = (float) (Sat * 2.5); //2.5 * 20 = 50 (# of pixels in bar)
-				this.drawTexturedModalRect((int) (EXHAUSTION_BAR_X + i), EXHAUSTION_BAR_Y + 3, 0, 10, 1, 5);
+				this.drawTexturedModalRect((int) (EXHAUSTION_BAR_X + i), EXHAUSTION_BAR_Y + 2, 0, 9, 1, 5);
 			}
 			this.mc.fontRenderer.setUnicodeFlag(true);
 			this.mc.fontRenderer.drawString(StatCollector.translateToLocal(SATURATION_TEXT_UNLOCALIZED), SATURATION_BAR_X + 7, SATURATION_BAR_Y, 16430373);
@@ -71,7 +74,8 @@ public class OverlaySaturationBar extends Gui {
 	
 	public float getExhuast(FoodStats food){
 		// just for demo
-		return 1.0f + food.getFoodLevel();
+		Float EXlevel = 0.0F;
+		return EXlevel;
 	}
 	
 }

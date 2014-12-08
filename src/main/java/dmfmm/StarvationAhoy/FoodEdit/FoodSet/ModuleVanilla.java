@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 public class ModuleVanilla {
 
 	public static void init() {
-		KnownFoods.insertFood(new ItemStack(Items.apple), 6, 5);
+		KnownFoods.insertFood(new ItemStack(Items.apple), 1, 1.2F);
 		KnownFoods.insertFood(new ItemStack(Items.mushroom_stew), 6, 5);
 		KnownFoods.insertFood(new ItemStack(Items.bread), 6, 5);
 		KnownFoods.insertFood(new ItemStack(Items.porkchop), 6, 5);

@@ -1,13 +1,17 @@
 package dmfmm.StarvationAhoy.FoodEdit.EventHandler;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -53,8 +57,10 @@ import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownFoods;
 			ItemStack itemstack = e.entityPlayer.inventory.getCurrentItem();
             if (e.entityPlayer.getItemInUseCount() <= 0)
             {
+            	if(KnownFoods.getFoodHunger(e.item) != -1){
                 this.onFinish(e);
                 e.setCanceled(true);
+            	}
             }
             else
             {
@@ -84,8 +90,10 @@ import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownFoods;
 
                 if (e.entityPlayer.getItemInUseCount() - 1 == 0 && !((WorldServer)MinecraftServer.getServer().getEntityWorld()).isRemote)
                 {
+                	if(KnownFoods.getFoodHunger(e.item) != -1){
                     this.onFinish(e);
                     e.setCanceled(true);
+                	}
                 }
             }
 		}
