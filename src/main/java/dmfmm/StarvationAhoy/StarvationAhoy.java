@@ -24,6 +24,7 @@ import dmfmm.StarvationAhoy.Core.util.ConfigHandler;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.FoodEdit.EventHandler.FoodEatenResult;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
+import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.Village.BHHandler;
 import dmfmm.StarvationAhoy.Meat.Village.ButcherHouse;
 import dmfmm.StarvationAhoy.proxy.CommonProxy;
@@ -46,6 +47,7 @@ public class StarvationAhoy {
 		FMLCommonHandler.instance().bus().register(new event_configChange());
 		
 		ItemLoad.initItems();
+		ModuleMeat.preinit();
 		VillagerRegistry.instance().registerVillageCreationHandler(new BHHandler()); 
 		             try { 
 		                 MapGenStructureIO.func_143031_a(ButcherHouse.class, "StarvationAhoy:ButcherHouse"); 
@@ -59,7 +61,9 @@ public class StarvationAhoy {
 	@EventHandler
 	public void load(FMLInitializationEvent event){
 		ItemLoad.registerItems();
+		ModuleMeat.init();
 		ModuleLoad.loadModules();
+		proxy.registerRenderers();
 		
 	}
 	

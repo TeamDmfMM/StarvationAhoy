@@ -18,7 +18,8 @@ import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 public class ButcherHouse extends StructureVillagePieces.Village {
     
 	private int grdlvl =-1;
-    
+    private boolean hasdone = true;
+	
 	public ButcherHouse(){}
 	
 	public ButcherHouse(Start villagePiece, int par2, Random par3Random, StructureBoundingBox sbb, int coordBaseMode) { 
@@ -41,7 +42,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
             if (this.grdlvl < 0)
                 return true;
 
-            this.boundingBox.offset(0, this.grdlvl - this.boundingBox.maxY + 4, 0);//6
+            this.boundingBox.offset(0, this.grdlvl - this.boundingBox.maxY + 6, 0);//4
         }
        // int x = this.boundingBox.minX;
        // int y = this.boundingBox.minY;
@@ -116,8 +117,16 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 8, 5, 3, sbb);
 		this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 8, 5, 4, sbb);
 		
+		//Interior Decor
+		fillWithMetadataBlocks(world, sbb, 1, 0, 3, 2, 0, 5, Blocks.double_stone_slab, 7, Blocks.double_stone_slab, 7, false);
+		fillWithMetadataBlocks(world, sbb, 2, 1, 4, 2, 1, 5, Blocks.double_stone_slab, 7, Blocks.double_stone_slab, 7, false);
+		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 2, 3, 5, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 6, 3, 5, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 1, 4, 1, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 7, 4, 1, sbb);
 		
 		//Animals
+		if(hasdone){
 		Random randss = new Random();
 		int randomNum = randss.nextInt((3 - 1) + 1) + 1;
 		int randomNum1 = randss.nextInt((3 - 1) + 1) + 1;
@@ -125,34 +134,54 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		 int j1 = this.getXWithOffset(2 + 1, 9);
          int k1 = this.getYWithOffset(1);
          int l1 = this.getZWithOffset(2 + 1, 9);
-         int j2 = this.getXWithOffset(2 + 1, 6);
-         int l2 = this.getZWithOffset(2 + 1, 6);
-		SALog.error(randomNum);
+         int j2 = this.getXWithOffset(6 + 1, 9);
+         int l2 = this.getZWithOffset(6 + 1, 9);
+		
 		if(randomNum == 1){
 			Entity cow = new EntityCow(world);
 			cow.setPosition(j1, k1, l1);
 			world.spawnEntityInWorld(cow);
+			Entity cow4 = new EntityCow(world);
+			cow4.setPosition(j1, k1, l1);
+			world.spawnEntityInWorld(cow4);
 		} else if(randomNum == 2){
 			Entity pig = new EntityPig(world);
 			pig.setPosition(j1, k1, l1);
 			world.spawnEntityInWorld(pig);
+			Entity pig5 = new EntityPig(world);
+			pig5.setPosition(j1, k1, l1);
+			world.spawnEntityInWorld(pig5);
 		} else if(randomNum == 3){
 			Entity chicken = new EntityChicken(world);
 			chicken.setPosition(j1, k1, l1);
 			world.spawnEntityInWorld(chicken);
+			Entity chicken6 = new EntityChicken(world);
+			chicken6.setPosition(j1, k1, l1);
+			world.spawnEntityInWorld(chicken6);
 		}
 		if(randomNum1 == 1){
 			Entity cow = new EntityCow(world);
 			cow.setPosition(j2, k1, l2);
 			world.spawnEntityInWorld(cow);
+			Entity cow3 = new EntityCow(world);
+			cow3.setPosition(j2, k1, l2);
+			world.spawnEntityInWorld(cow3);
 		} else if(randomNum1 == 2){
 			Entity pig = new EntityPig(world);
 			pig.setPosition(j2, k1, l2);
 			world.spawnEntityInWorld(pig);
+			Entity pig2 = new EntityPig(world);
+			pig2.setPosition(j2, k1, l2);
+			world.spawnEntityInWorld(pig2);
 		} else if(randomNum1 == 3){
 			Entity chicken = new EntityChicken(world);
 			chicken.setPosition(j2, k1, l2);
 			world.spawnEntityInWorld(chicken);
+			Entity chicken1 = new EntityChicken(world);
+			chicken1.setPosition(j2, k1, l2);
+			world.spawnEntityInWorld(chicken1);
+		}
+		hasdone = false;
 		}
 		return true;
 	}
