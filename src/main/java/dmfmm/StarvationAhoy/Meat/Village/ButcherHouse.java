@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Random;
 
 import dmfmm.StarvationAhoy.Core.util.SALog;
+import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
+import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
@@ -19,6 +23,8 @@ public class ButcherHouse extends StructureVillagePieces.Village {
     
 	private int grdlvl =-1;
     private boolean hasdone = true;
+    private int randomNum;
+    private int randomNum1;
 	
 	public ButcherHouse(){}
 	
@@ -117,19 +123,13 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 8, 5, 3, sbb);
 		this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 8, 5, 4, sbb);
 		
-		//Interior Decor
-		fillWithMetadataBlocks(world, sbb, 1, 0, 3, 2, 0, 5, Blocks.double_stone_slab, 7, Blocks.double_stone_slab, 7, false);
-		fillWithMetadataBlocks(world, sbb, 2, 1, 4, 2, 1, 5, Blocks.double_stone_slab, 7, Blocks.double_stone_slab, 7, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 2, 3, 5, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 6, 3, 5, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 1, 4, 1, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 7, 4, 1, sbb);
+
 		
 		//Animals
 		if(hasdone){
 		Random randss = new Random();
-		int randomNum = randss.nextInt((3 - 1) + 1) + 1;
-		int randomNum1 = randss.nextInt((3 - 1) + 1) + 1;
+		randomNum = randss.nextInt((3 - 1) + 1) + 1;
+		randomNum1 = randss.nextInt((3 - 1) + 1) + 1;
 		
 		 int j1 = this.getXWithOffset(2 + 1, 9);
          int k1 = this.getYWithOffset(1);
@@ -183,7 +183,45 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		}
 		hasdone = false;
 		}
+		
+		//Interior Decor
+		fillWithMetadataBlocks(world, sbb, 1, 0, 3, 2, 0, 5, Blocks.double_stone_slab, 7, Blocks.double_stone_slab, 7, false);
+		fillWithMetadataBlocks(world, sbb, 2, 1, 4, 2, 1, 5, Blocks.double_stone_slab, 7, Blocks.double_stone_slab, 7, false);
+		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 2, 3, 5, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 6, 3, 5, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 1, 4, 1, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 7, 4, 1, sbb);
+		placeHanger(world, sbb, getXOff(2, 1), getYOff(3), getZOff(2, 1), randomNum);
+		placeHanger(world, sbb, getXOff(4, 1), getYOff(3), getZOff(4, 1), randomNum1);
+		placeHanger(world, sbb, getXOff(6, 1), getYOff(3), getZOff(6, 1), randomNum);
+		
 		return true;
 	}
-	
+	private void placeHanger(World world, StructureBoundingBox sbb, int x, int y, int z, int rand){ 
+
+		//this.placeBlockAtCurrentPosition(world, MBlockLoader.MeatHanger, 4, 2, 3, 1, sbb);
+		world.setBlock(x, y, z, MBlockLoader.MeatHanger, 4, 2);
+		TileEntity te = world.getTileEntity(x, y, z);
+		if(te instanceof MeatHangerTileEntity){
+			MeatHangerTileEntity MHA = (MeatHangerTileEntity) te;
+			MHA.setMeatType(rand);
+			world.markBlockForUpdate(x, y, z);
+		}
+
+		
+		//if(MHA != null){MHA.setMeatType(randomNum);}
+		//MeatHangerTileEntity MHB = (MeatHangerTileEntity) world.getTileEntity(getXOff(4, 1), getYOff(3), getZOff(4, 1));
+		//if(MHB != null){MHB.setMeatType(1);}
+		//MeatHangerTileEntity MHC = (MeatHangerTileEntity) world.getTileEntity(getXOff(6, 1), getYOff(3), getZOff(6, 1));
+		//if(MHC != null){MHC.setMeatType(1);}
+	}
+	private int getYOff(int y){
+		return this.getYWithOffset(y);
+	}
+	private int getXOff(int x, int z){
+		return this.getXWithOffset(x, z);
+	}
+	private int getZOff(int x, int z){
+		return this.getZWithOffset(x, z);
+	}
 }

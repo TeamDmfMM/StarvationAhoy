@@ -48,11 +48,7 @@ public class StarvationAhoy {
 		
 		ItemLoad.initItems();
 		ModuleMeat.preinit();
-		VillagerRegistry.instance().registerVillageCreationHandler(new BHHandler()); 
-		             try { 
-		                 MapGenStructureIO.func_143031_a(ButcherHouse.class, "StarvationAhoy:ButcherHouse"); 
-		             } catch (Throwable e) { 
-		             } 
+		
 
 		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
 		MinecraftForge.EVENT_BUS.register(new OverlaySaturationBar(Minecraft.getMinecraft()));
