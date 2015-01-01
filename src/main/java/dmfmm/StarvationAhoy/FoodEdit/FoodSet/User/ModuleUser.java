@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dmfmm.StarvationAhoy.FileReader.FileLoader;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownFoods;
-import dmfmm.StarvationAhoy.FoodEdit.FoodSet.Module;
+import dmfmm.StarvationAhoy.api.FoodEdit.Module;
 
 public class ModuleUser extends Module {
 

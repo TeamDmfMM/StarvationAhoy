@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.User.ModuleUser;
+import dmfmm.StarvationAhoy.api.FoodEdit.Module;
 
 public class ModuleLoad {
 
