@@ -7,5 +7,6 @@ public class ModInfo {
 	public static final String VERSION = "@VERSION@";
 	public static final String Serverproxy = "dmfmm.StarvationAhoy.proxy.ServerProxy";
 	public static final String Clientproxy = "dmfmm.StarvationAhoy.proxy.ClientProxy";
+	public static final String GUIFactory = "dmfmm.StarvationAhoy.Client.ConfigGUIFactory";
 
 }
