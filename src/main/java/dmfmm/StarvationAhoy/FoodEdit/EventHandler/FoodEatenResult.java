@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownFoods;
+import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 
 	public class FoodEatenResult
 	{	
