@@ -4,7 +4,6 @@ import java.io.File;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -15,7 +14,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.VillagerRegistry;
+import dmfmm.StarvationAhoy.Core.StarvationAhoyProvider;
 import dmfmm.StarvationAhoy.Core.EventHandler.event_configChange;
 import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
 import dmfmm.StarvationAhoy.Core.items.ItemLoad;
@@ -25,8 +24,7 @@ import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.FoodEdit.EventHandler.FoodEatenResult;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
-import dmfmm.StarvationAhoy.Meat.Village.BHHandler;
-import dmfmm.StarvationAhoy.Meat.Village.ButcherHouse;
+import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry;
 import dmfmm.StarvationAhoy.proxy.CommonProxy;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.VERSION, guiFactory = ModInfo.GUIFactory)
@@ -43,6 +41,7 @@ public class StarvationAhoy {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		SALog.error("We have Launced");
+		StarvationAhoyRegistry.init(new StarvationAhoyProvider());
 		ConfigHandler.init(new File(event.getModConfigurationDirectory() + "/StarvationAhoy", ModInfo.MOD_ID + ".cfg"));
 		FMLCommonHandler.instance().bus().register(new event_configChange());
 		

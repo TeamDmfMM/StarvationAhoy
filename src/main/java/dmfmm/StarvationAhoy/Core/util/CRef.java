@@ -8,4 +8,7 @@ public class CRef {
 	public static int getOSY(){
 		return ConfigHandler.y;
 	}
+	public static int getFoodPrecent(){
+		return ConfigHandler.foodPrecentage;
+	}
 }

@@ -1,20 +1,19 @@
 package dmfmm.StarvationAhoy.FoodEdit.EventHandler;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownEffects;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 
 	public class FoodEatenResult
@@ -114,7 +113,17 @@ import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 				e.entityPlayer.playSound("random.eat", 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
 				Minecraft.getMinecraft().theWorld.playSoundAtEntity(e.entityPlayer, "random.burp", 0.5F, rand.nextFloat() * 0.1F + 0.9F);
 
-
+				if (KnownEffects.effects.keySet().contains(e.item.getItem())){
+					ArrayList<Double> data = KnownEffects.effects.get(e.item.getItem());
+					Double prob = data.get(3);
+					if (rand.nextFloat() < prob){
+						int potion = (int)((double)data.get(0));
+						int duration = (int)((double)data.get(1));
+						int amplifier = (int)((double)data.get(2));
+						PotionEffect effecter = new PotionEffect(potion, duration, amplifier);
+						e.entityPlayer.addPotionEffect(effecter);
+					}
+				}
 	            if (itemstack != e.item || itemstack != null && itemstack.stackSize != i)
 	            {
 	                e.entityPlayer.inventory.mainInventory[e.entityPlayer.inventory.currentItem] = itemstack;

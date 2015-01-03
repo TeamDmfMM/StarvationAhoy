@@ -18,8 +18,10 @@ public class ModuleLoad {
 	}
 	
 	public static void loadModules(){
-		ModuleVanilla.init();
 		KnownFoods give = new KnownFoods();
+		new ModuleBase().init(give);
+		ModuleVanilla.init();
+		
 		for (Class<? extends Module> toLoad : things){
 			try {
 				Method init = toLoad.getMethod("init", KnownFoods.class);
@@ -41,6 +43,7 @@ public class ModuleLoad {
 				e.printStackTrace();
 			}
 		}
+		new ModuleUser().init(give);
 		
 	}
 }

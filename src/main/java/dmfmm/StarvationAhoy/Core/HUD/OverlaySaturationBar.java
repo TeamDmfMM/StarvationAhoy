@@ -34,6 +34,7 @@ public class OverlaySaturationBar extends Gui {
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	  public void onRenderExperienceBar(RenderGameOverlayEvent event)
 	  {
+		
 		if(event.isCancelable() || event.type != ElementType.EXPERIENCE)
 	    {      
 	      return;
