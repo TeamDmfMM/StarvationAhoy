@@ -195,6 +195,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		placeHanger(world, sbb, getXOff(4, 1), getYOff(3), getZOff(4, 1), randomNum1);
 		placeHanger(world, sbb, getXOff(6, 1), getYOff(3), getZOff(6, 1), randomNum);
 		
+		
 		return true;
 	}
 	private void placeHanger(World world, StructureBoundingBox sbb, int x, int y, int z, int rand){ 
