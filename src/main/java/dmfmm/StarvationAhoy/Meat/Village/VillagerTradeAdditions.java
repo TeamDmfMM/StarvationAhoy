@@ -13,10 +13,18 @@ public class VillagerTradeAdditions{
 	public static void addVillager(){
 		VillagerRegistry.instance().registerVillagerId(getVID());
 		VillagerRegistry.instance().registerVillagerSkin(getVID(), new ResourceLocation("starvationahoy:textures/entity/VillageButcher"));
-		VillagerRegistry.instance().registerVillageTradeHandler(getVID(), handler);
+		//VillagerRegistry.instance().registerVillageTradeHandler(getVID(), handler);
 	}
 	private static int getVID(){
 		return 44442;
 	}
+public class TradeHandler implements IVillageTradeHandler{
 
+	@Override
+	public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList recipeList, Random random) {
+		
+		
+	}
+	
+}
 }

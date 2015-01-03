@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.FoodEdit.FoodSet;
 
+import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
