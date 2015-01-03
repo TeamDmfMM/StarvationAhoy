@@ -77,7 +77,9 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
             GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
     //A reference to your Model file. Again, very important.
             this.model.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
-            switch(((MeatHangerTileEntity)te).getMeatType()){
+            int meatType = ((MeatHangerTileEntity)te).getMeatType();
+            int meatState = ((MeatHangerTileEntity)te).getMeatState();
+            switch(meatType){
             case 0:
             	break;
             default:
@@ -94,7 +96,8 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
             	cow.leg4.rotateAngleX = -77F;
             	GL11.glRotatef(90F, 1, 0, 0);
             	GL11.glTranslatef(0, -0.65F, -1.9F);
-            	ResourceLocation cowT = new ResourceLocation("minecraft:textures/entity/cow/cow.png");
+            	String resource = getTexture(meatType, meatState);
+            	ResourceLocation cowT = new ResourceLocation(resource);
             	Minecraft.getMinecraft().renderEngine.bindTexture(cowT);
             	cow.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
             	break;
@@ -110,7 +113,8 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
             	pig.leg4.rotateAngleX = -77F;
             	GL11.glRotatef(90F, 1, 0, 0);
             	GL11.glTranslatef(0, -1F, -1.6F);
-            	ResourceLocation pigT = new ResourceLocation("minecraft:textures/entity/pig/pig.png");
+            	String resource2 = getTexture(meatType, meatState);
+            	ResourceLocation pigT = new ResourceLocation(resource2);
             	Minecraft.getMinecraft().renderEngine.bindTexture(pigT);
             	pig.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
             	break;
@@ -125,7 +129,9 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
             	GL11.glRotatef(180F, 1, 0, 0);
             	GL11.glRotatef(180F, 0, 1, 0);
             	GL11.glTranslatef(0, -2.3F, 0.2F);
-            	ResourceLocation chickT = new ResourceLocation("minecraft:textures/entity/chicken.png");
+            	GL11.glDisable(GL11.GL_CULL_FACE);
+            	String resource3 = getTexture(meatType, meatState);
+            	ResourceLocation chickT = new ResourceLocation(resource3);
             	Minecraft.getMinecraft().renderEngine.bindTexture(chickT);
             	chick.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
             	break;
@@ -148,4 +154,35 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
         tess.setColorOpaque_F(brightness, brightness, brightness);
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit,  (float) modulousModifier,  divModifier);
 }
+    
+    private String getTexture(int Animal, int state){
+    	switch(Animal){
+    	case 1:
+    		if(state == 0){
+    			return "minecraft:textures/entity/cow/cow.png";
+    		} else if(state == 1){
+    			return "starvationahoy:textures/entity/skinnedCow.png";
+    		} else if(state == 2){
+    			return "starvationahoy:textures/entity/rottenCow.png";
+    		}
+    	case 2:
+    		if(state == 0){
+    			return "minecraft:textures/entity/pig/pig.png";
+    		} else if(state == 1){
+    			return "starvationahoy:textures/entity/skinnedPig.png";
+    		} else if(state == 2){
+    			return "starvationahoy:textures/entity/rottenPig.png";
+    		}
+    	case 3:
+    		if(state == 0){
+    			return "minecraft:textures/entity/chicken.png";
+    		} else if(state == 1){
+    			return "starvationahoy:textures/entity/skinnedChicken.png";
+    		} else if(state == 2){
+    			return "starvationahoy:textures/entity/rottenChicken.png";
+    		}
+    	default:
+    		return "ERRORED";
+    	}
+    }
 }

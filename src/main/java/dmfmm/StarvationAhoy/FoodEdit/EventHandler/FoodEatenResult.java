@@ -8,9 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownEffects;
@@ -18,42 +16,11 @@ import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 
 	public class FoodEatenResult
 	{	
-		
-		/*
-		@SubscribeEvent
-		public void onFoodEaten(PlayerUseItemEvent.Start event)
-		{
-			
-			if(event.item.getItem() instanceof ItemFood){
-				//event.duration = -1000;
-				//new S0BPacketAnimation(this, 3)
-				//
-				//((EntityClientPlayerMP)event.entityPlayer).sendQueue.addToSendQueue(new C0APacketAnimation((EntityClientPlayerMP)event.entityPlayer, 1));
-				//((EntityPlayerMP)event.entityPlayer).getServerForPlayer().getEntityTracker().func_151248_b((EntityPlayerMP)event.entityPlayer, new S0BPacketAnimation((EntityPlayerMP)event.entityPlayer, 3));
-				//
-				try{
-					
-				((WorldServer)MinecraftServer.getServer().getEntityWorld()).getEntityTracker().func_151248_b((EntityPlayerMP)event.entityPlayer, new S0BPacketAnimation((EntityPlayerMP)event.entityPlayer, 3));
-					
-                }catch(Exception e){}
-				
-				ItemFood usingFood = (ItemFood) event.item.getItem();
-				int HealAmount = usingFood.func_150905_g(event.item) / 2;
-				float SaturationAmt = usingFood.func_150906_h(event.item) / 3;
-			
-				event.entityPlayer.getFoodStats().addStats(HealAmount, SaturationAmt);
 
-
-	            event.entityPlayer.playSound("random.eat", 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
-	        
-				Minecraft.getMinecraft().theWorld.playSoundAtEntity(event.entityPlayer, "random.burp", 0.5F, rand.nextFloat() * 0.1F + 0.9F);
-				//--event.item.stackSize;
-				//event.setCanceled(true);
-			}
-		}*/
 		@SubscribeEvent
 		public void foodTickEvent(PlayerUseItemEvent.Tick e){
 			ItemStack itemstack = e.entityPlayer.inventory.getCurrentItem();
+			if(e.entityPlayer.worldObj.isRemote){
             if (e.entityPlayer.getItemInUseCount() <= 0)
             {
             	if(KnownFoods.getFoodHunger(e.item) != -1){
@@ -64,8 +31,7 @@ import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
             else
             {
                 e.item.getItem().onUsingTick(e.item, e.entityPlayer, e.entityPlayer.getItemInUseCount());
-                if (e.entityPlayer.getItemInUseCount() <= 25 && e.entityPlayer.getItemInUseCount() % 4 == 0)
-                {
+                if (e.entityPlayer.getItemInUseCount() <= 25 && e.entityPlayer.getItemInUseCount() % 4 == 0){
                 Random rand = new Random();
                   for (int j = 0; j < 5; ++j)
                   {
@@ -86,15 +52,21 @@ import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 	                e.entityPlayer.worldObj.spawnParticle(s, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord);
 	            }
                 }
-
-                if (e.entityPlayer.getItemInUseCount() - 1 == 0 && !((WorldServer)MinecraftServer.getServer().getEntityWorld()).isRemote)
-                {
-                	if(KnownFoods.getFoodHunger(e.item) != -1){
+                }
+               // if (e.entityPlayer.getItemInUseCount() - 1 == 0 && !e.entityPlayer.worldObj.isRemote)
+               // {
+               // 	if(KnownFoods.getFoodHunger(e.item) != -1){
+               //     this.onFinish(e);
+               //     e.setCanceled(true);
+                //	}
+                //}
+            }
+			if(!e.entityPlayer.worldObj.isRemote){
+				if(KnownFoods.getFoodHunger(e.item) != -1){
                     this.onFinish(e);
                     e.setCanceled(true);
                 	}
-                }
-            }
+			}
 		}
 		
 		public void onFinish(PlayerUseItemEvent e){
@@ -110,9 +82,10 @@ import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 	            int HealAmount = KnownFoods.getFoodHunger(e.item);
 	            float SaturationAmt = KnownFoods.getFoodSaturation(e.item);
 				e.entityPlayer.getFoodStats().addStats(HealAmount, SaturationAmt);
+				if(e.entityPlayer.worldObj.isRemote){
 				e.entityPlayer.playSound("random.eat", 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
 				Minecraft.getMinecraft().theWorld.playSoundAtEntity(e.entityPlayer, "random.burp", 0.5F, rand.nextFloat() * 0.1F + 0.9F);
-
+				}
 				if (KnownEffects.effects.keySet().contains(e.item.getItem())){
 					ArrayList<Double> data = KnownEffects.effects.get(e.item.getItem());
 					Double prob = data.get(3);
@@ -139,13 +112,3 @@ import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 		}
 
 	}
-	/*
-	<Dark> try adding event.end as well
-	<Dark> cache the ItemStack before and after
-	<Dark> if the item goes down by one
-	<Dark> the player ate the item
-	<Dark> you can also add checks for other things
-	<dmf444> Like?
-	<Dark> if the hunger level changed
-	<Dark> either way gtg
-	*/

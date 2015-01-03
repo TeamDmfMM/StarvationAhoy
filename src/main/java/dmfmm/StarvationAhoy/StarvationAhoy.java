@@ -14,6 +14,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.relauncher.Side;
 import dmfmm.StarvationAhoy.Core.StarvationAhoyProvider;
 import dmfmm.StarvationAhoy.Core.EventHandler.event_configChange;
 import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
@@ -50,7 +51,9 @@ public class StarvationAhoy {
 		
 
 		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
-		MinecraftForge.EVENT_BUS.register(new OverlaySaturationBar(Minecraft.getMinecraft()));
+		if(event.getSide() == Side.CLIENT){
+			MinecraftForge.EVENT_BUS.register(new OverlaySaturationBar(Minecraft.getMinecraft()));
+		}
 	}
 	
 	@EventHandler

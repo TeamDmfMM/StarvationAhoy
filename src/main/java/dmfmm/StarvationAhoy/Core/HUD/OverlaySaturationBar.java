@@ -1,6 +1,6 @@
 package dmfmm.StarvationAhoy.Core.HUD;
 
-import java.lang.reflect.Field;
+import org.apache.commons.lang3.reflect.*;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -34,7 +34,6 @@ public class OverlaySaturationBar extends Gui {
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	  public void onRenderExperienceBar(RenderGameOverlayEvent event)
 	  {
-		
 		if(event.isCancelable() || event.type != ElementType.EXPERIENCE)
 	    {      
 	      return;
@@ -75,7 +74,13 @@ public class OverlaySaturationBar extends Gui {
 	
 	public float getExhuast(FoodStats food){
 		// just for demo
-		Float EXlevel = 0.0F;
+		FoodStats foo = this.mc.thePlayer.getFoodStats();
+		float EXlevel = 101010100101F;
+		try {
+			EXlevel = (float) FieldUtils.readField(foo.getClass().getDeclaredField("foodExhaustionLevel"), foo, true);
+		} catch (IllegalAccessException | NoSuchFieldException| SecurityException e) {
+			e.printStackTrace();
+		}
 		return EXlevel;
 	}
 	

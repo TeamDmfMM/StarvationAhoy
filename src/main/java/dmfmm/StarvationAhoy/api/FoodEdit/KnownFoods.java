@@ -2,6 +2,7 @@ package dmfmm.StarvationAhoy.api.FoodEdit;
 
 import java.util.ArrayList;
 
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -107,4 +108,5 @@ public class KnownFoods {
 		}
 		return -1;
 	}
+
 }
