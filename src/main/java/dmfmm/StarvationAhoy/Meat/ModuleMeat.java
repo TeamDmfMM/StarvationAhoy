@@ -1,6 +1,7 @@
 package dmfmm.StarvationAhoy.Meat;
 
 import net.minecraft.world.gen.structure.MapGenStructureIO;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.Meat.Village.BHHandler;
@@ -25,7 +26,7 @@ public class ModuleMeat {
 	}
 	
 	public static void init(){
-		 
+		 MinecraftForge.EVENT_BUS.register(new Event_KillAnimal());
 		}
 	
 	

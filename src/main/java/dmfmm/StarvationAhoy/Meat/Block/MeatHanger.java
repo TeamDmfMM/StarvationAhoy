@@ -100,7 +100,7 @@ public class MeatHanger extends BlockContainer{
     		((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(1);
     		world.markBlockForUpdate(x, y, z);
     		return true;
-    	}else if(player.inventory.getCurrentItem().getItem() == MItemLoader.deadChicken || player.inventory.getCurrentItem().getItem() == MItemLoader.deadCow || player.inventory.getCurrentItem().getItem() == MItemLoader.deadPig){
+    	}else if(player.inventory.getCurrentItem().getItem() == MItemLoader.deadChicken || player.inventory.getCurrentItem().getItem() == MItemLoader.deadCow || player.inventory.getCurrentItem().getItem() == MItemLoader.deadPig && ItemType == 0){
     							/*IS the player attempting to add a dead animal to the hooks?*/
     		
     		Item item = player.inventory.getCurrentItem().getItem();
