@@ -12,7 +12,7 @@ public class StarvationAhoyRegistry {
 		
 		
 		/**
-		 * To maunally add food overrides to Starvation Ahoy, create a class extending {@link dmfmm.api.FoodEdit.Module}, and register with this method. 
+		 * To maunally add food overrides to Starvation Ahoy, create a class extending {@link dmfmm.StarvationAhoy.api.FoodEdit.Module}, and register with this method.
 		 * This will be injected into Starvation Ahoy's known food list at the begining of Pre-init event
 		 * 
 		 * @param m class of the module to be registerd
@@ -27,18 +27,18 @@ public class StarvationAhoyRegistry {
 		 *  
 		 * @return the next available meat id
 		 */
-		public int getNextAvaiableMeatType();
+		public int getNextAvailableMeatType();
 		
 		
 		/**
 		 * 
-		 * @param id the meat id (usally from {@link getNextAvailableMeatType})
-		 * @param modelEntity the model to be used for you're entity
+		 * @param id the meat id (usally from {@code getNextAvailableMeatType()})
+		 * @param modelEntity the model to be used for you're entity, with the correct rotation (we will rotate it by x degrees depending on where the block was placed)
 		 * @param normalTexture the location (used in a new {@link net.minecraft.util.ResourceLocation}) of the animal's regular texture
 		 * @param skinnedTexture the location (used in a new {@link net.minecraft.util.ResourceLocation}) of the animal's skinned texture
 		 * @param rottenTexture the location (used in a new {@link net.minecraft.util.ResourceLocation}) of the animal's rotten texture
 		 */
-		public void registerMeatType(int id, Class<? extends ModelBase> modelEntity, String normalTexture, String skinnedTexture, String rottenTexture);
+		public void registerMeatType(int id, ModelBase modelEntity, String normalTexture, String skinnedTexture, String rottenTexture);
 		
 		public void registerDeadEntity(int id, Class<? extends EntityLiving> entity, Item dead, Item skinned);
 			

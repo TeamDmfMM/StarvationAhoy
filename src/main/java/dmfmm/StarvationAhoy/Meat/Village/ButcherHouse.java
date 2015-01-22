@@ -3,6 +3,7 @@ package dmfmm.StarvationAhoy.Meat.Village;
 import java.util.List;
 import java.util.Random;
 
+import cpw.mods.fml.common.registry.VillagerRegistry;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
@@ -195,9 +196,21 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		placeHanger(world, sbb, getXOff(4, 1), getYOff(3), getZOff(4, 1), randomNum1);
 		placeHanger(world, sbb, getXOff(6, 1), getYOff(3), getZOff(6, 1), randomNum);
 		
+		fillWithBlocks(world, sbb, 2, 3, 4, 2, 3, 5, Blocks.glass_pane, Blocks.glass_pane, false);
+		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 1, 3, 4, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.fence_gate, 1, 1, 1, 4, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.fence, 0, 2, 2, 4, sbb);
+		spawnVillagers(world, sbb, 1, 1, 5, 1);
+		
 		
 		return true;
 	}
+	
+	@Override
+	protected int getVillagerType(int villagers)
+    {
+        return VillagerTradeAdditions.getVID();
+    }
 	private void placeHanger(World world, StructureBoundingBox sbb, int x, int y, int z, int rand){ 
 
 		//this.placeBlockAtCurrentPosition(world, MBlockLoader.MeatHanger, 4, 2, 3, 1, sbb);
