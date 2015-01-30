@@ -53,20 +53,13 @@ import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 	            }
                 }
                 }
-               // if (e.entityPlayer.getItemInUseCount() - 1 == 0 && !e.entityPlayer.worldObj.isRemote)
-               // {
-               // 	if(KnownFoods.getFoodHunger(e.item) != -1){
-               //     this.onFinish(e);
-               //     e.setCanceled(true);
-                //	}
-                //}
             }
-			if(!e.entityPlayer.worldObj.isRemote){
+			/*if(!e.entityPlayer.worldObj.isRemote){
 				if(KnownFoods.getFoodHunger(e.item) != -1){
                     this.onFinish(e);
                     e.setCanceled(true);
                 	}
-			}
+			}*/
 		}
 		
 		public void onFinish(PlayerUseItemEvent e){
