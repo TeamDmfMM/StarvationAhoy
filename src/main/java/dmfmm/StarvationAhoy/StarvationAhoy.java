@@ -35,6 +35,7 @@ public class StarvationAhoy {
 	public static StarvationAhoy instance;
 	
 	public static ArmorMaterial StatusArmor = EnumHelper.addArmorMaterial("statusarmor", 16, new int[]{2,5,2,1}, 21);;
+	public static String DIR;
 	
 	@SidedProxy(clientSide= ModInfo.Clientproxy, serverSide= ModInfo.Serverproxy)
 	public static CommonProxy proxy;
@@ -42,12 +43,13 @@ public class StarvationAhoy {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		SALog.error("We have Launced");
+		DIR = event.getModConfigurationDirectory() + "/StarvationAhoy";
 		StarvationAhoyRegistry.init(new StarvationAhoyProvider());
-		ConfigHandler.init(new File(event.getModConfigurationDirectory() + "/StarvationAhoy", ModInfo.MOD_ID + ".cfg"));
+		ConfigHandler.init(new File(DIR, ModInfo.MOD_ID + ".cfg"));
 		FMLCommonHandler.instance().bus().register(new event_configChange());
 		
 		ItemLoad.initItems();
-		ModuleMeat.preinit();
+		//ModuleMeat.preinit(event.getSide());
 		
 
 		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
@@ -59,7 +61,7 @@ public class StarvationAhoy {
 	@EventHandler
 	public void load(FMLInitializationEvent event){
 		ItemLoad.registerItems();
-		ModuleMeat.init();
+		//ModuleMeat.init(event.getSide());
 		ModuleLoad.loadModules();
 		proxy.registerRenderers();
 		

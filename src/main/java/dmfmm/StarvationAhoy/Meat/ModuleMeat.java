@@ -6,6 +6,7 @@ import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.VillagerRegistry;
+import cpw.mods.fml.relauncher.Side;
 import dmfmm.StarvationAhoy.Client.Renderer.ModelCowSA;
 import dmfmm.StarvationAhoy.Client.Renderer.ModelPigSA;
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
@@ -19,7 +20,7 @@ public class ModuleMeat {
 
 	public static MeatRegistry registry = new MeatRegistry();
 
-	public static void preinit(){
+	public static void preinit(Side side){
 		MItemLoader.initiateItems();
 		MBlockLoader.initiateBlocks();
 		MBlockLoader.initTileEntity();
@@ -31,23 +32,23 @@ public class ModuleMeat {
         
 	}
 	
-	public static void init(){
+	public static void init(Side side){
 		 MinecraftForge.EVENT_BUS.register(new Event_KillAnimal());
 
 
 		MeatType meatType = new MeatType(1);
 		meatType.doDeadEntity(EntityCow.class, MItemLoader.deadCow, MItemLoader.skinlessCow);
-		meatType.doMeatType(new ModelCowSA(), "minecraft:textures/entity/cow/cow.png", "starvationahoy:textures/entity/skinnedCow.png", "starvationahoy:textures/entity/rottenCow.png");
+		if(side == Side.CLIENT){meatType.doMeatType(new ModelCowSA(), "minecraft:textures/entity/cow/cow.png", "starvationahoy:textures/entity/skinnedCow.png", "starvationahoy:textures/entity/rottenCow.png");}
 		registry.addMeatType(meatType);
 
 		meatType = new MeatType(2);
 		meatType.doDeadEntity(EntityPig.class, MItemLoader.deadPig, MItemLoader.skinlessPig);
-		meatType.doMeatType(new ModelPigSA(), "minecraft:textures/entity/pig/pig.png", "starvationahoy:textures/entity/skinnedPig.png", "starvationahoy:textures/entity/rottenPig.png");
+		if(side == Side.CLIENT){meatType.doMeatType(new ModelPigSA(), "minecraft:textures/entity/pig/pig.png", "starvationahoy:textures/entity/skinnedPig.png", "starvationahoy:textures/entity/rottenPig.png");}
 		registry.addMeatType(meatType);
 
 		meatType = new MeatType(3);
 		meatType.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, MItemLoader.skinlessChicken);
-		meatType.doMeatType(new ModelPigSA(), "minecraft:textures/entity/chicken.png", "starvationahoy:textures/entity/skinnedChicken.png", "starvationahoy:textures/entity/rottenChicken.png");
+		if(side == Side.CLIENT){meatType.doMeatType(new ModelPigSA(), "minecraft:textures/entity/chicken.png", "starvationahoy:textures/entity/skinnedChicken.png", "starvationahoy:textures/entity/rottenChicken.png");}
 		registry.addMeatType(meatType);
 		}
 	
