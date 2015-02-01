@@ -3,22 +3,21 @@ package dmfmm.StarvationAhoy.Meat.Village;
 import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.common.registry.VillagerRegistry;
-import dmfmm.StarvationAhoy.Core.util.SALog;
-import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
-import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
+import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
+import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
 
 public class ButcherHouse extends StructureVillagePieces.Village {
     
@@ -206,11 +205,13 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		return true;
 	}
 	
-	@Override
-	protected int getVillagerType(int villagers)
+	
+	protected int getVillagerType()
     {
         return VillagerTradeAdditions.getVID();
     }
+	
+	
 	private void placeHanger(World world, StructureBoundingBox sbb, int x, int y, int z, int rand){ 
 
 		//this.placeBlockAtCurrentPosition(world, MBlockLoader.MeatHanger, 4, 2, 3, 1, sbb);
@@ -238,4 +239,5 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	private int getZOff(int x, int z){
 		return this.getZWithOffset(x, z);
 	}
+
 }

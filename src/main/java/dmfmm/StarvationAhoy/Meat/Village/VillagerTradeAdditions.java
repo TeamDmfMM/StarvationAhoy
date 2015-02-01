@@ -3,7 +3,6 @@ package dmfmm.StarvationAhoy.Meat.Village;
 import java.util.Random;
 
 import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -11,14 +10,15 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
+import cpw.mods.fml.relauncher.Side;
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 
 public class VillagerTradeAdditions{
 
-	public static void addVillager(){
+	public static void addVillager(Side side){
 		VillagerRegistry.instance().registerVillagerId(getVID());
-		VillagerRegistry.instance().registerVillagerSkin(getVID(), new ResourceLocation("starvationahoy:textures/entity/VillageButcher"));
+		if(side == Side.CLIENT){VillagerRegistry.instance().registerVillagerSkin(getVID(), new ResourceLocation("starvationahoy:textures/entity/VillageButcher.png"));}
 		VillagerRegistry.instance().registerVillageTradeHandler(getVID(), TradeHandler.INSTANCE);
 	}
 	protected static int getVID(){

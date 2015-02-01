@@ -49,7 +49,7 @@ public class StarvationAhoy {
 		FMLCommonHandler.instance().bus().register(new event_configChange());
 		
 		ItemLoad.initItems();
-		//ModuleMeat.preinit(event.getSide());
+		ModuleMeat.preinit(event.getSide());
 		
 
 		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
@@ -61,7 +61,7 @@ public class StarvationAhoy {
 	@EventHandler
 	public void load(FMLInitializationEvent event){
 		ItemLoad.registerItems();
-		//ModuleMeat.init(event.getSide());
+		ModuleMeat.init(event.getSide());
 		ModuleLoad.loadModules();
 		proxy.registerRenderers();
 		

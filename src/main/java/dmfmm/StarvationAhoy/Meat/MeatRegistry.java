@@ -1,15 +1,16 @@
 package dmfmm.StarvationAhoy.Meat;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class MeatRegistry {
 
@@ -58,10 +59,9 @@ public class MeatRegistry {
     public void addMeatType(MeatType t){
         meatTypeMap.put(t.id, t);
     }
-
-    public void onMeatType(int id,
-                           ModelBase modelEntity, String normalTexture,
-                           String skinnedTexture, String rottenTexture) {
+    
+    @SideOnly(Side.CLIENT)
+    public void onMeatType(int id, ModelBase modelEntity, String normalTexture, String skinnedTexture, String rottenTexture) {
 
         if (meatTypeExistsAndEditable(id) == true) {
             getMeatTypeForId(id).doMeatType(modelEntity, normalTexture, skinnedTexture, rottenTexture);
@@ -75,8 +75,7 @@ public class MeatRegistry {
 
     }
 
-    public void onDeadEntity(int id,
-                             Class<? extends EntityLiving> entity, Item dead, Item skinned) {
+    public void onDeadEntity(int id, Class<? extends EntityLiving> entity, Item dead, Item skinned) {
         if (meatTypeExistsAndEditable(id) == true) {
             getMeatTypeForId(id).doDeadEntity(entity, dead, skinned);
         } else if (meatTypeExists(id) == true) {
@@ -86,7 +85,8 @@ public class MeatRegistry {
             getMeatTypeForId(id).doDeadEntity(entity, dead, skinned);
         }
     }
-
+    
+    @SideOnly(Side.CLIENT)
     public ModelBase getModel(int id) {
         if (constructedMeatTypeExists(id)) {
             return getMeatTypeForId(id).deadModel;

@@ -28,7 +28,7 @@ public class ModuleMeat {
         try { 
             MapGenStructureIO.func_143031_a(ButcherHouse.class, "StarvationAhoy:ButcherHouse"); 
         } catch (Throwable e) { } 
-        VillagerTradeAdditions.addVillager();
+        VillagerTradeAdditions.addVillager(side);
         
 	}
 	
@@ -38,18 +38,16 @@ public class ModuleMeat {
 
 		MeatType meatType = new MeatType(1);
 		meatType.doDeadEntity(EntityCow.class, MItemLoader.deadCow, MItemLoader.skinlessCow);
-		if(side == Side.CLIENT){meatType.doMeatType(new ModelCowSA(), "minecraft:textures/entity/cow/cow.png", "starvationahoy:textures/entity/skinnedCow.png", "starvationahoy:textures/entity/rottenCow.png");}
 		registry.addMeatType(meatType);
 
 		meatType = new MeatType(2);
 		meatType.doDeadEntity(EntityPig.class, MItemLoader.deadPig, MItemLoader.skinlessPig);
-		if(side == Side.CLIENT){meatType.doMeatType(new ModelPigSA(), "minecraft:textures/entity/pig/pig.png", "starvationahoy:textures/entity/skinnedPig.png", "starvationahoy:textures/entity/rottenPig.png");}
 		registry.addMeatType(meatType);
 
 		meatType = new MeatType(3);
 		meatType.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, MItemLoader.skinlessChicken);
-		if(side == Side.CLIENT){meatType.doMeatType(new ModelPigSA(), "minecraft:textures/entity/chicken.png", "starvationahoy:textures/entity/skinnedChicken.png", "starvationahoy:textures/entity/rottenChicken.png");}
 		registry.addMeatType(meatType);
+		
 		}
 	
 	
