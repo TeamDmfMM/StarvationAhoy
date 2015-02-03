@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dmfmm.StarvationAhoy.Core.util.SALog;
 
 public class MeatRegistry {
 
@@ -112,6 +113,7 @@ public class MeatRegistry {
     public MeatReturn overrideFoodDropsFor(EntityLiving entity) {
         for (int id : meatIds()) {
             if (getEntity(id) != null) {
+            	SALog.fatal(entity.getClass().equals(getEntity(id)));
                 if (entity.getClass().equals(getEntity(id))){
                     return new MeatReturn(true, getMeatTypeForId(id), id);
                 }

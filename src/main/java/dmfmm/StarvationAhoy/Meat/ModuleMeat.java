@@ -32,7 +32,7 @@ public class ModuleMeat {
         
 	}
 	
-	public static void init(Side side){
+	public static void init(){
 		 MinecraftForge.EVENT_BUS.register(new Event_KillAnimal());
 
 

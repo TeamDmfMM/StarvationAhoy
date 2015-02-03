@@ -48,9 +48,7 @@ public class StarvationAhoyProvider implements IStarvationAhoyProvider {
 	}
 
 	@Override
-	public void registerDeadEntity(int id,
-			Class<? extends EntityLiving> entity, Item dead, Item skinned) {
-		// TODO Auto-generated method stub
+	public void registerDeadEntity(int id, Class<? extends EntityLiving> entity, Item dead, Item skinned) {
 		
 	}
 

@@ -13,17 +13,16 @@ public class Event_KillAnimal {
 	
 	@SubscribeEvent
 	public void OverrideDropEvent(LivingDropsEvent e){
+		SALog.fatal("MEH");
+		SALog.fatal("IS EP" + e.entity);
+		SALog.fatal("DROPS?" + ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entity).value);
     if(e.entity instanceof EntityPlayer){
     	//How about no messing with player Drops? kk?
-	}else{
-		if (ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entity).value == true){
+	}else if (ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entity).value == true){
 
 			e.drops.clear();
 			SALog.fatal(ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entityLiving).meat.items.dead);
 			e.drops.add(new EntityItem(e.entity.worldObj, e.entity.posX, e.entity.posY, e.entity.posZ, new ItemStack(ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entityLiving).meat.items.dead)));
 		}
-
-    
-    }
 	}
 }

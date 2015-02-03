@@ -61,7 +61,7 @@ public class StarvationAhoy {
 	@EventHandler
 	public void load(FMLInitializationEvent event){
 		ItemLoad.registerItems();
-		ModuleMeat.init(event.getSide());
+		ModuleMeat.init();
 		ModuleLoad.loadModules();
 		proxy.registerRenderers();
 		
