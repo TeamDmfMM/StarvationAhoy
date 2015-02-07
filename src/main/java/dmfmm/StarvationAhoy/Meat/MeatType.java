@@ -53,7 +53,7 @@ public class MeatType {
         public void doDeadEntity(Class<? extends EntityLiving> base, Item dead, Item skinned) {
 
             this.entity = base;
-            this.items.meat = dead;
+            this.items.dead = dead;
             this.items.skin = skinned;
 
             this.dead = true;

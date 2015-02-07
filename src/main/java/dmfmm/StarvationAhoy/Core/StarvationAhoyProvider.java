@@ -1,17 +1,17 @@
 package dmfmm.StarvationAhoy.Core;
 
 
-import dmfmm.StarvationAhoy.Meat.ModuleMeat;
-import dmfmm.StarvationAhoy.Meat.item.DeadEntity;
-import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
+import java.util.Map;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.Item;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
+import dmfmm.StarvationAhoy.Meat.ModuleMeat;
+import dmfmm.StarvationAhoy.Meat.item.DeadEntity;
+import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry.IStarvationAhoyProvider;
 import dmfmm.StarvationAhoy.api.FoodEdit.Module;
-
-import java.util.Map;
 
 public class StarvationAhoyProvider implements IStarvationAhoyProvider {
 	
@@ -22,21 +22,17 @@ public class StarvationAhoyProvider implements IStarvationAhoyProvider {
 	
 	@Override
 	public void registerModule(Class<? extends Module> m) {
-		// TODO Auto-generated method stub
 		ModuleLoad.registerModule(m);
 	}
 
 	@Override
 	public int getNextAvailableMeatType() {
-		// TODO Auto-generated method stub
 		nextId++;
 		return nextId-1;
 	}
 
 	@Override
-	public void registerMeatType(int id,
-			ModelBase modelEntity, String normalTexture,
-			String skinnedTexture, String rottenTexture) {
+	public void registerMeatType(int id, ModelBase modelEntity, String normalTexture, String skinnedTexture, String rottenTexture) {
 
 
 		ModuleMeat.registry.onMeatType(id, modelEntity, normalTexture, skinnedTexture, rottenTexture);
@@ -52,9 +48,7 @@ public class StarvationAhoyProvider implements IStarvationAhoyProvider {
 	}
 
 	@Override
-	public void registerDeadEntity(int id,
-			Class<? extends EntityLiving> entity, Item dead, Item skinned) {
-		// TODO Auto-generated method stub
+	public void registerDeadEntity(int id, Class<? extends EntityLiving> entity, Item dead, Item skinned) {
 		
 	}
 

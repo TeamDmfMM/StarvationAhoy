@@ -10,40 +10,42 @@ import dmfmm.StarvationAhoy.api.FoodEdit.Module;
 
 public class ModuleLoad {
 
-	
-	public static ArrayList<Class<? extends Module>> things = new ArrayList<Class<? extends Module>>();
-	
-	public static void registerModule(Class<? extends Module> toRegister){
-		things.add(toRegister);
-	}
-	
-	public static void loadModules(){
-		KnownFoods give = new KnownFoods();
-		new ModuleBase().init(give);
-		ModuleVanilla.init();
 		
-		for (Class<? extends Module> toLoad : things){
-			try {
-				Method init = toLoad.getMethod("init", KnownFoods.class);
-				init.invoke(toLoad.newInstance(), give);
-			} catch (NoSuchMethodException | SecurityException e) {
-				
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		public static ArrayList<Class<? extends Module>> things = new ArrayList<Class<? extends Module>>();
+		
+		
+		public static void registerModule(Class<? extends Module> toRegister){
+			things.add(toRegister);
 		}
-		new ModuleUser().init(give);
 		
+		public static void loadModules(){
+			KnownFoods give = new KnownFoods();
+			new ModuleBase().init(give);
+			//ModuleVanilla.init();
+			new ModuleVanilla().init(give);
+
+			for (Class<? extends Module> toLoad : things){
+				try {
+					Method init = toLoad.getMethod("init", KnownFoods.class);
+					init.invoke(toLoad.newInstance(), give);
+				} catch (NoSuchMethodException | SecurityException e) {
+					
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			new ModuleUser().init(give);
+			
+		}
 	}
-}

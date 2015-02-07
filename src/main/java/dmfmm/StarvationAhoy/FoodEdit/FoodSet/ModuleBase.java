@@ -1,5 +1,7 @@
 package dmfmm.StarvationAhoy.FoodEdit.FoodSet;
 
+import java.util.Dictionary;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -23,6 +25,7 @@ public class ModuleBase extends Module {
 			if (Item.itemRegistry.getObject(key) instanceof ItemFood){
 				ItemFood foo = (ItemFood) Item.itemRegistry.getObject(key);
 				
+				//SALog.fatal(Item.itemRegistry.getNameForObject(foo).toString());
 				try {
 					int effect = (int) FieldUtils.readField(foo.getClass().getDeclaredField("potionId"), foo, true);
 					int duration = (int) FieldUtils.readField(foo.getClass().getDeclaredField("potionDuration"), foo, true);

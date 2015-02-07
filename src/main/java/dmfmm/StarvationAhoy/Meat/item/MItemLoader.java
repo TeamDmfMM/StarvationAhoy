@@ -1,16 +1,16 @@
 package dmfmm.StarvationAhoy.Meat.item;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import dmfmm.StarvationAhoy.Core.lib.MeatLib;
-import net.minecraft.item.Item;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.item.Item;
+import cpw.mods.fml.common.registry.GameRegistry;
+import dmfmm.StarvationAhoy.Core.lib.MeatLib;
+
 public class MItemLoader {
-	private static boolean IRegister=false;  
+private static boolean IRegister=false;  
 	
 	public static Item deadCow, deadPig, deadChicken;
 	public static Item skinlessCow, skinlessPig, skinlessChicken;
@@ -68,5 +68,4 @@ public class MItemLoader {
 		}
 		IRegister=true;
 	}
-
 }

@@ -1,7 +1,5 @@
 package dmfmm.StarvationAhoy.Meat.Block;
 
-import dmfmm.StarvationAhoy.Meat.MeatRegistry;
-import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -80,44 +78,52 @@ public class MeatHanger extends BlockContainer{
     	int ItemType = ((MeatHangerTileEntity) world.getTileEntity(x, y, z)).getMeatType();
     	int state = ((MeatHangerTileEntity) world.getTileEntity(x, y, z)).getMeatState();
     	if(player.inventory.getCurrentItem().getItem() == MItemLoader.ButcherKnife && ItemType != 0 && state == 1){
-			/*IS the player attempting to cut the animal down (when skinned)?*/
-    		Item item = player.inventory.getCurrentItem().getItem();
+    						/*IS the player attempting to cut the animal down (when skinned)?*/
+    		Item item = null;
     		hasAnimal = false;
-
-			item = ModuleMeat.registry.getMeatTypeForId(ItemType).items.meat;
-			if(!world.isRemote) world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(item, MathHelper.getRandomIntegerInRange(world.rand, 1, 3))));
-
+    		if(ItemType == 1){item = MItemLoader.skinlessCow;}else if(ItemType == 2){item = MItemLoader.skinlessPig;}else if(ItemType == 3){item = MItemLoader.skinlessChicken;}
+    		if(!world.isRemote){world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(item)));}
+    		((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(0);
 			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
-			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(0);
-
 			world.markBlockForUpdate(x, y, z);
     		return true;
     	}else if(player.inventory.getCurrentItem().getItem() == MItemLoader.filetKnife && state == 0){
     										/*IS the player Attemping to skin the animal?*/
     		
     		int randomNum = world.rand.nextInt((2 - 0) + 1) + 0;
-
-			if (ModuleMeat.registry.getMeatTypeForId(ItemType).items.skin != null) {
-
-				Item item = ModuleMeat.registry.getMeatTypeForId(ItemType).items.skin;
-
-				if(!world.isRemote) world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(item, randomNum)));
-
-			}
-
+    		if(ItemType == 1){
+    			if(!world.isRemote){world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(Items.leather, randomNum)));}
+    		}else if(ItemType == 3){
+    			if(!world.isRemote){world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(Items.feather, randomNum)));}
+    		}
     		//Set to skinned state
     		((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(1);
     		world.markBlockForUpdate(x, y, z);
     		return true;
-    	}else if(ModuleMeat.registry.isMeatItem(player.inventory.getCurrentItem()).value){
+    	}else if(player.inventory.getCurrentItem().getItem() == MItemLoader.deadChicken || player.inventory.getCurrentItem().getItem() == MItemLoader.deadCow || player.inventory.getCurrentItem().getItem() == MItemLoader.deadPig && ItemType == 0){
     							/*IS the player attempting to add a dead animal to the hooks?*/
-
-
-			int id = ModuleMeat.registry.isMeatItem(player.inventory.getCurrentItem()).meatID;
-			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
-			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(id);
-
-
+    		
+    		Item item = player.inventory.getCurrentItem().getItem();
+    		hasAnimal = true;
+    		if(item == MItemLoader.deadCow){
+    			--player.inventory.getCurrentItem().stackSize;
+    			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(1);
+    			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
+    			world.markBlockForUpdate(x, y, z);
+    			return true;
+    		} else if(item == MItemLoader.deadPig){
+    			--player.inventory.getCurrentItem().stackSize;
+    			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(2);
+    			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
+    			world.markBlockForUpdate(x, y, z);
+    			return true;
+    		} else if (item == MItemLoader.deadChicken){
+    			--player.inventory.getCurrentItem().stackSize;
+    			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(3);
+    			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
+    			world.markBlockForUpdate(x, y, z);
+    			return true;
+    		}
     		
     	}
     	return false;

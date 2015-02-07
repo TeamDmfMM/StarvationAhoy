@@ -13,4 +13,5 @@ public class MeatLib {
 	public static String ifiletKnife = "FiletKnife";
 	
 	public static String bMeatHanger = "MeatHanger";
+	public static String Hold_Stick = "HoldingStick";
 }

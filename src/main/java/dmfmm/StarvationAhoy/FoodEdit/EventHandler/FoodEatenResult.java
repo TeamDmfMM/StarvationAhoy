@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -20,8 +21,7 @@ import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 		@SubscribeEvent
 		public void foodTickEvent(PlayerUseItemEvent.Tick e){
 			ItemStack itemstack = e.entityPlayer.inventory.getCurrentItem();
-			if(e.entityPlayer.worldObj.isRemote){
-            if (e.entityPlayer.getItemInUseCount() <= 0)
+            if (e.duration <= 0)
             {
             	if(KnownFoods.getFoodHunger(e.item) != -1){
                 this.onFinish(e);
@@ -30,8 +30,9 @@ import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
             }
             else
             {
-                e.item.getItem().onUsingTick(e.item, e.entityPlayer, e.entityPlayer.getItemInUseCount());
-                if (e.entityPlayer.getItemInUseCount() <= 25 && e.entityPlayer.getItemInUseCount() % 4 == 0){
+                e.item.getItem().onUsingTick(e.item, e.entityPlayer, e.duration);
+                if (e.duration <= 25 && e.duration % 4 == 0)
+                {
                 Random rand = new Random();
                   for (int j = 0; j < 5; ++j)
                   {
@@ -52,21 +53,15 @@ import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 	                e.entityPlayer.worldObj.spawnParticle(s, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord);
 	            }
                 }
-                }
-               // if (e.entityPlayer.getItemInUseCount() - 1 == 0 && !e.entityPlayer.worldObj.isRemote)
-               // {
-               // 	if(KnownFoods.getFoodHunger(e.item) != -1){
-               //     this.onFinish(e);
-               //     e.setCanceled(true);
-                //	}
-                //}
-            }
-			if(!e.entityPlayer.worldObj.isRemote){
-				if(KnownFoods.getFoodHunger(e.item) != -1){
+
+                if (e.duration - 1 == 0 && !e.entityPlayer.worldObj.isRemote)
+                {
+                	if(KnownFoods.getFoodHunger(e.item) != -1){
                     this.onFinish(e);
                     e.setCanceled(true);
                 	}
-			}
+                }
+            }
 		}
 		
 		public void onFinish(PlayerUseItemEvent e){

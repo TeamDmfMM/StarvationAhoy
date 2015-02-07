@@ -23,7 +23,7 @@ public class ModuleUser extends Module {
 	public void init(KnownFoods food) {
 		// TODO Auto-generated method stub
 			
-		File stuufs = new File(FileLoader.getCfgPath() + "StarvationAhoy", "food.cfg");
+		File stuufs = new File(FileLoader.getCfgPath(), "food.cfg");
 		BufferedReader buff;
 		try {
 			buff = new BufferedReader(new FileReader(stuufs));
