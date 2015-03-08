@@ -1,19 +1,17 @@
-package dmfmm.StarvationAhoy.Meat.Block.tileentity;
+package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
-import dmfmm.StarvationAhoy.Meat.Block.HoldingStick;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.CookerMultiBlock;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockStructure;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 
-public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInventory {
+/**
+ * Created by Matthew on 2/7/2015.
+ */
+public class CookerTileEntity extends TileEntityMultiBlock implements IInventory {
     ItemStack meat;
 
-    public HoldingStickTileEntity(MultiBlockStructure struct) {
+    public CookerTileEntity(MultiBlockStructure struct) {
         super(struct);
     }
 
@@ -26,6 +24,7 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
     public void onSync(){
         meat =ItemStack.loadItemStackFromNBT((NBTTagCompound) multiBlockStructure.sharedData.getTag("MeatItem"));
     }
+
 
     @Override
     public int getSizeInventory() {
@@ -108,5 +107,3 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
         return false;
     }
 }
-
-

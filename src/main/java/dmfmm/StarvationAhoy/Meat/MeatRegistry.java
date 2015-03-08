@@ -76,14 +76,14 @@ public class MeatRegistry {
 
     }
 
-    public void onDeadEntity(int id, Class<? extends EntityLiving> entity, Item dead, Item skinned) {
+    public void onDeadEntity(int id, Class<? extends EntityLiving> entity, Item dead, Item skinned, Item meat, Item skin) {
         if (meatTypeExistsAndEditable(id) == true) {
-            getMeatTypeForId(id).doDeadEntity(entity, dead, skinned);
+            getMeatTypeForId(id).doDeadEntity(entity, dead, skinned, meat, skin);
         } else if (meatTypeExists(id) == true) {
             throw new IllegalArgumentException("The meat type id has already been constructed, therefore it cannot be edited");
         } else {
             newMeatType(id);
-            getMeatTypeForId(id).doDeadEntity(entity, dead, skinned);
+            getMeatTypeForId(id).doDeadEntity(entity, dead, skinned, meat, skin);
         }
     }
     
