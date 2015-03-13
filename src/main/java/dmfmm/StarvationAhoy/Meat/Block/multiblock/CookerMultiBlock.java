@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
@@ -40,15 +41,14 @@ public class CookerMultiBlock extends MultiBlockStructure{
     }
 
     @Override
-    public int bPosMax() {
-        return 4;
-    }
+    public int bPosMax() { return 4; }
 
     @Override
     public void onUpdate(World world) {
-        super.onUpdate(world);
+
         if (sharedData.hasKey("CookTime") == false){
             sharedData.setInteger("CookTime", 0);
         }
+        SALog.error("Multiblock - AT POS: " + this.x + " Y: " + this.y + " Z:" + this.z);
     }
 }

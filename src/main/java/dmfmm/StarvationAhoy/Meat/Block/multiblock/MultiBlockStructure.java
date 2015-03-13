@@ -19,8 +19,9 @@ public abstract class MultiBlockStructure {
     public NBTTagCompound sharedData = new NBTTagCompound();
 
         public void onUpdate(World w){
-            if (bPos != 0){
+            if (bPos != 0) {
                 return;
+
         }
     }
 

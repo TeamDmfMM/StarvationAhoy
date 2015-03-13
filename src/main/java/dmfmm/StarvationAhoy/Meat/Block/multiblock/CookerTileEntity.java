@@ -4,6 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 /**
  * Created by Matthew on 2/7/2015.
@@ -14,6 +17,24 @@ public class CookerTileEntity extends TileEntityMultiBlock implements IInventory
     public CookerTileEntity(MultiBlockStructure struct) {
         super(struct);
     }
+
+    @Override
+    public Packet getDescriptionPacket()
+    {
+        NBTTagCompound syncData = new NBTTagCompound();
+        syncData.setInteger("MultiBlockIndex", multiBlockStructure.bPos);
+        syncData.setTag("SharedData", multiBlockStructure.sharedData);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+    {
+        if (this.multiBlockStructure == null){this.multiBlockStructure = new CookerMultiBlock();}
+        multiBlockStructure.bPos = pkt.func_148857_g().getInteger("MultiBlockIndex");
+        multiBlockStructure.sharedData = pkt.func_148857_g().getCompoundTag("SharedData");
+    }
+
 
     @Override
     public Class<? extends MultiBlockStructure> getMultiBlock() {

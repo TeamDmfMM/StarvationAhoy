@@ -11,7 +11,7 @@ public abstract class TileEntityMultiBlock extends TileEntity{
 
     public MultiBlockStructure multiBlockStructure;
 
-    public void updateEntity(){if (multiBlockStructure != null) multiBlockStructure.updateStructure(worldObj);
+    public void updateEntity(){if (multiBlockStructure != null) multiBlockStructure.onUpdate(worldObj);
 
     }
 
@@ -24,7 +24,7 @@ public abstract class TileEntityMultiBlock extends TileEntity{
     @Override
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);
-        if (multiBlockStructure != null) return;
+        if (multiBlockStructure == null) return;
 
         nbtTagCompound.setTag("MultiBlockShared", multiBlockStructure.sharedData);
         nbtTagCompound.setInteger("MultiBlockIndex", multiBlockStructure.bPos);
