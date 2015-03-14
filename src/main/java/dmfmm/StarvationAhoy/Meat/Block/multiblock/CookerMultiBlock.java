@@ -45,7 +45,7 @@ public class CookerMultiBlock extends MultiBlockStructure{
 
     @Override
     public void onUpdate(World world) {
-
+        super.onUpdate(world);
         if (sharedData.hasKey("CookTime") == false){
             sharedData.setInteger("CookTime", 0);
         }
