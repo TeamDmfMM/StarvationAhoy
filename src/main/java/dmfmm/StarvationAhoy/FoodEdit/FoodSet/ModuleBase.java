@@ -52,7 +52,9 @@ public class ModuleBase extends Module {
 					
 					SALog.error("Could not extract potion data for: " + foo.getUnlocalizedName());
 				}
-				
+
+				// Percent of for ALL foods. (anything that extends ItemFood in the item registry)
+
 				int hunger = (int) (foo.func_150905_g(new ItemStack(foo, 1))*(percentage/100.0f));
 				float sturan = foo.func_150906_h(new ItemStack(foo, 1))*(percentage/100.0f);
 				

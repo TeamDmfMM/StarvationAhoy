@@ -4,5 +4,5 @@ public class ModOverrides {
 
 	public String mod;
 	public FoodOverride[] foods;
-	
+
 }
