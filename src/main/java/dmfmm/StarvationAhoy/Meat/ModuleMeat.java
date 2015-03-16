@@ -3,12 +3,13 @@ package dmfmm.StarvationAhoy.Meat;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
-import dmfmm.StarvationAhoy.Client.Renderer.ModelCowSA;
-import dmfmm.StarvationAhoy.Client.Renderer.ModelPigSA;
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.Meat.Village.BHHandler;
 import dmfmm.StarvationAhoy.Meat.Village.ButcherHouse;
@@ -47,7 +48,6 @@ public class ModuleMeat {
 		meatType = new MeatType(3);
 		meatType.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, MItemLoader.skinlessChicken);
 		registry.addMeatType(meatType);
-		
 		}
 	
 	
