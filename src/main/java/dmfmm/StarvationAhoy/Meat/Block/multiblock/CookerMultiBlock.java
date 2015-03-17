@@ -10,6 +10,10 @@ import net.minecraft.world.World;
 public class CookerMultiBlock extends MultiBlockStructure{
 
 
+    public CookerMultiBlock(){
+
+    }
+
     @Override
     public int[] getPosForBlock(int bPos, int sBPos, int x, int y, int z, World world) {
 

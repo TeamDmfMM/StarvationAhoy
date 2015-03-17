@@ -16,6 +16,7 @@ public class Cooker extends BlockContainer {
     protected Cooker() {
         super(Material.anvil);
         this.setCreativeTab(SATabs.INSTANCE);
+        this.setBlockTextureName("starvationahoy:clearBlock");
     }
 
     @Override
@@ -24,6 +25,14 @@ public class Cooker extends BlockContainer {
     }
 
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitX, float hitY, float hitZ) {
+        return false;
+    }
+
+    public boolean isOpaqueCube(){
+        return false;
+    }
+
+    public boolean renderAsNormalBlock(){
         return false;
     }
 }

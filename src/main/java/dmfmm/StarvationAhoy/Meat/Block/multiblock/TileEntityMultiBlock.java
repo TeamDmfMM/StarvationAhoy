@@ -11,6 +11,10 @@ public abstract class TileEntityMultiBlock extends TileEntity{
 
     public MultiBlockStructure multiBlockStructure;
 
+    public TileEntityMultiBlock(){
+        multiBlockStructure = null;
+    }
+
     public void updateEntity(){if (multiBlockStructure != null) multiBlockStructure.onUpdate(worldObj);
 
     }
@@ -28,6 +32,7 @@ public abstract class TileEntityMultiBlock extends TileEntity{
 
         nbtTagCompound.setTag("MultiBlockShared", multiBlockStructure.sharedData);
         nbtTagCompound.setInteger("MultiBlockIndex", multiBlockStructure.bPos);
+        nbtTagCompound.setInteger("MultiBlockOrient", multiBlockStructure.orient);
 
     }
 
@@ -44,6 +49,10 @@ public abstract class TileEntityMultiBlock extends TileEntity{
         try {
             multiBlockStructure.sharedData = nbtTagCompound.getCompoundTag("MultiBlockShared");
             multiBlockStructure.bPos = nbtTagCompound.getInteger("MultiBlockIndex");
+            multiBlockStructure.x = this.xCoord;
+            multiBlockStructure.y = this.yCoord;
+            multiBlockStructure.z = this.zCoord;
+            multiBlockStructure.orient = nbtTagCompound.getInteger("MultiBlockOrient");
             if (multiBlockStructure.bPos == 0) {
                 multiBlockStructure.syncData(multiBlockStructure, 0, xCoord, yCoord, xCoord, worldObj);
             }
