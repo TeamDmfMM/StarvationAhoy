@@ -3,6 +3,7 @@ package dmfmm.StarvationAhoy.Core;
 
 import java.util.Map;
 
+import dmfmm.StarvationAhoy.Meat.item.SkinnedEntity;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.Item;
@@ -37,19 +38,20 @@ public class StarvationAhoyProvider implements IStarvationAhoyProvider {
 
 		ModuleMeat.registry.onMeatType(id, modelEntity, normalTexture, skinnedTexture, rottenTexture);
 
-		if (ModuleMeat.registry.constructedMeatTypeExists(id) == false){
 
-			DeadEntity newDeadEntity = new DeadEntity("externalmod_meat_" + id + "_deaditem", "starvationahoy:placeholder_meat_texture");
-			MItemLoader.modMeatItems.put("externalmod_meat_" + id + "_deaditem", newDeadEntity);
-
-		}
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void registerDeadEntity(int id, Class<? extends EntityLiving> entity, Item dead, Item skinned) {
-		
+		if (ModuleMeat.registry.constructedMeatTypeExists(id) == false){
+
+			DeadEntity newDeadEntity = new DeadEntity("externalmod_meat_" + id + "_deaditem", "starvationahoy:placeholder_meat_texture");
+			SkinnedEntity newSkinnedEntity = new SkinnedEntity("externalmod_skin_" + id + "_deaditem", "starvationahoy:placeholder_skin_texture");
+			MItemLoader.modMeatItems.put("externalmod_meat_" + id + "_deaditem", newDeadEntity);
+
+		}
 	}
 
 }

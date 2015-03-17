@@ -1,21 +1,40 @@
-package dmfmm.StarvationAhoy.Meat.Block.tileentity;
+package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
-import dmfmm.StarvationAhoy.Meat.Block.HoldingStick;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.CookerMultiBlock;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockStructure;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
-public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInventory {
+/**
+ * Created by Matthew on 2/7/2015.
+ */
+public class CookerTileEntity extends TileEntityMultiBlock implements IInventory {
     ItemStack meat;
 
-    public HoldingStickTileEntity(MultiBlockStructure struct) {
+    public CookerTileEntity(MultiBlockStructure struct) {
         super(struct);
     }
+
+    @Override
+    public Packet getDescriptionPacket()
+    {
+        NBTTagCompound syncData = new NBTTagCompound();
+        syncData.setInteger("MultiBlockIndex", multiBlockStructure.bPos);
+        syncData.setTag("SharedData", multiBlockStructure.sharedData);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+    {
+        if (this.multiBlockStructure == null){this.multiBlockStructure = new CookerMultiBlock();}
+        multiBlockStructure.bPos = pkt.func_148857_g().getInteger("MultiBlockIndex");
+        multiBlockStructure.sharedData = pkt.func_148857_g().getCompoundTag("SharedData");
+    }
+
 
     @Override
     public Class<? extends MultiBlockStructure> getMultiBlock() {
@@ -26,6 +45,7 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
     public void onSync(){
         meat =ItemStack.loadItemStackFromNBT((NBTTagCompound) multiBlockStructure.sharedData.getTag("MeatItem"));
     }
+
 
     @Override
     public int getSizeInventory() {
@@ -108,5 +128,3 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
         return false;
     }
 }
-
-

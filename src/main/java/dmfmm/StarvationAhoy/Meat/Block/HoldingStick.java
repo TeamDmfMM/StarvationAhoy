@@ -2,11 +2,14 @@ package dmfmm.StarvationAhoy.Meat.Block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockChecking;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -21,7 +24,7 @@ public class HoldingStick extends BlockContainer{
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int p) {
-		return new HoldingStickTileEntity();
+		return new HoldingStickTileEntity(null);
 	}
 	 @Override
 	    public int getRenderType() {
@@ -63,6 +66,33 @@ public class HoldingStick extends BlockContainer{
 			world.setBlockMetadataWithNotify(x, y, z, 4, 2);
 			}
 		}
+
+		public void changeRot(World world, int x, int y, int z, int rotation){
+			if(rotation == 0) {
+				world.setBlockMetadataWithNotify(x, y, z, 2, 2);
+			}
+
+			if(rotation == 1) {
+				world.setBlockMetadataWithNotify(x, y, z, 5, 2);
+			}
+
+			if(rotation == 2) {
+				world.setBlockMetadataWithNotify(x, y, z, 3, 2);
+			}
+
+			if(rotation == 3) {
+				world.setBlockMetadataWithNotify(x, y, z, 4, 2);
+			}
+
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitX, float hitY, float hitZ) {
+		if (player.inventory.getCurrentItem().getItem() == Items.stick) return MultiBlockChecking.checkCookerStructure(world, x, y, z);
+		else return false;
+	}
+
+
 	    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack Itemstack) {
 			
 	    	super.onBlockAdded(world, x, y, z);

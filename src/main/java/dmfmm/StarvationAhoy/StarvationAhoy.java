@@ -61,7 +61,6 @@ public class StarvationAhoy {
 	@EventHandler
 	public void load(FMLInitializationEvent event){
 		ItemLoad.registerItems();
-		SALog.error("LOADING MEAT");
 		ModuleMeat.init();
 		ModuleLoad.loadModules();
 		proxy.registerRenderers();

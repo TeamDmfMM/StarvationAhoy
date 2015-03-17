@@ -205,8 +205,8 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		return true;
 	}
 	
-	@Override
-	protected int getVillagerType(int id)
+	
+	protected int getVillagerType()
     {
         return VillagerTradeAdditions.getVID();
     }
@@ -239,6 +239,5 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	private int getZOff(int x, int z){
 		return this.getZWithOffset(x, z);
 	}
-	
 
 }

@@ -1,18 +1,22 @@
 package dmfmm.StarvationAhoy.Meat.Block.tileentity;
 
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.CookerMultiBlock;
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockStructure;
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-public class MeatHangerTileEntity extends TileEntity{
+public class MeatHangerTileEntity extends TileEntity {
 	private int MeatType = 0;//0-n|1-Cow|2-Pig|3-Chicken
 	private int MeatState = 0;//0-normal|1-Skined|2-Rotten
 	
 	public MeatHangerTileEntity(){
-		
+
 	}
+
 	public int getMeatState(){
 		return MeatState;
 	}
@@ -33,7 +37,9 @@ public class MeatHangerTileEntity extends TileEntity{
 	       tagCompound.setInteger("Meatstate", MeatState);
 	   }
 
-	   @Override
+
+
+	@Override
 	   public void readFromNBT(NBTTagCompound tagCompound)
 	   {
 	       super.readFromNBT(tagCompound);
