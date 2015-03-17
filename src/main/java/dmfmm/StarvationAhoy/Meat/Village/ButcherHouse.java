@@ -205,8 +205,8 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		return true;
 	}
 	
-	
-	protected int getVillagerType()
+	@Override
+	protected int getVillagerType(int id)
     {
         return VillagerTradeAdditions.getVID();
     }
