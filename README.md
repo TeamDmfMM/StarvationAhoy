@@ -15,11 +15,11 @@ MultiBlock
 
 - [x] initial api
 - [x] implement api
-- [ ] create block
+- [x] create block
 - [x] detect structure
-- [ ] create item and have it call detect structure
-  - [ ] create item
-  - [ ] call code
+- [x] create item and have it call detect structure
+  - [x] create item
+  - [x] call code
 - [ ] add cooker recipes and handler code
   - [ ] recipes
   - [ ] cooker code
