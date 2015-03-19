@@ -25,7 +25,7 @@ public abstract class TileEntityMultiBlock extends TileEntity{
     public void updateEntity(){
 
         if (multiBlockStructure != null){SALog.error(multiBlockStructure.bPos);}
-        if (multiBlockStructure != null) multiBlockStructure.onUpdate(worldObj);
+        if (multiBlockStructure != null) multiBlockStructure.updateStructure(worldObj);
         if (timeAfter == 120 && multiBlockStructure != null ) { StarvationAhoy.MultiBlockChannel.sendToAllAround(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z), new NetworkRegistry.TargetPoint(0, xCoord, yCoord, zCoord, 40)); }
         timeAfter++;
         if (timeAfter == 240){

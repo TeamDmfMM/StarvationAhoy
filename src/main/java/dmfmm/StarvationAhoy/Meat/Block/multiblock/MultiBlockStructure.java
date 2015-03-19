@@ -33,7 +33,15 @@ public abstract class MultiBlockStructure {
 
     public boolean checkForChanges(World w){return false;}
 
-    public void updateStructure(World world){}
+    public void updateStructure(World world){
+
+        NBTTagCompound oldSha = sharedData;
+        onUpdate(world);
+        if (sharedData != oldSha){
+            syncData(this, this.bPos, this.x, this.y, this.z, world);
+        }
+
+    }
 
     public abstract int[] getPosForBlock(int bPos, int sBPos, int x, int y, int z, World world);
 

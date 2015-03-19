@@ -133,6 +133,17 @@ public class MeatRegistry {
         return new MeatReturn(false, null, 0);
     }
 
+    public MeatReturn isSkinnedItem(ItemStack is){
+        for (int id : meatIds()) {
+            if (getMeatTypeForId(id) != null) {
+                if (is.getItem().getUnlocalizedName() == getMeatTypeForId(id).items.skinned.getUnlocalizedName()){
+                    return new MeatReturn(true, getMeatTypeForId(id), id);
+                }
+            }
+        }
+        return new MeatReturn(false, null, 0);
+    }
+
     public static class MeatReturn {
 
         public boolean value;
