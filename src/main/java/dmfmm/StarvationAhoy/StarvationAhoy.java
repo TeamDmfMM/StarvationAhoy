@@ -2,6 +2,9 @@ package dmfmm.StarvationAhoy;
 
 import java.io.File;
 
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,13 +39,16 @@ public class StarvationAhoy {
 	
 	public static ArmorMaterial StatusArmor = EnumHelper.addArmorMaterial("statusarmor", 16, new int[]{2,5,2,1}, 21);;
 	public static String DIR;
-	
+
+	public static Side side;
+	public static SimpleNetworkWrapper MultiBlockChannel;
 	@SidedProxy(clientSide= ModInfo.Clientproxy, serverSide= ModInfo.Serverproxy)
 	public static CommonProxy proxy;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		SALog.error("We have Launced");
+		side = event.getSide();
 		DIR = event.getModConfigurationDirectory() + "/StarvationAhoy";
 		StarvationAhoyRegistry.init(new StarvationAhoyProvider());
 		ConfigHandler.init(new File(DIR, ModInfo.MOD_ID + ".cfg"));
@@ -50,7 +56,8 @@ public class StarvationAhoy {
 		
 		ItemLoad.initItems();
 		ModuleMeat.preinit(event.getSide());
-		
+		MultiBlockChannel = NetworkRegistry.INSTANCE.newSimpleChannel(ModInfo.MOD_ID);
+		MultiBlockChannel.registerMessage(PacketMultiBlock.Handler.class, PacketMultiBlock.class, 0, Side.CLIENT);
 
 		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
 		if(event.getSide() == Side.CLIENT){
