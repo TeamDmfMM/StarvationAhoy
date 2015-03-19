@@ -4,7 +4,7 @@ import java.io.File;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import dmfmm.StarvationAhoy.Meat.net.PacketMultiBlock;
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.MinecraftForge;

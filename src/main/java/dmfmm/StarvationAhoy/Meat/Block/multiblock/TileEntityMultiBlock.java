@@ -1,14 +1,10 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.relauncher.Side;
 import dmfmm.StarvationAhoy.Core.util.SALog;
-import dmfmm.StarvationAhoy.Meat.ModuleMeat;
-import dmfmm.StarvationAhoy.Meat.net.PacketMultiBlock;
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
 import dmfmm.StarvationAhoy.StarvationAhoy;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 
 /**

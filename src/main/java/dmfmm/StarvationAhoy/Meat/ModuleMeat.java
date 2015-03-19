@@ -1,18 +1,9 @@
 package dmfmm.StarvationAhoy.Meat;
 
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import dmfmm.StarvationAhoy.Core.lib.ModInfo;
-import dmfmm.StarvationAhoy.Meat.net.PacketMultiBlock;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
-import dmfmm.StarvationAhoy.Client.Renderer.ModelCowSA;
-import dmfmm.StarvationAhoy.Client.Renderer.ModelPigSA;
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.Meat.Village.BHHandler;
 import dmfmm.StarvationAhoy.Meat.Village.ButcherHouse;
