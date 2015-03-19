@@ -1,7 +1,14 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.relauncher.Side;
 import dmfmm.StarvationAhoy.Core.util.SALog;
+import dmfmm.StarvationAhoy.Meat.ModuleMeat;
+import dmfmm.StarvationAhoy.Meat.net.PacketMultiBlock;
+import dmfmm.StarvationAhoy.StarvationAhoy;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 
 /**
@@ -9,13 +16,25 @@ import net.minecraft.tileentity.TileEntity;
  */
 public abstract class TileEntityMultiBlock extends TileEntity{
 
+    private int timeAfter = 0;
+
+    public boolean r = false;
+
     public MultiBlockStructure multiBlockStructure;
 
     public TileEntityMultiBlock(){
         multiBlockStructure = null;
     }
 
-    public void updateEntity(){if (multiBlockStructure != null) multiBlockStructure.onUpdate(worldObj);
+    public void updateEntity(){
+
+        if (multiBlockStructure != null){SALog.error(multiBlockStructure.bPos);}
+        if (multiBlockStructure != null) multiBlockStructure.onUpdate(worldObj);
+        if (timeAfter == 120 && multiBlockStructure != null ) { StarvationAhoy.MultiBlockChannel.sendToAllAround(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z), new NetworkRegistry.TargetPoint(0, xCoord, yCoord, zCoord, 40)); }
+        timeAfter++;
+        if (timeAfter == 240){
+            timeAfter = 0;
+        }
 
     }
 
@@ -42,7 +61,12 @@ public abstract class TileEntityMultiBlock extends TileEntity{
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
         super.readFromNBT(nbtTagCompound);
         try {
-            multiBlockStructure = getMultiBlock().newInstance();
+            if (nbtTagCompound.hasKey("MultiBlockIndex")) {
+                multiBlockStructure = getMultiBlock().newInstance();
+            }
+            else {
+                return;
+            }
         } catch (Exception e){
             SALog.fatal("Failed to load multiblock structure for a tileentity. If you are a user of this mod, please notify mincrmatt12 of this error.");
         }
@@ -53,9 +77,11 @@ public abstract class TileEntityMultiBlock extends TileEntity{
             multiBlockStructure.y = this.yCoord;
             multiBlockStructure.z = this.zCoord;
             multiBlockStructure.orient = nbtTagCompound.getInteger("MultiBlockOrient");
-            if (multiBlockStructure.bPos == 0) {
-                multiBlockStructure.syncData(multiBlockStructure, 0, xCoord, yCoord, xCoord, worldObj);
-            }
+
+
+                SALog.error("I think i should send something");
+               // StarvationAhoy.MultiBlockChannel.sendToAll(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z));
+
         }
         catch (NullPointerException e){
             multiBlockStructure = null;

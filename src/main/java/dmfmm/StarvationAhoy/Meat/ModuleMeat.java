@@ -1,5 +1,9 @@
 package dmfmm.StarvationAhoy.Meat;
 
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import dmfmm.StarvationAhoy.Core.lib.ModInfo;
+import dmfmm.StarvationAhoy.Meat.net.PacketMultiBlock;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
@@ -20,6 +24,9 @@ public class ModuleMeat {
 
 	public static MeatRegistry registry = new MeatRegistry();
 
+
+
+
 	public static void preinit(Side side){
 		MItemLoader.initiateItems();
 		MBlockLoader.initiateBlocks();
@@ -29,6 +36,7 @@ public class ModuleMeat {
             MapGenStructureIO.func_143031_a(ButcherHouse.class, "StarvationAhoy:ButcherHouse"); 
         } catch (Throwable e) { } 
         VillagerTradeAdditions.addVillager(side);
+
         
 	}
 	
