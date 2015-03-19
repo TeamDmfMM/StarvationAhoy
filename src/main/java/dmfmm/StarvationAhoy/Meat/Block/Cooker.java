@@ -32,22 +32,24 @@ public class Cooker extends BlockContainer {
     }
 
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitX, float hitY, float hitZ) {
-        if (ModuleMeat.registry.isSkinnedItem(player.inventory.getCurrentItem()).value){
-            MeatType t = ModuleMeat.registry.isSkinnedItem(player.inventory.getCurrentItem()).meat;
-            TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
-            te.multiBlockStructure.sharedData.setTag("RoastingItem", player.inventory.getCurrentItem().writeToNBT(new NBTTagCompound()));
-            te.multiBlockStructure.sharedData.setTag("CookedItem", new ItemStack(t.items.meat, 1).writeToNBT(new NBTTagCompound()));
-            te.multiBlockStructure.syncData(te.multiBlockStructure, te.multiBlockStructure.bPos, te.multiBlockStructure.x, te.multiBlockStructure.y, te.multiBlockStructure.z, world);
-        }
-        if (player.inventory.getCurrentItem() == null){
+        if (player.inventory.mainInventory[player.inventory.currentItem] == null){
             TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
             if (te.multiBlockStructure.sharedData.hasKey("RoastingItem")){
                 ItemStack toSpawnInWorld = ItemStack.loadItemStackFromNBT(te.multiBlockStructure.sharedData.getCompoundTag("RoastingItem"));
                 te.multiBlockStructure.sharedData = new NBTTagCompound();
                 EntityItem e = new EntityItem(world, x, y+2, z, toSpawnInWorld);
-                world.spawnEntityInWorld(e);
+                if (!world.isRemote){world.spawnEntityInWorld(e);}
+                te.multiBlockStructure.syncData(te.multiBlockStructure, te.multiBlockStructure.bPos, te.multiBlockStructure.x, te.multiBlockStructure.y, te.multiBlockStructure.z, world);
             }
         }
+        if (ModuleMeat.registry.isSkinnedItem(player.inventory.mainInventory[player.inventory.currentItem]).value){
+            MeatType t = ModuleMeat.registry.isSkinnedItem(player.inventory.mainInventory[player.inventory.currentItem]).meat;
+            TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
+            te.multiBlockStructure.sharedData.setTag("RoastingItem", player.inventory.mainInventory[player.inventory.currentItem].writeToNBT(new NBTTagCompound()));
+            te.multiBlockStructure.sharedData.setTag("CookedItem", new ItemStack(t.items.meat, 1).writeToNBT(new NBTTagCompound()));
+            te.multiBlockStructure.syncData(te.multiBlockStructure, te.multiBlockStructure.bPos, te.multiBlockStructure.x, te.multiBlockStructure.y, te.multiBlockStructure.z, world);
+        }
+
 
         return false;
     }

@@ -62,7 +62,8 @@ public class CookerMultiBlock extends MultiBlockStructure{
 
         if (sharedData.hasKey("RoastingItem")){
             int ctime = sharedData.getInteger("CookTime");
-            ctime+=1;
+            if (checkForFire(world))ctime+=1;
+            SALog.error(sharedData);
             SALog.error("Ctime (im cooking): " + ctime);
             if (ctime == 3000){
                 int amt = MathHelper.getRandomIntegerInRange(new Random(), 1, 3);
@@ -70,6 +71,7 @@ public class CookerMultiBlock extends MultiBlockStructure{
                 touse.stackSize = amt;
                 sharedData.setTag("RoastingItem", touse.writeToNBT(new NBTTagCompound()));
             }
+            sharedData.setInteger("CookTime", ctime);
         }
 
     }

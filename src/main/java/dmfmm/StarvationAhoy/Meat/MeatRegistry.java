@@ -134,10 +134,27 @@ public class MeatRegistry {
     }
 
     public MeatReturn isSkinnedItem(ItemStack is){
+        if (is == null){return new MeatReturn(false, null, 0);}
         for (int id : meatIds()) {
             if (getMeatTypeForId(id) != null) {
-                if (is.getItem().getUnlocalizedName() == getMeatTypeForId(id).items.skinned.getUnlocalizedName()){
-                    return new MeatReturn(true, getMeatTypeForId(id), id);
+                if (getMeatTypeForId(id).items.skinned != null) {
+                    if (is.getItem().getUnlocalizedName().equals(getMeatTypeForId(id).items.skinned.getUnlocalizedName())) {
+                        return new MeatReturn(true, getMeatTypeForId(id), id);
+                    }
+                }
+            }
+        }
+        return new MeatReturn(false, null, 0);
+    }
+
+    public MeatReturn isCookedItem(ItemStack is){
+        if (is == null){return new MeatReturn(false, null, 0);}
+        for (int id : meatIds()) {
+            if (getMeatTypeForId(id) != null) {
+                if (getMeatTypeForId(id).items.meat != null) {
+                    if (is.getItem().getUnlocalizedName().equals(getMeatTypeForId(id).items.meat.getUnlocalizedName())) {
+                        return new MeatReturn(true, getMeatTypeForId(id), id);
+                    }
                 }
             }
         }
