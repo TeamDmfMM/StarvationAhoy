@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.Client.Renderer;
 
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import dmfmm.StarvationAhoy.Meat.MeatRegistry;
 import net.minecraft.client.Minecraft;
@@ -85,7 +86,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                     int meatType;
                     if (r.value) meatType = r.meatID;
                     else meatType = r2.meatID;
-                    float xoffset = 0;
+                    float xoffset = 0.0255f;
                     float zoffset = 0;
                     float yoffset = 0;
                     if (short1 == 0){
@@ -95,17 +96,21 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                         short1 = 0;
                     }
                     if (r2.value){
-                        if (r2.meatID != 2 || r2.meatID != 3){GL11.glColor3f(0.4f,0.3f,0.3f);}
-                        else {GL11.glColor3f(0.1f,0.1f,0.1f);}
+                        if (r2.meatID == 1){
+                            GL11.glColor3f(0.4f,0.3f,0.3f);
+                        }
+                        else {
+                            SALog.error("Chicky whites");
+                            GL11.glColor3f(1.0f,0.6f,0.6f);}
                     }
                     if (((TileEntityMultiBlock) te).multiBlockStructure.orient == 0){
                         //xoffset = 1.3f;
-                        zoffset = 0.4f;
-                        yoffset = 1.3f;
+                        zoffset = 1.5f;
+                        yoffset = 1.67f;
                     }
                     else {
-                        yoffset = 1.3f;
-                        zoffset = 0.4f;
+                        yoffset = 1.67f;
+                        zoffset = 1.65f;
                     }
 
                     switch (meatType) {
@@ -115,12 +120,11 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             //cow
                             ModelCowSA cow = new ModelCowSA();
                             cow.isChild = false;
-                            cow.leg1.rotateAngleX = 77;
-                            cow.leg2.rotateAngleX = 77;
-                            cow.leg1.rotateAngleY = 0.2F;
-                            cow.leg2.rotateAngleY = -0.2F;
-                            cow.leg3.rotateAngleX = -77F;
-                            cow.leg4.rotateAngleX = -77F;
+                            cow.leg1.rotateAngleX = -76.7f;
+                            cow.leg2.rotateAngleX = -76.7f;
+
+                            cow.leg3.rotateAngleX = -76.9F;
+                            cow.leg4.rotateAngleX = -76.9F;
                            // GL11.glRotatef((float)short1, 0.0F, 1.0F, 0.0F);
                             GL11.glRotatef(90F, 1, 0, 0);
                             GL11.glTranslatef(xoffset + 0, yoffset + -0.65F, zoffset + -1.9F);
@@ -133,12 +137,11 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             //pig
                             ModelPigSA pig = new ModelPigSA();
                             pig.isChild = false;
-                            pig.leg1.rotateAngleX = 77;
-                            pig.leg2.rotateAngleX = 77;
-                            pig.leg1.rotateAngleY = 0.2F;
-                            pig.leg2.rotateAngleY = -0.2F;
-                            pig.leg3.rotateAngleX = -77F;
-                            pig.leg4.rotateAngleX = -77F;
+                            pig.leg1.rotateAngleX = -76.7f;
+                            pig.leg2.rotateAngleX = -76.7f;
+                            pig.leg3.rotateAngleX = -76.9f;
+                            zoffset = 1.3f;
+                            pig.leg4.rotateAngleX = -76.9F;
                           //  GL11.glRotatef((float)short1, 0.0F, 1.0F, 0.0F);
                             GL11.glRotatef(90F, 1, 0, 0);
                             GL11.glTranslatef(xoffset+0, yoffset-1F, zoffset+-1.6F);
@@ -157,6 +160,8 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             chick.leftWing.rotateAngleZ = 361.2F;
                             GL11.glRotatef(180F, 1, 0, 0);
                             GL11.glRotatef(180F, 0, 1, 0);
+                            zoffset = 1.0f;
+                            yoffset = 1.67f;
                             GL11.glTranslatef(xoffset+0, yoffset-3.00F, zoffset+0.9F);
                             GL11.glDisable(GL11.GL_CULL_FACE);
 

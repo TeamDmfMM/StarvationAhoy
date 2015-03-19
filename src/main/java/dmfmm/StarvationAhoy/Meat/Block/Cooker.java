@@ -7,6 +7,7 @@ import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import dmfmm.StarvationAhoy.Meat.MeatRegistry;
 import dmfmm.StarvationAhoy.Meat.MeatType;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -45,15 +46,28 @@ public class Cooker extends BlockContainer {
         if (ModuleMeat.registry.isSkinnedItem(player.inventory.mainInventory[player.inventory.currentItem]).value){
             MeatType t = ModuleMeat.registry.isSkinnedItem(player.inventory.mainInventory[player.inventory.currentItem]).meat;
             TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
+            if (te.multiBlockStructure.sharedData.hasKey("RoastingItem")){ return false;}
             te.multiBlockStructure.sharedData.setTag("RoastingItem", player.inventory.mainInventory[player.inventory.currentItem].writeToNBT(new NBTTagCompound()));
             te.multiBlockStructure.sharedData.setTag("CookedItem", new ItemStack(t.items.meat, 1).writeToNBT(new NBTTagCompound()));
             te.multiBlockStructure.syncData(te.multiBlockStructure, te.multiBlockStructure.bPos, te.multiBlockStructure.x, te.multiBlockStructure.y, te.multiBlockStructure.z, world);
+            player.inventory.mainInventory[player.inventory.currentItem].stackSize--;
+            if (player.inventory.mainInventory[player.inventory.currentItem].stackSize < 1){
+                player.inventory.mainInventory[player.inventory.currentItem] = null;
+            }
         }
 
 
         return false;
     }
 
+
+    public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_, int p_149749_4_, Block p_149749_5_, int p_149749_6_)
+    {
+        super.breakBlock(p_149749_1_, p_149749_2_, p_149749_3_, p_149749_4_, p_149749_5_, p_149749_6_);
+        TileEntityMultiBlock te = (TileEntityMultiBlock) p_149749_1_.getTileEntity(p_149749_2_, p_149749_3_, p_149749_4_);
+        if (te != null) { te.multiBlockStructure.destroy(p_149749_1_); }
+
+    }
     public boolean isOpaqueCube(){
         return false;
     }

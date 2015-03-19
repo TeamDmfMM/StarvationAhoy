@@ -60,5 +60,12 @@ public abstract class MultiBlockStructure {
         }
 
     }
+    public void destroy(World world){
+        for (int blockPos = 0; blockPos < bPosMax(); blockPos++) {
+            int[] bPosFor = getPosForBlock(blockPos, bPos, x, y, z, world);
+
+            world.setBlockToAir(bPosFor[0], bPosFor[1], bPosFor[2]);
+        }
+    }
 
 }

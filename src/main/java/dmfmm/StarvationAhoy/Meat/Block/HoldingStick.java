@@ -88,7 +88,20 @@ public class HoldingStick extends BlockContainer{
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitX, float hitY, float hitZ) {
-		if (player.inventory.getCurrentItem().getItem() == Items.stick) return MultiBlockChecking.checkCookerStructure(world, x, y, z);
+		if (player.inventory.getCurrentItem().getItem() == Items.stick) {
+			boolean s = MultiBlockChecking.checkCookerStructure(world, x, y, z);
+			if (s){
+				player.inventory.mainInventory[player.inventory.currentItem].stackSize--;
+				if (player.inventory.mainInventory[player.inventory.currentItem].stackSize < 1){
+					player.inventory.mainInventory[player.inventory.currentItem] = null;
+
+				}
+				return true;
+			}
+			return false;
+
+
+		}
 		else return false;
 	}
 
