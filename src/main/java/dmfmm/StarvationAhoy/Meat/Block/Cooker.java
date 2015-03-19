@@ -61,13 +61,7 @@ public class Cooker extends BlockContainer {
     }
 
 
-    public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_, int p_149749_4_, Block p_149749_5_, int p_149749_6_)
-    {
-        super.breakBlock(p_149749_1_, p_149749_2_, p_149749_3_, p_149749_4_, p_149749_5_, p_149749_6_);
-        TileEntityMultiBlock te = (TileEntityMultiBlock) p_149749_1_.getTileEntity(p_149749_2_, p_149749_3_, p_149749_4_);
-        if (te != null) { te.multiBlockStructure.destroy(p_149749_1_); }
 
-    }
     public boolean isOpaqueCube(){
         return false;
     }
