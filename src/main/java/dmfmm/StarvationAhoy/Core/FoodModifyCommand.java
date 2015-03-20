@@ -59,7 +59,9 @@ public class FoodModifyCommand implements ICommand{
 				FoodChanger.change(item, hunger, saturation);
 				sender.addChatMessage(new ChatComponentText("Food "+ item.getUnlocalizedName() + "was sucessfully changed to the new levels!"));
 			} catch (IOError | IOException e) {
-				throw new WrongUsageException("BLAHHH", new Object[0]);
+				throw new WrongUsageException(e.getMessage(), new Object[0]);
+			} catch (FoodChanger.FoodNotFoundException e){
+				throw new WrongUsageException("Food not found", new Object[0]);
 			}
         }
 		
