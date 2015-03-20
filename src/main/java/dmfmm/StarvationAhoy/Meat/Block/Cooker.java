@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 public class Cooker extends BlockContainer {
     protected Cooker() {
         super(Material.anvil);
-        this.setCreativeTab(SATabs.INSTANCE);
+        //this.setCreativeTab(SATabs.INSTANCE);
         this.setBlockTextureName("starvationahoy:clearBlock");
     }
 

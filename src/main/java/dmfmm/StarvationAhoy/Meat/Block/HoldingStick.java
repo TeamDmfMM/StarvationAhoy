@@ -2,6 +2,7 @@ package dmfmm.StarvationAhoy.Meat.Block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockChecking;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
 import net.minecraft.block.BlockContainer;
@@ -20,6 +21,7 @@ public class HoldingStick extends BlockContainer{
 
 	protected HoldingStick() {
 		super(Material.wood);
+		this.setCreativeTab(SATabs.INSTANCE);
 	}
 
 	@Override
