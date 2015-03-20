@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 /**
- * Created by Matthew on 2/7/2015.
+ * Created by MM12 on 2/7/2015.
  */
 public abstract class TileEntityMultiBlock extends TileEntity{
 

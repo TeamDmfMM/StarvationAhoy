@@ -4,12 +4,9 @@ import dmfmm.StarvationAhoy.Meat.Block.HoldingStick;
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
 import net.minecraft.world.World;
-import sun.org.mozilla.javascript.internal.Callable;
-import sun.org.mozilla.javascript.internal.Context;
-import sun.org.mozilla.javascript.internal.Scriptable;
 
 /**
- * Created by Matthew on 2/7/2015.
+ * Created by MM12 on 2/7/2015.
  */
 public class MultiBlockChecking {
 

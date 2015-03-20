@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 /**
- * Created by Matthew on 2/6/2015.
+ * Created by MM12 on 2/6/2015.
  */
 public abstract class MultiBlockStructure {
 

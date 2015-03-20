@@ -14,6 +14,8 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.ExistingSubstitutionException;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import dmfmm.StarvationAhoy.Core.StarvationAhoyProvider;
 import dmfmm.StarvationAhoy.Core.EventHandler.event_configChange;
@@ -25,6 +27,7 @@ import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.FoodEdit.EventHandler.FoodEatenResult;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
+import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry;
 import dmfmm.StarvationAhoy.proxy.CommonProxy;
 

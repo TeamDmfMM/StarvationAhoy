@@ -3,7 +3,6 @@ package dmfmm.StarvationAhoy.Meat.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +15,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 
@@ -25,7 +25,7 @@ public class MeatHanger extends BlockContainer{
 	
 	protected MeatHanger() {
 		super(Material.iron);
-		this.setCreativeTab(CreativeTabs.tabCombat);
+		this.setCreativeTab(SATabs.INSTANCE);
 	}
 
 	@Override

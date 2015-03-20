@@ -10,12 +10,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 /**
- * Created by Matthew on 2/28/2015.
+ * Created by MM12 on 2/28/2015.
  */
 public class Cooker extends BlockContainer {
     protected Cooker() {
         super(Material.anvil);
-        this.setCreativeTab(SATabs.INSTANCE);
+        //this.setCreativeTab(SATabs.INSTANCE);
+        this.setBlockTextureName("starvationahoy:clearBlock");
     }
 
     @Override
@@ -26,4 +27,16 @@ public class Cooker extends BlockContainer {
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitX, float hitY, float hitZ) {
         return false;
     }
+    
+    @Override
+	public boolean isOpaqueCube()
+    {
+        return false;
+    }
+    @Override
+    public boolean renderAsNormalBlock()
+    {
+        return false;
+    }
+
 }
