@@ -2,6 +2,7 @@
 /bin
 /build
 /.gradle
+out/*
 /.settings
 /eclipse
 *.bat
@@ -35,7 +36,11 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
+Icon
+
+*.iml
+*.ipr
+*.iws
 
 # Thumbnails
 ._*
