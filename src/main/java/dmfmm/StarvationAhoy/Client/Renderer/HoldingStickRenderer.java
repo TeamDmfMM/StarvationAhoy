@@ -96,7 +96,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                         short1 = 0;
                     }
                     if (r2.value){
-                        if (r2.meatID == 1){
+                        if (r2.meatID == 1 || r2.meatID == 2){
                             GL11.glColor3f(0.4f,0.3f,0.3f);
                         }
                         else {
@@ -105,12 +105,12 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                     }
                     if (((TileEntityMultiBlock) te).multiBlockStructure.orient == 0){
                         //xoffset = 1.3f;
-                        zoffset = 1.5f;
+                        zoffset = 0f;
                         yoffset = 1.67f;
                     }
                     else {
                         yoffset = 1.67f;
-                        zoffset = 1.65f;
+                        zoffset = 0f;
                     }
 
                     switch (meatType) {
@@ -120,13 +120,12 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             //cow
                             ModelCowSA cow = new ModelCowSA();
                             cow.isChild = false;
-                            cow.leg1.rotateAngleX = -76.7f;
-                            cow.leg2.rotateAngleX = -76.7f;
 
-                            cow.leg3.rotateAngleX = -76.9F;
-                            cow.leg4.rotateAngleX = -76.9F;
+                            zoffset = 3.42f;
+                            yoffset = 0.42f;
+
                            // GL11.glRotatef((float)short1, 0.0F, 1.0F, 0.0F);
-                            GL11.glRotatef(90F, 1, 0, 0);
+                            GL11.glRotatef(0F, 1, 0, 0);
                             GL11.glTranslatef(xoffset + 0, yoffset + -0.65F, zoffset + -1.9F);
 
                             ResourceLocation cowT = getTexture(meatType, meatState);
@@ -137,13 +136,12 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             //pig
                             ModelPigSA pig = new ModelPigSA();
                             pig.isChild = false;
-                            pig.leg1.rotateAngleX = -76.7f;
-                            pig.leg2.rotateAngleX = -76.7f;
-                            pig.leg3.rotateAngleX = -76.9f;
-                            zoffset = 1.3f;
-                            pig.leg4.rotateAngleX = -76.9F;
+                            zoffset = 3.42f;
+                            yoffset = 0.42f;
+
+
                           //  GL11.glRotatef((float)short1, 0.0F, 1.0F, 0.0F);
-                            GL11.glRotatef(90F, 1, 0, 0);
+                            GL11.glRotatef(0F, 1, 0, 0);
                             GL11.glTranslatef(xoffset+0, yoffset-1F, zoffset+-1.6F);
                             getTexture(meatType, meatState);
                             ResourceLocation pigT = getTexture(meatType, meatState);

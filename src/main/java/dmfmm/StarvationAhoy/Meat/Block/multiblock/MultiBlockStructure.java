@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -34,12 +35,16 @@ public abstract class MultiBlockStructure {
     public boolean checkForChanges(World w){return false;}
 
     public void updateStructure(World world){
-
-        NBTTagCompound oldSha = sharedData;
-        onUpdate(world);
-        if (sharedData != oldSha){
-            syncData(this, this.bPos, this.x, this.y, this.z, world);
+        if (bPos != 0){
+            SALog.error("Err.. Whoopsies! Im outa here! " + world.isRemote + bPos);
+            return;
         }
+        NBTTagCompound oldSha = sharedData;
+        if (true) {onUpdate(world);}
+        //if (sharedData != oldSha){
+            SALog.error("im making lots o lag!");
+            syncData(this, this.bPos, this.x, this.y, this.z, world);
+
 
     }
 
