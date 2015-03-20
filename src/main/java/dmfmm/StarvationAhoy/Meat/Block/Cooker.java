@@ -27,16 +27,12 @@ public class Cooker extends BlockContainer {
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitX, float hitY, float hitZ) {
         return false;
     }
-    
-    @Override
-	public boolean isOpaqueCube()
-    {
-        return false;
-    }
-    @Override
-    public boolean renderAsNormalBlock()
-    {
+
+    public boolean isOpaqueCube(){
         return false;
     }
 
+    public boolean renderAsNormalBlock(){
+        return false;
+    }
 }

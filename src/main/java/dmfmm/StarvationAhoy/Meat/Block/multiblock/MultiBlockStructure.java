@@ -8,6 +8,10 @@ import net.minecraft.world.World;
  */
 public abstract class MultiBlockStructure {
 
+    public MultiBlockStructure(){
+
+    }
+
     public int x;
     public int y;
     public int z;

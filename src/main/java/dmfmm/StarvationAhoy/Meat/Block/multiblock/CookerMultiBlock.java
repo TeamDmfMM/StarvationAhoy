@@ -10,6 +10,10 @@ import net.minecraft.world.World;
 public class CookerMultiBlock extends MultiBlockStructure{
 
 
+    public CookerMultiBlock(){
+
+    }
+
     @Override
     public int[] getPosForBlock(int bPos, int sBPos, int x, int y, int z, World world) {
 
@@ -49,6 +53,5 @@ public class CookerMultiBlock extends MultiBlockStructure{
         if (sharedData.hasKey("CookTime") == false){
             sharedData.setInteger("CookTime", 0);
         }
-        SALog.error("Multiblock - AT POS: " + this.x + " Y: " + this.y + " Z:" + this.z);
     }
 }

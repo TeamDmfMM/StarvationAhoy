@@ -14,6 +14,10 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 public class CookerTileEntity extends TileEntityMultiBlock implements IInventory {
     ItemStack meat;
 
+    public CookerTileEntity(){
+        multiBlockStructure = null;
+    }
+
     public CookerTileEntity(MultiBlockStructure struct) {
         super(struct);
     }

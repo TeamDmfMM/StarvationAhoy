@@ -1,12 +1,11 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
-import dmfmm.StarvationAhoy.Meat.Block.HoldingStick;
+import net.minecraft.world.World;
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
-import net.minecraft.world.World;
 
 /**
- * Created by MM12 on 2/7/2015.
+ * Created by Matthew on 2/7/2015.
  */
 public class MultiBlockChecking {
 
@@ -32,19 +31,21 @@ public class MultiBlockChecking {
     public static boolean checkCookerStructure(World w, int x, int y, int z){
 
         BC bpos0, bpos1, bpos2, bpos3;
+        int or = 0;
 
         if (w.getBlock(x, y, z+3) == MBlockLoader.HoldingStick){
             bpos0 = new BC(x, y, z);
             bpos3 = new BC(x, y, z+3);
             bpos2 = new BC(x, y, z+2);
             bpos1 = new BC(x, y, z+1);
-
+            or = 1;
         }
         else if (w.getBlock(x, y, z-3) == MBlockLoader.HoldingStick){
-            bpos0 = new BC(x, y, z);
-            bpos3 = new BC(x, y, z-3);
-            bpos2 = new BC(x, y, z-2);
-            bpos1 = new BC(x, y, z-1);
+            bpos3 = new BC(x, y, z);
+            bpos0 = new BC(x, y, z-3);
+            bpos1 = new BC(x, y, z-2);
+            bpos2 = new BC(x, y, z-1);
+            or = 1;
         }
         else if (w.getBlock(x+3, y, z) == MBlockLoader.HoldingStick){
             bpos0 = new BC(x, y, z);
@@ -53,10 +54,10 @@ public class MultiBlockChecking {
             bpos1 = new BC(x+1, y, z);
 
         }else if (w.getBlock(x-3, y, z) == MBlockLoader.HoldingStick){
-            bpos0 = new BC(x, y, z);
-            bpos3 = new BC(x-3, y, z);
-            bpos2 = new BC(x-2, y, z);
-            bpos1 = new BC(x-1, y, z);
+            bpos3 = new BC(x, y, z);
+            bpos0 = new BC(x-3, y, z);
+            bpos1 = new BC(x-2, y, z);
+            bpos2 = new BC(x-1, y, z);
         }
         else {
             return false;
@@ -70,6 +71,7 @@ public class MultiBlockChecking {
         n.y = bpos0.y;
         n.z = bpos0.z;
         n.bPos = 0;
+        n.orient = or;
         ((HoldingStickTileEntity) w.getTileEntity(bpos0.x, bpos0.y, bpos0.z)).multiBlockStructure = n;
 
         n = new CookerMultiBlock();
@@ -77,6 +79,7 @@ public class MultiBlockChecking {
         n.y = bpos1.y;
         n.z = bpos1.z;
         n.bPos = 1;
+        n.orient = or;
         ((CookerTileEntity) w.getTileEntity(bpos1.x, bpos1.y, bpos1.z)).multiBlockStructure = n;
 
         n = new CookerMultiBlock();
@@ -84,6 +87,7 @@ public class MultiBlockChecking {
         n.y = bpos2.y;
         n.z = bpos2.z;
         n.bPos = 2;
+        n.orient = or;
         ((CookerTileEntity) w.getTileEntity(bpos2.x, bpos2.y, bpos2.z)).multiBlockStructure = n;
 
         n = new CookerMultiBlock();
@@ -91,6 +95,7 @@ public class MultiBlockChecking {
         n.y = bpos3.y;
         n.z = bpos3.z;
         n.bPos = 3;
+        n.orient = or;
         ((HoldingStickTileEntity) w.getTileEntity(bpos3.x, bpos3.y, bpos3.z)).multiBlockStructure = n;
 
         return true;

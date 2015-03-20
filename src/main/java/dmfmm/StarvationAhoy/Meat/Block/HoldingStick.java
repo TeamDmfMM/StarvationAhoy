@@ -1,10 +1,5 @@
 package dmfmm.StarvationAhoy.Meat.Block;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import dmfmm.StarvationAhoy.Core.SATabs;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockChecking;
-import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -16,6 +11,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import dmfmm.StarvationAhoy.Core.SATabs;
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockChecking;
+import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
 
 public class HoldingStick extends BlockContainer{
 
