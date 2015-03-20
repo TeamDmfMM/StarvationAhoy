@@ -2,7 +2,13 @@ package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import org.lwjgl.Sys;
+
+import java.util.Random;
 
 /**
  * Created by Matthew on 2/7/2015.
@@ -53,5 +59,20 @@ public class CookerMultiBlock extends MultiBlockStructure{
         if (sharedData.hasKey("CookTime") == false){
             sharedData.setInteger("CookTime", 0);
         }
+
+        if (sharedData.hasKey("RoastingItem")){
+            int ctime = sharedData.getInteger("CookTime");
+            if (checkForFire(world))ctime+=1;
+            SALog.error(sharedData);
+            SALog.error("Ctime (im cooking): " + ctime);
+            if (ctime == 3000){
+                int amt = MathHelper.getRandomIntegerInRange(new Random(), 1, 3);
+                ItemStack touse = ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("CookedItem"));
+                touse.stackSize = amt;
+                sharedData.setTag("RoastingItem", touse.writeToNBT(new NBTTagCompound()));
+            }
+            sharedData.setInteger("CookTime", ctime);
+        }
+
     }
 }

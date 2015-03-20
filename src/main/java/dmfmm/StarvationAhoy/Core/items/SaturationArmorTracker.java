@@ -3,6 +3,7 @@ package dmfmm.StarvationAhoy.Core.items;
 import dmfmm.StarvationAhoy.Core.SATabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 
 public class SaturationArmorTracker extends ItemArmor{

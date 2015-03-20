@@ -1,5 +1,10 @@
 package dmfmm.StarvationAhoy.Meat.Block;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import dmfmm.StarvationAhoy.Core.SATabs;
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockChecking;
+import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -11,11 +16,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import dmfmm.StarvationAhoy.Core.SATabs;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockChecking;
-import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
 
 public class HoldingStick extends BlockContainer{
 
@@ -90,7 +90,20 @@ public class HoldingStick extends BlockContainer{
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitX, float hitY, float hitZ) {
-		if (player.inventory.getCurrentItem().getItem() == Items.stick) return MultiBlockChecking.checkCookerStructure(world, x, y, z);
+		if (player.inventory.getCurrentItem().getItem() == Items.stick) {
+			boolean s = MultiBlockChecking.checkCookerStructure(world, x, y, z);
+			if (s){
+				player.inventory.mainInventory[player.inventory.currentItem].stackSize--;
+				if (player.inventory.mainInventory[player.inventory.currentItem].stackSize < 1){
+					player.inventory.mainInventory[player.inventory.currentItem] = null;
+
+				}
+				return true;
+			}
+			return false;
+
+
+		}
 		else return false;
 	}
 

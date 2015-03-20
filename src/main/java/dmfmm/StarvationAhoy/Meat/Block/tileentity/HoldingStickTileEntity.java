@@ -48,7 +48,7 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
     }
 
     public void onSync(){
-        meat =ItemStack.loadItemStackFromNBT((NBTTagCompound) multiBlockStructure.sharedData.getTag("MeatItem"));
+//        meat =ItemStack.loadItemStackFromNBT((NBTTagCompound) multiBlockStructure.sharedData.getTag("MeatItem"));
     }
 
     @Override

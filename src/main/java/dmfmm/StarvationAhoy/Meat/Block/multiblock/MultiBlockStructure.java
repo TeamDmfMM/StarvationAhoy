@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 /**
- * Created by MM12 on 2/6/2015.
+ * Created by Matthew on 2/6/2015.
  */
 public abstract class MultiBlockStructure {
 
@@ -33,7 +33,15 @@ public abstract class MultiBlockStructure {
 
     public boolean checkForChanges(World w){return false;}
 
-    public void updateStructure(World world){}
+    public void updateStructure(World world){
+
+        NBTTagCompound oldSha = sharedData;
+        onUpdate(world);
+        if (sharedData != oldSha){
+            syncData(this, this.bPos, this.x, this.y, this.z, world);
+        }
+
+    }
 
     public abstract int[] getPosForBlock(int bPos, int sBPos, int x, int y, int z, World world);
 
@@ -51,6 +59,13 @@ public abstract class MultiBlockStructure {
             te.onSync();
         }
 
+    }
+    public void destroy(World world){
+        for (int blockPos = 0; blockPos < bPosMax(); blockPos++) {
+            int[] bPosFor = getPosForBlock(blockPos, bPos, x, y, z, world);
+
+            world.setBlockToAir(bPosFor[0], bPosFor[1], bPosFor[2]);
+        }
     }
 
 }
