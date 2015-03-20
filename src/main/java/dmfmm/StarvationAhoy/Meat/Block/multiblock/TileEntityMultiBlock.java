@@ -26,7 +26,9 @@ public abstract class TileEntityMultiBlock extends TileEntity{
 
 
         if (multiBlockStructure != null && r == true) multiBlockStructure.updateStructure(worldObj);
-        if (timeAfter == 120 && multiBlockStructure != null ) { StarvationAhoy.MultiBlockChannel.sendToAllAround(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z), new NetworkRegistry.TargetPoint(0, xCoord, yCoord, zCoord, 40)); r = true;}
+        if (timeAfter == 120 && multiBlockStructure != null ) {
+            if (!worldObj.isRemote) StarvationAhoy.MultiBlockChannel.sendToAllAround(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, 40));
+            r = true;}
         timeAfter++;
         if (timeAfter == 240){
             timeAfter = 0;
