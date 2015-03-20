@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -21,7 +22,7 @@ public class FoodModifyCommand implements ICommand{
 	
 	public FoodModifyCommand(){
 		this.others = new ArrayList();
-		this.others.add("extrafood");
+		this.others.add("editfood");
 		this.others.add("ef");
 	}
 
@@ -32,7 +33,7 @@ public class FoodModifyCommand implements ICommand{
 
 	@Override
 	public String getCommandName() {
-		return "Edit food Values";
+		return "editfoodval";
 	}
 
 	@Override
@@ -49,19 +50,20 @@ public class FoodModifyCommand implements ICommand{
 	public void processCommand(ICommandSender sender, String[] CMDin) {
         if (CMDin.length < 3)
         {
-            throw new WrongUsageException("commands.give.usage", new Object[0]);
+            throw new WrongUsageException(getCommandUsage(null), new Object[0]);
         } else {
+			SALog.error("Hihihihihihihi " + CMDin);
         	Item item = CommandBase.getItemByText(sender, CMDin[0]);
         	int hunger = CommandBase.parseInt(sender, CMDin[1]);
         	float saturation = this.parseFloat(sender, CMDin[2]);
         	
         	try {
 				FoodChanger.change(item, hunger, saturation);
-				sender.addChatMessage(new ChatComponentText("Food "+ item.getUnlocalizedName() + "was sucessfully changed to the new levels!"));
+				sender.addChatMessage(new ChatComponentText("Food "+ item.getUnlocalizedName() + " was sucessfully changed to the new levels!"));
 			} catch (IOError | IOException e) {
 				throw new WrongUsageException(e.getMessage(), new Object[0]);
 			} catch (FoodChanger.FoodNotFoundException e){
-				throw new WrongUsageException("Food not found", new Object[0]);
+				throw new WrongUsageException("Food not found in config file to change.", new Object[0]);
 			}
         }
 		
@@ -90,7 +92,7 @@ public class FoodModifyCommand implements ICommand{
 	private static float parseFloat(ICommandSender s, String string){
         try
         {
-            return Integer.parseInt(string);
+            return Float.parseFloat(string);
         }
         catch (NumberFormatException numberformatexception)
         {

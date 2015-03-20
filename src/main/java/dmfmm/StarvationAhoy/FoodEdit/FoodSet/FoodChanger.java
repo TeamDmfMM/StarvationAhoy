@@ -2,6 +2,7 @@ package dmfmm.StarvationAhoy.FoodEdit.FoodSet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.FileReader.FileLoader;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.User.FoodOverride;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.User.ModOverrides;
@@ -34,28 +35,39 @@ public class FoodChanger {
         String[] comps = Item.itemRegistry.getNameForObject(i).split(":");
         int sind = 0;
         int find = 0;
-        for (ModOverrides m : stuffies.foods){
-            if (m.mod == comps[0]){
-                for (FoodOverride fo : m.foods){
-                    if (fo.name == comps[1]){
-
-                        fo.saturation = sturan;
-                        fo.hunger = hunger;
-                        fo.name = comps[1];
-                        break;
+        try {
+            for (ModOverrides m : stuffies.foods) {
+                if (m.mod.equals(comps[0])) {
+                    for (FoodOverride fo : m.foods) {
+                        if (fo.name.equals(comps[1])) {
+                            SALog.error("om nom nom " + find + " " + sind);
+                            fo.saturation = sturan;
+                            fo.hunger = hunger;
+                            fo.name = comps[1];
+                            break;
+                        }
+                        find += 1;
                     }
-                    find += 1;
+
+                    break;
                 }
-                find = -1;
+                sind += 1;
             }
-            sind += 1;
+
+            if (find == -1) {
+                throw new FoodNotFoundException("Food not found");
+            }
+            stuffies.foods[sind].foods[find].hunger = hunger;
+            stuffies.foods[sind].foods[find].saturation = sturan;
         }
-        if (find == -1){
+        catch (ArrayIndexOutOfBoundsException e){
             throw new FoodNotFoundException("Food not found");
         }
         String testgggg = new GsonBuilder().setPrettyPrinting().create().toJson(stuffies);
         BufferedWriter buf = new BufferedWriter(new FileWriter(fil));
         buf.write(testgggg);
+        buf.flush();
+        buf.close();
 
     }
 
