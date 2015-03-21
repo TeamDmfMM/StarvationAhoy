@@ -65,7 +65,7 @@ public class CookerMultiBlock extends MultiBlockStructure{
             if (checkForFire(world))ctime+=1;
             SALog.error(sharedData);
             SALog.error("Ctime (im cooking): " + ctime);
-            if (ctime == 3000){
+            if (ctime == 80){
                 int amt = MathHelper.getRandomIntegerInRange(new Random(), 1, 3);
                 ItemStack touse = ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("CookedItem"));
                 touse.stackSize = amt;

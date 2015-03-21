@@ -82,6 +82,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                 MeatRegistry.MeatReturn r = ModuleMeat.registry.isSkinnedItem(is);
                 MeatRegistry.MeatReturn r2 = ModuleMeat.registry.isCookedItem(is);
                 if (r.value || r2.value) {
+                    SALog.error("Spam 1");
                     int meatState = 1;
                     int meatType;
                     if (r.value) meatType = r.meatID;
@@ -101,7 +102,8 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                         }
                         else {
                             SALog.error("Chicky whites");
-                            GL11.glColor3f(1.0f,0.6f,0.6f);}
+                            GL11.glColor3f(1.0f,0.6f,0.6f);
+                        }
                     }
                     if (((TileEntityMultiBlock) te).multiBlockStructure.orient == 0){
                         //xoffset = 1.3f;
@@ -150,16 +152,14 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             break;
                         case 3:
                             //chicken
+                            SALog.error("Spam 3");
                             ModelChickenSA chick = new ModelChickenSA();
                             chick.isChild = false;
-                            chick.rightWing.offsetX = 0.1F;
-                            chick.rightWing.rotateAngleZ = 361.2F;
-                            chick.leftWing.offsetX = -0.1F;
-                            chick.leftWing.rotateAngleZ = 361.2F;
-                            GL11.glRotatef(180F, 1, 0, 0);
-                            GL11.glRotatef(180F, 0, 1, 0);
-                            zoffset = 1.0f;
-                            yoffset = 1.67f;
+
+                            //GL11.glRotatef(180F, 1, 0, 0);
+                            //GL11.glRotatef(180F, 0, 1, 0);
+                            zoffset = 0.62f;
+                            yoffset = 2.25f;
                             GL11.glTranslatef(xoffset+0, yoffset-3.00F, zoffset+0.9F);
                             GL11.glDisable(GL11.GL_CULL_FACE);
 
