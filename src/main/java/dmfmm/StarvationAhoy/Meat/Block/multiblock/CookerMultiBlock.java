@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import org.lwjgl.Sys;
 
 import java.util.Random;
 
@@ -65,11 +64,14 @@ public class CookerMultiBlock extends MultiBlockStructure{
             if (checkForFire(world))ctime+=1;
             SALog.error(sharedData);
             SALog.error("Ctime (im cooking): " + ctime);
-            if (ctime == 80){
+            if (ctime >= 3000){
                 int amt = MathHelper.getRandomIntegerInRange(new Random(), 1, 3);
                 ItemStack touse = ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("CookedItem"));
                 touse.stackSize = amt;
-                sharedData.setTag("RoastingItem", touse.writeToNBT(new NBTTagCompound()));
+                if (!(ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("RoastingItem")).getItem() == touse.getItem())){
+                    sharedData.setTag("RoastingItem", touse.writeToNBT(new NBTTagCompound()));
+                }
+
             }
             sharedData.setInteger("CookTime", ctime);
         }
