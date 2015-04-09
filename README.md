@@ -11,16 +11,15 @@ TO-DO
 
 (for mincrmatt12 and dmf444)
 
-MultiBlock
-
-- [x] initial api
-- [x] implement api
-- [x] create block
-- [x] detect structure
-- [x] create item and have it call detect structure
-  - [x] create item
-  - [x] call code
-- [ ] add cooker recipes and handler code
-  - [ ] recipes
-  - [ ] cooker code
+- [x] MultiBlock 
+ - [x] initial api
+ - [x] implement api
+ - [x] create block
+ - [x] detect structure
+ - [x] create item and have it call detect structure
+   - [x] create item
+   - [x] call code
+ - [x] add cooker recipes and handler code
+   - [x] recipes
+   - [x] cooker code
 
