@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -84,13 +85,18 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                 ItemStack is = ItemStack.loadItemStackFromNBT(((TileEntityMultiBlock) te).multiBlockStructure.sharedData.getCompoundTag("RoastingItem"));
                 MeatRegistry.MeatReturn r = ModuleMeat.registry.isSkinnedItem(is);
                 MeatRegistry.MeatReturn r2 = ModuleMeat.registry.isCookedItem(is);
-                if (r.value || r2.value) {
+                MeatRegistry.MeatReturn r3 = ModuleMeat.registry.isCookedItem(ItemStack.loadItemStackFromNBT(((TileEntityMultiBlock) te).multiBlockStructure.sharedData.getCompoundTag("CookedItem")));
+                if (r.value || r2.value || is.getItem() == Items.bone) {
                     SALog.error("Spam 1");
 
                     int meatState = 1;
                     int meatType;
                     if (r.value) meatType = r.meatID;
                     else meatType = r2.meatID;
+
+                    if (r3.value == true && is.getItem() == Items.bone) {
+                        meatType = r3.meatID;
+                    }
                     float xoffset = 0.0255f;
                     float zoffset = 0;
                     float yoffset = 0;
@@ -103,7 +109,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                     if (((TileEntityMultiBlock) te).multiBlockStructure.sharedData.hasKey("CookBurn")){
                         if (((TileEntityMultiBlock) te).multiBlockStructure.sharedData.getInteger("CookBurn") == 1){
                             SALog.error("BL\nBL\n");
-                            GL11.glColor3f(1.0f,1.0f,1.0f);
+                            GL11.glColor3f(0.09f,0.09f,0.09f);
                         }
                         else if (r2.value){
                             if (r2.meatID == 1 || r2.meatID == 2){
@@ -146,7 +152,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
 
                             zoffset = 3.42f;
                             yoffset = 1.871f;
-
+                            // ================================= Rotate Start ================================
                            // GL11.glRotatef((float)short1, 0.0F, 1.0F, 0.0F);
                             GL11.glRotatef(0F, 1, 0, 0);
                             GL11.glTranslatef(xoffset + 0, yoffset + -0.95F, zoffset + -1.9F);
@@ -176,7 +182,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
 
 
 
-
+                            // ================================ End ============================================
                             //GL11.glTranslatef(0, 0, 0);
                             cow.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
                             break;
@@ -184,6 +190,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             //pig
                             ModelPigSA pig = new ModelPigSA();
                             pig.isChild = false;
+                            // ================================= Rotate Start ================================
                             zoffset = 3.42f;
                             yoffset = 1.42f;
                             GL11.glTranslatef(xoffset+0, yoffset-1F, zoffset+-1.6F);
@@ -199,7 +206,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
 
                           //  GL11.glRotatef((float)short1, 0.0F, 1.0F, 0.0F);
                             GL11.glRotatef(0F, 1, 0, 0);
-
+                            // ================================ End ============================================
                             getTexture(meatType, meatState);
                             ResourceLocation pigT = getTexture(meatType, meatState);
                             Minecraft.getMinecraft().renderEngine.bindTexture(pigT);
@@ -213,6 +220,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
 
                             //GL11.glRotatef(180F, 1, 0, 0);
                             //GL11.glRotatef(180F, 0, 1, 0);
+                            // ================================= Rotate Start ================================
                             zoffset = 0.62f;
                             yoffset = 3.29f;
                             GL11.glTranslatef(xoffset+0, yoffset-3.00F, zoffset+0.9F);
@@ -226,6 +234,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             GL11.glTranslatef(ztrans, -ytrans, 0);
                             GL11.glRotatef(rangle, 0, 0, 1);
                             GL11.glTranslatef(0, 0.22f,0);
+                            // ================================ End ============================================
                             ResourceLocation chickT = getTexture(meatType, meatState);
                             Minecraft.getMinecraft().renderEngine.bindTexture(chickT);
                             chick.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
