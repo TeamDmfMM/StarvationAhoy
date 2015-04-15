@@ -2,7 +2,6 @@ package dmfmm.StarvationAhoy.Client.Renderer;
 
 import net.minecraft.client.model.ModelCow;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
 
 public class ModelCowSA extends ModelCow{
 	@Override

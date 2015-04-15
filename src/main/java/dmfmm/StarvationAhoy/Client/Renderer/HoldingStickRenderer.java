@@ -3,6 +3,7 @@ package dmfmm.StarvationAhoy.Client.Renderer;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import dmfmm.StarvationAhoy.Meat.MeatRegistry;
+import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -11,17 +12,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
 import org.lwjgl.opengl.GL11;
-
-import dmfmm.StarvationAhoy.Meat.ModuleMeat;
-import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
 
 public class HoldingStickRenderer extends TileEntitySpecialRenderer{
     
     //The model of your block
     private final HoldingStick model;
     private final ModelMeatRoaster modelMulti;
+
+    int desync = 0;
     
     public HoldingStickRenderer() {
             this.model = new HoldingStick();
@@ -38,6 +37,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale) {
     //The PushMatrix tells the renderer to "start" doing something.
+        desync++;
         if (((TileEntityMultiBlock) te).multiBlockStructure != null){
             if (((TileEntityMultiBlock) te).multiBlockStructure.bPos == 3){
                 return;
@@ -76,6 +76,9 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
             this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         }
         else {
+            this.modelMulti.Bar.rotateAngleZ = -desync;
+            this.modelMulti.DownHandle.rotateAngleZ = -desync;
+            this.modelMulti.shape10.rotateAngleZ = -desync;
             this.modelMulti.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
             if (((TileEntityMultiBlock) te).multiBlockStructure.sharedData.hasKey("RoastingItem")) {
                 ItemStack is = ItemStack.loadItemStackFromNBT(((TileEntityMultiBlock) te).multiBlockStructure.sharedData.getCompoundTag("RoastingItem"));
@@ -83,6 +86,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                 MeatRegistry.MeatReturn r2 = ModuleMeat.registry.isCookedItem(is);
                 if (r.value || r2.value) {
                     SALog.error("Spam 1");
+
                     int meatState = 1;
                     int meatType;
                     if (r.value) meatType = r.meatID;
@@ -96,7 +100,24 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                     else {
                         short1 = 0;
                     }
-                    if (r2.value){
+                    if (((TileEntityMultiBlock) te).multiBlockStructure.sharedData.hasKey("CookBurn")){
+                        if (((TileEntityMultiBlock) te).multiBlockStructure.sharedData.getInteger("CookBurn") == 1){
+                            SALog.error("BL\nBL\n");
+                            GL11.glColor3f(1.0f,1.0f,1.0f);
+                        }
+                        else if (r2.value){
+                            if (r2.meatID == 1 || r2.meatID == 2){
+                                GL11.glColor3f(0.4f,0.3f,0.3f);
+                            }
+                            else {
+                                SALog.error("Chicky whites");
+                                GL11.glColor3f(1.0f,0.6f,0.6f);
+                            }
+                        }
+
+
+                    }
+                    else if (r2.value){
                         if (r2.meatID == 1 || r2.meatID == 2){
                             GL11.glColor3f(0.4f,0.3f,0.3f);
                         }
@@ -124,14 +145,39 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             cow.isChild = false;
 
                             zoffset = 3.42f;
-                            yoffset = 0.42f;
+                            yoffset = 1.871f;
 
                            // GL11.glRotatef((float)short1, 0.0F, 1.0F, 0.0F);
                             GL11.glRotatef(0F, 1, 0, 0);
-                            GL11.glTranslatef(xoffset + 0, yoffset + -0.65F, zoffset + -1.9F);
+                            GL11.glTranslatef(xoffset + 0, yoffset + -0.95F, zoffset + -1.9F);
 
                             ResourceLocation cowT = getTexture(meatType, meatState);
                             Minecraft.getMinecraft().renderEngine.bindTexture(cowT);
+                            /*for (Object modelBox : cow.boxList) {
+                                ModelRenderer box = (ModelRenderer) modelBox;
+
+                                box.rotateAngleZ = 7f;
+                                float cur = box.rotationPointZ;
+                                float cury = box.rotationPointY;
+                                float ofset = (float) Math.cos(box.rotateAngleZ);
+                                float ofsety = (float) Math.sin(box.rotateAngleZ);
+                                box.rotationPointY = (ofsety * cury);
+                                box.rotationPointZ = (cur * ofset);
+                            }*/
+                            float rangle = desync    ;
+                            float radians = (float) Math.toRadians(rangle);
+                            GL11.glTranslatef(0, -0.66f,0);
+
+                            float ztrans = (float) (Math.sin(radians));
+                            float ytrans = (float) (Math.cos(radians));
+                            GL11.glTranslatef(ztrans, -ytrans, 0);
+                            GL11.glRotatef(rangle, 0, 0, 1);
+                            GL11.glTranslatef(0, 0.66f,0);
+
+
+
+
+                            //GL11.glTranslatef(0, 0, 0);
                             cow.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
                             break;
                         case 2:
@@ -139,12 +185,21 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             ModelPigSA pig = new ModelPigSA();
                             pig.isChild = false;
                             zoffset = 3.42f;
-                            yoffset = 0.42f;
+                            yoffset = 1.42f;
+                            GL11.glTranslatef(xoffset+0, yoffset-1F, zoffset+-1.6F);
+                            rangle = desync    ;
+                            radians = (float) Math.toRadians(rangle);
+                            GL11.glTranslatef(0, -0.2f,0);
 
+                            ztrans = (float) (Math.sin(radians));
+                            ytrans = (float) (Math.cos(radians));
+                            GL11.glTranslatef(ztrans, -ytrans, 0);
+                            GL11.glRotatef(rangle, 0, 0, 1);
+                            GL11.glTranslatef(0, 0.2f,0);
 
                           //  GL11.glRotatef((float)short1, 0.0F, 1.0F, 0.0F);
                             GL11.glRotatef(0F, 1, 0, 0);
-                            GL11.glTranslatef(xoffset+0, yoffset-1F, zoffset+-1.6F);
+
                             getTexture(meatType, meatState);
                             ResourceLocation pigT = getTexture(meatType, meatState);
                             Minecraft.getMinecraft().renderEngine.bindTexture(pigT);
@@ -159,10 +214,18 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             //GL11.glRotatef(180F, 1, 0, 0);
                             //GL11.glRotatef(180F, 0, 1, 0);
                             zoffset = 0.62f;
-                            yoffset = 2.25f;
+                            yoffset = 3.29f;
                             GL11.glTranslatef(xoffset+0, yoffset-3.00F, zoffset+0.9F);
                             GL11.glDisable(GL11.GL_CULL_FACE);
+                            rangle = desync    ;
+                            radians = (float) Math.toRadians(rangle);
+                            GL11.glTranslatef(0, -0.2f,0);
 
+                            ztrans = (float) (Math.sin(radians));
+                            ytrans = (float) (Math.cos(radians));
+                            GL11.glTranslatef(ztrans, -ytrans, 0);
+                            GL11.glRotatef(rangle, 0, 0, 1);
+                            GL11.glTranslatef(0, 0.22f,0);
                             ResourceLocation chickT = getTexture(meatType, meatState);
                             Minecraft.getMinecraft().renderEngine.bindTexture(chickT);
                             chick.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
