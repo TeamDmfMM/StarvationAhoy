@@ -1,10 +1,9 @@
 package dmfmm.StarvationAhoy.api.FoodEdit;
 
-import java.util.ArrayList;
-
-import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.ArrayList;
 
 public class KnownFoods {
 	
@@ -12,7 +11,28 @@ public class KnownFoods {
 	
 	
 	public static ArrayList<ArrayList<Object>> knownFoods = new ArrayList<ArrayList<Object>>();
-	
+	public static void changeFood(ItemStack i, int hunger, float saturation){
+		boolean found = false;
+		for(ArrayList<Object> foods : KnownFoods.knownFoods) {
+			ItemStack bob = (ItemStack) foods.get(0);
+
+			if (bob == i){
+				int aboutToEdit = KnownFoods.knownFoods.indexOf(foods);
+				ArrayList<Object> food = new ArrayList<>();
+
+				food.add(i);
+				food.add(hunger);
+				food.add(saturation);
+				found = true;
+				KnownFoods.knownFoods.set(aboutToEdit, food);
+			}
+
+		}
+		if (found == false){
+			KnownFoods.insertFood(i, hunger, saturation);
+		}
+
+	}
 	
 	public void insertFoodI(String foodname, int HungerHunch, float saturation){
 		ArrayList<Object> Food = new ArrayList<>();

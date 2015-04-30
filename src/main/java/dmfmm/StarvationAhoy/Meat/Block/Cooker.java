@@ -1,13 +1,10 @@
 package dmfmm.StarvationAhoy.Meat.Block;
 
-import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.CookerTileEntity;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockChecking;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
-import dmfmm.StarvationAhoy.Meat.MeatRegistry;
 import dmfmm.StarvationAhoy.Meat.MeatType;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
-import net.minecraft.block.Block;
+import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -34,6 +31,9 @@ public class Cooker extends BlockContainer {
 
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitX, float hitY, float hitZ) {
         if (player.inventory.mainInventory[player.inventory.currentItem] == null){
+            return false;
+        }
+        if (player.inventory.mainInventory[player.inventory.currentItem].getItem() == MItemLoader.ButcherKnife){
             TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
             if (te.multiBlockStructure.sharedData.hasKey("RoastingItem")){
                 ItemStack toSpawnInWorld = ItemStack.loadItemStackFromNBT(te.multiBlockStructure.sharedData.getCompoundTag("RoastingItem"));

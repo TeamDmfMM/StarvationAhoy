@@ -9,6 +9,8 @@ import dmfmm.StarvationAhoy.FoodEdit.FoodSet.User.FoodOverrideHelper;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.User.ModOverrides;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.User.Overrides;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 
 import java.io.*;
 
@@ -28,7 +30,6 @@ public class FoodChanger {
     public static void change(Item i, int hunger, float sturan) throws IOError, IOException, FoodNotFoundException {
         // Read gson
         File fil = new File(FileLoader.getCfgPath(), "food.json");
-
 
 
         BufferedReader buff = new BufferedReader(new FileReader(fil));
@@ -89,6 +90,7 @@ public class FoodChanger {
         String testgggg = new GsonBuilder().setPrettyPrinting().create().toJson(stuffies);
         BufferedWriter buf = new BufferedWriter(new FileWriter(fil));
         buf.write(testgggg);
+        dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods.changeFood(new ItemStack(i), hunger, sturan);
         buf.flush();
         buf.close();
 
