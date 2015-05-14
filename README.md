@@ -11,7 +11,7 @@ TO-DO
 
 (for mincrmatt12 and dmf444)
 
-- [x] MultiBlock 
+- [x] MultiBlock (done!)
  - [x] initial api
  - [x] implement api
  - [x] create block
@@ -23,3 +23,9 @@ TO-DO
    - [x] recipes
    - [x] cooker code
 
+- [ ] Crop Wash
+ - [ ] initial code
+ - [ ] events
+ - [ ] crop washing
+  - [ ] block
+  - [ ] actual code
