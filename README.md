@@ -29,3 +29,4 @@ TO-DO
  - [ ] crop washing
   - [ ] block
   - [ ] actual code
+ - [ ] hunger penalties 
