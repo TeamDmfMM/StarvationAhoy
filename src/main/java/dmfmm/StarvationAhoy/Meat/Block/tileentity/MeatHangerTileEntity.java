@@ -1,13 +1,11 @@
 package dmfmm.StarvationAhoy.Meat.Block.tileentity;
 
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.CookerMultiBlock;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockStructure;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 
 public class MeatHangerTileEntity extends TileEntity {
 	private int MeatType = 0;//0-n|1-Cow|2-Pig|3-Chicken
@@ -37,6 +35,10 @@ public class MeatHangerTileEntity extends TileEntity {
 	       tagCompound.setInteger("Meatstate", MeatState);
 	   }
 
+    @Override
+    public AxisAlignedBB getRenderBoundingBox(){
+        return this.INFINITE_EXTENT_AABB;
+    }
 
 
 	@Override

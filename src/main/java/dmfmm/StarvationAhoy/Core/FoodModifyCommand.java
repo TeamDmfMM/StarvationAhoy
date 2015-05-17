@@ -1,20 +1,16 @@
 package dmfmm.StarvationAhoy.Core;
 
+import dmfmm.StarvationAhoy.FoodEdit.FoodSet.FoodChanger;
+import net.minecraft.command.*;
+import net.minecraft.item.Item;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
+
 import java.io.IOError;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import dmfmm.StarvationAhoy.Core.util.SALog;
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommand;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.command.NumberInvalidException;
-import net.minecraft.command.WrongUsageException;
-import net.minecraft.item.Item;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatComponentText;
-import dmfmm.StarvationAhoy.FoodEdit.FoodSet.FoodChanger;
 
 public class FoodModifyCommand implements ICommand{
 	
@@ -22,8 +18,8 @@ public class FoodModifyCommand implements ICommand{
 	
 	public FoodModifyCommand(){
 		this.others = new ArrayList();
-		this.others.add("editfood");
-		this.others.add("ef");
+		this.others.add("starvationahoy");
+		this.others.add("sa");
 	}
 
 	@Override
@@ -38,7 +34,7 @@ public class FoodModifyCommand implements ICommand{
 
 	@Override
 	public String getCommandUsage(ICommandSender p_71518_1_) {
-		return "/ef <item> [new Hunger Value] [new Saturation]";
+		return "/sa <item> [new Hunger Value] [new Saturation]";
 	}
 
 	@Override
@@ -52,14 +48,14 @@ public class FoodModifyCommand implements ICommand{
         {
             throw new WrongUsageException(getCommandUsage(null), new Object[0]);
         } else {
-			SALog.error("Hihihihihihihi " + CMDin);
+			//SALog.error("Hihihihihihihi " + CMDin);
         	Item item = CommandBase.getItemByText(sender, CMDin[0]);
         	int hunger = CommandBase.parseInt(sender, CMDin[1]);
         	float saturation = this.parseFloat(sender, CMDin[2]);
         	
         	try {
 				FoodChanger.change(item, hunger, saturation);
-				sender.addChatMessage(new ChatComponentText("Food "+ item.getUnlocalizedName() + " was sucessfully changed to the new levels!"));
+				sender.addChatMessage(new ChatComponentText(StatCollector.translateToLocal(item.getUnlocalizedName() + ".name") + " was sucessfully changed to the new levels!"));
 			} catch (IOError | IOException e) {
 				throw new WrongUsageException(e.getMessage(), new Object[0]);
 			} catch (FoodChanger.FoodNotFoundException e){

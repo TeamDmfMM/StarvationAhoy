@@ -117,7 +117,7 @@ public class HoldingStick extends BlockContainer{
 	    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
 	    {
 	    	int meta = world.getBlockMetadata(x, y, z);
-	   
+
 	    	return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY +0.30F, (double)z + this.maxZ);
 	    }
 	    

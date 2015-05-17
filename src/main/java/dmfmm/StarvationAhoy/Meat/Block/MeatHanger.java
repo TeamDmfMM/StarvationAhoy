@@ -1,9 +1,13 @@
 package dmfmm.StarvationAhoy.Meat.Block;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import dmfmm.StarvationAhoy.Core.SATabs;
+import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
+import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,11 +18,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import dmfmm.StarvationAhoy.Core.SATabs;
-import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
-import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 
 public class MeatHanger extends BlockContainer{
 
@@ -153,7 +152,7 @@ public class MeatHanger extends BlockContainer{
     		return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
     	else	
     		if (meta == 2){
-    			return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z + 0.5), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 1)));   
+    			return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z + 0.5), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 1)));
     		} else if (meta == 3){
     			return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 0.5)));   
     		} else if (meta == 4){
@@ -172,7 +171,7 @@ public class MeatHanger extends BlockContainer{
     	else{
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 2){
-        	return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z + 0.5), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 1)));   
+        	return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z + 0.5), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 1)));
         } else if (meta == 3){
         	return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 0.5)));   
         } else if (meta == 4){
@@ -180,7 +179,7 @@ public class MeatHanger extends BlockContainer{
         } else if (meta == 5){
         	return AxisAlignedBB.getBoundingBox((double)((float)x), (double)y + 0.5, (double)((float)z ), (double)((float)(x + 0.5) ), (double)((float)y + 1), (double)((float)(z + 1)));   
         }
-        return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z + 0.5), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 1)));   
+        return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z + 0.5), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 1)));
     	}
     }
 }

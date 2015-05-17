@@ -15,7 +15,7 @@ public class MBlockLoader {
 	
 	public static void initiateBlocks() {
 		MeatHanger = new MeatHanger().setBlockName(MeatLib.bMeatHanger);
-		HoldingStick = new HoldingStick().setBlockName("DEV__WORLD__hold_stick");
+		HoldingStick = new HoldingStick().setBlockName(MeatLib.Hold_Stick);
 		Cooker = new Cooker().setBlockName("DEV__1__cookerz");
 		
 		
@@ -28,7 +28,7 @@ public class MBlockLoader {
 		if(!Register){
 			
 			GameRegistry.registerBlock(MeatHanger, MeatLib.bMeatHanger);
-			GameRegistry.registerBlock(HoldingStick, "DEV__WORLD__2__hold_stick");
+			GameRegistry.registerBlock(HoldingStick, MeatLib.Hold_Stick);
 			GameRegistry.registerBlock(Cooker, "DEV__1__cooker");
 			
 			

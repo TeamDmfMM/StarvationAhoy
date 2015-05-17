@@ -1,6 +1,5 @@
 package dmfmm.StarvationAhoy.Meat.Block.tileentity;
 
-import dmfmm.StarvationAhoy.Meat.Block.HoldingStick;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.CookerMultiBlock;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockStructure;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
@@ -11,7 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 
 public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInventory {
     ItemStack meat;
@@ -45,6 +44,10 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
     public Class<? extends MultiBlockStructure> getMultiBlock() {
         return CookerMultiBlock.class;
 
+    }
+    @Override
+    public AxisAlignedBB getRenderBoundingBox(){
+        return this.INFINITE_EXTENT_AABB;
     }
 
     public void onSync(){
