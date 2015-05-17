@@ -82,7 +82,7 @@ public class PacketMultiBlock implements IMessage {
                         e.printStackTrace();
                     }
                 }
-                if (te.r == true){return null;}
+
                     te.multiBlockStructure.bPos = message.multiBlockIndex;
                     te.multiBlockStructure.orient = message.multiBlockOrient;
                     te.multiBlockStructure.sharedData = message.multiBlockShared;

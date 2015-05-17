@@ -2,7 +2,13 @@ package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 /**
  * Created by Matthew on 2/7/2015.
@@ -52,6 +58,36 @@ public class CookerMultiBlock extends MultiBlockStructure{
         super.onUpdate(world);
         if (sharedData.hasKey("CookTime") == false){
             sharedData.setInteger("CookTime", 0);
+            //sharedData.setInteger("CookBurn", 0);
         }
+        if (sharedData.hasKey("CookBurn") == false){
+            sharedData.setInteger("CookBurn", 0);
+        }
+        if (sharedData.hasKey("RoastingItem")){
+            int ctime = sharedData.getInteger("CookTime");
+            if (checkForFire(world))ctime+=1;
+            SALog.error(sharedData);
+            SALog.error("Ctime (im cooking): " + ctime);
+            if (ctime >= 3000 && ctime < 3900){
+                int amt = MathHelper.getRandomIntegerInRange(new Random(), 1, 3);
+                ItemStack touse = ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("CookedItem"));
+                touse.stackSize = amt;
+                if (!(ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("RoastingItem")).getItem() == touse.getItem())){
+                    sharedData.setTag("RoastingItem", touse.writeToNBT(new NBTTagCompound()));
+                }
+
+            }
+            if (ctime >= 3900){
+                int amt = 1;
+                ItemStack touse = new ItemStack(Items.bone);
+                touse.stackSize = amt;
+                if (!(ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("RoastingItem")).getItem() == Items.bone)){
+                    sharedData.setTag("RoastingItem", touse.writeToNBT(new NBTTagCompound()));
+                    sharedData.setInteger("CookBurn", 1);
+                }
+            }
+            sharedData.setInteger("CookTime", ctime);
+        }
+
     }
 }

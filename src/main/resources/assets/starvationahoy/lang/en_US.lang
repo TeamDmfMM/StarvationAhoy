@@ -1,5 +1,25 @@
-
-
+#Tab Name
+itemGroup.StarvationAhoy=Starvation Ahoy
 
 #Armour Overlay Text
 hud.statarmor.saturation=Saturation
+hud.statarmor.foodSat=Food Saturation: %s
+hud.statarmor.hunger=Food Restore Amount: %s
+
+#Items
+item.stat_helm.name=Health Tracking Helmet
+item.stat_chest.name=Health Tracking Chestplate
+
+#Meat Module Blocks
+tile.HoldingStick.name=Spit Roast Stand
+tile.MeatHanger.name=Meat Hanger
+
+#Meat Module Items
+item.FiletKnife.name=Filet Knife
+item.ButcherKnife.name=Butcher's Knife
+item.Chicken_Skinned.name=Skinned Chicken
+item.Pig_Skinned.name=Skinned Pig
+item.Cow_Skinned.name=Skinned Cow
+item.Chicken_Dead.name=Chicken Carcass
+item.Pig_Dead.name=Pig Carcass
+item.Cow_Dead.name=Cow Carcass

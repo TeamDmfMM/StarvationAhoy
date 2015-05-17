@@ -47,7 +47,7 @@ public class CookerTileEntity extends TileEntityMultiBlock implements IInventory
     }
 
     public void onSync(){
-        meat =ItemStack.loadItemStackFromNBT((NBTTagCompound) multiBlockStructure.sharedData.getTag("MeatItem"));
+
     }
 
 

@@ -2,6 +2,7 @@ package dmfmm.StarvationAhoy.Meat.Block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockChecking;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
 import net.minecraft.block.BlockContainer;
@@ -20,6 +21,7 @@ public class HoldingStick extends BlockContainer{
 
 	protected HoldingStick() {
 		super(Material.wood);
+		this.setCreativeTab(SATabs.INSTANCE);
 	}
 
 	@Override
@@ -88,7 +90,20 @@ public class HoldingStick extends BlockContainer{
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitX, float hitY, float hitZ) {
-		if (player.inventory.getCurrentItem().getItem() == Items.stick) return MultiBlockChecking.checkCookerStructure(world, x, y, z);
+		if (player.inventory.getCurrentItem().getItem() == Items.stick) {
+			boolean s = MultiBlockChecking.checkCookerStructure(world, x, y, z);
+			if (s){
+				player.inventory.mainInventory[player.inventory.currentItem].stackSize--;
+				if (player.inventory.mainInventory[player.inventory.currentItem].stackSize < 1){
+					player.inventory.mainInventory[player.inventory.currentItem] = null;
+
+				}
+				return true;
+			}
+			return false;
+
+
+		}
 		else return false;
 	}
 
@@ -102,7 +117,7 @@ public class HoldingStick extends BlockContainer{
 	    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
 	    {
 	    	int meta = world.getBlockMetadata(x, y, z);
-	   
+
 	    	return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY +0.30F, (double)z + this.maxZ);
 	    }
 	    

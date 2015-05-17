@@ -1,19 +1,20 @@
 package dmfmm.StarvationAhoy.Core.HUD;
 
-import org.apache.commons.lang3.reflect.*;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.util.FoodStats;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import dmfmm.StarvationAhoy.Core.util.CRef;
-import dmfmm.StarvationAhoy.Core.util.SALog;
+import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 
 public class OverlaySaturationBar extends Gui {
 	
@@ -29,7 +30,8 @@ public class OverlaySaturationBar extends Gui {
 	
 	private static final int EXHAUSTION_BAR_X = CRef.getOSX();
 	private static final int EXHAUSTION_BAR_Y = CRef.getOSY() + 7;
-	private static final String EXHAUSTION_TEXT_UNLOCALIZED = "hud.statarmor.exhaustion";
+	private static final String FOODSAT_TEXT_UNLOCALIZED = "hud.statarmor.foodSat";
+    private static final String FOODHUNGER_TEXT_UNLOCALIZED = "hud.statarmor.hunger";
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	  public void onRenderExperienceBar(RenderGameOverlayEvent event)
@@ -53,35 +55,44 @@ public class OverlaySaturationBar extends Gui {
 			}
 		}
 		if (count == 1){
-			this.mc.renderEngine.bindTexture(new ResourceLocation("starvationahoy", "textures/gui/SaturationBar.png"));
-			this.drawTexturedModalRect(EXHAUSTION_BAR_X, EXHAUSTION_BAR_Y, 0, 0, 62, 9);
-			float Sat = this.mc.thePlayer.getFoodStats().getSaturationLevel();
-			if(Sat >= 20){
-				this.drawTexturedModalRect(EXHAUSTION_BAR_X + 50, EXHAUSTION_BAR_Y + 2, 0, 9, 1, 5);
-			} else if (Sat < 20){
-				float i = (float) (Sat * 2.5); //2.5 * 20 = 50 (# of pixels in bar)
-				this.drawTexturedModalRect((int) (EXHAUSTION_BAR_X + i), EXHAUSTION_BAR_Y + 2, 0, 9, 1, 5);
-			}
-			this.mc.fontRenderer.setUnicodeFlag(true);
-			this.mc.fontRenderer.drawString(StatCollector.translateToLocal(SATURATION_TEXT_UNLOCALIZED), SATURATION_BAR_X + 7, SATURATION_BAR_Y, 16430373);
-			this.mc.fontRenderer.setUnicodeFlag(false);
+			drawSaturationBar();
 		}
 		if (count == 2){
-			this.mc.fontRenderer.drawString(StatCollector.translateToLocal(SATURATION_TEXT_UNLOCALIZED)+ ": " + this.mc.thePlayer.getFoodStats().getSaturationLevel(), SATURATION_BAR_X, SATURATION_BAR_Y, 16430373);
-			this.mc.fontRenderer.drawString(StatCollector.translateToLocal(EXHAUSTION_TEXT_UNLOCALIZED)+ ": " + getExhuast(this.mc.thePlayer.getFoodStats()), EXHAUSTION_BAR_X, EXHAUSTION_BAR_Y, 2823662);
+			drawSaturationBar();
+            getCurrentFoodStat(this.mc.thePlayer);
 		}
 	  }
-	
-	public float getExhuast(FoodStats food){
-		// just for demo
-		FoodStats foo = this.mc.thePlayer.getFoodStats();
-		float EXlevel = 101010100101F;
-		try {
-			EXlevel = (float) FieldUtils.readField(foo.getClass().getDeclaredField("foodExhaustionLevel"), foo, true);
-		} catch (IllegalAccessException | NoSuchFieldException| SecurityException e) {
-			e.printStackTrace();
-		}
-		return EXlevel;
+
+    private void drawSaturationBar(){
+        this.mc.renderEngine.bindTexture(new ResourceLocation("starvationahoy", "textures/gui/SaturationBar.png"));
+        this.drawTexturedModalRect(EXHAUSTION_BAR_X, EXHAUSTION_BAR_Y, 0, 0, 62, 9);
+        float Sat = this.mc.thePlayer.getFoodStats().getSaturationLevel();
+        if(Sat >= 20){
+            this.drawTexturedModalRect(EXHAUSTION_BAR_X + 50, EXHAUSTION_BAR_Y + 2, 0, 9, 1, 5);
+        } else if (Sat < 20){
+            float i = (float) (Sat * 2.5); //2.5 * 20 = 50 (# of pixels in bar)
+            this.drawTexturedModalRect((int) (EXHAUSTION_BAR_X + i), EXHAUSTION_BAR_Y + 2, 0, 9, 1, 5);
+        }
+        this.mc.fontRenderer.setUnicodeFlag(true);
+        this.mc.fontRenderer.drawString(StatCollector.translateToLocal(SATURATION_TEXT_UNLOCALIZED), SATURATION_BAR_X + 7, SATURATION_BAR_Y, 16430373);
+        this.mc.fontRenderer.setUnicodeFlag(false);
+    }
+
+	public void getCurrentFoodStat(EntityClientPlayerMP player){
+        Item unknown = null;
+        if(player.getHeldItem() != null) {
+            unknown = player.getHeldItem().getItem();
+            if (unknown instanceof ItemFood) {
+                ItemFood food = (ItemFood) unknown;
+                int HealAmt = KnownFoods.getFoodHunger(new ItemStack(food));
+                float Saturation = KnownFoods.getFoodSaturation(new ItemStack(food));
+                this.mc.fontRenderer.setUnicodeFlag(true);
+                this.mc.fontRenderer.drawString(String.format(StatCollector.translateToLocal(FOODHUNGER_TEXT_UNLOCALIZED), HealAmt), SATURATION_BAR_X , SATURATION_BAR_Y + 15, 16430373);
+                this.mc.fontRenderer.drawString(String.format(StatCollector.translateToLocal(FOODSAT_TEXT_UNLOCALIZED), Saturation), SATURATION_BAR_X, SATURATION_BAR_Y + 22, 16430373);
+                this.mc.fontRenderer.setUnicodeFlag(false);
+            }
+        }
+
 	}
 	
 }

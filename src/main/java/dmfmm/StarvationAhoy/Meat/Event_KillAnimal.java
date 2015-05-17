@@ -13,6 +13,9 @@ public class Event_KillAnimal {
 	
 	@SubscribeEvent
 	public void OverrideDropEvent(LivingDropsEvent e){
+		if (!(e.entity instanceof EntityLiving ) ){
+			return;
+		}
 		SALog.fatal("MEH");
 		SALog.fatal("IS EP" + e.entity);
 		SALog.fatal("DROPS?" + ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entity).value);
