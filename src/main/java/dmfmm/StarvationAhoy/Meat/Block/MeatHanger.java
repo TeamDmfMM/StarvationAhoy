@@ -4,20 +4,20 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
+import dmfmm.StarvationAhoy.Meat.Events.MeatCutEvent;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 public class MeatHanger extends BlockContainer{
 
@@ -77,31 +77,24 @@ public class MeatHanger extends BlockContainer{
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float PlayerXCOORD, float PlayerYCOORD, float PlayerZCOORD) {
     	int ItemType = ((MeatHangerTileEntity) world.getTileEntity(x, y, z)).getMeatType();
     	int state = ((MeatHangerTileEntity) world.getTileEntity(x, y, z)).getMeatState();
+
     	if(player.inventory.getCurrentItem().getItem() == MItemLoader.ButcherKnife && ItemType != 0 && state == 1){
     						/*IS the player attempting to cut the animal down (when skinned)?*/
-    		Item item = null;
-    		hasAnimal = false;
-    		if(ItemType == 1){item = MItemLoader.skinlessCow;}else if(ItemType == 2){item = MItemLoader.skinlessPig;}else if(ItemType == 3){item = MItemLoader.skinlessChicken;}
-    		if(!world.isRemote){world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(item)));}
-    		((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(0);
+            MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatHanger(world,ItemType, x, y, z));
+            hasAnimal = false;
+            ((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(0);
 			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
 			world.markBlockForUpdate(x, y, z);
     		return true;
     	}else if(player.inventory.getCurrentItem().getItem() == MItemLoader.filetKnife && state == 0){
-    										/*IS the player Attemping to skin the animal?*/
-    		
-    		int randomNum = world.rand.nextInt((2 - 0) + 1) + 0;
-    		if(ItemType == 1){
-    			if(!world.isRemote){world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(Items.leather, randomNum)));}
-    		}else if(ItemType == 3){
-    			if(!world.isRemote){world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(Items.feather, randomNum)));}
-    		}
+    						/*IS the player Attemping to skin the animal?*/
+            MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatSkinned(world, ItemType, x, y, z));
     		//Set to skinned state
-    		((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(1);
-    		world.markBlockForUpdate(x, y, z);
-    		return true;
+            ((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(1);
+            world.markBlockForUpdate(x, y, z);
+            return true;
     	}else if(player.inventory.getCurrentItem().getItem() == MItemLoader.deadChicken || player.inventory.getCurrentItem().getItem() == MItemLoader.deadCow || player.inventory.getCurrentItem().getItem() == MItemLoader.deadPig && ItemType == 0){
-    							/*IS the player attempting to add a dead animal to the hooks?*/
+    						/*IS the player attempting to add a dead animal to the hooks?*/
     		
     		Item item = player.inventory.getCurrentItem().getItem();
     		hasAnimal = true;
@@ -127,15 +120,6 @@ public class MeatHanger extends BlockContainer{
     		
     	}
     	return false;
-    	//SALog.error(((MeatHangerTileEntity) world.getTileEntity(x, y, z)).getMeatType());
-        //return false;
-    	/*TileEntity tileEntity = world.getTileEntity(x, y, z);
-            if (tileEntity == null || player.isSneaking()) {
-                    return false;
-            }
-    //code to open gui explained later
-    player.openGui(ExtraFood.instance, 0, world, x, y, z);
-            return true;*/
     }
 		
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack Itemstack) {

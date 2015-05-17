@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.Meat.Block;
 
+import dmfmm.StarvationAhoy.Meat.Events.MeatCutEvent;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.CookerTileEntity;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import dmfmm.StarvationAhoy.Meat.MeatType;
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * Created by Matthew on 2/28/2015.
@@ -37,6 +39,7 @@ public class Cooker extends BlockContainer {
             TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
             if (te.multiBlockStructure.sharedData.hasKey("RoastingItem")){
                 ItemStack toSpawnInWorld = ItemStack.loadItemStackFromNBT(te.multiBlockStructure.sharedData.getCompoundTag("RoastingItem"));
+                MinecraftForge.EVENT_BUS.post(new MeatCutEvent.SpitRoast(te.multiBlockStructure.sharedData.getInteger("EntityID")));
                 te.multiBlockStructure.sharedData = new NBTTagCompound();
                 EntityItem e = new EntityItem(world, x, y+2, z, toSpawnInWorld);
                 if (!world.isRemote){world.spawnEntityInWorld(e);}
@@ -49,6 +52,7 @@ public class Cooker extends BlockContainer {
             if (te.multiBlockStructure.sharedData.hasKey("RoastingItem")){ return false;}
             te.multiBlockStructure.sharedData.setTag("RoastingItem", player.inventory.mainInventory[player.inventory.currentItem].writeToNBT(new NBTTagCompound()));
             te.multiBlockStructure.sharedData.setTag("CookedItem", new ItemStack(t.items.meat, 1).writeToNBT(new NBTTagCompound()));
+            te.multiBlockStructure.sharedData.setInteger("EntityID", t.id);
             te.multiBlockStructure.syncData(te.multiBlockStructure, te.multiBlockStructure.bPos, te.multiBlockStructure.x, te.multiBlockStructure.y, te.multiBlockStructure.z, world);
             player.inventory.mainInventory[player.inventory.currentItem].stackSize--;
             if (player.inventory.mainInventory[player.inventory.currentItem].stackSize < 1){

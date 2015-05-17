@@ -1,5 +1,6 @@
-package dmfmm.StarvationAhoy.Meat;
+package dmfmm.StarvationAhoy.Meat.Events;
 
+import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,9 +17,9 @@ public class Event_KillAnimal {
 		if (!(e.entity instanceof EntityLiving ) ){
 			return;
 		}
-		SALog.fatal("MEH");
-		SALog.fatal("IS EP" + e.entity);
-		SALog.fatal("DROPS?" + ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entity).value);
+		//SALog.fatal("MEH");
+		//SALog.fatal("IS EP" + e.entity);
+		//SALog.fatal("DROPS?" + ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entity).value);
     if(e.entity instanceof EntityPlayer){
     	//How about no messing with player Drops? kk?
 	}else if (ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entity).value == true){
