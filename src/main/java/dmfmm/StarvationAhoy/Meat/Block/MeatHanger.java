@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
-import dmfmm.StarvationAhoy.Meat.Events.MeatCutEvent;
+import dmfmm.StarvationAhoy.api.Event.MeatCutEvent;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

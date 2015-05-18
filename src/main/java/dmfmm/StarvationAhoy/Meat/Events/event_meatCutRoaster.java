@@ -1,8 +1,12 @@
 package dmfmm.StarvationAhoy.Meat.Events;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
+import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
+import dmfmm.StarvationAhoy.api.Event.MeatCutEvent;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 
 /**
  * Created by DMF444 for Starvation Ahoy. All rights
@@ -14,12 +18,9 @@ public class event_meatCutRoaster {
 
     @SubscribeEvent
     public void roasterCut(MeatCutEvent.SpitRoast e){
-        if(e.meattype == ModuleMeat.MEATTYPE_COW){
-            SALog.fatal("A Cow Was Made");
-        } else if(e.meattype == ModuleMeat.MEATTYPE_PIG){
-            SALog.fatal("This is a Piggy");
-        } else if(e.meattype == ModuleMeat.MEATTYPE_CHICK){
-            SALog.fatal("Here Chicky!");
+        if(e.meattype == ModuleMeat.MEATTYPE_PIG && e.itemOut == Items.cooked_porkchop){
+            EntityItem p = new EntityItem(e.world, e.xPos, e.yPos+2, e.zPos, new ItemStack(MItemLoader.pigleg, 4));
+            if (!e.world.isRemote){e.world.spawnEntityInWorld(p);}
         }
     }
 }

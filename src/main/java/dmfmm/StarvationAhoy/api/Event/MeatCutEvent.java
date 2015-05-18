@@ -1,6 +1,7 @@
-package dmfmm.StarvationAhoy.Meat.Events;
+package dmfmm.StarvationAhoy.api.Event;
 
 import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 /**
@@ -17,8 +18,22 @@ public class MeatCutEvent extends Event{
         this.meattype = meat;
     }
 
+    //Event posted when a player right clicks on the Spit Roast with a butcher's knife and
+    //the entity is cooked, This is only for supplimentary items being added to a entity
     public static class SpitRoast extends MeatCutEvent{
-        public SpitRoast(int meat){super(meat);}
+        public final World world;
+        public final int xPos, yPos, zPos;
+        public final boolean burnt;
+        public final Item itemOut;
+        public SpitRoast(World world, int meat, int x, int y, int z, boolean Burnt, Item outputItem){
+            super(meat);
+            this.world = world;
+            this.xPos = x;
+            this.yPos = y;
+            this.zPos = z;
+            this.burnt = Burnt;
+            this.itemOut = outputItem;
+        }
     }
 
     public static class MeatHanger extends MeatCutEvent{

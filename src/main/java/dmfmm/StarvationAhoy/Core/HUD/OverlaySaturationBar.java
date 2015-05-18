@@ -87,7 +87,7 @@ public class OverlaySaturationBar extends Gui {
                 int HealAmt = KnownFoods.getFoodHunger(new ItemStack(food));
                 float Saturation = KnownFoods.getFoodSaturation(new ItemStack(food));
                 this.mc.fontRenderer.setUnicodeFlag(true);
-                this.mc.fontRenderer.drawString(String.format(StatCollector.translateToLocal(FOODHUNGER_TEXT_UNLOCALIZED), HealAmt), SATURATION_BAR_X , SATURATION_BAR_Y + 15, 16430373);
+                this.mc.fontRenderer.drawString(String.format(StatCollector.translateToLocal(FOODHUNGER_TEXT_UNLOCALIZED), (float) HealAmt / 2), SATURATION_BAR_X , SATURATION_BAR_Y + 15, 16430373);
                 this.mc.fontRenderer.drawString(String.format(StatCollector.translateToLocal(FOODSAT_TEXT_UNLOCALIZED), Saturation), SATURATION_BAR_X, SATURATION_BAR_Y + 22, 16430373);
                 this.mc.fontRenderer.setUnicodeFlag(false);
             }

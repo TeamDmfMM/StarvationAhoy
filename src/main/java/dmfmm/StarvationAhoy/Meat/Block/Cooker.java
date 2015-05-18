@@ -1,11 +1,11 @@
 package dmfmm.StarvationAhoy.Meat.Block;
 
-import dmfmm.StarvationAhoy.Meat.Events.MeatCutEvent;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.CookerTileEntity;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import dmfmm.StarvationAhoy.Meat.MeatType;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
+import dmfmm.StarvationAhoy.api.Event.MeatCutEvent;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -23,6 +24,7 @@ public class Cooker extends BlockContainer {
     protected Cooker() {
         super(Material.anvil);
         //this.setCreativeTab(SATabs.INSTANCE);
+        this.setHardness(-1F);
         this.setBlockTextureName("starvationahoy:clearBlock");
     }
 
@@ -35,17 +37,19 @@ public class Cooker extends BlockContainer {
         if (player.inventory.mainInventory[player.inventory.currentItem] == null){
             return false;
         }
+        //Remove the entity from the roaster
         if (player.inventory.mainInventory[player.inventory.currentItem].getItem() == MItemLoader.ButcherKnife){
             TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
-            if (te.multiBlockStructure.sharedData.hasKey("RoastingItem")){
+            if (te.multiBlockStructure.sharedData.hasKey("RoastingItem") && te.multiBlockStructure.sharedData.hasKey("EntityID")){
                 ItemStack toSpawnInWorld = ItemStack.loadItemStackFromNBT(te.multiBlockStructure.sharedData.getCompoundTag("RoastingItem"));
-                MinecraftForge.EVENT_BUS.post(new MeatCutEvent.SpitRoast(te.multiBlockStructure.sharedData.getInteger("EntityID")));
+                MinecraftForge.EVENT_BUS.post(new MeatCutEvent.SpitRoast(world, te.multiBlockStructure.sharedData.getInteger("EntityID"), x, y, z, te.multiBlockStructure.sharedData.hasKey("CookBurn"), ItemStack.loadItemStackFromNBT(te.multiBlockStructure.sharedData.getCompoundTag("RoastingItem")).getItem()));
                 te.multiBlockStructure.sharedData = new NBTTagCompound();
                 EntityItem e = new EntityItem(world, x, y+2, z, toSpawnInWorld);
                 if (!world.isRemote){world.spawnEntityInWorld(e);}
                 te.multiBlockStructure.syncData(te.multiBlockStructure, te.multiBlockStructure.bPos, te.multiBlockStructure.x, te.multiBlockStructure.y, te.multiBlockStructure.z, world);
             }
         }
+        //Add the entity to the roaster
         if (ModuleMeat.registry.isSkinnedItem(player.inventory.mainInventory[player.inventory.currentItem]).value){
             MeatType t = ModuleMeat.registry.isSkinnedItem(player.inventory.mainInventory[player.inventory.currentItem]).meat;
             TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
@@ -64,6 +68,25 @@ public class Cooker extends BlockContainer {
         return false;
     }
 
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1, int par2, int par3, int par4)
+    {
+        return AxisAlignedBB.getBoundingBox((double)par2 + this.minX,
+                (double)par3 + this.minY + 1.16f,
+                (double)par4 + this.minZ + 0.4389,
+                (double)par2 + this.maxX,
+                (double)par3 + this.maxY + 0.31f,
+                (double)par4 + this.maxZ - 0.3989);
+    }
+
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1, int par2, int par3, int par4)
+    {
+        return AxisAlignedBB.getBoundingBox((double)par2 + this.minX,
+                (double)par3 + this.minY + 1.16f,
+                (double)par4 + this.minZ + 0.4389,
+                (double)par2 + this.maxX,
+                (double)par3 + this.maxY + 0.31f,
+                (double)par4 + this.maxZ - 0.3989);
+    }
 
 
     public boolean isOpaqueCube(){

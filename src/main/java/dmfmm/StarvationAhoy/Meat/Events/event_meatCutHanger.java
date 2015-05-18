@@ -3,6 +3,7 @@ package dmfmm.StarvationAhoy.Meat.Events;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
+import dmfmm.StarvationAhoy.api.Event.MeatCutEvent;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
