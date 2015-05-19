@@ -3,8 +3,8 @@ itemGroup.StarvationAhoy=Starvation Ahoy
 
 #Armour Overlay Text
 hud.statarmor.saturation=Saturation
-hud.statarmor.foodSat=Food Saturation: %s
-hud.statarmor.hunger=Food Restore Amount: %s
+hud.statarmor.foodSat=Saturation: %s
+hud.statarmor.hunger=Restore Amount:
 
 #Items
 item.stat_helm.name=Health Tracking Helmet

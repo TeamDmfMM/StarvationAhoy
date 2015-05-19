@@ -87,12 +87,35 @@ public class OverlaySaturationBar extends Gui {
                 int HealAmt = KnownFoods.getFoodHunger(new ItemStack(food));
                 float Saturation = KnownFoods.getFoodSaturation(new ItemStack(food));
                 this.mc.fontRenderer.setUnicodeFlag(true);
-                this.mc.fontRenderer.drawString(String.format(StatCollector.translateToLocal(FOODHUNGER_TEXT_UNLOCALIZED), (float) HealAmt / 2), SATURATION_BAR_X , SATURATION_BAR_Y + 15, 16430373);
+                this.mc.fontRenderer.drawString(StatCollector.translateToLocal(FOODHUNGER_TEXT_UNLOCALIZED), SATURATION_BAR_X , SATURATION_BAR_Y + 15, 16430373);
+                drawFoodHunks((float) HealAmt / 2);
                 this.mc.fontRenderer.drawString(String.format(StatCollector.translateToLocal(FOODSAT_TEXT_UNLOCALIZED), Saturation), SATURATION_BAR_X, SATURATION_BAR_Y + 22, 16430373);
                 this.mc.fontRenderer.setUnicodeFlag(false);
             }
         }
 
 	}
+    private void drawFoodHunks(Float hunks){
+        String[] split = (hunks.toString()).split("\\.");
+        //SALog.fatal(split[0]);
+        if(split.length > 0) {
+            int First = Integer.parseInt(split[0]);
+            int Second = Integer.parseInt(split[1]);
+            int i = 0;
+            int Loc = 0;
+            ResourceLocation res = new ResourceLocation("minecraft:textures/gui/icons.png");
+
+            this.mc.renderEngine.bindTexture(res);
+            while (i < First) {
+                this.drawTexturedModalRect(SATURATION_BAR_X + 57+ Loc, SATURATION_BAR_Y + 17 , 53, 28, 7, 7);
+                Loc += 7;
+                i++;
+            }
+            if (Second != 0) {
+                this.drawTexturedModalRect(SATURATION_BAR_X + 57+ Loc, SATURATION_BAR_Y + 17, 62, 28, 7, 7);
+            }
+
+        }
+    }
 	
 }

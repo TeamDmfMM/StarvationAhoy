@@ -212,7 +212,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
 
                             // ================================= Rotate Start ================================
                             zoffset = 0.62f;
-                            yoffset = 3.29f;
+                            yoffset = 3.50f;
                             GL11.glTranslatef(xoffset+0, yoffset-3.00F, zoffset+0.9F);
                             GL11.glDisable(GL11.GL_CULL_FACE);
                             rangle = desync    ;

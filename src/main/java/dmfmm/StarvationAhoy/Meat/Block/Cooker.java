@@ -6,6 +6,7 @@ import dmfmm.StarvationAhoy.Meat.MeatType;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import dmfmm.StarvationAhoy.api.Event.MeatCutEvent;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -70,12 +71,24 @@ public class Cooker extends BlockContainer {
 
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1, int par2, int par3, int par4)
     {
-        return AxisAlignedBB.getBoundingBox((double)par2 + this.minX,
-                (double)par3 + this.minY + 1.16f,
-                (double)par4 + this.minZ + 0.4389,
-                (double)par2 + this.maxX,
-                (double)par3 + this.maxY + 0.31f,
-                (double)par4 + this.maxZ - 0.3989);
+        int meta = ((TileEntityMultiBlock)par1.getTileEntity(par2, par3, par4)).multiBlockStructure.orient;
+        if(meta == 0) {
+            return AxisAlignedBB.getBoundingBox(
+                    (double) par2 + this.minX,
+                    (double) par3 + this.minY + 1.16f,
+                    (double) par4 + this.minZ + 0.4389,
+                    (double) par2 + this.maxX,
+                    (double) par3 + this.maxY + 0.31f,
+                    (double) par4 + this.maxZ - 0.3989);
+        } else{
+            return AxisAlignedBB.getBoundingBox(
+                    (double) par2 + this.minX + 0.4389,
+                    (double) par3 + this.minY + 1.16f,
+                    (double) par4 + this.minZ,
+                    (double) par2 + this.maxX - 0.3989,
+                    (double) par3 + this.maxY + 0.31f,
+                    (double) par4 + this.maxZ);
+        }
     }
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1, int par2, int par3, int par4)
@@ -95,5 +108,14 @@ public class Cooker extends BlockContainer {
 
     public boolean renderAsNormalBlock(){
         return false;
+    }
+
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta){
+        if(world.getTileEntity(x, y, z) instanceof TileEntityMultiBlock) {
+            TileEntityMultiBlock tile = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
+            if (tile.multiBlockStructure != null) {
+                tile.multiBlockStructure.destroy(world);
+            }
+        }
     }
 }
