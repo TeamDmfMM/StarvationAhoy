@@ -27,11 +27,31 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
         modelMulti = new ModelMeatRoaster();
     }
     
-    private void adjustRotatePivotViaMeta(World world, int x, int y, int z) {
-            int meta = world.getBlockMetadata(x, y, z);
-            GL11.glPushMatrix();
-            GL11.glRotatef(meta * (-90), 0.0F, 0.0F, 1.0F);
-            GL11.glPopMatrix();
+    private void adjustRotatePivotViaMeta(TileEntity te, int x, int y, int z) {
+        int i = te.getBlockMetadata();
+
+        short short1 = 0;
+
+        if (i == 2)
+        {
+            short1 = -90;
+        }
+
+        if (i == 3)
+        {
+            short1 = 180;
+        }
+
+        if (i == 4)
+        {
+            short1 = 360; //-90
+        }
+
+        if (i == 5)
+        {
+            short1 = 90; //90
+        }
+        GL11.glRotatef((float) short1, 0.0F, 1.0F, 0.0F);
     }
     
     @Override
@@ -81,6 +101,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
         this.modelMulti.shape10.rotateAngleZ = (float) Math.toRadians(desync);
         this.modelMulti.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         }else{
+            this.adjustRotatePivotViaMeta(te,(int) x, (int)y,(int)z);
             this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         }
 
