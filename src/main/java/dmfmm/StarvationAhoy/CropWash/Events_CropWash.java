@@ -9,7 +9,8 @@ import net.minecraftforge.event.world.BlockEvent;
 public class Events_CropWash {
 
     @SubscribeEvent
-    public void breakCropBlock(BlockEvent.BreakEvent e){
+    public void breakCropBlock(BlockEvent.HarvestDropsEvent e){
+
 
 
     }
