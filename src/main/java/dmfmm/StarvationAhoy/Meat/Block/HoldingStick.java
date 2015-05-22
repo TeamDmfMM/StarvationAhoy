@@ -4,7 +4,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockChecking;
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -126,4 +128,13 @@ public class HoldingStick extends BlockContainer{
 	    {
 	    		return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY +0.30F, (double)z + this.maxZ);
 	    }
+
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta){
+        if(world.getTileEntity(x, y, z) instanceof TileEntityMultiBlock){
+            TileEntityMultiBlock tile = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
+            if(tile.multiBlockStructure != null) {
+                tile.multiBlockStructure.destroy(world);
+            }
+        }
+    }
 }

@@ -66,7 +66,7 @@ public class CookerMultiBlock extends MultiBlockStructure{
         if (sharedData.hasKey("RoastingItem")){
             int ctime = sharedData.getInteger("CookTime");
             if (checkForFire(world))ctime+=1;
-            SALog.error(sharedData);
+            //SALog.error(sharedData);
             SALog.error("Ctime (im cooking): " + ctime);
             if (ctime >= 3000 && ctime < 3900){
                 int amt = MathHelper.getRandomIntegerInRange(new Random(), 1, 3);

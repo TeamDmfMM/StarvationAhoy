@@ -6,7 +6,6 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -67,7 +66,7 @@ public class PacketMultiBlock implements IMessage {
         @SideOnly(Side.CLIENT)
         public IMessage onMessage(PacketMultiBlock message, MessageContext ctx) {
 
-            SALog.error("I got sent :)");
+            //SALog.error("I got sent :)");
             World w = Minecraft.getMinecraft().theWorld;
             if (w.blockExists(message.x, message.y, message.z)){
 
@@ -90,7 +89,7 @@ public class PacketMultiBlock implements IMessage {
                     te.multiBlockStructure.y = message.y;
                     te.multiBlockStructure.z = message.z;
                 te.r = true;
-                    SALog.error("I set some data");
+                    //SALog.error("I set some data");
 
 
             }

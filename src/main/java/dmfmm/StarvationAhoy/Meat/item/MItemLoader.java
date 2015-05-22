@@ -1,13 +1,13 @@
 package dmfmm.StarvationAhoy.Meat.item;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import dmfmm.StarvationAhoy.Core.lib.MeatLib;
+import net.minecraft.item.Item;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
-
-import net.minecraft.item.Item;
-import cpw.mods.fml.common.registry.GameRegistry;
-import dmfmm.StarvationAhoy.Core.lib.MeatLib;
 
 public class MItemLoader {
 private static boolean IRegister=false;  
@@ -15,6 +15,7 @@ private static boolean IRegister=false;
 	public static Item deadCow, deadPig, deadChicken;
 	public static Item skinlessCow, skinlessPig, skinlessChicken;
 	public static Item ButcherKnife, filetKnife;
+    public static Item pigleg;
 
 	public static Map<String, Item> modMeatItems = new HashMap<>();
 	
@@ -27,6 +28,7 @@ private static boolean IRegister=false;
 		skinlessChicken = new SkinnedEntity(MeatLib.iChickenSkinned, "starvationahoy:TEXTURENAME");
 		ButcherKnife = new ButcherKnife().setUnlocalizedName(MeatLib.iButcherKnife);
 		filetKnife = new FiletKnife().setUnlocalizedName(MeatLib.ifiletKnife);
+        pigleg = new StanFood(5, 6.3F).setUnlocalizedName(MeatLib.iPigLeg);
 
 
 		
