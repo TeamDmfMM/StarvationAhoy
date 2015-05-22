@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
+import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.api.Event.MeatCutEvent;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import net.minecraft.block.BlockContainer;
@@ -21,7 +22,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class MeatHanger extends BlockContainer{
 
-	private boolean hasAnimal = false;
+	//private boolean hasAnimal = false;
 	
 	protected MeatHanger() {
 		super(Material.iron);
@@ -77,49 +78,52 @@ public class MeatHanger extends BlockContainer{
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float PlayerXCOORD, float PlayerYCOORD, float PlayerZCOORD) {
     	int ItemType = ((MeatHangerTileEntity) world.getTileEntity(x, y, z)).getMeatType();
     	int state = ((MeatHangerTileEntity) world.getTileEntity(x, y, z)).getMeatState();
-
-    	if(player.inventory.getCurrentItem().getItem() == MItemLoader.ButcherKnife && ItemType != 0 && state == 1){
+		ItemStack temma = player.inventory.getCurrentItem();
+		if(temma != null) {
+			if (temma.getItem() == MItemLoader.ButcherKnife && ItemType != 0 && state == 1){
     						/*IS the player attempting to cut the animal down (when skinned)?*/
-            MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatHanger(world,ItemType, x, y, z));
-            hasAnimal = false;
-            ((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(0);
-			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
-			world.markBlockForUpdate(x, y, z);
-    		return true;
-    	}else if(player.inventory.getCurrentItem().getItem() == MItemLoader.filetKnife && state == 0){
+				MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatHanger(world, ItemType, x, y, z));
+				//hasAnimal = false;
+				((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(0);
+				((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
+				world.markBlockForUpdate(x, y, z);
+				return true;
+			}else if (temma.getItem() == MItemLoader.filetKnife && state == 0) {
     						/*IS the player Attemping to skin the animal?*/
-            MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatSkinned(world, ItemType, x, y, z));
-    		//Set to skinned state
-            ((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(1);
-            world.markBlockForUpdate(x, y, z);
-            return true;
-    	}else if(player.inventory.getCurrentItem().getItem() == MItemLoader.deadChicken || player.inventory.getCurrentItem().getItem() == MItemLoader.deadCow || player.inventory.getCurrentItem().getItem() == MItemLoader.deadPig && ItemType == 0){
+				MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatSkinned(world, ItemType, x, y, z));
+				//Set to skinned state
+				((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(1);
+				world.markBlockForUpdate(x, y, z);
+				return true;
+			} else if (player.inventory.getCurrentItem().getItem() == MItemLoader.deadChicken || player.inventory.getCurrentItem().getItem() == MItemLoader.deadCow || player.inventory.getCurrentItem().getItem() == MItemLoader.deadPig && ItemType == 0) {
     						/*IS the player attempting to add a dead animal to the hooks?*/
-    		
-    		Item item = player.inventory.getCurrentItem().getItem();
-    		hasAnimal = true;
-    		if(item == MItemLoader.deadCow){
-    			--player.inventory.getCurrentItem().stackSize;
-    			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(1);
-    			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
-    			world.markBlockForUpdate(x, y, z);
-    			return true;
-    		} else if(item == MItemLoader.deadPig){
-    			--player.inventory.getCurrentItem().stackSize;
-    			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(2);
-    			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
-    			world.markBlockForUpdate(x, y, z);
-    			return true;
-    		} else if (item == MItemLoader.deadChicken){
-    			--player.inventory.getCurrentItem().stackSize;
-    			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(3);
-    			((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
-    			world.markBlockForUpdate(x, y, z);
-    			return true;
-    		}
-    		
-    	}
-    	return false;
+
+				Item item = player.inventory.getCurrentItem().getItem();
+				//hasAnimal = true;
+				if (item == MItemLoader.deadCow) {
+					--player.inventory.getCurrentItem().stackSize;
+					((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(1);
+					((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
+					world.markBlockForUpdate(x, y, z);
+					return true;
+				} else if (item == MItemLoader.deadPig) {
+					--player.inventory.getCurrentItem().stackSize;
+					((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(2);
+					((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
+					world.markBlockForUpdate(x, y, z);
+					return true;
+				} else if (item == MItemLoader.deadChicken) {
+					--player.inventory.getCurrentItem().stackSize;
+					((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatType(3);
+					((MeatHangerTileEntity) world.getTileEntity(x, y, z)).setMeatState(0);
+					world.markBlockForUpdate(x, y, z);
+					return true;
+				}
+
+			}
+			return false;
+		}
+		return false;
     }
 		
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack Itemstack) {
@@ -131,39 +135,42 @@ public class MeatHanger extends BlockContainer{
     
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
     {
-    	int meta = world.getBlockMetadata(x, y, z);
-    	if(hasAnimal)
-    		return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
-    	else	
-    		if (meta == 2){
-    			return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z + 0.5), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 1)));
-    		} else if (meta == 3){
-    			return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 0.5)));   
-    		} else if (meta == 4){
-    			return AxisAlignedBB.getBoundingBox((double)((float)x + 0.5), (double)y + 0.5, (double)((float)z ), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 1)));   
-    		} else if (meta == 5){
-    			return AxisAlignedBB.getBoundingBox((double)((float)x), (double)y + 0.5, (double)((float)z ), (double)((float)(x + 0.5) ), (double)((float)y + 1), (double)((float)(z + 1)));   
-    		}
-        return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z + 0.5), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 1)));
+		return this.defaultABB(world, x, y, z);
     }
     
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
     {
-    	if(hasAnimal)
-    		return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY, (double)z + this.maxZ);
-    	else{
-        int meta = world.getBlockMetadata(x, y, z);
-        if (meta == 2){
-        	return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z + 0.5), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 1)));
-        } else if (meta == 3){
-        	return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 0.5)));   
-        } else if (meta == 4){
-        	return AxisAlignedBB.getBoundingBox((double)((float)x + 0.5), (double)y + 0.5, (double)((float)z ), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 1)));   
-        } else if (meta == 5){
-        	return AxisAlignedBB.getBoundingBox((double)((float)x), (double)y + 0.5, (double)((float)z ), (double)((float)(x + 0.5) ), (double)((float)y + 1), (double)((float)(z + 1)));   
-        }
-        return AxisAlignedBB.getBoundingBox((double)((float)x ), (double)y + 0.5, (double)((float)z + 0.5), (double)((float)(x + 1) ), (double)((float)y + 1), (double)((float)(z + 1)));
-    	}
-    }
+		return this.defaultABB(world, x, y, z);
+	}
+
+	private AxisAlignedBB defaultABB(World world, int x, int y, int z){
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if(tile instanceof MeatHangerTileEntity) {
+			int Meat = ((MeatHangerTileEntity) tile).getMeatType();
+			if (Meat == ModuleMeat.MEATTYPE_COW) {
+				//FIXME: rendering is off
+				return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY - 2F, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+			} else if (Meat == ModuleMeat.MEATTYPE_PIG) {
+				return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY - 1.2F, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+			} else if (Meat == ModuleMeat.MEATTYPE_CHICK) {
+				return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY - 0.2F, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+			} else {
+				return this.defaultRender(world.getBlockMetadata(x, y, z), x, y, z);
+			}
+		}
+		return this.defaultRender(world.getBlockMetadata(x, y, z), x, y, z);
+	}
+	private AxisAlignedBB defaultRender(int meta, int x, int y, int z){
+		if (meta == 2) {
+			return AxisAlignedBB.getBoundingBox((double) ((float) x), (double) y + 0.5, (double) ((float) z + 0.5), (double) ((float) (x + 1)), (double) ((float) y + 1), (double) ((float) (z + 1)));
+		} else if (meta == 3) {
+			return AxisAlignedBB.getBoundingBox((double) ((float) x), (double) y + 0.5, (double) ((float) z), (double) ((float) (x + 1)), (double) ((float) y + 1), (double) ((float) (z + 0.5)));
+		} else if (meta == 4) {
+			return AxisAlignedBB.getBoundingBox((double) ((float) x + 0.5), (double) y + 0.5, (double) ((float) z), (double) ((float) (x + 1)), (double) ((float) y + 1), (double) ((float) (z + 1)));
+		} else if (meta == 5) {
+			return AxisAlignedBB.getBoundingBox((double) ((float) x), (double) y + 0.5, (double) ((float) z), (double) ((float) (x + 0.5)), (double) ((float) y + 1), (double) ((float) (z + 1)));
+		}
+	return AxisAlignedBB.getBoundingBox((double) ((float) x), (double) y + 0.5, (double) ((float) z + 0.5), (double) ((float) (x + 1)), (double) ((float) y + 1), (double) ((float) (z + 1)));
+	}
 }
