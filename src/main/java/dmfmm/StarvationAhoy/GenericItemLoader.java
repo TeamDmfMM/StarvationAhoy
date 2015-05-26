@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Map;
 public class GenericItemLoader {
 
 
-    public Map<String, Item> items;
+    public Map<String, Item> items = new HashMap<>();
 
     public void addItem(String name, Class<? extends Item> item){
         try {

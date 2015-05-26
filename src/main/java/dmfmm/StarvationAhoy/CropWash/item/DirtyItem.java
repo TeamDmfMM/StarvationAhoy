@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.CropWash.item;
 
+import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -32,7 +33,7 @@ public class DirtyItem extends Item {
 
     public static ItemStack createDirtyItem(ItemStack original){
 
-        ItemStack dirty = new ItemStack(, original.stackSize);
+        ItemStack dirty = new ItemStack(ModuleCropWash.cropItemLoader.items.get("dirty_item"), original.stackSize);
         dirty.stackTagCompound.setTag("Original", original.writeToNBT(new NBTTagCompound()));
         return dirty;
 

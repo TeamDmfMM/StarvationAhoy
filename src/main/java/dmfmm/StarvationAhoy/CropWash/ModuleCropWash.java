@@ -9,7 +9,7 @@ import dmfmm.StarvationAhoy.CropWash.item.CropItemLoader;
  */
 public class ModuleCropWash {
 
-    CropItemLoader cropItemLoader;
+    public static CropItemLoader cropItemLoader;
 
 
     public void preinit(){
