@@ -4,6 +4,7 @@ import dmfmm.StarvationAhoy.Meat.Events.Event_KillAnimal;
 import dmfmm.StarvationAhoy.Meat.Events.event_meatCutHanger;
 import dmfmm.StarvationAhoy.Meat.Events.event_meatCutRoaster;
 import dmfmm.StarvationAhoy.Meat.Events.event_meatSkinned;
+import dmfmm.StarvationAhoy.StarvationAhoy;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.VillagerRegistry;
@@ -40,6 +41,7 @@ public class ModuleMeat {
         MinecraftForge.EVENT_BUS.register(new event_meatSkinned());
         MinecraftForge.EVENT_BUS.register(new event_meatCutHanger());
         MinecraftForge.EVENT_BUS.register(new event_meatCutRoaster());
+        StarvationAhoy.proxy.registerMeatTypes();
 
 
 		

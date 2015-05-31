@@ -52,7 +52,7 @@ public class MeatHanger extends BlockContainer{
     
     //This is the icon to use for showing the block in your hand.
     public void registerBlockIcons(IIconRegister icon) {
-            //this.blockIcon = icon.registerIcon("extrafood:Zycrafted");
+            this.blockIcon = icon.registerIcon("starvationahoy:MeatHookItem");
     }
     
     private void setDefaultDirection(World world, int x, int y, int z, EntityLivingBase entity) {
@@ -150,11 +150,11 @@ public class MeatHanger extends BlockContainer{
 			int Meat = ((MeatHangerTileEntity) tile).getMeatType();
 			if (Meat == ModuleMeat.MEATTYPE_COW) {
 				//FIXME: rendering is off
-				return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY - 2F, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+				return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY - 1.6F, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
 			} else if (Meat == ModuleMeat.MEATTYPE_PIG) {
 				return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY - 1.2F, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
 			} else if (Meat == ModuleMeat.MEATTYPE_CHICK) {
-				return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY - 0.2F, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+				return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY - 0.3F, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
 			} else {
 				return this.defaultRender(world.getBlockMetadata(x, y, z), x, y, z);
 			}

@@ -18,23 +18,28 @@ public class ServerProxy extends CommonProxy{
 
 	@Override
 	public void registerRenderers() {
-		// TODO Auto-generated method stub
-		MeatType meatType = new MeatType(1);
-		meatType.doDeadEntity(EntityCow.class, MItemLoader.deadCow, Items.leather, Items.cooked_beef, MItemLoader.skinlessCow);
-		meatType.doMeatType(null, "starvationahoy:textures/null.png", "starvationahoy:textures/null.png", "starvationahoy:textures/null.png");
-		ModuleMeat.registry.addMeatType(meatType);
+		// NO-OP
 
-
-		meatType = new MeatType(2);
-		meatType.doDeadEntity(EntityPig.class, MItemLoader.deadPig, null, Items.cooked_porkchop, MItemLoader.skinlessPig);
-		meatType.doMeatType(null, "starvationahoy:textures/null.png", "starvationahoy:textures/null.png", "starvationahoy:textures/null.png");
-		ModuleMeat.registry.addMeatType(meatType);
-
-		meatType = new MeatType(3);
-		meatType.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, Items.feather, Items.cooked_chicken,  MItemLoader.skinlessChicken);
-		meatType.doMeatType(null, "starvationahoy:textures/null.png", "starvationahoy:textures/null.png", "starvationahoy:textures/null.png");
-		ModuleMeat.registry.addMeatType(meatType);
 	}
+
+    @Override
+    public void registerMeatTypes(){
+        MeatType meatType = new MeatType(1);
+        meatType.doDeadEntity(EntityCow.class, MItemLoader.deadCow, Items.leather, Items.cooked_beef, MItemLoader.skinlessCow);
+        meatType.doMeatType(null, "starvationahoy:textures/null.png", "starvationahoy:textures/null.png", "starvationahoy:textures/null.png");
+        ModuleMeat.registry.addMeatType(meatType);
+
+
+        meatType = new MeatType(2);
+        meatType.doDeadEntity(EntityPig.class, MItemLoader.deadPig, null, Items.cooked_porkchop, MItemLoader.skinlessPig);
+        meatType.doMeatType(null, "starvationahoy:textures/null.png", "starvationahoy:textures/null.png", "starvationahoy:textures/null.png");
+        ModuleMeat.registry.addMeatType(meatType);
+
+        meatType = new MeatType(3);
+        meatType.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, Items.feather, Items.cooked_chicken,  MItemLoader.skinlessChicken);
+        meatType.doMeatType(null, "starvationahoy:textures/null.png", "starvationahoy:textures/null.png", "starvationahoy:textures/null.png");
+        ModuleMeat.registry.addMeatType(meatType);
+    }
 
 
 

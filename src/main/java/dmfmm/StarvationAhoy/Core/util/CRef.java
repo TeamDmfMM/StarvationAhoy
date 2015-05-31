@@ -11,4 +11,5 @@ public class CRef {
 	public static int getFoodPrecent(){
 		return ConfigHandler.foodPrecentage;
 	}
+    public static boolean useMeatOverride() {return ConfigHandler.overrideMeat;}
 }

@@ -48,7 +48,7 @@ public class HoldingStick extends BlockContainer{
 	    
 	    //This is the icon to use for showing the block in your hand.
 	    public void registerBlockIcons(IIconRegister icon) {
-	            //this.blockIcon = icon.registerIcon("extrafood:Zycrafted");
+	            this.blockIcon = icon.registerIcon("starvationahoy:SpitRoastItem");
 	    }
 	    
 	    private void setDefaultDirection(World world, int x, int y, int z, EntityLivingBase entity) {
