@@ -16,7 +16,7 @@ public class MBlockLoader {
 	public static void initiateBlocks() {
 		MeatHanger = new MeatHanger().setBlockName(MeatLib.bMeatHanger);
 		HoldingStick = new HoldingStick().setBlockName(MeatLib.Hold_Stick);
-		Cooker = new Cooker().setBlockName("DEV__1__cookerz");
+		Cooker = new Cooker().setBlockName("DEV__1__cooker");
 		
 		
 		registerBlocks();

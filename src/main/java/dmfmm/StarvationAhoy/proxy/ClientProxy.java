@@ -1,17 +1,13 @@
 package dmfmm.StarvationAhoy.proxy;
 
+import dmfmm.StarvationAhoy.Client.Renderer.*;
+import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.init.Items;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
-import dmfmm.StarvationAhoy.Client.Renderer.HoldingStickRenderer;
-import dmfmm.StarvationAhoy.Client.Renderer.MeatHangerRenderer;
-import dmfmm.StarvationAhoy.Client.Renderer.ModelChickenSA;
-import dmfmm.StarvationAhoy.Client.Renderer.ModelCowSA;
-import dmfmm.StarvationAhoy.Client.Renderer.ModelPigSA;
-import dmfmm.StarvationAhoy.Client.Renderer.PigItemRenderer;
 import dmfmm.StarvationAhoy.Meat.MeatType;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
@@ -27,8 +23,10 @@ public class ClientProxy extends CommonProxy{
 	}
 	public void registerRenderers(){
 		ClientRegistry.bindTileEntitySpecialRenderer(MeatHangerTileEntity.class, new MeatHangerRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCropWasher.class, new WashBarrelRenderer());
 		MinecraftForgeClient.registerItemRenderer(MItemLoader.deadPig, new PigItemRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(HoldingStickTileEntity.class, new HoldingStickRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCropWasher.class, new WashBarrelRenderer());
 		
 		MeatType mt = new MeatType(1);
 		mt.doMeatType(new ModelCowSA(), "minecraft:textures/entity/cow/cow.png", "starvationahoy:textures/entity/skinnedCow.png", "starvationahoy:textures/entity/rottenCow.png");

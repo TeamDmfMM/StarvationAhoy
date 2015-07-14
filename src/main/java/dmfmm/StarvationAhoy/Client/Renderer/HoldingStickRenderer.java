@@ -3,6 +3,7 @@ package dmfmm.StarvationAhoy.Client.Renderer;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import dmfmm.StarvationAhoy.Meat.MeatRegistry;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
+import dmfmm.StarvationAhoy.api.Meat.ISpitRoastRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -11,8 +12,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
+
+import java.lang.reflect.Method;
 
 public class HoldingStickRenderer extends TileEntitySpecialRenderer{
     
@@ -261,6 +263,49 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                                 GL11.glRotatef(180F, 0, 1, 0);
                                 GL11.glTranslatef(0, -2.3F, 0.2F);
                                 GL11.glDisable(GL11.GL_CULL_FACE);
+
+
+                                boolean hasSpecialRender = false;
+
+                                for (Class c : ModuleMeat.registry.getMeatTypeForId(meatType).entity.getInterfaces()){
+
+                                    if (c == ISpitRoastRender.class){
+                                        hasSpecialRender = true;
+                                    }
+
+                                }
+
+                                if (hasSpecialRender){
+
+                                    Class t = ModuleMeat.registry.getMeatTypeForId(meatType).entity;
+                                    try {
+                                        Method changeModel = t.getMethod("updateExistingModel", ModelBase.class);
+                                        Method translation = t.getMethod("getTranslations");
+
+
+
+
+                                    } catch (NoSuchMethodException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+
+
+
+                                GL11.glTranslatef(xoffset+0, yoffset-1F, zoffset+-1.6F);
+                                rangle = desync;
+                                radians = (float) Math.toRadians(rangle);
+                                GL11.glTranslatef(0, -0.2f,0);
+
+                                ztrans = (float) (Math.sin(radians));
+                                ytrans = (float) (Math.cos(radians));
+                                GL11.glTranslatef(ztrans, -ytrans, 0);
+                                GL11.glRotatef(rangle, 0, 0, 1);
+                                GL11.glTranslatef(0, 0.2f,0);
+                                GL11.glRotatef(0F, 1, 0, 0);
+
+
                                 toDraw.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
                             }
                             // ================================ End ============================================
