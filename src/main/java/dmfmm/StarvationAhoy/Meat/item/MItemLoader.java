@@ -20,12 +20,12 @@ private static boolean IRegister=false;
 	public static Map<String, Item> modMeatItems = new HashMap<>();
 	
 	public static void initiateItems() {
-		deadCow = new DeadEntity(MeatLib.iCowDead, "starvationahoy:TEXTURENAME");
-		deadPig = new DeadEntity(MeatLib.iPigDead, "starvationahoy:TEXTURENAME");
-		deadChicken = new DeadEntity(MeatLib.iChickenDead, "starvationahoy:TEXTURENAME");
-		skinlessCow = new SkinnedEntity(MeatLib.iCowSkinned, "starvationahoy:TEXTURENAME");
-		skinlessPig = new SkinnedEntity(MeatLib.iPigSkinned, "starvationahoy:TEXTURENAME");
-		skinlessChicken = new SkinnedEntity(MeatLib.iChickenSkinned, "starvationahoy:TEXTURENAME");
+		deadCow = new DeadEntity(MeatLib.iCowDead);
+		deadPig = new DeadEntity(MeatLib.iPigDead);
+		deadChicken = new DeadEntity(MeatLib.iChickenDead);
+		skinlessCow = new SkinnedEntity(MeatLib.iCowSkinned);
+		skinlessPig = new SkinnedEntity(MeatLib.iPigSkinned);
+		skinlessChicken = new SkinnedEntity(MeatLib.iChickenSkinned);
 		ButcherKnife = new ButcherKnife().setUnlocalizedName(MeatLib.iButcherKnife);
 		filetKnife = new FiletKnife().setUnlocalizedName(MeatLib.ifiletKnife);
         pigleg = new StanFood(5, 6.3F).setUnlocalizedName(MeatLib.iPigLeg);

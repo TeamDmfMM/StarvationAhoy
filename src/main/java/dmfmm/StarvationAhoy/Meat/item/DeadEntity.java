@@ -5,10 +5,10 @@ import net.minecraft.item.Item;
 
 public class DeadEntity extends Item{
 	
-		public DeadEntity(String name, String texture){
+		public DeadEntity(String name){
 			super();
 			this.setUnlocalizedName(name);
-			this.setTextureName(texture);
+			//this.setTextureName(texture);
 			this.setCreativeTab(SATabs.INSTANCE);
 		}
 

@@ -1,6 +1,7 @@
 package dmfmm.StarvationAhoy.proxy;
 
 import dmfmm.StarvationAhoy.Client.Renderer.*;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
@@ -50,6 +51,18 @@ public class ClientProxy extends CommonProxy{
         mt.doMeatType(new ModelChickenSA(), "minecraft:textures/entity/chicken.png", "starvationahoy:textures/entity/skinnedChicken.png", "starvationahoy:textures/entity/rottenChicken.png");
         mt.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, Items.feather, Items.cooked_chicken, MItemLoader.skinlessChicken);
         ModuleMeat.registry.addMeatType(mt);
+    }
+
+    @Override
+    public ModelBiped getArmorModel(int type) {
+        switch(type){
+            case 0:
+                return null;
+            case 1:
+                return new HTArmor();
+            default:
+                return null;
+        }
     }
 
 

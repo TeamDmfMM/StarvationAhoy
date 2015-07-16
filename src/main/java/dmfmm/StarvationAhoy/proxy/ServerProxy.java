@@ -3,6 +3,7 @@ package dmfmm.StarvationAhoy.proxy;
 import dmfmm.StarvationAhoy.Meat.MeatType;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
@@ -41,6 +42,10 @@ public class ServerProxy extends CommonProxy{
         ModuleMeat.registry.addMeatType(meatType);
     }
 
+    @Override
+    public ModelBiped getArmorModel(int type) {
+        return null;
+    }
 
 
 }

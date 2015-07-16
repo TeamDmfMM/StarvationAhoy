@@ -5,10 +5,10 @@ import net.minecraft.item.Item;
 
 public class SkinnedEntity extends Item{
 	
-	public SkinnedEntity(String name, String texture){
+	public SkinnedEntity(String name){
 		super();
 		this.setUnlocalizedName(name);
-		this.setTextureName(texture);
+		//this.setTextureName(texture);
 		this.setCreativeTab(SATabs.INSTANCE);
 	}
 }
