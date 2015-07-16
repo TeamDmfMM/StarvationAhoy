@@ -65,7 +65,7 @@ public class PlayerInstanceHolder {
         UUID tingy = player.getGameProfile().getId();
 
         DietaryHistory diet = new DietaryHistory(playername, tingy);
-        Diet d = new Diet(playername, tingy);
+        Diet d = new Diet(playername, tingy, player.getEntityWorld().rand);
 
         dietaryHistoryMap.put(playername, diet);
         dietMap.put(playername, d);
