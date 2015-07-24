@@ -17,7 +17,10 @@ public class FoodStatRegistry {
     public static FoodStatRegistry instance = new FoodStatRegistry();
 
     public FoodStatRegistry() {
-        registry.put(Items.apple, createnew(0, 4, 25, 3));
+        registry.put(Items.apple, createnew(0.05f, 4.3f, 25, 3.28f));
+        registry.put(Items.cooked_beef, createnew(4.9f, 0.02f, 60, 0.59f));
+        registry.put(Items.baked_potato, createnew(0.05f, 4.45f, 35, 1.02f));
+        registry.put(Items.cooked_chicken, createnew(3.9f, 0.04f, 50, 0.67f));
     }
 
 

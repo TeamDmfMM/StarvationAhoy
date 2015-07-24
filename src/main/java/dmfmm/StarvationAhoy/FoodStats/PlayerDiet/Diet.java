@@ -138,14 +138,14 @@ public class Diet {
             dif = (float) -((0.0009 * Math.pow((calories - 1200), 2)) + 10);
         }
 
-        System.out.println(dif);
+
 
         weight += dif;
 
         dif = 0;
         dif = (float) (0.0004 * (Math.pow(fat, 2)));
 
-        System.out.println(dif);
+
 
         weight += dif;
 
@@ -172,16 +172,24 @@ public class Diet {
     }
 
     public void calculateNutrient(){
-        float nut2min = ((20f / 100f) * nutrient1);
-        float nut1min = ((20f / 100f) * nutrient2);
+        float nut2min = ((40f / 100f) * nutrient1);
+        float nut1min = ((40f / 100f) * nutrient2);
+        float nut2minhar = ((10f / 100f) * nutrient1);
+        float nut1minhar = ((10f / 100f) * nutrient2);
         ArrayList<Float> vals = new ArrayList<>();
 
         if (nutrient1 < nut1min){
             vals.add(nutrient1);
         }
+        if (nutrient1 < nut1minhar){
+            vals.add(nutrient1);
+        }
         vals.add(nutrient1);
 
         if (nutrient2 < nut2min){
+            vals.add(nutrient2);
+        }
+        if (nutrient2 < nut2minhar){
             vals.add(nutrient2);
         }
         vals.add(nutrient2);

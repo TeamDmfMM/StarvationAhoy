@@ -89,6 +89,7 @@ public class StarvationAhoy {
 		ModuleFoodStats.init();
 		ModuleLoad.loadModules();
 		proxy.registerRenderers();
+		proxy.registerKeyBindings();
 
 
     }

@@ -2,6 +2,7 @@ package dmfmm.StarvationAhoy.proxy;
 
 import dmfmm.StarvationAhoy.Client.Renderer.*;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
@@ -13,13 +14,19 @@ import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
+import org.lwjgl.input.Keyboard;
 
 
 public class ClientProxy extends CommonProxy{
 
+
+
 	@Override
 	public void registerKeyBindings() {
-		
+
+		debugKey = new KeyBinding("starvationahoy.key.dietdebug.desc", Keyboard.KEY_F4, "starvationahoy.key.category");
+		ClientRegistry.registerKeyBinding(debugKey);
+
 	}
 	public void registerRenderers(){
 		ClientRegistry.bindTileEntitySpecialRenderer(MeatHangerTileEntity.class, new MeatHangerRenderer());
