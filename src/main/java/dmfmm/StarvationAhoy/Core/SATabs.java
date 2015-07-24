@@ -16,7 +16,7 @@ public class SATabs extends CreativeTabs {
 
 
 	@Override
-	public Item getTabIconItem() {//HI
+	public Item getTabIconItem() {//H
 		// TODO Auto-generated method stub
 		return Item.getItemFromBlock(MBlockLoader.MeatHanger);
 	}
