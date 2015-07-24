@@ -15,7 +15,7 @@ private static boolean IRegister=false;
 	public static Item deadCow, deadPig, deadChicken;
 	public static Item skinlessCow, skinlessPig, skinlessChicken;
 	public static Item ButcherKnife, filetKnife;
-    public static Item pigleg;
+    public static Item pigleg, cookedpigleg;
 
 	public static Map<String, Item> modMeatItems = new HashMap<>();
 	
@@ -29,6 +29,7 @@ private static boolean IRegister=false;
 		ButcherKnife = new ButcherKnife().setUnlocalizedName(MeatLib.iButcherKnife);
 		filetKnife = new FiletKnife().setUnlocalizedName(MeatLib.ifiletKnife);
         pigleg = new StanFood(5, 6.3F).setUnlocalizedName(MeatLib.iPigLeg);
+		cookedpigleg = new StanFood(8, 5.7F).setUnlocalizedName(MeatLib.iCookedPigLeg);
 
 
 		
@@ -45,7 +46,6 @@ private static boolean IRegister=false;
 						try {
 							toRegister = item.get(null);
 						} catch (IllegalArgumentException | IllegalAccessException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 							continue;
 						}

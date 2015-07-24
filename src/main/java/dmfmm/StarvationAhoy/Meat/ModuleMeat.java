@@ -43,6 +43,7 @@ public class ModuleMeat {
         MinecraftForge.EVENT_BUS.register(new event_meatCutRoaster());
         StarvationAhoy.proxy.registerMeatTypes();
 
+		MeatRecipieHandler.registerCraftingRecipies();
 
 		
 	}

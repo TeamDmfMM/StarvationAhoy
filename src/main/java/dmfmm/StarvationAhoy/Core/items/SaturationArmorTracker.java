@@ -5,13 +5,17 @@ import cpw.mods.fml.relauncher.SideOnly;
 import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.StarvationAhoy;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import org.lwjgl.opengl.GL11;
 
 public class SaturationArmorTracker extends ItemArmor{
+
 
 	public SaturationArmorTracker(ArmorMaterial material, int type, String name) {
 		super(material, 0, type);
@@ -19,24 +23,48 @@ public class SaturationArmorTracker extends ItemArmor{
 		this.setTextureName("StarvationAhoy:stats_" + type);
 		this.setUnlocalizedName(name);
 	}
-	
-	/*public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
-	{
-		return "StarvationAhoy:textures/armor/stats_1" + ".png";
+
+/*	@SideOnly(Side.CLIENT)
+	public void registerIcons(IIconRegister regit){
+		super.registerIcons(regit);
+		itemIcon = regit.registerIcon("starvationahoy:statHelmet");
+		chest = regit.registerIcon("starvationahoy:statChestplate");
 	}*/
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		if(stack.getItem().equals(ItemLoad.stat_helm)){
-			return "starvationahoy:textures/armor/helm";
+			return "starvationahoy:textures/armor/stats_1.png";
 		}else{
 			return "starvationahoy:textures/armor/body.png";
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
+	public boolean requiresMultipleRenderPasses()
+	{
+		return false;
+	}
+	@SideOnly(Side.CLIENT)
+	public IIcon getIconFromDamageForRenderPass(int p_77618_1_, int p_77618_2_)
+	{
+		return this.getIconFromDamage(p_77618_1_);
+	}
+
+/*	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(ItemStack stack, int renderPass){
+		if(stack.getItem().equals(ItemLoad.stat_helm)){
+			return helm;
+		} else{
+			return chest;
+		}
+	}*/
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack stack, int armorSlot) {
+		GL11.glEnable(GL11.GL_BLEND);
 		ModelBiped armorModel = null;
 		if(stack != null){
 			if(stack.getItem() instanceof SaturationArmorTracker){
@@ -44,7 +72,8 @@ public class SaturationArmorTracker extends ItemArmor{
 				if(type == 1 || type == 3){
 					armorModel = StarvationAhoy.proxy.getArmorModel(1);
 				}else{
-					armorModel = StarvationAhoy.proxy.getArmorModel(0); }
+					armorModel = null;
+				}
 			}
 			if(armorModel != null){
 				armorModel.bipedHead.showModel = armorSlot == 0;
@@ -61,6 +90,7 @@ public class SaturationArmorTracker extends ItemArmor{
 				if(entityLiving instanceof EntityPlayer){
 					armorModel.aimedBow =((EntityPlayer)entityLiving).getItemInUseDuration() > 2;
 				}
+				GL11.glDisable(GL11.GL_BLEND);
 				return armorModel;
 			}
 		}

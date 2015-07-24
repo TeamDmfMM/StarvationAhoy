@@ -61,8 +61,7 @@ public class StarvationAhoy {
         if(CRef.useMeatOverride()){ModuleMeat.preinit(event.getSide());}
 		MultiBlockChannel = NetworkRegistry.INSTANCE.newSimpleChannel(ModInfo.MOD_ID);
 		MultiBlockChannel.registerMessage(PacketMultiBlock.Handler.class, PacketMultiBlock.class, 0, Side.CLIENT);
-        //MultiBlockChannel.registerMessage(ClientGetExhaustPacket.Handler.class, ClientGetExhaustPacket.class, 1, Side.CLIENT);
-        //MultiBlockChannel.registerMessage(ServerGetExhaustPacket.Handler.class, ServerGetExhaustPacket.class, 2, Side.SERVER);
+
 
 		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
 		if(event.getSide() == Side.CLIENT){
