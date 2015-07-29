@@ -8,7 +8,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 /**
- * Created by Matthew on 2/7/2015.
+ * Created by mincrmatt12. Do not copy this or you will have to face
+ * our legal team. (dmf444)
  */
 public abstract class TileEntityMultiBlock extends TileEntity{
 
@@ -77,8 +78,8 @@ public abstract class TileEntityMultiBlock extends TileEntity{
             multiBlockStructure.orient = nbtTagCompound.getInteger("MultiBlockOrient");
 
 
-                //SALog.error("I think i should send something");
-                StarvationAhoy.MultiBlockChannel.sendToAll(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z));
+                SALog.error("I think i should send something");
+               // StarvationAhoy.MultiBlockChannel.sendToAll(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z));
 
         }
         catch (NullPointerException e){

@@ -1,19 +1,19 @@
 package dmfmm.StarvationAhoy.FoodEdit.EventHandler;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownEffects;
+import dmfmm.StarvationAhoy.FoodStats.PlayerInstanceHolder;
+import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownEffects;
-import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 	public class FoodEatenResult
 	{	
@@ -67,6 +67,8 @@ import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 		public void onFinish(PlayerUseItemEvent e){
 			if (e.item != null)
 	        {
+				PlayerInstanceHolder.instance.playerEatFood(e.entityPlayer, e.item.getItem());
+
 	            //this.updateItemUse(e.item, 16);
 				Random rand = new Random();
 	            int i = e.item.stackSize;

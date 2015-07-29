@@ -15,7 +15,8 @@ import net.minecraft.item.ItemStack;
 import java.io.*;
 
 /**
- * Created by Matthew on 3/19/2015.
+ * Created by mincrmatt12. Do not copy this or you will have to face
+ * our legal team. (dmf444)
  */
 public class FoodChanger {
 
