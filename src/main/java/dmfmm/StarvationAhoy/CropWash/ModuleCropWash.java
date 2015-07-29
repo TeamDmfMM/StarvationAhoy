@@ -3,6 +3,7 @@ package dmfmm.StarvationAhoy.CropWash;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
+import dmfmm.StarvationAhoy.Core.util.CRef;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.CropWash.Block.BlockCropWasher;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
@@ -29,11 +30,20 @@ public class ModuleCropWash {
     public static DirtyBlocks d;
 
     public static void preinit() {
+
+        if (CRef.useCropwash() == false){
+            return;
+        }
+
         cropItemLoader = new CropItemLoader();
         blockCropWasher = new BlockCropWasher();
     }
 
     public static void init(Side side) {
+
+        if (CRef.useCropwash() == false){
+            return;
+        }
 
         cropItemLoader.load();
         MinecraftForge.EVENT_BUS.register(new Events_CropWash());
@@ -48,6 +58,11 @@ public class ModuleCropWash {
 
 
     public static void imc(FMLInterModComms.IMCMessage message) {
+
+        if (CRef.useCropwash() == false){
+            return;
+        }
+
         if (message.key.equalsIgnoreCase("cropwash-add-replace")) {
             if (message.isNBTMessage()) {
                 NBTTagCompound tag = message.getNBTValue();

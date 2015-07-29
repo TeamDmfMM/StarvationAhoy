@@ -1,24 +1,35 @@
 package dmfmm.StarvationAhoy.proxy;
 
+import cpw.mods.fml.client.registry.ClientRegistry;
 import dmfmm.StarvationAhoy.Client.Renderer.*;
-import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
+import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
+import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
+import dmfmm.StarvationAhoy.Meat.MeatType;
+import dmfmm.StarvationAhoy.Meat.ModuleMeat;
+import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.init.Items;
 import net.minecraftforge.client.MinecraftForgeClient;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import dmfmm.StarvationAhoy.Meat.MeatType;
-import dmfmm.StarvationAhoy.Meat.ModuleMeat;
-import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
-import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
-import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import org.lwjgl.input.Keyboard;
 
 
 public class ClientProxy extends CommonProxy{
 
+    @Override
+    public ModelBiped getArmorModel(int type) {
+        switch(type){
+            case 0:
+                return null;
+            case 1:
+                return new HTArmor();
+            default:
+                return null;
+        }
+    }
 
 
 	@Override
@@ -29,12 +40,21 @@ public class ClientProxy extends CommonProxy{
 
 	}
 	public void registerRenderers(){
-		ClientRegistry.bindTileEntitySpecialRenderer(MeatHangerTileEntity.class, new MeatHangerRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCropWasher.class, new WashBarrelRenderer());
-		MinecraftForgeClient.registerItemRenderer(MItemLoader.deadPig, new PigItemRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(HoldingStickTileEntity.class, new HoldingStickRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCropWasher.class, new WashBarrelRenderer());
-		
+        //Blocks
+        ClientRegistry.bindTileEntitySpecialRenderer(MeatHangerTileEntity.class, new MeatHangerRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(HoldingStickTileEntity.class, new HoldingStickRenderer());
+        //Cow Items
+        MinecraftForgeClient.registerItemRenderer(MItemLoader.deadPig, new QuadrupedItemRenderer(new ModelPigSA(), "minecraft:textures/entity/pig/pig.png"));
+        MinecraftForgeClient.registerItemRenderer(MItemLoader.skinlessPig, new QuadrupedItemRenderer(new ModelPigSA(), "starvationahoy:textures/entity/skinnedPig.png"));
+        //Pig Items
+        MinecraftForgeClient.registerItemRenderer(MItemLoader.deadCow, new QuadrupedItemRenderer(new ModelCowSA(), "minecraft:textures/entity/cow/cow.png"));
+        MinecraftForgeClient.registerItemRenderer(MItemLoader.skinlessCow, new QuadrupedItemRenderer(new ModelCowSA(), "starvationahoy:textures/entity/skinnedCow.png"));
+        //Chicken Items
+        MinecraftForgeClient.registerItemRenderer(MItemLoader.deadChicken, new BipedItemRenderer(new ModelChickenSA(), "minecraft:textures/entity/chicken.png"));
+        MinecraftForgeClient.registerItemRenderer(MItemLoader.skinlessChicken, new BipedItemRenderer(new ModelChickenSA(), "starvationahoy:textures/entity/skinnedChicken.png"));}
+
+    public void registerMeatTypes(){
+
 		MeatType mt = new MeatType(1);
 		mt.doMeatType(new ModelCowSA(), "minecraft:textures/entity/cow/cow.png", "starvationahoy:textures/entity/skinnedCow.png", "starvationahoy:textures/entity/rottenCow.png");
 		mt.doDeadEntity(EntityCow.class, MItemLoader.deadCow, Items.leather, Items.cooked_beef, MItemLoader.skinlessCow);

@@ -23,7 +23,7 @@ public class ServerProxy extends CommonProxy{
 
 	}
 
-    @Override
+
     public void registerMeatTypes(){
         MeatType meatType = new MeatType(1);
         meatType.doDeadEntity(EntityCow.class, MItemLoader.deadCow, Items.leather, Items.cooked_beef, MItemLoader.skinlessCow);
@@ -42,7 +42,7 @@ public class ServerProxy extends CommonProxy{
         ModuleMeat.registry.addMeatType(meatType);
     }
 
-    @Override
+
     public ModelBiped getArmorModel(int type) {
         return null;
     }

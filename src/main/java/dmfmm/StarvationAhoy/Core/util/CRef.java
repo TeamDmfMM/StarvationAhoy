@@ -12,4 +12,5 @@ public class CRef {
 		return ConfigHandler.foodPrecentage;
 	}
     public static boolean useMeatOverride() {return ConfigHandler.overrideMeat;}
+	public static boolean useCropwash() {return ConfigHandler.overrideMeat;}
 }
