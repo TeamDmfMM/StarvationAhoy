@@ -21,7 +21,6 @@ import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
 import dmfmm.StarvationAhoy.FoodEdit.EventHandler.FoodEatenResult;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
-import dmfmm.StarvationAhoy.FoodStats.ModuleFoodStats;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry;
@@ -86,7 +85,7 @@ public class StarvationAhoy {
 		ItemLoad.registerItems();
 		ModuleCropWash.init(event.getSide());
 		ModuleMeat.init();
-		ModuleFoodStats.init();
+		//ModuleFoodStats.init();
 		ModuleLoad.loadModules();
 		proxy.registerRenderers();
 		proxy.registerKeyBindings();
@@ -103,12 +102,12 @@ public class StarvationAhoy {
 	public void serverLoad(FMLServerStartingEvent event)
 	{
 	  event.registerServerCommand(new FoodModifyCommand());
-		ModuleFoodStats.serverStart();
+		//ModuleFoodStats.serverStart();
 	}
 
 	@EventHandler
 	public void serverStop(FMLServerStoppingEvent event){
 		System.out.println("dfasdfasd");
-		ModuleFoodStats.serverStop();
+		//ModuleFoodStats.serverStop();
 	}
 }
