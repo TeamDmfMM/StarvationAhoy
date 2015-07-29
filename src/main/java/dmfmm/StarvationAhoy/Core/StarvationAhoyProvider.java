@@ -47,8 +47,8 @@ public class StarvationAhoyProvider implements IStarvationAhoyProvider {
 	public void registerDeadEntity(int id, Class<? extends EntityLiving> entity, Item dead, Item skinned) {
 		if (ModuleMeat.registry.constructedMeatTypeExists(id) == false){
 
-			DeadEntity newDeadEntity = new DeadEntity("externalmod_meat_" + id + "_deaditem", "starvationahoy:placeholder_meat_texture");
-			SkinnedEntity newSkinnedEntity = new SkinnedEntity("externalmod_skin_" + id + "_deaditem", "starvationahoy:placeholder_skin_texture");
+			DeadEntity newDeadEntity = new DeadEntity("externalmod_meat_" + id + "_deaditem");
+			SkinnedEntity newSkinnedEntity = new SkinnedEntity("externalmod_skin_" + id + "_deaditem");
 			MItemLoader.modMeatItems.put("externalmod_meat_" + id + "_deaditem", newDeadEntity);
 
 		}

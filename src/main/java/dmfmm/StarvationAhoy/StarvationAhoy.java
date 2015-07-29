@@ -18,6 +18,7 @@ import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
 import dmfmm.StarvationAhoy.Core.StarvationAhoyProvider;
 import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import dmfmm.StarvationAhoy.Core.lib.ModInfo;
+import dmfmm.StarvationAhoy.Core.util.CRef;
 import dmfmm.StarvationAhoy.Core.util.ConfigHandler;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.FoodEdit.EventHandler.FoodEatenResult;
@@ -57,11 +58,10 @@ public class StarvationAhoy {
 		FMLCommonHandler.instance().bus().register(new event_configChange());
 		
 		ItemLoad.initItems();
-		ModuleMeat.preinit(event.getSide());
+        if(CRef.useMeatOverride()){ModuleMeat.preinit(event.getSide());}
 		MultiBlockChannel = NetworkRegistry.INSTANCE.newSimpleChannel(ModInfo.MOD_ID);
 		MultiBlockChannel.registerMessage(PacketMultiBlock.Handler.class, PacketMultiBlock.class, 0, Side.CLIENT);
-        //MultiBlockChannel.registerMessage(ClientGetExhaustPacket.Handler.class, ClientGetExhaustPacket.class, 1, Side.CLIENT);
-        //MultiBlockChannel.registerMessage(ServerGetExhaustPacket.Handler.class, ServerGetExhaustPacket.class, 2, Side.SERVER);
+
 
 		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
 		if(event.getSide() == Side.CLIENT){
@@ -72,7 +72,7 @@ public class StarvationAhoy {
 	@EventHandler
 	public void load(FMLInitializationEvent event){
 		ItemLoad.registerItems();
-		ModuleMeat.init();
+        if(CRef.useMeatOverride()){ModuleMeat.init();}
 		ModuleLoad.loadModules();
 		proxy.registerRenderers();
 		
@@ -80,7 +80,7 @@ public class StarvationAhoy {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
-		
+        if(CRef.useMeatOverride()){ModuleMeat.postinit();}
 	}
 	
 	@EventHandler

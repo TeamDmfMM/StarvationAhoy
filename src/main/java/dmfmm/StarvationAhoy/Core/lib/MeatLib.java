@@ -11,7 +11,9 @@ public class MeatLib {
 	public static String iChickenSkinned = "Chicken_Skinned";
 	public static String iButcherKnife = "ButcherKnife";
 	public static String ifiletKnife = "FiletKnife";
+    public static String iPigLeg = "PigLegs";
 	
 	public static String bMeatHanger = "MeatHanger";
 	public static String Hold_Stick = "HoldingStick";
+	public static String iCookedPigLeg = "CookedPigLeg";
 }
