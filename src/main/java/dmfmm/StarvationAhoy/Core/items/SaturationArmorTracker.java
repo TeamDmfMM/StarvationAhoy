@@ -24,12 +24,6 @@ public class SaturationArmorTracker extends ItemArmor{
 		this.setUnlocalizedName(name);
 	}
 
-/*	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister regit){
-		super.registerIcons(regit);
-		itemIcon = regit.registerIcon("starvationahoy:statHelmet");
-		chest = regit.registerIcon("starvationahoy:statChestplate");
-	}*/
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
@@ -51,15 +45,6 @@ public class SaturationArmorTracker extends ItemArmor{
 		return this.getIconFromDamage(p_77618_1_);
 	}
 
-/*	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(ItemStack stack, int renderPass){
-		if(stack.getItem().equals(ItemLoad.stat_helm)){
-			return helm;
-		} else{
-			return chest;
-		}
-	}*/
 
 	@Override
 	@SideOnly(Side.CLIENT)

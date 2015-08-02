@@ -5,6 +5,7 @@ import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -22,7 +23,7 @@ public class BlockCropWasher extends BlockContainer{
 
 
     public BlockCropWasher() {
-        super(Material.anvil);
+        super(Material.wood);
         this.setCreativeTab(SATabs.INSTANCE);
         this.setBlockName("cropwashblock");
     }
@@ -34,20 +35,20 @@ public class BlockCropWasher extends BlockContainer{
 
 
     @Override
-    public boolean onBlockActivated(World p_149727_1_, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
 
-        ItemStack stack = p_149727_5_.getCurrentEquippedItem();
+        ItemStack stack = player.getCurrentEquippedItem();
         if (stack == null){
             return false;
         }
         else if (stack.getItem() == Items.water_bucket){
-            ((TileEntityCropWasher) p_149727_1_.getTileEntity(p_149727_2_,p_149727_3_,p_149727_4_)).fill(new FluidStack(FluidRegistry.getFluid("water"), 1000), true);
+            ((TileEntityCropWasher) world.getTileEntity(x,y,z)).fill(new FluidStack(FluidRegistry.getFluid("water"), 1000), true);
             ItemStack bucket = new ItemStack(Items.bucket);
-            p_149727_5_.inventory.setInventorySlotContents(p_149727_5_.inventory.currentItem, bucket);
+            player.inventory.setInventorySlotContents(player.inventory.currentItem, bucket);
             return true;
         }
         else if (stack.getItem() == ModuleCropWash.cropItemLoader.getItem("dirty_item")){
-             p_149727_5_.inventory.setInventorySlotContents(p_149727_5_.inventory.currentItem, ((TileEntityCropWasher) p_149727_1_.getTileEntity(p_149727_2_,p_149727_3_,p_149727_4_)).wash(p_149727_5_.getCurrentEquippedItem()));
+             player.inventory.setInventorySlotContents(player.inventory.currentItem, ((TileEntityCropWasher) world.getTileEntity(x,y,z)).wash(player.getCurrentEquippedItem()));
             return true;
         }
 
@@ -67,5 +68,9 @@ public class BlockCropWasher extends BlockContainer{
     //It's not a normal block, so you need this too.
     public boolean renderAsNormalBlock() {
         return false;
+    }
+
+    public void registerBlockIcons(IIconRegister icon) {
+        this.blockIcon = icon.registerIcon("starvationahoy:WashBarrelItem");
     }
 }

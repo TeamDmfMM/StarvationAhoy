@@ -9,6 +9,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -43,6 +44,10 @@ public class Cooker extends BlockContainer {
                 te.multiBlockStructure.sharedData = new NBTTagCompound();
                 EntityItem e = new EntityItem(world, x, y+2, z, toSpawnInWorld);
                 if (!world.isRemote){world.spawnEntityInWorld(e);}
+                if(toSpawnInWorld.getItem().equals(Items.cooked_porkchop)){
+                    e = new EntityItem(world, x, y+2, z, new ItemStack(MItemLoader.pigleg, 4));
+                    if(!world.isRemote){world.spawnEntityInWorld(e);}
+                }
                 te.multiBlockStructure.syncData(te.multiBlockStructure, te.multiBlockStructure.bPos, te.multiBlockStructure.x, te.multiBlockStructure.y, te.multiBlockStructure.z, world);
             }
         }

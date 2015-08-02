@@ -22,11 +22,10 @@ import net.minecraftforge.common.MinecraftForge;
  */
 public class ModuleCropWash {
 
-    public static CropItemLoader cropItemLoader;
+    public static CropItemLoader cropItemLoader = new CropItemLoader();
 
 
     public static Block blockCropWasher;
-
     public static DirtyBlocks d;
 
     public static void preinit() {
@@ -35,8 +34,9 @@ public class ModuleCropWash {
             return;
         }
 
-        cropItemLoader = new CropItemLoader();
         blockCropWasher = new BlockCropWasher();
+        GameRegistry.registerBlock(blockCropWasher, "cropwashblock");
+
     }
 
     public static void init(Side side) {
@@ -49,10 +49,12 @@ public class ModuleCropWash {
         MinecraftForge.EVENT_BUS.register(new Events_CropWash());
         d = new DirtyBlocks();
         GameRegistry.registerTileEntity(TileEntityCropWasher.class, "tentity_CropWashBlock");
-        GameRegistry.registerBlock(blockCropWasher, "cropwashblock");
+
+        CropCraftingRecipies.registerRecipies();
+
     }
 
-    public static void postinit() {
+    public static void postnit() {
 
     }
 

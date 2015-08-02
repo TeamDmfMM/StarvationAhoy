@@ -58,7 +58,7 @@ public class StarvationAhoy {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		SALog.error("We have Launced");
+		SALog.error("We have Launched");
 
 
 		side = event.getSide();
@@ -107,7 +107,6 @@ public class StarvationAhoy {
 
 	@EventHandler
 	public void serverStop(FMLServerStoppingEvent event){
-		System.out.println("dfasdfasd");
 		//ModuleFoodStats.serverStop();
 	}
 }
