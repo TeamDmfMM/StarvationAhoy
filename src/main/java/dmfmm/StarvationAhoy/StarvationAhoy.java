@@ -9,6 +9,7 @@ import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
+import dmfmm.StarvationAhoy.Core.CoreRecipies;
 import dmfmm.StarvationAhoy.Core.EventHandler.event_configChange;
 import dmfmm.StarvationAhoy.Core.FoodModifyCommand;
 import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
@@ -60,20 +61,25 @@ public class StarvationAhoy {
 	public void preInit(FMLPreInitializationEvent event) {
 		SALog.error("We have Launched");
 
-
+		//Config and API
 		side = event.getSide();
 		DIR = event.getModConfigurationDirectory() + "/StarvationAhoy";
 		StarvationAhoyRegistry.init(new StarvationAhoyProvider());
 		ConfigHandler.init(new File(DIR, ModInfo.MOD_ID + ".cfg"));
 		FMLCommonHandler.instance().bus().register(new event_configChange());
+
+		//Module Initiation
 		ModuleCropWash.preinit();
 		ItemLoad.initItems();
 		ModuleMeat.preinit(event.getSide());
+
+		//Packet Initiation
 		MultiBlockChannel = NetworkRegistry.INSTANCE.newSimpleChannel(ModInfo.MOD_ID);
 		MultiBlockChannel.registerMessage(PacketMultiBlock.Handler.class, PacketMultiBlock.class, 0, Side.CLIENT);
         //MultiBlockChannel.registerMessage(ClientGetExhaustPacket.Handler.class, ClientGetExhaustPacket.class, 1, Side.CLIENT);
         //MultiBlockChannel.registerMessage(ServerGetExhaustPacket.Handler.class, ServerGetExhaustPacket.class, 2, Side.SERVER);
 
+		//Secondary Events
 		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
 		if(event.getSide() == Side.CLIENT){
 			MinecraftForge.EVENT_BUS.register(new OverlaySaturationBar(Minecraft.getMinecraft()));
@@ -82,10 +88,15 @@ public class StarvationAhoy {
 	
 	@EventHandler
 	public void load(FMLInitializationEvent event){
+
+		//Module Loading
 		ItemLoad.registerItems();
+		CoreRecipies.registerRecipies();
 		ModuleCropWash.init(event.getSide());
 		ModuleMeat.init();
 		//ModuleFoodStats.init();
+
+		//Client Rendering and Food Overrides
 		ModuleLoad.loadModules();
 		proxy.registerRenderers();
 		//proxy.registerKeyBindings();
