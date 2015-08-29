@@ -24,8 +24,8 @@ TO-DO
    - [x] cooker code
 
 - [ ] Crop Wash
- - [ ] initial code
- - [ ] events
- - [ ] block
-   - [ ] tile entity
+ - [x] initial code
+ - [x] events
+ - [x] block
+   - [x] tile entity
  - [ ] hunger penalties 
