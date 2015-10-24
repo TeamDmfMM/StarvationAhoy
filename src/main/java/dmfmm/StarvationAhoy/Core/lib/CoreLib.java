@@ -8,4 +8,5 @@ public class CoreLib {
     public static final String Helmet = "stat_helm";
     public static final String Chestplate = "stat_chest";
 
+    public static final String potion = "hungerPotion";
 }

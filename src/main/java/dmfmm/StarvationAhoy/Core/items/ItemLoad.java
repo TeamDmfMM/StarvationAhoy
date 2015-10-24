@@ -1,21 +1,23 @@
 package dmfmm.StarvationAhoy.Core.items;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import dmfmm.StarvationAhoy.Core.lib.CoreLib;
+import dmfmm.StarvationAhoy.StarvationAhoy;
+import net.minecraft.item.Item;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-
-import dmfmm.StarvationAhoy.Core.lib.CoreLib;
-import net.minecraft.item.Item;
-import cpw.mods.fml.common.registry.GameRegistry;
-import dmfmm.StarvationAhoy.StarvationAhoy;
 
 public class ItemLoad {
 	
 	public static Item stat_helm;
 	public static Item stat_chest;
+	public static Item HungerPotion;
 	
 	public static void initItems(){
 		stat_helm = new SaturationArmorTracker(StarvationAhoy.StatusArmor, 0, CoreLib.Helmet).setTextureName("starvationahoy:statHelmet");
 		stat_chest = new SaturationArmorTracker(StarvationAhoy.StatusArmor, 1, CoreLib.Chestplate).setTextureName("starvationahoy:statChestplate");
+		HungerPotion = new HungerPotion().setUnlocalizedName(CoreLib.potion);
 	}
 	
 	public static void registerItems(){
