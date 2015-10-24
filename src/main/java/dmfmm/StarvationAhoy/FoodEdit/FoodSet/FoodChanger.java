@@ -46,7 +46,7 @@ public class FoodChanger {
                     modfound = true;
                     for (FoodOverride fo : m.foods) {
                         if (fo.name.equals(comps[1])) {
-                            SALog.error("om nom nom " + find + " " + sind);
+                           //SALog.error("om nom nom " + find + " " + sind);
                             fo.saturation = sturan;
                             fo.hunger = hunger;
                             fo.name = comps[1];

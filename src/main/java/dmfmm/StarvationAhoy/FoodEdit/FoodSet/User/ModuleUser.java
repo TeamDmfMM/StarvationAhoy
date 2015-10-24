@@ -28,7 +28,7 @@ public class ModuleUser extends Module {
 		File stuufs_dump = new File(FileLoader.getCfgPath(), "food_dump.json");
 		Overrides allFoods = new Overrides();
 		Map<String, ArrayList<FoodOverride>> mods = new HashMap<>();
-		SALog.error(KnownFoods.knownFoods.size());
+		//SALog.error(KnownFoods.knownFoods.size());
 		for (ArrayList<Object> foodies : KnownFoods.knownFoods){
 			String[] comps = Item.itemRegistry.getNameForObject(((ItemStack) foodies.get(0)).getItem()).split(":");
 
@@ -51,9 +51,9 @@ public class ModuleUser extends Module {
 
 			ModOverrides modOverrides = new ModOverrides();
 			modOverrides.mod = (String) mods.keySet().toArray()[index];
-			SALog.error(modOverrides.mod);
+			//SALog.error(modOverrides.mod);
 			FoodOverride[] fodsdsds = new FoodOverride[mods.get(modOverrides.mod).size()];
-			SALog.info(mods.get(modOverrides.mod).size());
+			//SALog.info(mods.get(modOverrides.mod).size());
 			int idofcurrent = 0;
 			for (FoodOverride fodds : mods.get(modOverrides.mod)){
 				fodsdsds[idofcurrent] = fodds;
@@ -110,7 +110,7 @@ public class ModuleUser extends Module {
 			e.printStackTrace();
 		}
 
-		SALog.error(test);
+		//SALog.error(test);
 
 		BufferedReader buff;
 		try {

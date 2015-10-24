@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 /**
- * Created by Matthew on 2/7/2015.
+ * Created by Mm12 on 2/7/2015.
  */
 public class CookerMultiBlock extends MultiBlockStructure{
 
@@ -67,7 +67,7 @@ public class CookerMultiBlock extends MultiBlockStructure{
             int ctime = sharedData.getInteger("CookTime");
             if (checkForFire(world))ctime+=1;
             //SALog.error(sharedData);
-            SALog.error("Ctime (im cooking): " + ctime);
+          //SALog.error("Ctime (im cooking): " + ctime);
             if (ctime >= 3000 && ctime < 3900){
                 int amt = MathHelper.getRandomIntegerInRange(new Random(), 1, 3);
                 ItemStack touse = ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("CookedItem"));

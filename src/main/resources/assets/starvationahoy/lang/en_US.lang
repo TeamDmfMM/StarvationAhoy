@@ -9,6 +9,7 @@ hud.statarmor.hunger=Restore Amount:
 #Items
 item.stat_helm.name=Health Tracking Helmet
 item.stat_chest.name=Health Tracking Chestplate
+item.hungerPotion.name=Badcholo's Brew
 
 #Meat Module Blocks
 tile.HoldingStick.name=Spit Roast Stand
