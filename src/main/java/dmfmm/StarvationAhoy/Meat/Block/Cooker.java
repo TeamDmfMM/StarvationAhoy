@@ -5,18 +5,16 @@ import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import dmfmm.StarvationAhoy.Meat.MeatType;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
-import dmfmm.StarvationAhoy.api.Event.MeatCutEvent;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 
 /**
  * Created by Matthew on 2/28/2015.
@@ -25,8 +23,9 @@ public class Cooker extends BlockContainer {
     protected Cooker() {
         super(Material.anvil);
         //this.setCreativeTab(SATabs.INSTANCE);
-        this.setHardness(-1F);
         this.setBlockTextureName("starvationahoy:clearBlock");
+
+
     }
 
     @Override
@@ -38,26 +37,26 @@ public class Cooker extends BlockContainer {
         if (player.inventory.mainInventory[player.inventory.currentItem] == null){
             return false;
         }
-        //Remove the entity from the roaster
         if (player.inventory.mainInventory[player.inventory.currentItem].getItem() == MItemLoader.ButcherKnife){
             TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
-            if (te.multiBlockStructure.sharedData.hasKey("RoastingItem") && te.multiBlockStructure.sharedData.hasKey("EntityID")){
+            if (te.multiBlockStructure.sharedData.hasKey("RoastingItem")){
                 ItemStack toSpawnInWorld = ItemStack.loadItemStackFromNBT(te.multiBlockStructure.sharedData.getCompoundTag("RoastingItem"));
-                MinecraftForge.EVENT_BUS.post(new MeatCutEvent.SpitRoast(world, te.multiBlockStructure.sharedData.getInteger("EntityID"), x, y, z, te.multiBlockStructure.sharedData.hasKey("CookBurn"), ItemStack.loadItemStackFromNBT(te.multiBlockStructure.sharedData.getCompoundTag("RoastingItem")).getItem()));
                 te.multiBlockStructure.sharedData = new NBTTagCompound();
                 EntityItem e = new EntityItem(world, x, y+2, z, toSpawnInWorld);
                 if (!world.isRemote){world.spawnEntityInWorld(e);}
+                if(toSpawnInWorld.getItem().equals(Items.cooked_porkchop)){
+                    e = new EntityItem(world, x, y+2, z, new ItemStack(MItemLoader.pigleg, 4));
+                    if(!world.isRemote){world.spawnEntityInWorld(e);}
+                }
                 te.multiBlockStructure.syncData(te.multiBlockStructure, te.multiBlockStructure.bPos, te.multiBlockStructure.x, te.multiBlockStructure.y, te.multiBlockStructure.z, world);
             }
         }
-        //Add the entity to the roaster
         if (ModuleMeat.registry.isSkinnedItem(player.inventory.mainInventory[player.inventory.currentItem]).value){
             MeatType t = ModuleMeat.registry.isSkinnedItem(player.inventory.mainInventory[player.inventory.currentItem]).meat;
             TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
             if (te.multiBlockStructure.sharedData.hasKey("RoastingItem")){ return false;}
             te.multiBlockStructure.sharedData.setTag("RoastingItem", player.inventory.mainInventory[player.inventory.currentItem].writeToNBT(new NBTTagCompound()));
             te.multiBlockStructure.sharedData.setTag("CookedItem", new ItemStack(t.items.meat, 1).writeToNBT(new NBTTagCompound()));
-            te.multiBlockStructure.sharedData.setInteger("EntityID", t.id);
             te.multiBlockStructure.syncData(te.multiBlockStructure, te.multiBlockStructure.bPos, te.multiBlockStructure.x, te.multiBlockStructure.y, te.multiBlockStructure.z, world);
             player.inventory.mainInventory[player.inventory.currentItem].stackSize--;
             if (player.inventory.mainInventory[player.inventory.currentItem].stackSize < 1){
@@ -71,24 +70,12 @@ public class Cooker extends BlockContainer {
 
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1, int par2, int par3, int par4)
     {
-        int meta = ((TileEntityMultiBlock)par1.getTileEntity(par2, par3, par4)).multiBlockStructure.orient;
-        if(meta == 0) {
-            return AxisAlignedBB.getBoundingBox(
-                    (double) par2 + this.minX,
-                    (double) par3 + this.minY + 1.16f,
-                    (double) par4 + this.minZ + 0.4389,
-                    (double) par2 + this.maxX,
-                    (double) par3 + this.maxY + 0.31f,
-                    (double) par4 + this.maxZ - 0.3989);
-        } else{
-            return AxisAlignedBB.getBoundingBox(
-                    (double) par2 + this.minX + 0.4389,
-                    (double) par3 + this.minY + 1.16f,
-                    (double) par4 + this.minZ,
-                    (double) par2 + this.maxX - 0.3989,
-                    (double) par3 + this.maxY + 0.31f,
-                    (double) par4 + this.maxZ);
-        }
+        return AxisAlignedBB.getBoundingBox((double)par2 + this.minX,
+                (double)par3 + this.minY + 1.16f,
+                (double)par4 + this.minZ + 0.4389,
+                (double)par2 + this.maxX,
+                (double)par3 + this.maxY + 0.31f,
+                (double)par4 + this.maxZ - 0.3989);
     }
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1, int par2, int par3, int par4)
@@ -100,22 +87,12 @@ public class Cooker extends BlockContainer {
                 (double)par3 + this.maxY + 0.31f,
                 (double)par4 + this.maxZ - 0.3989);
     }
-
-
+    
     public boolean isOpaqueCube(){
         return false;
     }
 
     public boolean renderAsNormalBlock(){
         return false;
-    }
-
-    public void breakBlock(World world, int x, int y, int z, Block block, int meta){
-        if(world.getTileEntity(x, y, z) instanceof TileEntityMultiBlock) {
-            TileEntityMultiBlock tile = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
-            if (tile.multiBlockStructure != null) {
-                tile.multiBlockStructure.destroy(world);
-            }
-        }
     }
 }

@@ -7,15 +7,13 @@ import java.util.Map;
 
 import com.google.gson.GsonBuilder;
 import dmfmm.StarvationAhoy.Core.util.SALog;
-import dmfmm.StarvationAhoy.Meat.MeatType;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.google.gson.Gson;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import dmfmm.StarvationAhoy.FileReader.FileLoader;
+import dmfmm.StarvationAhoy.FoodEdit.FileReader.FileLoader;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import dmfmm.StarvationAhoy.api.FoodEdit.Module;
 

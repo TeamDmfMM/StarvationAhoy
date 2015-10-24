@@ -1,4 +1,4 @@
-package dmfmm.StarvationAhoy.FileReader;
+package dmfmm.StarvationAhoy.FoodEdit.FileReader;
 
 import dmfmm.StarvationAhoy.StarvationAhoy;
 import net.minecraft.client.Minecraft;

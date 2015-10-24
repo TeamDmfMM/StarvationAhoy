@@ -3,7 +3,7 @@ package dmfmm.StarvationAhoy.FoodEdit.FoodSet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dmfmm.StarvationAhoy.Core.util.SALog;
-import dmfmm.StarvationAhoy.FileReader.FileLoader;
+import dmfmm.StarvationAhoy.FoodEdit.FileReader.FileLoader;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.User.FoodOverride;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.User.FoodOverrideHelper;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.User.ModOverrides;
@@ -15,7 +15,8 @@ import net.minecraft.item.ItemStack;
 import java.io.*;
 
 /**
- * Created by Matthew on 3/19/2015.
+ * Created by mincrmatt12. Do not copy this or you will have to face
+ * our legal team. (dmf444)
  */
 public class FoodChanger {
 
