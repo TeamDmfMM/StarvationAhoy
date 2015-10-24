@@ -34,7 +34,7 @@ public class ModuleBase extends Module {
 					if (prob != 0.0F){
 						
 					
-					SALog.info("Potion data for: " + foo.getUnlocalizedName() + " Effect: " + effect + " Duration: " + duration + " Amplifier: " + amplifier + " Prob: " + prob);
+					//SALog.info("Potion data for: " + foo.getUnlocalizedName() + " Effect: " + effect + " Duration: " + duration + " Amplifier: " + amplifier + " Prob: " + prob);
 					
 					KnownEffects.addEffect(foo, effect, duration, amplifier, prob);
 					}
