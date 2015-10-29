@@ -1,6 +1,7 @@
 package dmfmm.StarvationAhoy.FoodEdit.EventHandler;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownEffects;
 import dmfmm.StarvationAhoy.FoodStats.PlayerInstanceHolder;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
@@ -67,7 +68,8 @@ import java.util.Random;
 		public void onFinish(PlayerUseItemEvent e){
 			if (e.item != null)
 	        {
-				PlayerInstanceHolder.instance.playerEatFood(e.entityPlayer, e.item.getItem());
+				if(!ignoreList(e.item.getItem()))
+					PlayerInstanceHolder.instance.playerEatFood(e.entityPlayer, e.item.getItem());
 
 	            //this.updateItemUse(e.item, 16);
 				Random rand = new Random();
@@ -108,4 +110,8 @@ import java.util.Random;
 	        }
 		}
 
+
+		private static boolean ignoreList(Item i){
+			return i.equals(ItemLoad.HungerPotion);
+		}
 	}

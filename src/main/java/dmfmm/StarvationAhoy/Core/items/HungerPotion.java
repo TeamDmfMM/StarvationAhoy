@@ -20,14 +20,14 @@ public class HungerPotion extends ItemFood {
 
     public HungerPotion()
     {
-        super(0,0, false);
+        super(1,0.01f, false);
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
         this.setCreativeTab(SATabs.INSTANCE);
         this.setTextureName(ModInfo.MOD_ID +":"+ CoreLib.potion);
     }
 
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+   /* public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
         if (player.canEat(true))
         {
@@ -35,7 +35,7 @@ public class HungerPotion extends ItemFood {
         }
 
         return stack;
-    }
+    }*/
 
     public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player)
     {
@@ -43,16 +43,15 @@ public class HungerPotion extends ItemFood {
         {
             --stack.stackSize;
         }
-        if (!world.isRemote) {
-            EntityPlayerMP playerMP = (EntityPlayerMP) player;
-            playerMP.getFoodStats().setFoodLevel(player.getFoodStats().getFoodLevel() - 4);
+        //if (!world.isRemote) {
+            player.getFoodStats().setFoodLevel(player.getFoodStats().getFoodLevel() - 5);
             //player.getFoodStats()
 
             if (!player.capabilities.isCreativeMode)
             {
                    player.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
             }
-        }
+       // }
         this.onFoodEaten(stack, world, player);
         return stack;
     }
