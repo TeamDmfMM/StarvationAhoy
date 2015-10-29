@@ -68,8 +68,7 @@ import java.util.Random;
 		public void onFinish(PlayerUseItemEvent e){
 			if (e.item != null)
 	        {
-				if(!ignoreList(e.item.getItem()))
-					PlayerInstanceHolder.instance.playerEatFood(e.entityPlayer, e.item.getItem());
+				//PlayerInstanceHolder.instance.playerEatFood(e.entityPlayer, e.item.getItem());
 
 	            //this.updateItemUse(e.item, 16);
 				Random rand = new Random();
@@ -111,7 +110,5 @@ import java.util.Random;
 		}
 
 
-		private static boolean ignoreList(Item i){
-			return i.equals(ItemLoad.HungerPotion);
-		}
+
 	}
