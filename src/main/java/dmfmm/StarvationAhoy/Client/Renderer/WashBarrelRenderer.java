@@ -79,8 +79,8 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
             {
                 Float UPDOWN = Float.valueOf(Float.valueOf(tet.getFluidAmount()) / 1000) * 0.6f;
 
-                SALog.error(UPDOWN);
-                SALog.error(tet.getFluidAmount());
+                //SALog.error(UPDOWN);
+                //SALog.error(tet.getFluidAmount());
 
                 IIcon fluidIcon = new ItemStack(Blocks.water).getIconIndex();
                 GL11.glRotatef(180F, 0.0F, 0.0F, -1.0F);
