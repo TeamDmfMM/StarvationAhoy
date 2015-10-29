@@ -68,24 +68,44 @@ public class Cooker extends BlockContainer {
         return false;
     }
 
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1, int par2, int par3, int par4)
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
     {
-        return AxisAlignedBB.getBoundingBox((double)par2 + this.minX,
-                (double)par3 + this.minY + 1.16f,
-                (double)par4 + this.minZ + 0.4389,
-                (double)par2 + this.maxX,
-                (double)par3 + this.maxY + 0.31f,
-                (double)par4 + this.maxZ - 0.3989);
+        CookerTileEntity tile = (CookerTileEntity)world.getTileEntity(x, y, z);
+        if(tile.multiBlockStructure.orient == 0) {
+            return AxisAlignedBB.getBoundingBox((double) x + this.minX,
+                    (double) y + this.minY + 1.16f,
+                    (double) z + this.minZ + 0.4389,
+                    (double) x + this.maxX,
+                    (double) y + this.maxY + 0.31f,
+                    (double) z + this.maxZ - 0.3989);
+        }else{
+            return AxisAlignedBB.getBoundingBox((double) x + this.minX+ 0.4389,
+                    (double) y + this.minY + 1.16f,
+                    (double) z + this.minZ ,
+                    (double) x + this.maxX - 0.3989,
+                    (double) y + this.maxY + 0.31f,
+                    (double) z + this.maxZ);
+        }
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1, int par2, int par3, int par4)
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
     {
-        return AxisAlignedBB.getBoundingBox((double)par2 + this.minX,
-                (double)par3 + this.minY + 1.16f,
-                (double)par4 + this.minZ + 0.4389,
-                (double)par2 + this.maxX,
-                (double)par3 + this.maxY + 0.31f,
-                (double)par4 + this.maxZ - 0.3989);
+        CookerTileEntity tile = (CookerTileEntity)world.getTileEntity(x, y, z);
+        if(tile.multiBlockStructure.orient == 0) {
+            return AxisAlignedBB.getBoundingBox((double) x + this.minX,
+                    (double) y + this.minY + 1.16f,
+                    (double) z + this.minZ + 0.4389,
+                    (double) x + this.maxX,
+                    (double) y + this.maxY + 0.31f,
+                    (double) z + this.maxZ - 0.3989);
+        }else{
+            return AxisAlignedBB.getBoundingBox((double) x + this.minX + 0.4389,
+                    (double) y + this.minY + 1.16f,
+                    (double) z + this.minZ,
+                    (double) x + this.maxX - 0.3989,
+                    (double) y + this.maxY + 0.31f,
+                    (double) z + this.maxZ);
+        }
     }
     
     public boolean isOpaqueCube(){

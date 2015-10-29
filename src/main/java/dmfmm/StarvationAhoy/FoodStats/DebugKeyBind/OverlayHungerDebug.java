@@ -19,12 +19,12 @@ public class OverlayHungerDebug {
     @SubscribeEvent
     public void renderExpBar(RenderGameOverlayEvent event)
     {
-        if(event.isCancelable() || event.type != RenderGameOverlayEvent.ElementType.EXPERIENCE || StarvationAhoy.proxy.debugKey.getIsKeyPressed() == false)
-        {
+//        if(event.isCancelable() || event.type != RenderGameOverlayEvent.ElementType.EXPERIENCE || StarvationAhoy.proxy.debugKey.getIsKeyPressed() == false)
+ //       {
             return;
-        }
+ //       }
 
-        Diet d = PlayerInstanceHolder.instance.dietMap.get(Minecraft.getMinecraft().thePlayer.getGameProfile().getName());
+        /*Diet d = PlayerInstanceHolder.instance.dietMap.get(Minecraft.getMinecraft().thePlayer.getGameProfile().getName());
 
         FontRenderer f = Minecraft.getMinecraft().fontRenderer;
 
@@ -34,6 +34,6 @@ public class OverlayHungerDebug {
         f.drawString(" = Calories " + d.calories, 100, 140, 16777215);
         f.drawString(" = Weight " + d.weight, 100, 180, 16777215);
         f.drawString(" =================== ", 100, 220, 16777215);
-
+*/
     }
 }

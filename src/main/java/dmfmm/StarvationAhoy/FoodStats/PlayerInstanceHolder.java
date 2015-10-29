@@ -38,7 +38,7 @@ public class PlayerInstanceHolder {
             try {
                 d.save();
                 d.dump();
-                System.out.println("Suc");
+                //System.out.println("Suc");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -56,7 +56,7 @@ public class PlayerInstanceHolder {
     public void reload() {
         dietaryHistoryMap = new HashMap<>();
         dietMap = new HashMap<>();
-        SALog.info("Reloading PlayerInstanceHolder");
+        //SALog.info("Reloading PlayerInstanceHolder");
     }
 
     public void playerJoin(EntityPlayerMP player){

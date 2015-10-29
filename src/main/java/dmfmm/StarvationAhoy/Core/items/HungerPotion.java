@@ -20,7 +20,7 @@ public class HungerPotion extends ItemFood {
 
     public HungerPotion()
     {
-        super(1,0.01f, false);
+        super(-8,0.00f, false);
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
         this.setCreativeTab(SATabs.INSTANCE);
@@ -37,24 +37,6 @@ public class HungerPotion extends ItemFood {
         return stack;
     }*/
 
-    public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player)
-    {
-        if (!player.capabilities.isCreativeMode)
-        {
-            --stack.stackSize;
-        }
-        //if (!world.isRemote) {
-            player.getFoodStats().setFoodLevel(player.getFoodStats().getFoodLevel() - 5);
-            //player.getFoodStats()
-
-            if (!player.capabilities.isCreativeMode)
-            {
-                   player.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
-            }
-       // }
-        this.onFoodEaten(stack, world, player);
-        return stack;
-    }
 
     public EnumAction getItemUseAction(ItemStack p_77661_1_)
     {

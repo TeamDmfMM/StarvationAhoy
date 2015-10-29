@@ -25,7 +25,7 @@ public class Event_KillAnimal {
 	}else if (ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entity).value == true){
 
 			e.drops.clear();
-			SALog.fatal(ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entityLiving).meat.items.dead);
+			//SALog.fatal(ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entityLiving).meat.items.dead);
 			e.drops.add(new EntityItem(e.entity.worldObj, e.entity.posX, e.entity.posY, e.entity.posZ, new ItemStack(ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entityLiving).meat.items.dead)));
 		}
 	}

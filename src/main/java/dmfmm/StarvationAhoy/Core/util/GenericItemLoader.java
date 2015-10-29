@@ -1,4 +1,4 @@
-package dmfmm.StarvationAhoy;
+package dmfmm.StarvationAhoy.Core.util;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
