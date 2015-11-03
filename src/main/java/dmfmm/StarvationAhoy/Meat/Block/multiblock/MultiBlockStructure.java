@@ -59,7 +59,7 @@ public abstract class MultiBlockStructure {
             TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(bPosFor[0], bPosFor[1], bPosFor[2]);
             if (te == null){return;}
             MultiBlockStructure struct = te.multiBlockStructure;
-            struct.sharedData =structToSync.sharedData;
+            struct.sharedData = structToSync.sharedData;
             te.onSync();
         }
 
