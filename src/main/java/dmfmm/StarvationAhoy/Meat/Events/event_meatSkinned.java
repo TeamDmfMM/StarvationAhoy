@@ -17,7 +17,7 @@ public class event_meatSkinned {
 
     @SubscribeEvent
     public void roasterCut(MeatCutEvent.MeatSkinned e){
-        int randomNum = e.world.rand.nextInt((2 - 0) + 1) + 0;
+        int randomNum = e.world.rand.nextInt((4 - 0) + 1) + 0;
         if(e.meattype == ModuleMeat.MEATTYPE_COW){
             if(!e.world.isRemote){e.world.spawnEntityInWorld(new EntityItem(e.world, e.xPos, e.yPos, e.zPos, new ItemStack(Items.leather, randomNum)));}
         }else if(e.meattype == ModuleMeat.MEATTYPE_CHICK){

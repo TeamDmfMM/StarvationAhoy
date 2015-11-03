@@ -6,7 +6,7 @@
   "mcversion": "${minecraft_version}",
   "description": "Starvation Ahoy by mincrmatt12 and dmf444. This mod will make people hungrier, faster. We are not responsible for immediate death by hunger.",
   "credits": "dmf444, mincrmatt12 and thanks to all those who helped on IRC and MCForge Forums",
-  "logoFile": "",
+  "logoFile": "assets/starvationahoy/SAlogo.png",
   "url": "https://github.com/TeamDmfMM/StarvationAhoy",
   "updateUrl": "",
   "authorList": ["mincrmatt12", "dmf444"],
