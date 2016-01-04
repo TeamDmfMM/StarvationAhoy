@@ -23,6 +23,7 @@ public class Cooker extends BlockContainer {
     protected Cooker() {
         super(Material.anvil);
         //this.setCreativeTab(SATabs.INSTANCE);
+       // this.setBlockBounds(0.0F, 0.6F, 0.0F, 1.0F, 1.0F, 1.0F);
         this.setBlockTextureName("starvationahoy:clearBlock");
 
 

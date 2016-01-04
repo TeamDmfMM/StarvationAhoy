@@ -7,6 +7,7 @@ import dmfmm.StarvationAhoy.Core.util.CRef;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.CropWash.Block.BlockCropWasher;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
+import dmfmm.StarvationAhoy.CropWash.Crossmod.CrossMod;
 import dmfmm.StarvationAhoy.CropWash.item.CropItemLoader;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -48,6 +49,7 @@ public class ModuleCropWash {
         cropItemLoader.load();
         MinecraftForge.EVENT_BUS.register(new Events_CropWash());
         d = new DirtyBlocks();
+        CrossMod.init();
         GameRegistry.registerTileEntity(TileEntityCropWasher.class, "tentity_CropWashBlock");
 
         CropCraftingRecipies.registerRecipies();
@@ -55,7 +57,7 @@ public class ModuleCropWash {
     }
 
     public static void postnit() {
-
+        CrossMod.postinit();
     }
 
 

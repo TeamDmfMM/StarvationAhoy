@@ -33,7 +33,7 @@ public class StarvationAhoyRegistry {
 		/**
 		 * 
 		 * @param id the meat id (usally from {@code getNextAvailableMeatType()})
-		 * @param modelEntity the model to be used for you're entity, with the correct rotation (we will rotate it by x degrees depending on where the block was placed)
+		 * @param modelEntity the model to be used for your entity, with the correct rotation (we will rotate it by x degrees depending on where the block was placed)
 		 * @param normalTexture the location (used in a new {@link net.minecraft.util.ResourceLocation}) of the animal's regular texture
 		 * @param skinnedTexture the location (used in a new {@link net.minecraft.util.ResourceLocation}) of the animal's skinned texture
 		 * @param rottenTexture the location (used in a new {@link net.minecraft.util.ResourceLocation}) of the animal's rotten texture
