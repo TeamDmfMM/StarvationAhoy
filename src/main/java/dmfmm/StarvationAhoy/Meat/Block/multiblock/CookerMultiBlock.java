@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
+import dmfmm.StarvationAhoy.Core.lib.MeatLib;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -67,9 +68,9 @@ public class CookerMultiBlock extends MultiBlockStructure{
             int ctime = sharedData.getInteger("CookTime");
             if (checkForFire(world))ctime+=1;
             //SALog.error(sharedData);
-          //SALog.error("Ctime (im cooking): " + ctime);
+            //SALog.error("Ctime (im cooking): " + ctime);
             if (ctime >= 3000 && ctime < 3900){
-                int amt = MathHelper.getRandomIntegerInRange(new Random(), 1, 3);
+                int amt = MathHelper.getRandomIntegerInRange(new Random(), MeatLib.MEAT_LOW_END, MeatLib.MEAT_HIGH_END);
                 ItemStack touse = ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("CookedItem"));
                 touse.stackSize = amt;
                 if (!(ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("RoastingItem")).getItem() == touse.getItem())){

@@ -16,4 +16,8 @@ public class MeatLib {
 	public static String bMeatHanger = "MeatHanger";
 	public static String Hold_Stick = "HoldingStick";
 	public static String iCookedPigLeg = "CookedPigLeg";
+
+
+	public static int MEAT_HIGH_END = 6;
+	public static int MEAT_LOW_END = 3;
 }
