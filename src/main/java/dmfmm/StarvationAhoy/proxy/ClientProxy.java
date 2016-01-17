@@ -1,6 +1,6 @@
 package dmfmm.StarvationAhoy.proxy;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import dmfmm.StarvationAhoy.Client.Renderer.*;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
@@ -40,11 +40,13 @@ public class ClientProxy extends CommonProxy{
 		ClientRegistry.registerKeyBinding(debugKey);
 
 	}
-	public void registerRenderers(){
+	public void registerRenderers() {
         //Blocks
         ClientRegistry.bindTileEntitySpecialRenderer(MeatHangerTileEntity.class, new MeatHangerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(HoldingStickTileEntity.class, new HoldingStickRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCropWasher.class, new WashBarrelRenderer());
+
+        /*
         //Cow Items
         MinecraftForgeClient.registerItemRenderer(MItemLoader.deadPig, new QuadrupedItemRenderer(new ModelPigSA(), "minecraft:textures/entity/pig/pig.png"));
         MinecraftForgeClient.registerItemRenderer(MItemLoader.skinlessPig, new QuadrupedItemRenderer(new ModelPigSA(), "starvationahoy:textures/entity/skinnedPig.png"));
@@ -53,7 +55,10 @@ public class ClientProxy extends CommonProxy{
         MinecraftForgeClient.registerItemRenderer(MItemLoader.skinlessCow, new QuadrupedItemRenderer(new ModelCowSA(), "starvationahoy:textures/entity/skinnedCow.png"));
         //Chicken Items
         MinecraftForgeClient.registerItemRenderer(MItemLoader.deadChicken, new BipedItemRenderer(new ModelChickenSA(), "minecraft:textures/entity/chicken.png"));
-        MinecraftForgeClient.registerItemRenderer(MItemLoader.skinlessChicken, new BipedItemRenderer(new ModelChickenSA(), "starvationahoy:textures/entity/skinnedChicken.png"));}
+        MinecraftForgeClient.registerItemRenderer(MItemLoader.skinlessChicken, new BipedItemRenderer(new ModelChickenSA(), "starvationahoy:textures/entity/skinnedChicken.png"));
+        */
+    }
+
 
     public void registerMeatTypes(){
 
