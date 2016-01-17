@@ -2,6 +2,8 @@ package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
+import net.minecraft.block.Block;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -22,7 +24,7 @@ public class MultiBlockChecking {
         }
 
         public void crtn_a(World w){
-            w.setBlock(x, y, z, MBlockLoader.Cooker);
+            w.setBlockState(new BlockPos(x, y, z), MBlockLoader.Cooker.getDefaultState());
         }
 
 
@@ -33,27 +35,27 @@ public class MultiBlockChecking {
         BC bpos0, bpos1, bpos2, bpos3;
         int or = 0;
 
-        if (w.getBlock(x, y, z+3) == MBlockLoader.HoldingStick){
+        if (w.getBlockState(new BlockPos(x, y, z + 3)).getBlock() == MBlockLoader.HoldingStick){
             bpos0 = new BC(x, y, z);
             bpos3 = new BC(x, y, z+3);
             bpos2 = new BC(x, y, z+2);
             bpos1 = new BC(x, y, z+1);
             or = 1;
         }
-        else if (w.getBlock(x, y, z-3) == MBlockLoader.HoldingStick){
+        else if (getBlock(w, x, y, z - 3) == MBlockLoader.HoldingStick){
             bpos3 = new BC(x, y, z);
             bpos0 = new BC(x, y, z-3);
             bpos1 = new BC(x, y, z-2);
             bpos2 = new BC(x, y, z-1);
             or = 1;
         }
-        else if (w.getBlock(x+3, y, z) == MBlockLoader.HoldingStick){
+        else if (getBlock(w, x + 3, y, z) == MBlockLoader.HoldingStick){
             bpos0 = new BC(x, y, z);
             bpos3 = new BC(x+3, y, z);
             bpos2 = new BC(x+2, y, z);
             bpos1 = new BC(x+1, y, z);
 
-        }else if (w.getBlock(x-3, y, z) == MBlockLoader.HoldingStick){
+        }else if (getBlock(w, x - 3, y, z) == MBlockLoader.HoldingStick){
             bpos3 = new BC(x, y, z);
             bpos0 = new BC(x-3, y, z);
             bpos1 = new BC(x-2, y, z);
@@ -72,7 +74,7 @@ public class MultiBlockChecking {
         n.z = bpos0.z;
         n.bPos = 0;
         n.orient = or;
-        ((HoldingStickTileEntity) w.getTileEntity(bpos0.x, bpos0.y, bpos0.z)).multiBlockStructure = n;
+        ((HoldingStickTileEntity) w.getTileEntity(new BlockPos(bpos0.x, bpos0.y, bpos0.z))).multiBlockStructure = n;
 
         n = new CookerMultiBlock();
         n.x = bpos1.x;
@@ -80,7 +82,7 @@ public class MultiBlockChecking {
         n.z = bpos1.z;
         n.bPos = 1;
         n.orient = or;
-        ((CookerTileEntity) w.getTileEntity(bpos1.x, bpos1.y, bpos1.z)).multiBlockStructure = n;
+        ((CookerTileEntity) w.getTileEntity(new BlockPos(bpos1.x, bpos1.y, bpos1.z))).multiBlockStructure = n;
 
         n = new CookerMultiBlock();
         n.x = bpos2.x;
@@ -88,7 +90,7 @@ public class MultiBlockChecking {
         n.z = bpos2.z;
         n.bPos = 2;
         n.orient = or;
-        ((CookerTileEntity) w.getTileEntity(bpos2.x, bpos2.y, bpos2.z)).multiBlockStructure = n;
+        ((CookerTileEntity) w.getTileEntity(new BlockPos(bpos2.x, bpos2.y, bpos2.z))).multiBlockStructure = n;
 
         n = new CookerMultiBlock();
         n.x = bpos3.x;
@@ -96,10 +98,14 @@ public class MultiBlockChecking {
         n.z = bpos3.z;
         n.bPos = 3;
         n.orient = or;
-        ((HoldingStickTileEntity) w.getTileEntity(bpos3.x, bpos3.y, bpos3.z)).multiBlockStructure = n;
+        ((HoldingStickTileEntity) w.getTileEntity(new BlockPos(bpos3.x, bpos3.y, bpos3.z))).multiBlockStructure = n;
 
         return true;
 
+    }
+
+    private static Block getBlock(World w, int x, int y, int z){
+        return w.getBlockState(new BlockPos(x,y,z)).getBlock();
     }
 
 }

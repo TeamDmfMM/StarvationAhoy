@@ -1,5 +1,11 @@
 package dmfmm.StarvationAhoy;
 
+import dmfmm.StarvationAhoy.Core.Init.CoreTextureRegistry;
+import dmfmm.StarvationAhoy.Core.Init.CropwashTextureRegistry;
+import dmfmm.StarvationAhoy.Core.Init.MeatTextureRegistry;
+import dmfmm.StarvationAhoy.api.CropWash.CropWash;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -39,7 +45,8 @@ public class StarvationAhoy {
 	@Instance(value = "StarvationAhoy")
 	public static StarvationAhoy instance;
 	
-	public static ArmorMaterial StatusArmor = EnumHelper.addArmorMaterial("statusarmor", 16, new int[]{2,5,2,1}, 21);
+	public static ArmorMaterial StatusArmor = EnumHelper.addArmorMaterial("statusarmor", "", 16, new int[]{2,5,2,1}, 21);
+	public static TileEntityBanner.EnumBannerPattern pattern;
 	public static String DIR;
 
 	public static Side side;
@@ -73,6 +80,8 @@ public class StarvationAhoy {
 		ItemLoad.initItems();
 		ModuleMeat.preinit(event.getSide());
 
+		pattern = addBannerIcon("starvationAhoy", "sta", new ItemStack(ItemLoad.HungerPotion));
+
 		//Packet Initiation
 		MultiBlockChannel = NetworkRegistry.INSTANCE.newSimpleChannel(ModInfo.MOD_ID);
 		MultiBlockChannel.registerMessage(PacketMultiBlock.Handler.class, PacketMultiBlock.class, 0, Side.CLIENT);
@@ -101,6 +110,15 @@ public class StarvationAhoy {
 		proxy.registerRenderers();
 		//proxy.registerKeyBindings();
 
+		if(event.getSide() == Side.CLIENT){
+
+			CoreTextureRegistry.initTextures();
+			CropwashTextureRegistry.initTextures();
+			MeatTextureRegistry.initTextures();
+
+
+		}
+
 
     }
 	
@@ -119,5 +137,10 @@ public class StarvationAhoy {
 	@EventHandler
 	public void serverStop(FMLServerStoppingEvent event){
 		//ModuleFoodStats.serverStop();
+	}
+
+	public static TileEntityBanner.EnumBannerPattern addBannerIcon(String name, String id, ItemStack craftingItem)
+	{
+		return EnumHelper.addEnum(TileEntityBanner.EnumBannerPattern.class, name, id, craftingItem);
 	}
 }

@@ -14,9 +14,9 @@ public class Events_CropWash {
     @SubscribeEvent
     public void breakCropBlock(BlockEvent.HarvestDropsEvent e){
 
-        if (ModuleCropWash.d.isReplace(e.block)){
+        if (ModuleCropWash.d.isReplace(e.state.getBlock())){
 
-            for (Item i : ModuleCropWash.d.toReplace(e.block)){
+            for (Item i : ModuleCropWash.d.toReplace(e.state.getBlock())){
                 for (ItemStack itemStack : e.drops){
                     if (itemStack.getItem() == i){
                         e.drops.set(e.drops.indexOf(itemStack), DirtyItem.createDirtyItem(itemStack));

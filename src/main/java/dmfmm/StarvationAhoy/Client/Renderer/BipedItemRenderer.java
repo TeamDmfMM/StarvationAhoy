@@ -1,5 +1,5 @@
 package dmfmm.StarvationAhoy.Client.Renderer;
-
+ /*
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
@@ -8,12 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
-/**
- * Created by DMF444 for Starvation Ahoy. All rights
- * reserved. Code may be copied if credit is given to
- * source. Any code derived code is under their respective
- * licences.
- */
+
 public class BipedItemRenderer implements IItemRenderer
 {
     protected ModelBase model;
@@ -86,3 +81,4 @@ public class BipedItemRenderer implements IItemRenderer
     }
 }
 
+*/

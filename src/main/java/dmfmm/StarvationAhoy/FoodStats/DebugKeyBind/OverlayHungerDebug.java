@@ -1,6 +1,6 @@
 package dmfmm.StarvationAhoy.FoodStats.DebugKeyBind;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import dmfmm.StarvationAhoy.FoodStats.PlayerDiet.Diet;
 import dmfmm.StarvationAhoy.FoodStats.PlayerInstanceHolder;
 import dmfmm.StarvationAhoy.StarvationAhoy;

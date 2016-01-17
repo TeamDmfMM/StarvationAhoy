@@ -1,17 +1,16 @@
 package dmfmm.StarvationAhoy.Core.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.StarvationAhoy;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.texture.IIconRegister;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import org.lwjgl.opengl.GL11;
 
 public class SaturationArmorTracker extends ItemArmor{
@@ -20,7 +19,7 @@ public class SaturationArmorTracker extends ItemArmor{
 	public SaturationArmorTracker(ArmorMaterial material, int type, String name) {
 		super(material, 0, type);
         this.setCreativeTab(SATabs.INSTANCE);
-		this.setTextureName("StarvationAhoy:stats_" + type);
+		///this.setTextureName("StarvationAhoy:stats_" + type);
 		this.setUnlocalizedName(name);
 	}
 
@@ -33,18 +32,6 @@ public class SaturationArmorTracker extends ItemArmor{
 			return "starvationahoy:textures/armor/body.png";
 		}
 	}
-
-	@SideOnly(Side.CLIENT)
-	public boolean requiresMultipleRenderPasses()
-	{
-		return false;
-	}
-	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamageForRenderPass(int p_77618_1_, int p_77618_2_)
-	{
-		return this.getIconFromDamage(p_77618_1_);
-	}
-
 
 	@Override
 	@SideOnly(Side.CLIENT)

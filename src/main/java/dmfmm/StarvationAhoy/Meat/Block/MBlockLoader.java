@@ -1,6 +1,6 @@
 package dmfmm.StarvationAhoy.Meat.Block;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import dmfmm.StarvationAhoy.Core.lib.MeatLib;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.CookerTileEntity;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
@@ -14,9 +14,9 @@ public class MBlockLoader {
 	public static boolean Register=false;
 	
 	public static void initiateBlocks() {
-		MeatHanger = new MeatHanger().setBlockName(MeatLib.bMeatHanger);
-		HoldingStick = new HoldingStick().setBlockName(MeatLib.Hold_Stick);
-		Cooker = new Cooker().setBlockName("DEV__1__cooker");
+		MeatHanger = new MeatHanger().setUnlocalizedName(MeatLib.bMeatHanger);
+		HoldingStick = new HoldingStick().setUnlocalizedName(MeatLib.Hold_Stick);
+		Cooker = new Cooker().setUnlocalizedName("DEV__1__cooker");
 		
 		
 		registerBlocks();

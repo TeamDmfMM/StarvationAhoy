@@ -6,6 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -46,7 +47,7 @@ public class CookerMultiBlock extends MultiBlockStructure{
         int[] p2 = getPosForBlock(1, bPos, x, y, z, w);
         int[] p3 = getPosForBlock(2, bPos, x, y, z, w);
 
-        if (w.getBlock(p2[0], p2[1]-1,p2[2]) == Blocks.fire) if (w.getBlock(p3[0], p3[1] - 1, p3[2]) == Blocks.fire) return true;
+        if (w.getBlockState(new BlockPos(p2[0], p2[1] - 1, p2[2])).getBlock() == Blocks.fire) if (w.getBlockState(new BlockPos(p3[0], p3[1] - 1, p3[2])).getBlock() == Blocks.fire) return true;
         else return false;
         return false;
     }

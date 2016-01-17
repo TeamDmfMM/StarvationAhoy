@@ -1,5 +1,5 @@
 package dmfmm.StarvationAhoy.Client.Renderer;
-
+/*
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelQuadruped;
 import net.minecraft.entity.Entity;
@@ -98,3 +98,4 @@ public class QuadrupedItemRenderer implements IItemRenderer
         }
 }
 
+*/

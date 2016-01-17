@@ -20,8 +20,8 @@ public class ModuleVanilla extends Module{
 		kf.insertFoodI(new ItemStack(Items.fish, 1, 1), 6, 5); //Raw Salmon
 		kf.insertFoodI(new ItemStack(Items.fish, 1, 2), 6, 5); //Clownfish
 		kf.insertFoodI(new ItemStack(Items.fish, 1, 3), 6, 5); //Pufferfish
-		kf.insertFoodI(new ItemStack(Items.cooked_fished, 1, 0), 6, 5);  //Cooked Fish
-		kf.insertFoodI(new ItemStack(Items.cooked_fished, 1, 1), 6, 5);  //Cooked Salmon
+		kf.insertFoodI(new ItemStack(Items.cooked_fish, 1, 0), 6, 5);  //Cooked Fish
+		kf.insertFoodI(new ItemStack(Items.cooked_fish, 1, 1), 6, 5);  //Cooked Salmon
 		//kf.insertFood(new ItemStack(Items.cake, 1, 0), 6, 5);
 		kf.insertFoodI(new ItemStack(Items.cookie), 6, 5);
 		kf.insertFoodI(new ItemStack(Items.melon), 6, 5);

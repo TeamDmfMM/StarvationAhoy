@@ -7,9 +7,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.IChatComponent;
 
 /**
- * Created by Matthew on 2/7/2015.
+ * Created by Mincrmatt12 on 2/7/2015.
  */
 public class CookerTileEntity extends TileEntityMultiBlock implements IInventory {
     ItemStack meat;
@@ -28,15 +29,15 @@ public class CookerTileEntity extends TileEntityMultiBlock implements IInventory
         NBTTagCompound syncData = new NBTTagCompound();
         syncData.setInteger("MultiBlockIndex", multiBlockStructure.bPos);
         syncData.setTag("SharedData", multiBlockStructure.sharedData);
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+        return new S35PacketUpdateTileEntity(this.getPos(), 1, syncData);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
     {
         if (this.multiBlockStructure == null){this.multiBlockStructure = new CookerMultiBlock();}
-        multiBlockStructure.bPos = pkt.func_148857_g().getInteger("MultiBlockIndex");
-        multiBlockStructure.sharedData = pkt.func_148857_g().getCompoundTag("SharedData");
+        multiBlockStructure.bPos = pkt.getNbtCompound().getInteger("MultiBlockIndex");
+        multiBlockStructure.sharedData = pkt.getNbtCompound().getCompoundTag("SharedData");
     }
 
 
@@ -78,7 +79,7 @@ public class CookerTileEntity extends TileEntityMultiBlock implements IInventory
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing(int slot) {
+    public ItemStack removeStackFromSlot(int slot) {
         ItemStack stack = getStackInSlot(slot);
         if (stack != null) {
             setInventorySlotContents(slot, null);
@@ -93,17 +94,22 @@ public class CookerTileEntity extends TileEntityMultiBlock implements IInventory
             stack.stackSize = getInventoryStackLimit();
         }
         multiBlockStructure.sharedData.setTag("MeatItem", meat.writeToNBT(new NBTTagCompound()));
-        multiBlockStructure.syncData(multiBlockStructure, multiBlockStructure.bPos, xCoord, yCoord, zCoord, worldObj);
+        multiBlockStructure.syncData(multiBlockStructure, multiBlockStructure.bPos, pos, worldObj);
     }
 
     @Override
-    public String getInventoryName() {
+    public String getName() {
         return "MeatCooker";
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
+    public boolean hasCustomName() {
         return false;
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return null;
     }
 
     @Override
@@ -117,18 +123,38 @@ public class CookerTileEntity extends TileEntityMultiBlock implements IInventory
     }
 
     @Override
-    public void openInventory() {
+    public void openInventory(EntityPlayer p) {
 
     }
 
     @Override
-    public void closeInventory() {
+    public void closeInventory(EntityPlayer p) {
         multiBlockStructure.sharedData.setTag("MeatItem", meat.writeToNBT(new NBTTagCompound()));
-        multiBlockStructure.syncData(multiBlockStructure, multiBlockStructure.bPos, xCoord, yCoord, zCoord, worldObj);
+        multiBlockStructure.syncData(multiBlockStructure, multiBlockStructure.bPos, pos, worldObj);
     }
 
     @Override
     public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
         return false;
+    }
+
+    @Override
+    public int getField(int id) {
+        return 0;
+    }
+
+    @Override
+    public void setField(int id, int value) {
+
+    }
+
+    @Override
+    public int getFieldCount() {
+        return 0;
+    }
+
+    @Override
+    public void clear() {
+
     }
 }

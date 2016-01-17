@@ -1,11 +1,12 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock.net;
 
-import cpw.mods.fml.common.network.ByteBufUtils;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.BlockPos;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -13,7 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 /**
- * Created by Matthew on 3/17/2015.
+ * Created by mincrmatt12 on 3/17/2015.
  */
 public class PacketMultiBlock implements IMessage {
 
@@ -68,9 +69,9 @@ public class PacketMultiBlock implements IMessage {
 
             //SALog.error("I got sent :)");
             World w = Minecraft.getMinecraft().theWorld;
-            if (w.blockExists(message.x, message.y, message.z)){
+            if (!w.isAirBlock(new BlockPos(message.x, message.y, message.z))){
 
-                TileEntityMultiBlock te = (TileEntityMultiBlock) w.getTileEntity(message.x, message.y, message.z);
+                TileEntityMultiBlock te = (TileEntityMultiBlock) w.getTileEntity(new BlockPos(message.x, message.y, message.z));
                 if (te == null){return null;}
                 if (te.multiBlockStructure == null) {
                     try {

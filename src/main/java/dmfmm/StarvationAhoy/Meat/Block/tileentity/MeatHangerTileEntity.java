@@ -57,14 +57,14 @@ public class MeatHangerTileEntity extends TileEntity {
 	       NBTTagCompound syncData = new NBTTagCompound();
 	       syncData.setInteger("Meattype", MeatType);
 	       syncData.setInteger("State", MeatState);
-	       return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+	       return new S35PacketUpdateTileEntity(this.pos, 1, syncData);
 	   }
 
 	   @Override
 	   public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
 	   {
-	       MeatState = pkt.func_148857_g().getInteger("State");
-		   MeatType = pkt.func_148857_g().getInteger("Meattype");
+	       MeatState = pkt.getNbtCompound().getInteger("State");
+		   MeatType = pkt.getNbtCompound().getInteger("Meattype");
 	   }
 
 }

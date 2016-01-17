@@ -1,6 +1,7 @@
 package dmfmm.StarvationAhoy.FoodStats.FileFormats;
 
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class ItemListFormat {
     public void load() throws IOException {
         String line = reader.readLine();
         while (line != null){
-            this.items.add((Item) Item.itemRegistry.getObject(line.split("\n")[0]));
+            this.items.add((Item) Item.itemRegistry.getObject(new ResourceLocation(line.split("\n")[0])));//TODO: MM12 LOOK hERE AND FIX LINE!
             line = reader.readLine();
         }
     }

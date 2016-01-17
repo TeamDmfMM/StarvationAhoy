@@ -1,6 +1,8 @@
 package dmfmm.StarvationAhoy.FoodEdit.EventHandler;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.item.EnumAction;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownEffects;
 import dmfmm.StarvationAhoy.FoodStats.PlayerInstanceHolder;
@@ -35,24 +37,36 @@ import java.util.Random;
                 if (e.duration <= 25 && e.duration % 4 == 0)
                 {
                 Random rand = new Random();
-                  for (int j = 0; j < 5; ++j)
-                  {
-	                Vec3 vec3 = Vec3.createVectorHelper(((double)rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-	                vec3.rotateAroundX(-e.entityPlayer.rotationPitch * (float)Math.PI / 180.0F);
-	                vec3.rotateAroundY(-e.entityPlayer.rotationYaw * (float)Math.PI / 180.0F);
-	                Vec3 vec31 = Vec3.createVectorHelper(((double)rand.nextFloat() - 0.5D) * 0.3D, (double)(-rand.nextFloat()) * 0.6D - 0.3D, 0.6D);
-	                vec31.rotateAroundX(-e.entityPlayer.rotationPitch * (float)Math.PI / 180.0F);
-	                vec31.rotateAroundY(-e.entityPlayer.rotationYaw * (float)Math.PI / 180.0F);
-	                vec31 = vec31.addVector(e.entityPlayer.posX, e.entityPlayer.posY + (double)e.entityPlayer.getEyeHeight(), e.entityPlayer.posZ);
-	                String s = "iconcrack_" + Item.getIdFromItem(e.item.getItem());
+					if (itemstack.getItemUseAction() == EnumAction.DRINK)
+					{
+						e.entity.playSound("random.drink", 0.5F, e.entity.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+					}
 
-	                if (e.item.getHasSubtypes())
-	                {
-	                    s = s + "_" + e.item.getItemDamage();
-	                }
+					if (itemstack.getItemUseAction() == EnumAction.EAT)
+					{
+						for (int i = 0; i < 5; ++i)
+						{
+							Vec3 vec3 = new Vec3(((double)rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+							vec3 = vec3.rotatePitch(-e.entity.rotationPitch * (float)Math.PI / 180.0F);
+							vec3 = vec3.rotateYaw(-e.entity.rotationYaw * (float)Math.PI / 180.0F);
+							double d0 = (double)(-rand.nextFloat()) * 0.6D - 0.3D;
+							Vec3 vec31 = new Vec3(((double)rand.nextFloat() - 0.5D) * 0.3D, d0, 0.6D);
+							vec31 = vec31.rotatePitch(-e.entity.rotationPitch * (float)Math.PI / 180.0F);
+							vec31 = vec31.rotateYaw(-e.entity.rotationYaw * (float)Math.PI / 180.0F);
+							vec31 = vec31.addVector(e.entity.posX, e.entity.posY + (double)e.entity.getEyeHeight(), e.entity.posZ);
 
-	                e.entityPlayer.worldObj.spawnParticle(s, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord);
-	            }
+							if (itemstack.getHasSubtypes())
+							{
+								e.entity.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, new int[] {Item.getIdFromItem(itemstack.getItem()), itemstack.getMetadata()});
+							}
+							else
+							{
+								e.entity.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, new int[] {Item.getIdFromItem(itemstack.getItem())});
+							}
+						}
+
+						e.entity.playSound("random.eat", 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+					}
                 }
 
                 if (e.duration - 1 == 0 && !e.entityPlayer.worldObj.isRemote)

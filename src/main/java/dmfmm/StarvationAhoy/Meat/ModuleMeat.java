@@ -8,12 +8,12 @@ import dmfmm.StarvationAhoy.StarvationAhoy;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.Meat.Village.BHHandler;
 import dmfmm.StarvationAhoy.Meat.Village.ButcherHouse;
 import dmfmm.StarvationAhoy.Meat.Village.VillagerTradeAdditions;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
+import net.minecraftforge.fml.relauncher.Side;
 
 
 public class ModuleMeat {
@@ -29,7 +29,7 @@ public class ModuleMeat {
 		MBlockLoader.initTileEntity();
 		VillagerRegistry.instance().registerVillageCreationHandler(new BHHandler()); 
         try { 
-            MapGenStructureIO.registerStructure(ButcherHouse.class, "StarvationAhoy:ButcherHouse");
+            MapGenStructureIO.registerStructureComponent(ButcherHouse.class, "StarvationAhoy:ButcherHouse");
         } catch (Throwable e) { } 
         VillagerTradeAdditions.addVillager(side);
 

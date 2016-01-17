@@ -1,6 +1,6 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
-import cpw.mods.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
 import dmfmm.StarvationAhoy.StarvationAhoy;
@@ -28,7 +28,7 @@ public abstract class TileEntityMultiBlock extends TileEntity{
 
         if (multiBlockStructure != null && r == true) multiBlockStructure.updateStructure(worldObj);
         if (timeAfter == 120 && multiBlockStructure != null ) {
-            if (!worldObj.isRemote) StarvationAhoy.MultiBlockChannel.sendToAllAround(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, 40));
+            if (!worldObj.isRemote) StarvationAhoy.MultiBlockChannel.sendToAllAround(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z), new NetworkRegistry.TargetPoint(worldObj.provider.getDimensionId(), this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), 40));
             r = true;}
         timeAfter++;
         if (timeAfter == 240){
@@ -72,9 +72,9 @@ public abstract class TileEntityMultiBlock extends TileEntity{
         try {
             multiBlockStructure.sharedData = nbtTagCompound.getCompoundTag("MultiBlockShared");
             multiBlockStructure.bPos = nbtTagCompound.getInteger("MultiBlockIndex");
-            multiBlockStructure.x = this.xCoord;
-            multiBlockStructure.y = this.yCoord;
-            multiBlockStructure.z = this.zCoord;
+            multiBlockStructure.x = this.pos.getX();
+            multiBlockStructure.y = this.pos.getY();
+            multiBlockStructure.z = this.pos.getZ();
             multiBlockStructure.orient = nbtTagCompound.getInteger("MultiBlockOrient");
 
 

@@ -35,7 +35,7 @@ public class FoodChanger {
 
         BufferedReader buff = new BufferedReader(new FileReader(fil));
         Overrides stuffies = new Gson().fromJson(buff, Overrides.class);
-        String[] comps = Item.itemRegistry.getNameForObject(i).split(":");
+        String[] comps = Item.itemRegistry.getNameForObject(i).toString().split(":");
         int sind = 0;
         int find = 0;
         boolean found = false;

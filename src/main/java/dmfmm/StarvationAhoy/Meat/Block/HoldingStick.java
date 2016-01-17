@@ -1,7 +1,8 @@
 package dmfmm.StarvationAhoy.Meat.Block;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import dmfmm.StarvationAhoy.Core.Blocks.BlockContainerRotate;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockChecking;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
@@ -9,17 +10,19 @@ import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class HoldingStick extends BlockContainer{
+public class HoldingStick extends BlockContainerRotate{
 
 	protected HoldingStick() {
 		super(Material.wood);
@@ -42,59 +45,14 @@ public class HoldingStick extends BlockContainer{
 	    }
 	    
 	    //It's not a normal block, so you need this too.
-	    public boolean renderAsNormalBlock() {
+	    public boolean isFullCube() {
 	            return false;
 	    }
-	    
-	    //This is the icon to use for showing the block in your hand.
-	    public void registerBlockIcons(IIconRegister icon) {
-	            this.blockIcon = icon.registerIcon("starvationahoy:SpitRoastItem");
-	    }
-	    
-	    private void setDefaultDirection(World world, int x, int y, int z, EntityLivingBase entity) {
-	    	int rotation = MathHelper.floor_double((double)(entity.rotationYaw * 4F / 360F) + 0.5D) & 3;
-
-			if(rotation == 0) {
-			world.setBlockMetadataWithNotify(x, y, z, 2, 2);
-			}
-
-			if(rotation == 1) {
-			world.setBlockMetadataWithNotify(x, y, z, 5, 2);
-			}
-
-			if(rotation == 2) {
-			world.setBlockMetadataWithNotify(x, y, z, 3, 2);
-			}
-
-			if(rotation == 3) {
-			world.setBlockMetadataWithNotify(x, y, z, 4, 2);
-			}
-		}
-
-		public void changeRot(World world, int x, int y, int z, int rotation){
-			if(rotation == 0) {
-				world.setBlockMetadataWithNotify(x, y, z, 2, 2);
-			}
-
-			if(rotation == 1) {
-				world.setBlockMetadataWithNotify(x, y, z, 5, 2);
-			}
-
-			if(rotation == 2) {
-				world.setBlockMetadataWithNotify(x, y, z, 3, 2);
-			}
-
-			if(rotation == 3) {
-				world.setBlockMetadataWithNotify(x, y, z, 4, 2);
-			}
-
-	}
-
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState statez, EntityPlayer player, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(player.inventory.getCurrentItem() != null) {
 			if (player.inventory.getCurrentItem().getItem() == Items.stick) {
-				boolean s = MultiBlockChecking.checkCookerStructure(world, x, y, z);
+				boolean s = MultiBlockChecking.checkCookerStructure(world, pos.getX(), pos.getY(), pos.getZ());
 				if (s) {
 					player.inventory.mainInventory[player.inventory.currentItem].stackSize--;
 					if (player.inventory.mainInventory[player.inventory.currentItem].stackSize < 1) {
@@ -111,29 +69,24 @@ public class HoldingStick extends BlockContainer{
 		return false;
 	}
 
-
-	    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack Itemstack) {
-			
-	    	super.onBlockAdded(world, x, y, z);
-	    	this.setDefaultDirection(world, x, y, z, entity);
-	 
-	    }
-	    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-	    {
-	    	int meta = world.getBlockMetadata(x, y, z);
-
-	    	return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY +0.30F, (double)z + this.maxZ);
-	    }
+	public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state) {
+		int x = pos.getX();
+		int y = pos.getY();
+		int z = pos.getZ();
+		return new AxisAlignedBB((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY +0.30F, (double)z + this.maxZ);
+	}
 	    
 	    @SideOnly(Side.CLIENT)
-	    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
-	    {
-	    		return AxisAlignedBB.getBoundingBox((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY +0.30F, (double)z + this.maxZ);
+	    public AxisAlignedBB getSelectedBoundingBox(World world, BlockPos pos) {
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+	    		return new AxisAlignedBB((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY +0.30F, (double)z + this.maxZ);
 	    }
 
-    public void breakBlock(World world, int x, int y, int z, Block block, int meta){
-        if(world.getTileEntity(x, y, z) instanceof TileEntityMultiBlock){
-            TileEntityMultiBlock tile = (TileEntityMultiBlock) world.getTileEntity(x, y, z);
+    public void breakBlock(World world, BlockPos pos, IBlockState state){
+        if(world.getTileEntity(pos) instanceof TileEntityMultiBlock){
+            TileEntityMultiBlock tile = (TileEntityMultiBlock) world.getTileEntity(pos);
             if(tile.multiBlockStructure != null) {
                 tile.multiBlockStructure.destroy(world);
             }

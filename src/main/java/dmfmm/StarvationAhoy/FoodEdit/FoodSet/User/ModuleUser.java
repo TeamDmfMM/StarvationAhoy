@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 
 import com.google.gson.Gson;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import dmfmm.StarvationAhoy.FoodEdit.FileReader.FileLoader;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import dmfmm.StarvationAhoy.api.FoodEdit.Module;
@@ -30,7 +30,7 @@ public class ModuleUser extends Module {
 		Map<String, ArrayList<FoodOverride>> mods = new HashMap<>();
 		//SALog.error(KnownFoods.knownFoods.size());
 		for (ArrayList<Object> foodies : KnownFoods.knownFoods){
-			String[] comps = Item.itemRegistry.getNameForObject(((ItemStack) foodies.get(0)).getItem()).split(":");
+			String[] comps = Item.itemRegistry.getNameForObject(((ItemStack) foodies.get(0)).getItem()).toString().split(":");
 
 
 			if (true){
@@ -124,7 +124,7 @@ public class ModuleUser extends Module {
 		for (ModOverrides mod : stuffies.foods){
 			String modname = mod.mod;
 			for (FoodOverride foodie : mod.foods){
-				ItemStack istack = GameRegistry.findItemStack(modname, foodie.name, 1);
+				ItemStack istack = new ItemStack(GameRegistry.findItem(modname, foodie.name));
 				food.insertFoodI(istack, foodie.hunger, foodie.saturation);
 			}
 		}

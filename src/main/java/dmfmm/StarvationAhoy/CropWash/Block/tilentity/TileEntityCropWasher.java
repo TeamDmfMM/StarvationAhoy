@@ -25,7 +25,7 @@ public class TileEntityCropWasher extends TileEntity implements IFluidTank{
 
         if (theTank.getFluidAmount() >= 200 * item.stackSize){
             if (item.getItem() == ModuleCropWash.cropItemLoader.getItem("dirty_item")){
-                ItemStack original = ItemStack.loadItemStackFromNBT(item.stackTagCompound.getCompoundTag("Original"));
+                ItemStack original = ItemStack.loadItemStackFromNBT(item.getTagCompound().getCompoundTag("Original"));
                 original.stackSize = item.stackSize;
                 theTank.drain(200, true);
                 return original;

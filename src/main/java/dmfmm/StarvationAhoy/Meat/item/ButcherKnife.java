@@ -6,8 +6,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import dmfmm.StarvationAhoy.Core.SATabs;
 
 public class ButcherKnife extends Item{
@@ -16,7 +16,7 @@ public class ButcherKnife extends Item{
         super();
         this.maxStackSize = 1;
         this.setMaxDamage(10);
-        this.setTextureName("starvationahoy:knife");
+        //this.setTextureName("starvationahoy:knife");
         this.setContainerItem(this);
         this.setCreativeTab(SATabs.INSTANCE);
     }
@@ -41,9 +41,7 @@ public class ButcherKnife extends Item{
 	}
 
     
-    public boolean doesContainerItemLeaveCraftingGrid(ItemStack itemstack) {
-    	return false;
-    }
+    //public boolean doesContainerItemLeaveCraftingGrid(ItemStack itemstack) {return false;}
     
     public boolean getShareTag(){
         return true;

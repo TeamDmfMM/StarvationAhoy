@@ -1,6 +1,6 @@
 package dmfmm.StarvationAhoy.Core;
 
-import cpw.mods.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
 
 import java.lang.reflect.InvocationTargetException;

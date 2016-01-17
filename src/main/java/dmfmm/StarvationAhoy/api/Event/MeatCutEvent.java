@@ -1,6 +1,7 @@
 package dmfmm.StarvationAhoy.api.Event;
 
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraft.util.BlockPos;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
@@ -22,15 +23,13 @@ public class MeatCutEvent extends Event{
     //the entity is cooked, This is only for supplimentary items being added to a entity
     public static class SpitRoast extends MeatCutEvent{
         public final World world;
-        public final int xPos, yPos, zPos;
+        public final BlockPos position;
         public final boolean burnt;
         public final Item itemOut;
-        public SpitRoast(World world, int meat, int x, int y, int z, boolean Burnt, Item outputItem){
+        public SpitRoast(World world, int meat, BlockPos pos, boolean Burnt, Item outputItem){
             super(meat);
             this.world = world;
-            this.xPos = x;
-            this.yPos = y;
-            this.zPos = z;
+            this.position = pos;
             this.burnt = Burnt;
             this.itemOut = outputItem;
         }
@@ -38,25 +37,21 @@ public class MeatCutEvent extends Event{
 
     public static class MeatHanger extends MeatCutEvent{
         public final World world;
-        public final int xPos, yPos, zPos;
-        public MeatHanger(World world, int meat, int x, int y, int z){
+        public final BlockPos position;
+        public MeatHanger(World world, int meat, BlockPos pos){
             super(meat);
             this.world = world;
-            this.xPos = x;
-            this.yPos = y;
-            this.zPos = z;
+            this.position = pos;
         }
     }
 
     public static class MeatSkinned extends MeatCutEvent{
         public final World world;
-        public final int xPos, yPos, zPos;
-        public MeatSkinned(World world, int meat, int x, int y, int z){
+        public final BlockPos position;
+        public MeatSkinned(World world, int meat, BlockPos pos){
             super(meat);
             this.world = world;
-            this.xPos = x;
-            this.yPos = y;
-            this.zPos = z;
+            this.position = pos;
         }
     }
 }

@@ -1,6 +1,6 @@
 package dmfmm.StarvationAhoy.FoodStats;
 
-import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import dmfmm.StarvationAhoy.FoodStats.DebugKeyBind.OverlayHungerDebug;
 import dmfmm.StarvationAhoy.FoodStats.DietaryHistoryManage.DietaryHistoryEvents;
 import net.minecraftforge.common.MinecraftForge;

@@ -3,6 +3,8 @@ package dmfmm.StarvationAhoy.Meat.Village;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
@@ -11,6 +13,8 @@ import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
@@ -18,6 +22,7 @@ import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
+import sun.corba.EncapsInputStreamFactory;
 
 public class ButcherHouse extends StructureVillagePieces.Village {
     
@@ -28,15 +33,15 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	
 	public ButcherHouse(){}
 	
-	public ButcherHouse(Start villagePiece, int par2, Random par3Random, StructureBoundingBox sbb, int coordBaseMode) { 
+	public ButcherHouse(Start villagePiece, int par2, Random par3Random, StructureBoundingBox sbb, EnumFacing facing) {
          super(); 
-         this.coordBaseMode = coordBaseMode; 
+         this.coordBaseMode = facing;
          this.boundingBox = sbb; 
      } 
 
-	 public static ButcherHouse buildComponent(Start villagePiece, List pieces, Random random, int x, int y, int z, int coordBaseMode, int p5) { 
-		         StructureBoundingBox box = StructureBoundingBox.getComponentToAddBoundingBox(x, y, z, 0, 0, 0, 10, 7, 12, coordBaseMode); 
-		          return canVillageGoDeeper(box) && StructureComponent.findIntersecting(pieces, box) == null ? new ButcherHouse(villagePiece, p5, random, box, coordBaseMode) : null; 
+	 public static ButcherHouse buildComponent(Start villagePiece, List pieces, Random random, int x, int y, int z, EnumFacing facing, int p5) {
+		         StructureBoundingBox box = StructureBoundingBox.getComponentToAddBoundingBox(x, y, z, 0, 0, 0, 10, 7, 12, facing);
+		          return canVillageGoDeeper(box) && StructureComponent.findIntersecting(pieces, box) == null ? new ButcherHouse(villagePiece, p5, random, box, facing) : null;
 		      } 
 
 	
@@ -62,23 +67,23 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		fillWithBlocks(world, sbb, 0, 0, 0, 8, 0, 6, Blocks.cobblestone, Blocks.cobblestone, false);
 		
 		//Fence & Torches
-		fillWithBlocks(world, sbb, 0, 1, 7, 0, 1, 11, Blocks.fence, Blocks.fence, false);
+		fillWithBlocks(world, sbb, 0, 1, 7, 0, 1, 11, Blocks.oak_fence, Blocks.oak_fence, false);
 		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 0, 2, 11, sbb);
-		fillWithBlocks(world, sbb, 8, 1, 7, 8, 1, 11, Blocks.fence, Blocks.fence, false);
+		fillWithBlocks(world, sbb, 8, 1, 7, 8, 1, 11, Blocks.oak_fence, Blocks.oak_fence, false);
 		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 8, 2, 11, sbb);
-		fillWithBlocks(world, sbb, 1, 1, 11, 7, 1, 11, Blocks.fence, Blocks.fence, false);
+		fillWithBlocks(world, sbb, 1, 1, 11, 7, 1, 11, Blocks.oak_fence, Blocks.oak_fence, false);
 			//Middle Torch/Fence
-		fillWithBlocks(world,sbb, 4, 1, 7, 4, 1, 11, Blocks.fence, Blocks.fence, false);
+		fillWithBlocks(world,sbb, 4, 1, 7, 4, 1, 11, Blocks.oak_fence, Blocks.oak_fence, false);
 		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 4, 2, 11, sbb);
 		
 		//Wall @ Pen
 		fillWithBlocks(world, sbb, 1, 1, 6, 2, 3, 6, Blocks.cobblestone, Blocks.cobblestone, false);
 		fillWithBlocks(world, sbb, 6, 1, 6, 7, 3, 6, Blocks.cobblestone, Blocks.cobblestone, false);
 		fillWithBlocks(world, sbb, 4, 1, 6, 4, 3, 6, Blocks.cobblestone, Blocks.cobblestone, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.cobblestone, 0, 3, 3, 6, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.cobblestone, 0, 5, 3, 6, sbb);
-		this.placeDoorAtCurrentPosition(world, sbb, rand, 5, 1, 6, 0);
-		this.placeDoorAtCurrentPosition(world, sbb, rand, 3, 1, 6, 0);
+		this.placeBlockAtCurrentPosition(world, Blocks.cobblestone, 3, 3, 6, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.cobblestone, 5, 3, 6, sbb);
+		this.placeDoorCurrentPosition(world, sbb, rand, 5, 1, 6, EnumFacing.getHorizontal(0));
+		this.placeDoorCurrentPosition(world, sbb, rand, 3, 1, 6, EnumFacing.getHorizontal(0));
 		
 		//Wooden Log Corners
 		fillWithBlocks(world, sbb, 0, 1, 6, 0, 3, 6, Blocks.log, Blocks.log, false);
@@ -93,10 +98,10 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		//Exit/Entrance Wall
 		fillWithBlocks(world, sbb, 8, 1, 1, 8, 3, 2, Blocks.brick_block, Blocks.brick_block, false);
 		fillWithBlocks(world, sbb, 8, 1, 4, 8, 3, 5, Blocks.brick_block, Blocks.brick_block, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.brick_block, 0, 8, 3, 3, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.brick_block, 8, 3, 3, sbb);
 		int entryStair = getMetadataWithOffset(Blocks.stone_stairs, 1);
 		this.placeBlockAtCurrentPosition(world, Blocks.stone_stairs, entryStair, 9, 0, 3, sbb);
-		this.placeDoorAtCurrentPosition(world, sbb, rand, 8, 1, 3, 0);
+		this.placeDoorCurrentPosition(world, sbb, rand, 8, 1, 3, EnumFacing.getHorizontal(0));
 		
 		//ROOF
 		fillWithBlocks(world, sbb, 0, 6, 3, 8, 6, 3, Blocks.planks, Blocks.planks, false);
@@ -115,13 +120,13 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		}
 		fillWithBlocks(world, sbb, 0, 4, 1, 0, 4, 5, Blocks.planks, Blocks.planks, false);
 		fillWithBlocks(world, sbb, 8, 4, 1, 8, 4, 5, Blocks.planks, Blocks.planks, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 0, 5, 2, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 0, 5, 3, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 0, 5, 4, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.planks,  0, 5, 2, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 5, 3, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.planks,  0, 5, 4, sbb);
 		
-		this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 8, 5, 2, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 8, 5, 3, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 8, 5, 4, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.planks,  8, 5, 2, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 8, 5, 3, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.planks,  8, 5, 4, sbb);
 		
 
 		
@@ -187,26 +192,26 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		//Interior Decor
 		fillWithMetadataBlocks(world, sbb, 1, 0, 3, 2, 0, 5, Blocks.double_stone_slab, 7, Blocks.double_stone_slab, 7, false);
 		fillWithMetadataBlocks(world, sbb, 2, 1, 4, 2, 1, 5, Blocks.double_stone_slab, 7, Blocks.double_stone_slab, 7, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 2, 3, 5, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 6, 3, 5, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 1, 4, 1, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 7, 4, 1, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.torch,  2, 3, 5, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.torch,  6, 3, 5, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.torch,  1, 4, 1, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.torch,  7, 4, 1, sbb);
 		placeHanger(world, sbb, getXOff(2, 1), getYOff(3), getZOff(2, 1), randomNum);
 		placeHanger(world, sbb, getXOff(4, 1), getYOff(3), getZOff(4, 1), randomNum1);
 		placeHanger(world, sbb, getXOff(6, 1), getYOff(3), getZOff(6, 1), randomNum);
 		
 		fillWithBlocks(world, sbb, 2, 3, 4, 2, 3, 5, Blocks.glass_pane, Blocks.glass_pane, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 1, 3, 4, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.fence_gate, 1, 1, 1, 4, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.fence, 0, 2, 2, 4, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane,  1, 3, 4, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.oak_fence_gate, 1, 1, 1, 4, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.oak_fence,  2, 2, 4, sbb);
 		spawnVillagers(world, sbb, 1, 1, 5, 1);
 		
-		
+
 		return true;
 	}
 	
 	@Override
-	protected int getVillagerType(int id)
+	protected int func_180779_c(int p_180779_1_, int p_180779_2_)
     {
         return VillagerTradeAdditions.getVID();
     }
@@ -215,12 +220,12 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	private void placeHanger(World world, StructureBoundingBox sbb, int x, int y, int z, int rand){ 
 
 		//this.placeBlockAtCurrentPosition(world, MBlockLoader.MeatHanger, 4, 2, 3, 1, sbb);
-		world.setBlock(x, y, z, MBlockLoader.MeatHanger, 4, 2);
-		TileEntity te = world.getTileEntity(x, y, z);
+		world.setBlockState(new BlockPos(x, y, z), MBlockLoader.MeatHanger.getStateFromMeta(4), 2);
+		TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
 		if(te instanceof MeatHangerTileEntity){
 			MeatHangerTileEntity MHA = (MeatHangerTileEntity) te;
 			MHA.setMeatType(rand);
-			world.markBlockForUpdate(x, y, z);
+			world.markBlockForUpdate(new BlockPos(x, y, z));
 		}
 
 		
@@ -238,6 +243,40 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	}
 	private int getZOff(int x, int z){
 		return this.getZWithOffset(x, z);
+	}
+
+	private void fillWithBlocks(World world, StructureBoundingBox sbb, int i, int j, int k, int l, int m, int n, Block blockb, Block blocka, boolean bool){
+		this.fillWithBlocks(world, sbb, i, j, k, l, m, n, blockb.getDefaultState(), blocka.getDefaultState(), bool);
+	}
+	private void placeBlockAtCurrentPosition(World world,Block block, int x, int y, int z, StructureBoundingBox sbb){
+		this.setBlockState(world, block.getDefaultState(), x, y, z, sbb);
+	}
+	private void placeBlockAtCurrentPosition(World world,Block block, int meta, int x, int y, int z, StructureBoundingBox sbb){
+		this.setBlockState(world, block.getStateFromMeta(meta), x, y, z, sbb);
+	}
+
+	protected void fillWithMetadataBlocks(World world, StructureBoundingBox sbb, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, Block toPlace, int toPlaceMeta, Block replace, int replaceMeta, boolean alwaysReplace)
+	{
+		for (int i2 = minY; i2 <= maxY; ++i2)
+		{
+			for (int j2 = minX; j2 <= maxX; ++j2)
+			{
+				for (int k2 = minZ; k2 <= maxZ; ++k2)
+				{
+					if (!alwaysReplace || this.getBlockStateFromPos(world, j2, i2, k2, sbb).getBlock().getMaterial() != Material.air)
+					{
+						if (i2 != minY && i2 != maxY && j2 != minX && j2 != maxX && k2 != minZ && k2 != maxZ)
+						{
+							this.placeBlockAtCurrentPosition(world, replace, replaceMeta, j2, i2, k2, sbb);
+						}
+						else
+						{
+							this.placeBlockAtCurrentPosition(world, toPlace, toPlaceMeta, j2, i2, k2, sbb);
+						}
+					}
+				}
+			}
+		}
 	}
 
 }

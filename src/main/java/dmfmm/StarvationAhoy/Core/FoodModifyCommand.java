@@ -4,6 +4,7 @@ import dmfmm.StarvationAhoy.FoodEdit.FoodSet.FoodChanger;
 import net.minecraft.command.*;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 
@@ -23,7 +24,7 @@ public class FoodModifyCommand implements ICommand{
 	}
 
 	@Override
-	public int compareTo(Object arg0) {
+	public int compareTo(ICommand o) {
 		return 0;
 	}
 
@@ -43,14 +44,14 @@ public class FoodModifyCommand implements ICommand{
 	}
 
 	@Override
-	public void processCommand(ICommandSender sender, String[] CMDin) {
+	public void processCommand(ICommandSender sender, String[] CMDin) throws WrongUsageException, NumberInvalidException {
         if (CMDin.length < 3)
         {
             throw new WrongUsageException(getCommandUsage(null), new Object[0]);
         } else {
 			//SALog.error("Hihihihihihihi " + CMDin);
         	Item item = CommandBase.getItemByText(sender, CMDin[0]);
-        	int hunger = CommandBase.parseInt(sender, CMDin[1]);
+        	int hunger = CommandBase.parseInt(CMDin[1]);
         	float saturation = this.parseFloat(sender, CMDin[2]);
         	
         	try {
@@ -70,9 +71,11 @@ public class FoodModifyCommand implements ICommand{
 		return true;
 	}
 
+
+
 	@Override
-	public List addTabCompletionOptions(ICommandSender p_71516_1_, String[] p_71516_2_) {
-		return p_71516_2_.length == 1 ? CommandBase.getListOfStringsFromIterableMatchingLastWord(p_71516_2_, Item.itemRegistry.getKeys()) : null;
+	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
+		return args.length == 1 ? CommandBase.getListOfStringsMatchingLastWord(args, Item.itemRegistry.getKeys()) : null;
 	}
 
 	@Override
@@ -85,7 +88,7 @@ public class FoodModifyCommand implements ICommand{
         return MinecraftServer.getServer().getAllUsernames();
     }
 	
-	private static float parseFloat(ICommandSender s, String string){
+	private static float parseFloat(ICommandSender s, String string) throws NumberInvalidException {
         try
         {
             return Float.parseFloat(string);
@@ -95,5 +98,4 @@ public class FoodModifyCommand implements ICommand{
             throw new NumberInvalidException("commands.generic.num.invalid", new Object[] {s});
         }
 	}
-
 }

@@ -11,6 +11,7 @@ import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import dmfmm.StarvationAhoy.api.FoodEdit.Module;
 
+import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.reflect.*;
 
 public class ModuleBase extends Module {
@@ -21,7 +22,7 @@ public class ModuleBase extends Module {
 		
 		int percentage = CRef.getFoodPrecent();
 		
-		for (Object key : Item.itemRegistry.getKeys()){
+		for (ResourceLocation key : Item.itemRegistry.getKeys()){
 			if (Item.itemRegistry.getObject(key) instanceof ItemFood){
 				ItemFood foo = (ItemFood) Item.itemRegistry.getObject(key);
 				
@@ -55,8 +56,8 @@ public class ModuleBase extends Module {
 
 				// Percent of for ALL foods. (anything that extends ItemFood in the item registry)
 
-				int hunger = (int) (foo.func_150905_g(new ItemStack(foo, 1))*(percentage/100.0f));
-				float sturan = foo.func_150906_h(new ItemStack(foo, 1))*(percentage/100.0f);
+				int hunger = (int) (foo.getHealAmount(new ItemStack(foo, 1))*(percentage/100.0f));
+				float sturan = foo.getSaturationModifier(new ItemStack(foo, 1))*(percentage/100.0f);
 				
 				food.insertFoodI(new ItemStack(foo, 1), hunger, sturan);
 				

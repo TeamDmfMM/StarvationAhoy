@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "normal": { "model": "starvationahoy:HoldingStick" },
+
+    "facing=north": { "model": "starvationahoy:HoldingStick" },
+    "facing=south": { "model": "starvationahoy:HoldingStick", "y": 180 },
+    "facing=west":  { "model": "starvationahoy:HoldingStick", "y": 270 },
+    "facing=east":  { "model": "starvationahoy:HoldingStick", "y": 90 },
+    "facing=down":  { "model": "starvationahoy:HoldingStick", "x": 90 },
+    "facing=up":    { "model": "starvationahoy:HoldingStick", "x": 270 }
+  }
+}

@@ -1,6 +1,6 @@
 package dmfmm.StarvationAhoy.Meat.item;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import dmfmm.StarvationAhoy.Core.lib.MeatLib;
 import net.minecraft.item.Item;
 

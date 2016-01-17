@@ -1,9 +1,8 @@
 package dmfmm.StarvationAhoy.Meat.item;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import dmfmm.StarvationAhoy.Core.SATabs;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemFood;
 
 /**
@@ -27,12 +26,13 @@ public class StanFood extends ItemFood {
     }
 
 
-    @Override
+    //TODO ADD IN TEXTURE HANDLING
+    /*@Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister)
     {
         itemIcon = iconRegister.registerIcon("starvationahoy:" + this.getUnlocalizedName().substring(5));
-    }
+    }*/
 
 
 

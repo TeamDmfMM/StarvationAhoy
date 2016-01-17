@@ -8,23 +8,23 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
-import cpw.mods.fml.common.registry.VillagerRegistry;
-import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.registry.VillagerRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 
 public class VillagerTradeAdditions{
 
+	//TODO REINSERT VILLAGERS!
 	public static void addVillager(Side side){
 		VillagerRegistry.instance().registerVillagerId(getVID());
 		if(side == Side.CLIENT){VillagerRegistry.instance().registerVillagerSkin(getVID(), new ResourceLocation("starvationahoy:textures/entity/VillageButcher.png"));}
-		VillagerRegistry.instance().registerVillageTradeHandler(getVID(), TradeHandler.INSTANCE);
+		//VillagerRegistry.instance().registerVillageTradeHandler(getVID(), TradeHandler.INSTANCE);
 	}
 	protected static int getVID(){
 		return 44442;
 	}
-public static class TradeHandler implements IVillageTradeHandler{
+/*public static class TradeHandler implements IVillageTradeHandler{
 
 	@Override
 	public void manipulateTradesForVillager(EntityVillager villager, MerchantRecipeList r, Random random) {
@@ -53,5 +53,5 @@ public static class TradeHandler implements IVillageTradeHandler{
 	private static int getRStack(Random rand, int max, int min){
 		return rand.nextInt((max - min) + 1) + min;
 
-	}
+	}*/
 }

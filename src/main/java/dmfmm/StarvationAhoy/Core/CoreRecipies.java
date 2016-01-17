@@ -1,6 +1,6 @@
 package dmfmm.StarvationAhoy.Core;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

@@ -24,7 +24,7 @@ public class HungerPotion extends ItemFood {
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
         this.setCreativeTab(SATabs.INSTANCE);
-        this.setTextureName(ModInfo.MOD_ID +":"+ CoreLib.potion);
+        //this.setTextureName(ModInfo.MOD_ID +":"+ CoreLib.potion);
     }
 
    /* public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
@@ -40,7 +40,7 @@ public class HungerPotion extends ItemFood {
 
     public EnumAction getItemUseAction(ItemStack p_77661_1_)
     {
-        return EnumAction.drink;
+        return EnumAction.DRINK;
     }
     public int getMaxItemUseDuration(ItemStack p_77626_1_) {return 32;}
 

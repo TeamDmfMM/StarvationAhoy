@@ -6,8 +6,9 @@ public class CrossMod {
 
 
     public static void init(){
-        CrossHarvestcraft.load();
-        CrossArgicraft.load();
+        //TODO: REENABLE THESE CROSSMOD THINGS!
+        //CrossHarvestcraft.load();
+        //CrossArgicraft.load();
     }
 
     public static void postinit(){

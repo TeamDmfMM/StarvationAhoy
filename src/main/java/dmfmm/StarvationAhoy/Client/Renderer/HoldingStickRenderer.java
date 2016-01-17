@@ -28,36 +28,10 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
             this.model = new HoldingStick();
         modelMulti = new ModelMeatRoaster();
     }
-    
-    private void adjustRotatePivotViaMeta(TileEntity te, int x, int y, int z) {
-        int i = te.getBlockMetadata();
 
-        short short1 = 0;
-
-        if (i == 2)
-        {
-            short1 = -90;
-        }
-
-        if (i == 3)
-        {
-            short1 = 180;
-        }
-
-        if (i == 4)
-        {
-            short1 = 360; //-90
-        }
-
-        if (i == 5)
-        {
-            short1 = 90; //90
-        }
-        GL11.glRotatef((float) short1, 0.0F, 1.0F, 0.0F);
-    }
     
     @Override
-    public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale) {
+    public void renderTileEntityAt(TileEntity te, double x, double y, double z, float scale, int ticks) {
 
 
 
@@ -103,7 +77,30 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
         this.modelMulti.shape10.rotateAngleZ = (float) Math.toRadians(desync);
         this.modelMulti.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         }else{
-            this.adjustRotatePivotViaMeta(te,(int) x, (int)y,(int)z);
+            int i = te.getBlockMetadata();
+
+            short short1z = 0;
+
+            if (i == 2)
+            {
+                short1z = -90;
+            }
+
+            if (i == 3)
+            {
+                short1z = 90;
+            }
+
+            if (i == 4)
+            {
+                short1z = 180; //-90
+            }
+
+            if (i == 5)
+            {
+                short1z = 360; //90
+            }
+            GL11.glRotatef((float)short1z, 0.0F, 1.0F, 0.0F);
             this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         }
 

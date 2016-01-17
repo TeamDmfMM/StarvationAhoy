@@ -1,12 +1,12 @@
 package dmfmm.StarvationAhoy.Core.HUD;
 
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import dmfmm.StarvationAhoy.Core.util.CRef;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -73,12 +73,12 @@ public class OverlaySaturationBar extends Gui {
             float i = (float) (Sat * 2.5); //2.5 * 20 = 50 (# of pixels in bar)
             this.drawTexturedModalRect((int) (EXHAUSTION_BAR_X + i), EXHAUSTION_BAR_Y + 2, 0, 9, 1, 5);
         }
-        this.mc.fontRenderer.setUnicodeFlag(true);
-        this.mc.fontRenderer.drawString(StatCollector.translateToLocal(SATURATION_TEXT_UNLOCALIZED), SATURATION_BAR_X + 7, SATURATION_BAR_Y, 16430373);
-        this.mc.fontRenderer.setUnicodeFlag(false);
+        this.mc.fontRendererObj.setUnicodeFlag(true);
+        this.mc.fontRendererObj.drawString(StatCollector.translateToLocal(SATURATION_TEXT_UNLOCALIZED), SATURATION_BAR_X + 7, SATURATION_BAR_Y, 16430373);
+        this.mc.fontRendererObj.setUnicodeFlag(false);
     }
 
-	public void getCurrentFoodStat(EntityClientPlayerMP player){
+	public void getCurrentFoodStat(EntityPlayerSP player){
         Item unknown = null;
         if(player.getHeldItem() != null) {
             unknown = player.getHeldItem().getItem();
@@ -86,11 +86,11 @@ public class OverlaySaturationBar extends Gui {
                 ItemFood food = (ItemFood) unknown;
                 int HealAmt = KnownFoods.getFoodHunger(new ItemStack(food));
                 float Saturation = KnownFoods.getFoodSaturation(new ItemStack(food));
-                this.mc.fontRenderer.setUnicodeFlag(true);
-                this.mc.fontRenderer.drawString(StatCollector.translateToLocal(FOODHUNGER_TEXT_UNLOCALIZED), SATURATION_BAR_X , SATURATION_BAR_Y + 15, 16430373);
+                this.mc.fontRendererObj.setUnicodeFlag(true);
+                this.mc.fontRendererObj.drawString(StatCollector.translateToLocal(FOODHUNGER_TEXT_UNLOCALIZED), SATURATION_BAR_X , SATURATION_BAR_Y + 15, 16430373);
                 drawFoodHunks((float) HealAmt / 2);
-                this.mc.fontRenderer.drawString(String.format(StatCollector.translateToLocal(FOODSAT_TEXT_UNLOCALIZED), Saturation), SATURATION_BAR_X, SATURATION_BAR_Y + 22, 16430373);
-                this.mc.fontRenderer.setUnicodeFlag(false);
+                this.mc.fontRendererObj.drawString(String.format(StatCollector.translateToLocal(FOODSAT_TEXT_UNLOCALIZED), Saturation), SATURATION_BAR_X, SATURATION_BAR_Y + 22, 16430373);
+                this.mc.fontRendererObj.setUnicodeFlag(false);
             }
         }
 

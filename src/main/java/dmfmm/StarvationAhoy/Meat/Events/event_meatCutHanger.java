@@ -1,6 +1,6 @@
 package dmfmm.StarvationAhoy.Meat.Events;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import dmfmm.StarvationAhoy.api.Event.MeatCutEvent;
@@ -27,7 +27,7 @@ public class event_meatCutHanger {
             item = MItemLoader.skinlessChicken;
         }
         if(!e.world.isRemote){
-            e.world.spawnEntityInWorld(new EntityItem(e.world, e.xPos, e.yPos, e.zPos, new ItemStack(item)));
+            e.world.spawnEntityInWorld(new EntityItem(e.world, e.position.getX(), e.position.getY(), e.position.getZ(), new ItemStack(item)));
         }
     }
 }

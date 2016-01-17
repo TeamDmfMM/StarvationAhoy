@@ -2,7 +2,7 @@ package dmfmm.StarvationAhoy.Core.util;
 
 import org.apache.logging.log4j.Level;
 
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.fml.common.FMLLog;
 import dmfmm.StarvationAhoy.Core.lib.ModInfo;
 
 public class SALog {

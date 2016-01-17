@@ -2,7 +2,7 @@ package dmfmm.StarvationAhoy.CropWash.Crossmod;
 
 import com.pam.harvestcraft.BlockRegistry;
 import com.pam.harvestcraft.ItemRegistry;
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 import dmfmm.StarvationAhoy.CropWash.DirtyBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

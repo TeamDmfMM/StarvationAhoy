@@ -1,7 +1,7 @@
 package dmfmm.StarvationAhoy.CropWash.Crossmod;
 
 
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 import dmfmm.StarvationAhoy.CropWash.DirtyBlocks;
 import dmfmm.StarvationAhoy.CropWash.item.DirtyItem;
 

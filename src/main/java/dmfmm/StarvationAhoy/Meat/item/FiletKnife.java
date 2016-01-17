@@ -9,7 +9,7 @@ public class FiletKnife extends Item{
 	{
         super();
         this.maxStackSize = 1;
-        this.setTextureName("starvationahoy:filetknife");
+        //this.setTextureName("starvationahoy:filetknife");
         this.setContainerItem(this);
         this.setCreativeTab(SATabs.INSTANCE);
     }

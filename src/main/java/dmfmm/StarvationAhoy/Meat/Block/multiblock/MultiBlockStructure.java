@@ -1,6 +1,7 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -42,7 +43,7 @@ public abstract class MultiBlockStructure {
         if (true) {onUpdate(world);}
         //if (sharedData != oldSha){
             //SALog.error("im making lots o lag!");
-            syncData(this, this.bPos, this.x, this.y, this.z, world);
+            syncData(this, this.bPos, new BlockPos(this.x, this.y, this.z), world);
 
 
     }
@@ -51,12 +52,12 @@ public abstract class MultiBlockStructure {
 
     public abstract int bPosMax();
 
-    public void syncData(MultiBlockStructure structToSync, int bPos, int x, int y, int z, World world){
+    public void syncData(MultiBlockStructure structToSync, int bPos, BlockPos pos, World world){
 
         for (int blockPos = 0; blockPos < bPosMax(); blockPos++) {
-            int[] bPosFor = getPosForBlock(blockPos, bPos, x, y, z, world);
+            int[] bPosFor = getPosForBlock(blockPos, bPos, pos.getX(), pos.getY(), pos.getZ(), world);
 
-            TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(bPosFor[0], bPosFor[1], bPosFor[2]);
+            TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(new BlockPos(bPosFor[0], bPosFor[1], bPosFor[2]));
             if (te == null){return;}
             MultiBlockStructure struct = te.multiBlockStructure;
             struct.sharedData = structToSync.sharedData;
@@ -68,7 +69,7 @@ public abstract class MultiBlockStructure {
         for (int blockPos = 0; blockPos < bPosMax(); blockPos++) {
             int[] bPosFor = getPosForBlock(blockPos, bPos, x, y, z, world);
 
-            world.setBlockToAir(bPosFor[0], bPosFor[1], bPosFor[2]);
+            world.setBlockToAir(new BlockPos(bPosFor[0], bPosFor[1], bPosFor[2]));
         }
     }
 
