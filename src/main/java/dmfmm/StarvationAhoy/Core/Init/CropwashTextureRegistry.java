@@ -2,6 +2,7 @@ package dmfmm.StarvationAhoy.Core.Init;
 
 
 import dmfmm.StarvationAhoy.Core.lib.WashLib;
+import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -15,12 +16,15 @@ public class CropwashTextureRegistry {
 
     public static void initTextures(){
         registerBlock(WashLib.washBarrelName, 0);
-
+        doDirtyItem();
     }
 
 
 
-
+    private static void doDirtyItem() {
+        RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
+        renderItem.getItemModelMesher().register(ModuleCropWash.cropItemLoader.getItem("dirty_item"),0,  ModuleCropWash.dirty_item_model);
+    }
 
     private static void registerBlock(String blockName, int meta){
         RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();

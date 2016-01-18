@@ -1,21 +1,24 @@
 package dmfmm.StarvationAhoy.CropWash;
 
-import net.minecraftforge.fml.common.event.FMLInterModComms;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 import dmfmm.StarvationAhoy.Core.util.CRef;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.CropWash.Block.BlockCropWasher;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
 import dmfmm.StarvationAhoy.CropWash.Crossmod.CrossMod;
 import dmfmm.StarvationAhoy.CropWash.item.CropItemLoader;
+import dmfmm.StarvationAhoy.CropWash.modelbake.ModelBakeInjector;
+import dmfmm.StarvationAhoy.CropWash.modelbake.TextureInjector;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Made by mincrmatt12. Do not copy or you will have to face
@@ -25,6 +28,7 @@ public class ModuleCropWash {
 
     public static CropItemLoader cropItemLoader = new CropItemLoader();
 
+    public static ModelResourceLocation dirty_item_model = new ModelResourceLocation("starvationahoy:dirty_item_model_token", "inventory");
 
     public static Block blockCropWasher;
     public static DirtyBlocks d;
@@ -45,7 +49,10 @@ public class ModuleCropWash {
         if (CRef.useCropwash() == false){
             return;
         }
-
+        if (side == Side.CLIENT) {
+            MinecraftForge.EVENT_BUS.register(new ModelBakeInjector());
+            MinecraftForge.EVENT_BUS.register(new TextureInjector());
+        }
         cropItemLoader.load();
         MinecraftForge.EVENT_BUS.register(new Events_CropWash());
         d = new DirtyBlocks();
