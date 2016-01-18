@@ -1,5 +1,8 @@
 package dmfmm.StarvationAhoy.proxy;
 
+import net.minecraft.entity.passive.*;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import dmfmm.StarvationAhoy.Client.Renderer.*;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
@@ -10,9 +13,6 @@ import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.init.Items;
 import net.minecraftforge.client.MinecraftForgeClient;
 import org.lwjgl.input.Keyboard;
@@ -73,6 +73,14 @@ public class ClientProxy extends CommonProxy{
 		mt.doMeatType(new ModelChickenSA(), "minecraft:textures/entity/chicken.png", "starvationahoy:textures/entity/skinnedChicken.png", "starvationahoy:textures/entity/rottenChicken.png");
 		mt.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, Items.feather, Items.cooked_chicken, MItemLoader.skinlessChicken);
 		ModuleMeat.registry.addMeatType(mt);
+        mt = new MeatType(4);
+        mt.doMeatType(new ModelSheepSA(), "minecraft:textures/entity/chicken.png", "starvationahoy:textures/entity/skinnedChicken.png", "starvationahoy:textures/entity/rottenChicken.png");
+        mt.doDeadEntity(EntitySheep.class, MItemLoader.deadSheep, Item.getItemFromBlock(Blocks.wool), Items.cooked_mutton, MItemLoader.skinlessSheep);
+        ModuleMeat.registry.addMeatType(mt);
+        mt = new MeatType(5);
+        mt.doMeatType(new ModelRabbitSA(), "minecraft:textures/entity/chicken.png", "starvationahoy:textures/entity/skinnedChicken.png", "starvationahoy:textures/entity/rottenChicken.png");
+        mt.doDeadEntity(EntityRabbit.class, MItemLoader.deadRabbit, Items.rabbit_hide, Items.cooked_rabbit, MItemLoader.skinlessRabbit);
+        ModuleMeat.registry.addMeatType(mt);
 	}
 
 

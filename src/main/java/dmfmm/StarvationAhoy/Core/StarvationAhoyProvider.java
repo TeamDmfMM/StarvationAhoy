@@ -16,7 +16,7 @@ import dmfmm.StarvationAhoy.api.FoodEdit.Module;
 
 public class StarvationAhoyProvider implements IStarvationAhoyProvider {
 	
-	private int nextId = 4;
+	private int nextId = 6;
 
 
 	private Map<String, Item> internalModMapItems;

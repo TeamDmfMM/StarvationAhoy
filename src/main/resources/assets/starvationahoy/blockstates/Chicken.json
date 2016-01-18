@@ -1,0 +1,59 @@
+{
+  "forge_marker": 1,
+  "defaults": {"transform":"forge:default-item"},
+  "variants": {
+    "type": {
+      "chicken": {
+        "model": "starvationahoy:ModelChicken.obj",
+        "transform": {
+          "thirdperson": {
+            "scale": 1.0,
+            "rotation": [{"y":180}],
+            "translation": [-0.3, 0.3, -0.21]
+          },
+          "firstperson": {
+            "scale": 1.2,
+            "translation": [0, 0.4, 0.4]
+          },
+          "gui": {
+            "scale": 1.5,
+            "rotation": [{"x":180}, {"y":90}],
+            "translation": [0.65, 0, 0]
+          },
+          "ground": {
+            "scale": 4.0
+          }
+        },
+        "custom": {
+          "flip-v": true
+        }
+      },
+      "skinned_chicken": {
+        "model": "starvationahoy:ModelChicken.obj",
+        "textures": { "#None": "starvationahoy:entity/skinnedChickenItem" },
+        "transform": {
+          "thirdperson": {
+            "scale": 1.0,
+            "rotation": [{"y":180}],
+            "translation": [-0.3, 0.3, -0.21]
+          },
+          "firstperson": {
+            "scale": 1.2,
+            "translation": [0, 0.4, 0.4]
+          },
+          "gui": {
+            "scale": 1.5,
+            "rotation": [{"x":180}, {"y":90}],
+            "translation": [0.65, 0, 0]
+          },
+          "ground": {
+            "scale": 4.0
+          }
+        },
+        "custom": {
+          "flip-v": true
+        }
+      }
+    }
+  }
+}

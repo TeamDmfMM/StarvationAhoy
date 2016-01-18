@@ -6,6 +6,7 @@ import dmfmm.StarvationAhoy.Core.Init.MeatTextureRegistry;
 import dmfmm.StarvationAhoy.api.CropWash.CropWash;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityBanner;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -74,6 +75,7 @@ public class StarvationAhoy {
 		StarvationAhoyRegistry.init(new StarvationAhoyProvider());
 		ConfigHandler.init(new File(DIR, ModInfo.MOD_ID + ".cfg"));
 		FMLCommonHandler.instance().bus().register(new event_configChange());
+		OBJLoader.instance.addDomain(ModInfo.MOD_ID);
 
 		//Module Initiation
 		ModuleCropWash.preinit();

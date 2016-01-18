@@ -12,8 +12,8 @@ import java.util.Map;
 public class MItemLoader {
 private static boolean IRegister=false;  
 	
-	public static Item deadCow, deadPig, deadChicken;
-	public static Item skinlessCow, skinlessPig, skinlessChicken;
+	public static Item deadCow, deadPig, deadChicken, deadSheep, deadRabbit;
+	public static Item skinlessCow, skinlessPig, skinlessChicken, skinlessSheep, skinlessRabbit;
 	public static Item ButcherKnife, filetKnife;
     public static Item pigleg, cookedpigleg;
 
@@ -23,9 +23,13 @@ private static boolean IRegister=false;
 		deadCow = new DeadEntity(MeatLib.iCowDead);
 		deadPig = new DeadEntity(MeatLib.iPigDead);
 		deadChicken = new DeadEntity(MeatLib.iChickenDead);
+		deadRabbit = new DeadEntity(MeatLib.iRabbitDead);
+		deadSheep = new DeadEntity(MeatLib.iSheepDead);
 		skinlessCow = new SkinnedEntity(MeatLib.iCowSkinned);
 		skinlessPig = new SkinnedEntity(MeatLib.iPigSkinned);
 		skinlessChicken = new SkinnedEntity(MeatLib.iChickenSkinned);
+		skinlessRabbit = new SkinnedEntity(MeatLib.iRabbitSkinned);
+		skinlessSheep = new SkinnedEntity(MeatLib.iSheepSkinned);
 		ButcherKnife = new ButcherKnife().setUnlocalizedName(MeatLib.iButcherKnife);
 		filetKnife = new FiletKnife().setUnlocalizedName(MeatLib.ifiletKnife);
         pigleg = new StanFood(5, 6.3F).setUnlocalizedName(MeatLib.iPigLeg);
