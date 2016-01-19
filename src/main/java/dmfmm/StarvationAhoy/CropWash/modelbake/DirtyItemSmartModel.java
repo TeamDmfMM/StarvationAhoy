@@ -21,7 +21,7 @@ import java.util.List;
  * our legal team. (dmf444)
  */
 public class DirtyItemSmartModel implements ISmartItemModel {
-    String dirtyOverlay = "starvationahoy:dirty_overlay";
+    String dirtyOverlay = "starvationahoy:items/dirty_overlay";
     Item current = null;
 
     IBakedModel exist;

@@ -16,6 +16,6 @@ public class TextureInjector {
 
     @SubscribeEvent
     public void sticherEventPre(TextureStitchEvent.Pre event) {
-        event.map.registerSprite(new ResourceLocation("starvationahoy:dirty_overlay"));
+        event.map.registerSprite(new ResourceLocation("starvationahoy:items/dirty_overlay"));
     }
 }
