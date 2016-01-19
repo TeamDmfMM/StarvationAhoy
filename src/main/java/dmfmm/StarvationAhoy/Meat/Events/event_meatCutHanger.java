@@ -25,6 +25,10 @@ public class event_meatCutHanger {
             item = MItemLoader.skinlessPig;
         }else if(e.meattype == ModuleMeat.MEATTYPE_CHICK){
             item = MItemLoader.skinlessChicken;
+        }else if(e.meattype == ModuleMeat.MEATTYPE_SHEEP){
+            item = MItemLoader.skinlessSheep;
+        }else if(e.meattype == ModuleMeat.MEATTYPE_RABBIT){
+            item = MItemLoader.skinlessRabbit;
         }
         if(!e.world.isRemote){
             e.world.spawnEntityInWorld(new EntityItem(e.world, e.position.getX(), e.position.getY(), e.position.getZ(), new ItemStack(item)));

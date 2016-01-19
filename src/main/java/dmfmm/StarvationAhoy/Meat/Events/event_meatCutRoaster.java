@@ -21,6 +21,9 @@ public class event_meatCutRoaster {
         if(e.meattype == ModuleMeat.MEATTYPE_PIG && e.itemOut == Items.cooked_porkchop){
             EntityItem p = new EntityItem(e.world, e.position.getX(), e.position.getY()+2, e.position.getZ(), new ItemStack(MItemLoader.pigleg, 4));
             if (!e.world.isRemote){e.world.spawnEntityInWorld(p);}
+        }else if(e.meattype == ModuleMeat.MEATTYPE_RABBIT && e.itemOut == Items.cooked_rabbit){
+            EntityItem p = new EntityItem(e.world, e.position.getX(), e.position.getY()+2, e.position.getZ(), new ItemStack(Items.rabbit_foot, 4));
+            if (!e.world.isRemote){e.world.spawnEntityInWorld(p);}
         }
     }
 }

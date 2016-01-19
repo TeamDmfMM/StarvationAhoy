@@ -26,15 +26,5 @@ public class StanFood extends ItemFood {
     }
 
 
-    //TODO ADD IN TEXTURE HANDLING
-    /*@Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister)
-    {
-        itemIcon = iconRegister.registerIcon("starvationahoy:" + this.getUnlocalizedName().substring(5));
-    }*/
-
-
-
 
 }

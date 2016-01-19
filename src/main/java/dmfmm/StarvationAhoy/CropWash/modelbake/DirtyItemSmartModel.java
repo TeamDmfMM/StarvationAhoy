@@ -4,6 +4,7 @@ import com.google.common.primitives.Ints;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.init.Items;
@@ -11,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.ISmartItemModel;
+import org.lwjgl.util.vector.Vector3f;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ import java.util.List;
  * our legal team. (dmf444)
  */
 public class DirtyItemSmartModel implements ISmartItemModel {
-    String dirtyOverlay = "starvationahoy:items/dirty_overlay";
+    String dirtyOverlay = "starvationahoy:items/dirty_overlay", dirtyOverlayBack ="starvationahoy:items/dirty_overlay_back";
     Item current = null;
 
     IBakedModel exist;
@@ -68,7 +70,15 @@ public class DirtyItemSmartModel implements ISmartItemModel {
 
     @Override
     public ItemCameraTransforms getItemCameraTransforms() {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(Items.apple)).getItemCameraTransforms();
+         ItemCameraTransforms cameraTransforms = new ItemCameraTransforms(
+                new ItemTransformVec3f(new Vector3f(-90.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.05F, -0.2F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp
+                new ItemTransformVec3f(new Vector3f(0F, -135F, 25.0F), new Vector3f(0F, 0.3F, 0.1F), new Vector3f(1.7F, 1.7F, 1.7F)),//fp
+                new ItemTransformVec3f(new Vector3f(0F, 0F, 0.0F), new Vector3f(), new Vector3f(1.2F, 1.2F, 1.2F)),//head
+                new ItemTransformVec3f(new Vector3f(0F, 0F, 0.0F), new Vector3f(0.0F, 0.0F, 0.F), new Vector3f(1.0F, 1.0F, 1.0F)),//gui
+                new ItemTransformVec3f(new Vector3f(0F, -190F, 0.0F), new Vector3f(0.0F, -0.05F, 0.F), new Vector3f(1.2F, 1.2F, 1.2F)),//ground
+                new ItemTransformVec3f(new Vector3f(0F, -190F, 0.0F), new Vector3f(0.0F, -0.05F, 0.F), new Vector3f(1.2F, 1.2F, 1.2F))//fixed
+        );
+        return cameraTransforms;
     }
 
     public List<BakedQuad> getQuadsForT() {
@@ -93,6 +103,8 @@ public class DirtyItemSmartModel implements ISmartItemModel {
         float delta = 0.001f;
 
         TextureAtlasSprite t2 = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(dirtyOverlay);
+        TextureAtlasSprite t3 = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(dirtyOverlayBack);
+
 
         BakedQuad front = createBakedQuadForFace(center1- 0.031f, size,
                 center2, size, -DISTANCE_BEHIND_SOUTH_FACE + delta,
@@ -103,7 +115,7 @@ public class DirtyItemSmartModel implements ISmartItemModel {
         BakedQuad back = createBakedQuadForFace(center1, size,
                 center2, size,
                 -DISTANCE_BEHIND_NORTH_FACE + delta,
-                r0, t2, EnumFacing.NORTH);
+                r0, t3, EnumFacing.NORTH);
 
         List<BakedQuad> quad = new ArrayList<>();
         quad.add(front);

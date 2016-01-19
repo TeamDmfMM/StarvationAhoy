@@ -1,21 +1,18 @@
 package dmfmm.StarvationAhoy.Client.Renderer;
 
-import net.minecraft.block.Block;
+import dmfmm.StarvationAhoy.Meat.MeatRegistry;
+import dmfmm.StarvationAhoy.api.Meat.ISAModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
-
 
 
 public class MeatHangerRenderer extends TileEntitySpecialRenderer {
@@ -108,7 +105,7 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
             	Minecraft.getMinecraft().renderEngine.bindTexture(pigT);
             	pig.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
             	break;
-            case 3:
+           /* case 3:
             	//chicken
             	ModelChickenSA chick = new ModelChickenSA();
             	chick.isChild = false;
@@ -124,16 +121,79 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
             	ResourceLocation chickT =getTexture(meatType, meatState);
             	Minecraft.getMinecraft().renderEngine.bindTexture(chickT);
             	chick.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
-            	break;
-            //case 4:
+            	break;*/
+            case 4:
             	//Sheep
-				default:
+				if(meatState == 0){
+					ModelSheepSA sheepy = new ModelSheepSA();
+					sheepy.isChild = false;
+					sheepy.leg1s.rotateAngleX = 77;
+					sheepy.leg2s.rotateAngleX = 77;
+					sheepy.leg1s.rotateAngleY = 0.2F;
+					sheepy.leg2s.rotateAngleY = -0.2F;
+					sheepy.leg3s.rotateAngleX = -77F;
+					sheepy.leg4s.rotateAngleX = -77F;
+					sheepy.leg1.rotateAngleX = 77;
+					sheepy.leg2.rotateAngleX = 77;
+					sheepy.leg1.rotateAngleY = 0.2F;
+					sheepy.leg2.rotateAngleY = -0.2F;
+					sheepy.leg3.rotateAngleX = -77F;
+					sheepy.leg4.rotateAngleX = -77F;
+
+					//Rotation Block
+					GL11.glRotatef(90F, 1, 0, 0);
+					GL11.glTranslated(0, -0.7, -1.9);
+
+
+					//Draw & Finish
+					Minecraft.getMinecraft().renderEngine.bindTexture(getTexture(ModuleMeat.MEATTYPE_SHEEP, meatState));
+					sheepy.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+					break;
+				}else{
+					ModelSheepSA.ModelSheepSA2 sheepyz = new ModelSheepSA.ModelSheepSA2();
+					sheepyz.isChild = false;
+					sheepyz.leg1.rotateAngleX = 77;
+					sheepyz.leg2.rotateAngleX = 77;
+					sheepyz.leg1.rotateAngleY = 0.2F;
+					sheepyz.leg2.rotateAngleY = -0.2F;
+					sheepyz.leg3.rotateAngleX = -77F;
+					sheepyz.leg4.rotateAngleX = -77F;
+
+					//Rotation Block
+					GL11.glRotatef(90F, 1, 0, 0);
+					GL11.glTranslated(0, -0.7, -1.9);
+
+					Minecraft.getMinecraft().renderEngine.bindTexture(getTexture(ModuleMeat.MEATTYPE_SHEEP, meatState));
+					sheepyz.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+					break;
+				}
+			case 5:
+				//Rabbit
+				ModelRabbitSA rabbit = (ModelRabbitSA) ModuleMeat.registry.getModel(ModuleMeat.MEATTYPE_RABBIT);
+				rabbit.isChild = false;
+
+				GL11.glRotatef(110F, 1, 0, 0);
+				GL11.glTranslated(0, -1.7, -1.6);
+
+				ResourceLocation rabbitT = getTexture(meatType, meatState);
+				Minecraft.getMinecraft().renderEngine.bindTexture(rabbitT);
+				rabbit.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+				break;
+			default:
 					if (meatType > 0){
 						ModelBase toDraw = ModuleMeat.registry.getModel(meatType);
-						GL11.glRotatef(180F, 1, 0, 0);
-						GL11.glRotatef(180F, 0, 1, 0);
-						GL11.glTranslatef(0, -2.3F, 0.2F);
-						GL11.glDisable(GL11.GL_CULL_FACE);
+						if(toDraw instanceof ISAModel){
+							ISAModel moddelo = (ISAModel)toDraw;
+							moddelo.modelTransformations();
+							moddelo.glTransformations();
+						}else {
+							GL11.glRotatef(180F, 1, 0, 0);
+							GL11.glRotatef(180F, 0, 1, 0);
+							GL11.glTranslatef(0, -2.3F, 0.2F);
+							GL11.glDisable(GL11.GL_CULL_FACE);
+						}
+						ResourceLocation animalTexture =getTexture(meatType, meatState);
+						Minecraft.getMinecraft().renderEngine.bindTexture(animalTexture);
 						toDraw.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 					}
 					break;

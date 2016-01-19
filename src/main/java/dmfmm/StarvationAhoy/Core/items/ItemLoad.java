@@ -30,7 +30,6 @@ public class ItemLoad {
 					try {
 						 toRegister = item.get(null);
 					} catch (IllegalArgumentException | IllegalAccessException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 						continue;
 					}

@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.Meat.Events;
 
+import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.api.Event.MeatCutEvent;
@@ -22,6 +23,10 @@ public class event_meatSkinned {
             if(!e.world.isRemote){e.world.spawnEntityInWorld(new EntityItem(e.world, e.position.getX(), e.position.getY(), e.position.getZ(), new ItemStack(Items.leather, randomNum)));}
         }else if(e.meattype == ModuleMeat.MEATTYPE_CHICK){
             if(!e.world.isRemote){e.world.spawnEntityInWorld(new EntityItem(e.world, e.position.getX(), e.position.getY(), e.position.getZ(), new ItemStack(Items.feather, randomNum)));}
+        }else if(e.meattype == ModuleMeat.MEATTYPE_RABBIT){
+            if(!e.world.isRemote){e.world.spawnEntityInWorld(new EntityItem(e.world, e.position.getX(), e.position.getY(), e.position.getZ(), new ItemStack(Items.rabbit_hide, 1)));}
+        }else if(e.meattype == ModuleMeat.MEATTYPE_SHEEP){
+            if(!e.world.isRemote){e.world.spawnEntityInWorld(new EntityItem(e.world, e.position.getX(), e.position.getY(), e.position.getZ(), new ItemStack(Blocks.wool, randomNum)));}
         }
     }
 }

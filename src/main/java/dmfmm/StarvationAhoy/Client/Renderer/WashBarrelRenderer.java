@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -81,7 +82,7 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
         TileEntityCropWasher tet = (TileEntityCropWasher) te;
             if (tet.getFluidAmount() > 0)
             {
-                Float UPDOWN = Float.valueOf(Float.valueOf(tet.getFluidAmount()) / 1000) * 0.6f;
+                Float UPDOWN = Float.valueOf(Float.valueOf(tet.getFluidAmount()) / 1000) * 0.65f;
 
                 //SALog.error(UPDOWN);
                 //SALog.error(tet.getFluidAmount());
@@ -91,59 +92,58 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
                 GL11.glTranslated(-0.3F, -1.55 + UPDOWN, -0.3F );
                 GL11.glRotated(90, 1, 0, 0);
                 Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-                //TODO REIMPLEMENT WATER RENDERING
-                /*
+
                 Tessellator cake = Tessellator.getInstance();
-                cake.getWorldRenderer().begin(7, new VertexFormat());
+               // cake.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX);
                 //cake.setBrightness(1000);
-                cake.getWorldRenderer().color(1.0f, 1.0f, 1.0f, 1.0f);
+
                 //Main SQ
-                cake.addVertexWithUV(0, 0.6, 0, water.getMinU(), water.getMaxV());
-                cake.addVertexWithUV(0.625, 0.6, 0, water.getMaxU(), water.getMaxV());
-                cake.addVertexWithUV(0.625, 0, 0, water.getMaxU(), water.getMinV());
-                cake.addVertexWithUV(0, 0, 0, water.getMinU(), water.getMinV());
+                cake.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+                this.draw(cake, 0, 0.6, 0, water.getMinU(), water.getMaxV());
+                this.draw(cake, 0.625, 0.6, 0, water.getMaxU(), water.getMaxV());
+                this.draw(cake, 0.625, 0, 0, water.getMaxU(), water.getMinV());
+                this.draw(cake, 0, 0, 0, water.getMinU(), water.getMinV());
                 cake.draw();
                 GL11.glTranslated(0.3F, 1.0, 0);
 
                 GL11.glTranslated(-0.4F, -0.86, 0);
                 //Sides 1
-                cake.startDrawingQuads();
-                cake.addVertexWithUV(0, 0.32, 0, water.getMinU(), water.getMaxV());
-                cake.addVertexWithUV(0.125, 0.37, 0, water.getMaxU(), water.getMaxV());
-                cake.addVertexWithUV(0.125, -0.1, 0, water.getMaxU(), water.getMinV());
-                cake.addVertexWithUV(0, 0, 0, water.getMinU(), water.getMinV());
+                cake.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+                this.draw(cake, 0, 0.32, 0, water.getMinU(), water.getMaxV());
+                this.draw(cake, 0.125, 0.37, 0, water.getMaxU(), water.getMaxV());
+                this.draw(cake, 0.125, -0.1, 0, water.getMaxU(), water.getMinV());
+                this.draw(cake, 0, 0, 0, water.getMinU(), water.getMinV());
                 cake.draw();
                 GL11.glTranslated(0.4F, 0.86, 0);
 
                 GL11.glTranslated(0.31F, -0.86, 0);
                 //Sides 2
-                cake.startDrawingQuads();
-                cake.addVertexWithUV(0, 0.31, 0, water.getMinU(), water.getMaxV());
-                cake.addVertexWithUV(0.124, 0.21, 0, water.getMaxU(), water.getMaxV());
-                cake.addVertexWithUV(0.124, 0.1, 0, water.getMaxU(), water.getMinV());
-                cake.addVertexWithUV(0, 0, 0, water.getMinU(), water.getMinV());
+                cake.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+                this.draw(cake, 0, 0.31, 0, water.getMinU(), water.getMaxV());
+                this.draw(cake, 0.124, 0.21, 0, water.getMaxU(), water.getMaxV());
+                this.draw(cake, 0.124, 0.1, 0, water.getMaxU(), water.getMinV());
+                this.draw(cake, 0, 0, 0, water.getMinU(), water.getMinV());
                 cake.draw();
                 GL11.glTranslated(-0.31F, -0.86, 0.0F);
 
                 GL11.glTranslated(-0.09F, 0.599F, 0F); //0.599
                 //Sides 3
-                cake.startDrawingQuads();
-                cake.addVertexWithUV(-0.1, 0.126, 0, water.getMinU(), water.getMaxV());
-                cake.addVertexWithUV(0.30, 0.126, 0, water.getMaxU(), water.getMaxV());
-                cake.addVertexWithUV(0.24, 0, 0, water.getMaxU(), water.getMinV());
-                cake.addVertexWithUV(0, 0, 0, water.getMinU(), water.getMinV());
+                cake.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+                this.draw(cake, -0.1, 0.126, 0, water.getMinU(), water.getMaxV());
+                this.draw(cake, 0.30, 0.126, 0, water.getMaxU(), water.getMaxV());
+                this.draw(cake, 0.24, 0, 0, water.getMaxU(), water.getMinV());
+                this.draw(cake, 0, 0, 0, water.getMinU(), water.getMinV());
                 cake.draw();
                 GL11.glTranslated(0.31F, 0.86, 0.0F);
 
                 GL11.glTranslated(-0.39F, -0.15F, 0F);
                 //Sides 4
-                cake.startDrawingQuads();
-                cake.addVertexWithUV(0.17, 0.126, 0, water.getMinU(), water.getMaxV());
-                cake.addVertexWithUV(0.26, 0.126, 0, water.getMaxU(), water.getMaxV());
-                cake.addVertexWithUV(0.38, 0, 0, water.getMaxU(), water.getMinV());
-                cake.addVertexWithUV(0, 0, 0, water.getMinU(), water.getMinV());
+                cake.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+                this.draw(cake, 0.17, 0.126, 0, water.getMinU(), water.getMaxV());
+                this.draw(cake, 0.26, 0.126, 0, water.getMaxU(), water.getMaxV());
+                this.draw(cake, 0.38, 0, 0, water.getMaxU(), water.getMinV());
+                this.draw(cake, 0, 0, 0, water.getMinU(), water.getMinV());
                 cake.draw();
-                */
             }
         GL11.glPopMatrix();
         GL11.glPopAttrib();
@@ -154,6 +154,13 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
         //Tell it to stop rendering for both the PushMatrix's
         GL11.glPopMatrix();
         GL11.glPopMatrix();
+    }
+
+    private static void draw(Tessellator tess, double x, double y, double z, float U, float V){
+        tess.getWorldRenderer().pos(x, y ,z);
+        tess.getWorldRenderer().tex(U, V);
+        tess.getWorldRenderer().color(1.0f, 1.0f, 1.0f, 1.0f);
+        tess.getWorldRenderer().endVertex();
     }
 
 }

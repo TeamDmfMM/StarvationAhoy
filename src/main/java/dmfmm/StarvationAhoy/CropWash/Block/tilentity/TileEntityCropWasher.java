@@ -1,33 +1,32 @@
 package dmfmm.StarvationAhoy.CropWash.Block.tilentity;
 
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.*;
 
 /**
  * Created by mincrmatt12. Do not copy this or you will have to face
  * our legal team. (dmf444)
  */
-public class TileEntityCropWasher extends TileEntity implements IFluidTank{
+public class TileEntityCropWasher extends TileFluidHandler{
 
-
-    FluidTank theTank;
 
     public TileEntityCropWasher(){
-        theTank = new FluidTank( 1000 );
     }
 
     public ItemStack wash(ItemStack item){
 
-        if (theTank.getFluidAmount() >= 200 * item.stackSize){
+        if (this.tank.getFluidAmount() >= 20 * item.stackSize){
             if (item.getItem() == ModuleCropWash.cropItemLoader.getItem("dirty_item")){
                 ItemStack original = ItemStack.loadItemStackFromNBT(item.getTagCompound().getCompoundTag("Original"));
                 original.stackSize = item.stackSize;
-                theTank.drain(200, true);
+                this.tank.drain(20 * item.stackSize, true);
                 return original;
             }
         }
@@ -35,33 +34,21 @@ public class TileEntityCropWasher extends TileEntity implements IFluidTank{
     }
 
 
-    @Override
-    public FluidStack getFluid() {
-        return theTank.getFluid();
+    public float getFluidAmount() {
+        return this.tank.getFluidAmount();
     }
 
     @Override
-    public int getFluidAmount() {
-        return theTank.getFluidAmount();
+    public Packet getDescriptionPacket()
+    {
+        NBTTagCompound syncData = new NBTTagCompound();
+        syncData.setTag("fluid", tank.writeToNBT(new NBTTagCompound()));
+        return new S35PacketUpdateTileEntity(this.pos, 1, syncData);
     }
 
     @Override
-    public int getCapacity() {
-        return theTank.getCapacity();
-    }
-
-    @Override
-    public FluidTankInfo getInfo() {
-        return theTank.getInfo();
-    }
-
-    @Override
-    public int fill(FluidStack resource, boolean doFill) {
-        return theTank.fill(resource, doFill);
-    }
-
-    @Override
-    public FluidStack drain(int maxDrain, boolean doDrain) {
-        return null;
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+    {
+        tank.readFromNBT(pkt.getNbtCompound().getCompoundTag("fluid"));
     }
 }

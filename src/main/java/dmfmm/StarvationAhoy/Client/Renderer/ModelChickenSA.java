@@ -1,10 +1,14 @@
 package dmfmm.StarvationAhoy.Client.Renderer;
 
+import dmfmm.StarvationAhoy.api.Meat.ISAModel;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelChicken;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
+import org.lwjgl.opengl.GL11;
 
-public class ModelChickenSA extends ModelChicken{
+public class ModelChickenSA extends ModelChicken implements ISAModel{
 	 public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity p_78087_7_)
 	    {
 	        this.head.rotateAngleX = p_78087_5_ / (180F / (float)Math.PI);
@@ -19,4 +23,33 @@ public class ModelChickenSA extends ModelChicken{
 	        //this.rightWing.rotateAngleZ = p_78087_3_;
 	       // this.leftWing.rotateAngleZ = -p_78087_3_;
 	    }
+
+	@Override
+	public void glTransformations() {
+		GL11.glRotatef(180F, 1, 0, 0);
+		GL11.glRotatef(180F, 0, 1, 0);
+		GL11.glTranslatef(0, -2.3F, 0.2F);
+		GL11.glDisable(GL11.GL_CULL_FACE);
+	}
+
+	@Override
+	public void modelTransformations() {
+		this.isChild = false;
+		this.rightWing.offsetX = 0.1F;
+		this.rightWing.rotateAngleZ = 361.2F;
+		this.leftWing.offsetX = -0.1F;
+		this.leftWing.rotateAngleZ = 361.2F;
+	}
+
+	@Override
+	public AxisAlignedBB getMeatAABB(double x, double minX, double maxX, double y, double minY, double maxY, double z, double minZ, double maxZ) {
+		return new AxisAlignedBB(
+				x + minX,
+				y + minY - 0.3F,
+				z + minZ,
+				x + maxX,
+				y +maxY,
+				z + maxZ
+		);
+	}
 }

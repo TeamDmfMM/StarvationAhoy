@@ -2,6 +2,7 @@ package dmfmm.StarvationAhoy.CropWash.Block;
 
 import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.Core.lib.WashLib;
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
 import net.minecraft.block.BlockContainer;
@@ -39,13 +40,13 @@ public class BlockCropWasher extends BlockContainer{
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing facing, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
-
+        SALog.error(((TileEntityCropWasher) world.getTileEntity(pos)).getFluidAmount());
         ItemStack stack = player.getCurrentEquippedItem();
         if (stack == null){
             return false;
         }
         else if (stack.getItem() == Items.water_bucket){
-            ((TileEntityCropWasher) world.getTileEntity(pos)).fill(new FluidStack(FluidRegistry.getFluid("water"), 1000), true);
+            ((TileEntityCropWasher) world.getTileEntity(pos)).fill(EnumFacing.UP, new FluidStack(FluidRegistry.getFluid("water"), 1000), true);
             ItemStack bucket = new ItemStack(Items.bucket);
             player.inventory.setInventorySlotContents(player.inventory.currentItem, bucket);
             return true;
