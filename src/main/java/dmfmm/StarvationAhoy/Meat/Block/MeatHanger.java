@@ -1,6 +1,8 @@
 package dmfmm.StarvationAhoy.Meat.Block;
 
 import dmfmm.StarvationAhoy.Core.Blocks.BlockContainerRotate;
+import dmfmm.StarvationAhoy.Core.util.SALog;
+import dmfmm.StarvationAhoy.api.Meat.ISAModel;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -61,6 +63,7 @@ public class MeatHanger extends BlockContainerRotate{
     	int state = ((MeatHangerTileEntity) world.getTileEntity(pos)).getMeatState();
 		ItemStack temma = player.inventory.getCurrentItem();
 		if(temma != null) {
+			SALog.error(ModuleMeat.registry.isMeatItem(temma).value);
 			if (temma.getItem() == MItemLoader.ButcherKnife && ItemType != 0 && state == 1){
     						/*IS the player attempting to cut the animal down (when skinned)?*/
 				MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatHanger(world, ItemType, pos));
@@ -76,12 +79,16 @@ public class MeatHanger extends BlockContainerRotate{
 				((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatState(1);
 				world.markBlockForUpdate(pos);
 				return true;
-			} else if (player.inventory.getCurrentItem().getItem() == MItemLoader.deadSheep || player.inventory.getCurrentItem().getItem() == MItemLoader.deadRabbit ||player.inventory.getCurrentItem().getItem() == MItemLoader.deadChicken || player.inventory.getCurrentItem().getItem() == MItemLoader.deadCow || player.inventory.getCurrentItem().getItem() == MItemLoader.deadPig && ItemType == 0) {
+			} else if (ModuleMeat.registry.isMeatItem(temma).value && ItemType == 0) {
     						/*IS the player attempting to add a dead animal to the hooks?*/
-
-				Item item = player.inventory.getCurrentItem().getItem();
+				--player.inventory.getCurrentItem().stackSize;
+				((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatType(ModuleMeat.registry.isMeatItem(temma).meatID);
+				((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatState(0);
+				world.markBlockForUpdate(pos);
+				return true;
 				//hasAnimal = true;
-				if (item == MItemLoader.deadCow) {
+				//player.inventory.getCurrentItem().getItem() == MItemLoader.deadSheep || player.inventory.getCurrentItem().getItem() == MItemLoader.deadRabbit ||player.inventory.getCurrentItem().getItem() == MItemLoader.deadChicken || player.inventory.getCurrentItem().getItem() == MItemLoader.deadCow || player.inventory.getCurrentItem().getItem() == MItemLoader.deadPig
+				/*if (item == MItemLoader.deadCow) {
 					--player.inventory.getCurrentItem().stackSize;
 					((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatType(ModuleMeat.MEATTYPE_COW);
 					((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatState(0);
@@ -111,7 +118,7 @@ public class MeatHanger extends BlockContainerRotate{
 					((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatState(0);
 					world.markBlockForUpdate(pos);
 					return true;
-				}
+				}*/
 
 			}
 			return false;
@@ -138,14 +145,9 @@ public class MeatHanger extends BlockContainerRotate{
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof MeatHangerTileEntity) {
 			int Meat = ((MeatHangerTileEntity) tile).getMeatType();
-			if (Meat == ModuleMeat.MEATTYPE_COW || Meat == ModuleMeat.MEATTYPE_SHEEP) {
-				//FIXME: rendering is off
-				return new AxisAlignedBB((double) x + this.minX, (double) y + this.minY - 1.6F, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
-			} else if (Meat == ModuleMeat.MEATTYPE_PIG || Meat == ModuleMeat.MEATTYPE_RABBIT) {
-				return new AxisAlignedBB((double) x + this.minX, (double) y + this.minY - 1.2F, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
-			} else if (Meat == ModuleMeat.MEATTYPE_CHICK) {
-				return new AxisAlignedBB((double) x + this.minX, (double) y + this.minY - 0.3F, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
-			} else {
+			if(Meat > 0 && ModuleMeat.registry.getModel(Meat) instanceof ISAModel){
+				return ((ISAModel)ModuleMeat.registry.getModel(Meat)).getMeatAABB(x, minX, maxX, y, minY, maxY, z, minZ, maxZ) != null ? ((ISAModel)ModuleMeat.registry.getModel(Meat)).getMeatAABB(x, minX, maxX, y, minY, maxY, z, minZ, maxZ) : this.defaultRender(world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)), x, y, z);
+			}else{
 				return this.defaultRender(world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)), x, y, z);
 			}
 		}

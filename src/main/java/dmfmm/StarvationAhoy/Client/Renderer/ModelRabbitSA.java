@@ -1,12 +1,15 @@
 package dmfmm.StarvationAhoy.Client.Renderer;
 
 
+import dmfmm.StarvationAhoy.api.Meat.ISAModel;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRabbit;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.AxisAlignedBB;
+import org.lwjgl.opengl.GL11;
 
-public class ModelRabbitSA extends ModelBase {
+public class ModelRabbitSA extends ModelBase implements ISAModel{
     public ModelRenderer rabbitLeftEar;
     public ModelRenderer rabbitNose;
     public ModelRenderer rabbitHead;
@@ -97,5 +100,21 @@ public class ModelRabbitSA extends ModelBase {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
+    }
+
+    @Override
+    public void glTransformations() {
+        GL11.glRotatef(110F, 1, 0, 0);
+        GL11.glTranslated(0, -1.7, -1.6);
+    }
+
+    @Override
+    public void modelTransformations() {
+        this.isChild = false;
+    }
+
+    @Override
+    public AxisAlignedBB getMeatAABB(double x, double minX, double maxX, double y, double minY, double maxY, double z, double minZ, double maxZ) {
+        return new AxisAlignedBB((double) x + minX, (double) y + minY - 1.2F, (double) z + minZ, (double) x + maxX, (double) y + maxY, (double) z + maxZ);
     }
 }

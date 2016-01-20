@@ -1,16 +1,19 @@
 package dmfmm.StarvationAhoy.Client.Renderer;
 
 
+import dmfmm.StarvationAhoy.api.Meat.ISAModel;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelSheep2;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.AxisAlignedBB;
+import org.lwjgl.opengl.GL11;
 
 /**
  * ModelSheep2 - Either Mojang or a mod author
  * Created using Tabula 5.1.0
  */
-public class ModelSheepSA extends ModelBase {
+public class ModelSheepSA extends ModelBase implements ISAModel{
     public ModelRenderer bodys;
     public ModelRenderer leg4s;
     public ModelRenderer leg3s;
@@ -92,13 +95,63 @@ public class ModelSheepSA extends ModelBase {
         modelRenderer.rotateAngleZ = z;
     }
 
+    @Override
+    public void glTransformations() {
+        GL11.glRotatef(90F, 1, 0, 0);
+        GL11.glTranslated(0, -0.7, -1.9);
+    }
 
-    public static class  ModelSheepSA2 extends ModelSheep2 {
+    @Override
+    public void modelTransformations() {
+        this.isChild = false;
+        this.leg1s.rotateAngleX = 77;
+        this.leg2s.rotateAngleX = 77;
+        this.leg1s.rotateAngleY = 0.2F;
+        this.leg2s.rotateAngleY = -0.2F;
+        this.leg3s.rotateAngleX = -77F;
+        this.leg4s.rotateAngleX = -77F;
+        this.leg1.rotateAngleX = 77;
+        this.leg2.rotateAngleX = 77;
+        this.leg1.rotateAngleY = 0.2F;
+        this.leg2.rotateAngleY = -0.2F;
+        this.leg3.rotateAngleX = -77F;
+        this.leg4.rotateAngleX = -77F;
+    }
+
+    @Override
+    public AxisAlignedBB getMeatAABB(double x, double minX, double maxX, double y, double minY, double maxY, double z, double minZ, double maxZ) {
+        return new AxisAlignedBB((double) x + minX, (double) y + minY - 1.6F, (double) z + minZ, (double) x + maxX, (double) y + maxY, (double) z + maxZ);
+    }
+
+
+    public static class  ModelSheepSA2 extends ModelSheep2  implements ISAModel{
         public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity entityIn)
         {
             this.head.rotateAngleX = p_78087_5_ / (180F / (float)Math.PI);
             this.head.rotateAngleY = p_78087_4_ / (180F / (float)Math.PI);
             this.body.rotateAngleX = ((float)Math.PI / 2F);
+        }
+
+        @Override
+        public void glTransformations() {
+            GL11.glRotatef(90F, 1, 0, 0);
+            GL11.glTranslated(0, -0.7, -1.9);
+        }
+
+        @Override
+        public void modelTransformations() {
+            this.isChild = false;
+            this.leg1.rotateAngleX = 77;
+            this.leg2.rotateAngleX = 77;
+            this.leg1.rotateAngleY = 0.2F;
+            this.leg2.rotateAngleY = -0.2F;
+            this.leg3.rotateAngleX = -77F;
+            this.leg4.rotateAngleX = -77F;
+        }
+
+        @Override
+        public AxisAlignedBB getMeatAABB(double x, double minX, double maxX, double y, double minY, double maxY, double z, double minZ, double maxZ) {
+            return new AxisAlignedBB((double) x + minX, (double) y + minY - 1.6F, (double) z + minZ, (double) x + maxX, (double) y + maxY, (double) z + maxZ);
         }
     }
 }
