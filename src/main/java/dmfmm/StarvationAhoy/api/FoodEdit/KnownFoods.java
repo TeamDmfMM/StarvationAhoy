@@ -8,7 +8,9 @@ import java.util.ArrayList;
 public class KnownFoods {
 	
 	
-	
+	/*
+	This is here because reasons.
+	 */
 	
 	public static ArrayList<ArrayList<Object>> knownFoods = new ArrayList<ArrayList<Object>>();
 	public static void changeFood(ItemStack i, int hunger, float saturation){

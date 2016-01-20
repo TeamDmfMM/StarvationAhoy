@@ -39,8 +39,8 @@ public class StarvationAhoyRegistry {
 		 * @param rottenTexture the location (used in a new {@link net.minecraft.util.ResourceLocation}) of the animal's rotten texture
 		 */
 		public void registerMeatType(int id, ModelBase modelEntity, String normalTexture, String skinnedTexture, String rottenTexture);
-		
-		public void registerDeadEntity(int id, Class<? extends EntityLiving> entity, Item dead, Item skinned);
+
+		public void registerDeadEntity(int id, Class<? extends EntityLiving> entity, Item dead, Item skinned, Item onskinned, Item meat);
 			
 		
 		

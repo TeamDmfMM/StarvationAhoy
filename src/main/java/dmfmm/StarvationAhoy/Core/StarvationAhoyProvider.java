@@ -1,18 +1,17 @@
 package dmfmm.StarvationAhoy.Core;
 
 
-import java.util.Map;
-
-import dmfmm.StarvationAhoy.Meat.item.SkinnedEntity;
+import dmfmm.StarvationAhoy.Core.util.SALog;
+import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
+import dmfmm.StarvationAhoy.Meat.ModuleMeat;
+import dmfmm.StarvationAhoy.api.FoodEdit.Module;
+import dmfmm.StarvationAhoy.api.Meat.ISAModel;
+import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry.IStarvationAhoyProvider;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.Item;
-import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
-import dmfmm.StarvationAhoy.Meat.ModuleMeat;
-import dmfmm.StarvationAhoy.Meat.item.DeadEntity;
-import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
-import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry.IStarvationAhoyProvider;
-import dmfmm.StarvationAhoy.api.FoodEdit.Module;
+
+import java.util.Map;
 
 public class StarvationAhoyProvider implements IStarvationAhoyProvider {
 	
@@ -34,24 +33,22 @@ public class StarvationAhoyProvider implements IStarvationAhoyProvider {
 
 	@Override
 	public void registerMeatType(int id, ModelBase modelEntity, String normalTexture, String skinnedTexture, String rottenTexture) {
-
+		if (!(modelEntity instanceof ISAModel)) {
+			SALog.warn("Some mod has tried to add a new meat type w/o implementing ISAModel");
+		}
 
 		ModuleMeat.registry.onMeatType(id, modelEntity, normalTexture, skinnedTexture, rottenTexture);
 
 
 		// TODO Auto-generated method stub
-		
+
 	}
 
+
+
 	@Override
-	public void registerDeadEntity(int id, Class<? extends EntityLiving> entity, Item dead, Item skinned) {
-		if (ModuleMeat.registry.constructedMeatTypeExists(id) == false){
-
-			DeadEntity newDeadEntity = new DeadEntity("externalmod_meat_" + id + "_deaditem");
-			SkinnedEntity newSkinnedEntity = new SkinnedEntity("externalmod_skin_" + id + "_deaditem");
-			MItemLoader.modMeatItems.put("externalmod_meat_" + id + "_deaditem", newDeadEntity);
-
-		}
+	public void registerDeadEntity(int id, Class<? extends EntityLiving> entity, Item dead, Item skinned, Item onskinned, Item meat) {
+		ModuleMeat.registry.onDeadEntity(id, entity, dead, skinned, meat, onskinned);
 	}
 
 }
