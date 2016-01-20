@@ -1,17 +1,13 @@
 package dmfmm.StarvationAhoy.Meat;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import dmfmm.StarvationAhoy.Core.util.SALog;
+
+import java.util.*;
 
 public class MeatRegistry {
 
@@ -125,7 +121,7 @@ public class MeatRegistry {
     public MeatReturn isMeatItem(ItemStack is){
         for (int id : meatIds()) {
             if (getMeatTypeForId(id) != null) {
-                if (is.getItem().getUnlocalizedName() == getMeatTypeForId(id).items.dead.getUnlocalizedName()){
+                if (Objects.equals(is.getItem().getUnlocalizedName(), getMeatTypeForId(id).items.dead.getUnlocalizedName())){
                     return new MeatReturn(true, getMeatTypeForId(id), id);
                 }
             }
