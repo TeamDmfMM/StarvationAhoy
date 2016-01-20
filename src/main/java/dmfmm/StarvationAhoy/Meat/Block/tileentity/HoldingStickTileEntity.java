@@ -3,6 +3,7 @@ package dmfmm.StarvationAhoy.Meat.Block.tileentity;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.CookerMultiBlock;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.MultiBlockStructure;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
+import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -13,7 +14,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IChatComponent;
 
-public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInventory {
+public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInventory, ITickable {
     ItemStack meat;
 
     public HoldingStickTileEntity(){

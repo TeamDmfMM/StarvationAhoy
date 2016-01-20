@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
+import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
@@ -11,7 +12,7 @@ import net.minecraft.tileentity.TileEntity;
  * Created by mincrmatt12. Do not copy this or you will have to face
  * our legal team. (dmf444)
  */
-public abstract class TileEntityMultiBlock extends TileEntity{
+public abstract class TileEntityMultiBlock extends TileEntity implements ITickable{
 
     private int timeAfter = 0;
 
@@ -23,7 +24,7 @@ public abstract class TileEntityMultiBlock extends TileEntity{
         multiBlockStructure = null;
     }
 
-    public void updateEntity(){
+    public void tick(){
 
 
         if (multiBlockStructure != null && r == true) multiBlockStructure.updateStructure(worldObj);
