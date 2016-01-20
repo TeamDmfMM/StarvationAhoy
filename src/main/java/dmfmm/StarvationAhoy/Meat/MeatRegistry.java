@@ -109,7 +109,6 @@ public class MeatRegistry {
     public MeatReturn overrideFoodDropsFor(EntityLiving entity) {
         for (int id : meatIds()) {
             if (getEntity(id) != null) {
-            	//SALog.fatal(entity.getClass().equals(getEntity(id)));
                 if (entity.getClass().equals(getEntity(id))){
                     return new MeatReturn(true, getMeatTypeForId(id), id);
                 }

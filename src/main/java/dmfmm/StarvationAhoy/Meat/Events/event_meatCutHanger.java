@@ -18,20 +18,6 @@ public class event_meatCutHanger {
 
     @SubscribeEvent
     public void roasterCut(MeatCutEvent.MeatHanger e){
-        Item item = null;
-        if(e.meattype == ModuleMeat.MEATTYPE_COW){
-            item = MItemLoader.skinlessCow;
-        }else if(e.meattype == ModuleMeat.MEATTYPE_PIG){
-            item = MItemLoader.skinlessPig;
-        }else if(e.meattype == ModuleMeat.MEATTYPE_CHICK){
-            item = MItemLoader.skinlessChicken;
-        }else if(e.meattype == ModuleMeat.MEATTYPE_SHEEP){
-            item = MItemLoader.skinlessSheep;
-        }else if(e.meattype == ModuleMeat.MEATTYPE_RABBIT){
-            item = MItemLoader.skinlessRabbit;
-        }
-        if(!e.world.isRemote){
-            e.world.spawnEntityInWorld(new EntityItem(e.world, e.position.getX(), e.position.getY(), e.position.getZ(), new ItemStack(item)));
-        }
+
     }
 }

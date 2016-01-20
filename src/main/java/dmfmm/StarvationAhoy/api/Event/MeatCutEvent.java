@@ -1,6 +1,8 @@
 package dmfmm.StarvationAhoy.api.Event;
 
 import net.minecraft.util.BlockPos;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
@@ -35,6 +37,16 @@ public class MeatCutEvent extends Event{
         }
     }
 
+    /**
+     * This event is called when a player interacts with the Meat Hanger
+     * Precisely, When a player attempts to cut a skinned entity off.
+     *
+     *  This event is {@link Cancelable}.
+     *  If this event is cancelled, a skinned version of the entity will not be produced, and the entity will
+     *  remain on the meat hanger
+     *
+     *  This event is fired on the {@link MinecraftForge#EVENT_BUS}.
+     */
     public static class MeatHanger extends MeatCutEvent{
         public final World world;
         public final BlockPos position;
@@ -45,6 +57,15 @@ public class MeatCutEvent extends Event{
         }
     }
 
+    /**
+     * This event is called when a player interacts with the Meat Hanger
+     * Precisely, When a player attempts to skin an entity.
+     *
+     *  This event is {@link Cancelable}.
+     *  Cancelling this will stop the drops the entity has.
+     *
+     *  This event is fired on the {@link MinecraftForge#EVENT_BUS}.
+     */
     public static class MeatSkinned extends MeatCutEvent{
         public final World world;
         public final BlockPos position;

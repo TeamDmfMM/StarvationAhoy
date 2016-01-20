@@ -12,6 +12,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ITickable;
 
 public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInventory {
     ItemStack meat;

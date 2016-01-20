@@ -42,7 +42,7 @@ public class ModuleMeat {
 	public static void init(){
 		MinecraftForge.EVENT_BUS.register(new Event_KillAnimal());
         MinecraftForge.EVENT_BUS.register(new event_meatSkinned());
-        MinecraftForge.EVENT_BUS.register(new event_meatCutHanger());
+        //MinecraftForge.EVENT_BUS.register(new event_meatCutHanger());
         MinecraftForge.EVENT_BUS.register(new event_meatCutRoaster());
         StarvationAhoy.proxy.registerMeatTypes();
 

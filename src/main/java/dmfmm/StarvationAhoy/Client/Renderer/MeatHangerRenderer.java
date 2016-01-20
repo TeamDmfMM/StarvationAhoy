@@ -63,11 +63,11 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
     //A reference to your Model file. Again, very important.
             this.model.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
             int meatType = ((MeatHangerTileEntity)te).getMeatType();
-            int meatState = ((MeatHangerTileEntity)te).getMeatState();
+            MeatHangerTileEntity.MeatStates meatState = ((MeatHangerTileEntity)te).getMeatState();
             switch(meatType){
             case 4:
             	//Sheep
-				if(meatState == 0){
+				if(meatState == MeatHangerTileEntity.MeatStates.NORMAL){
 					ModelSheepSA sheepy = new ModelSheepSA();
 					sheepy.modelTransformations();
 					sheepy.glTransformations();
@@ -108,17 +108,17 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
     }
 
 
-	private ResourceLocation getTexture(int Animal, int state) {
+	private ResourceLocation getTexture(int Animal, MeatHangerTileEntity.MeatStates state) {
 		switch (state) {
-			case 0:
+			case NORMAL:
 
 				return ModuleMeat.registry.getMeatTypeForId(Animal).textures.dead;
 
-			case 1:
+			case SKINNED:
 
 				return ModuleMeat.registry.getMeatTypeForId(Animal).textures.skinned;
 
-			case 2:
+			case ROTTEN:
 
 				return ModuleMeat.registry.getMeatTypeForId(Animal).textures.rotten;
 		}

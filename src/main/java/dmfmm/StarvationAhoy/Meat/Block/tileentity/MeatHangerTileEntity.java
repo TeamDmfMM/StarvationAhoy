@@ -15,11 +15,11 @@ public class MeatHangerTileEntity extends TileEntity {
 
 	}
 
-	public int getMeatState(){
-		return MeatState;
+	public MeatStates getMeatState(){
+		return MeatStates.values()[MeatState];
 	}
-	public void setMeatState(int type){
-		MeatState = type;
+	public void setMeatState(MeatStates type){
+		MeatState = type.state;
 	}
 	public int getMeatType(){
 		return MeatType;
@@ -67,4 +67,17 @@ public class MeatHangerTileEntity extends TileEntity {
 		   MeatType = pkt.getNbtCompound().getInteger("Meattype");
 	   }
 
+
+	public enum MeatStates{
+		NORMAL(0),
+		SKINNED(1),
+		ROTTEN(2);
+
+		private int state;
+
+		private MeatStates(int i){
+			this.state = i;
+		}
+
+	}
 }

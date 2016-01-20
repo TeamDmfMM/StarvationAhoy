@@ -18,15 +18,11 @@ public class event_meatSkinned {
 
     @SubscribeEvent
     public void roasterCut(MeatCutEvent.MeatSkinned e){
-        int randomNum = e.world.rand.nextInt((4 - 0) + 1) + 0;
-        if(e.meattype == ModuleMeat.MEATTYPE_COW){
-            if(!e.world.isRemote){e.world.spawnEntityInWorld(new EntityItem(e.world, e.position.getX(), e.position.getY(), e.position.getZ(), new ItemStack(Items.leather, randomNum)));}
-        }else if(e.meattype == ModuleMeat.MEATTYPE_CHICK){
-            if(!e.world.isRemote){e.world.spawnEntityInWorld(new EntityItem(e.world, e.position.getX(), e.position.getY(), e.position.getZ(), new ItemStack(Items.feather, randomNum)));}
-        }else if(e.meattype == ModuleMeat.MEATTYPE_RABBIT){
-            if(!e.world.isRemote){e.world.spawnEntityInWorld(new EntityItem(e.world, e.position.getX(), e.position.getY(), e.position.getZ(), new ItemStack(Items.rabbit_hide, 1)));}
-        }else if(e.meattype == ModuleMeat.MEATTYPE_SHEEP){
-            if(!e.world.isRemote){e.world.spawnEntityInWorld(new EntityItem(e.world, e.position.getX(), e.position.getY(), e.position.getZ(), new ItemStack(Blocks.wool, randomNum)));}
-        }
+         if(e.meattype == ModuleMeat.MEATTYPE_RABBIT) {
+             e.setCanceled(true);
+             if (!e.world.isRemote) {
+                 e.world.spawnEntityInWorld(new EntityItem(e.world, e.position.getX(), e.position.getY()+2, e.position.getZ(), new ItemStack(Items.rabbit_hide, 1)));
+             }
+         }
     }
 }
