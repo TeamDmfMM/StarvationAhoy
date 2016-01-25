@@ -1,12 +1,34 @@
 package dmfmm.StarvationAhoy;
 
+import dmfmm.StarvationAhoy.Core.CoreRecipies;
+import dmfmm.StarvationAhoy.Core.EventHandler.event_configChange;
+import dmfmm.StarvationAhoy.Core.FoodModifyCommand;
+import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
+import dmfmm.StarvationAhoy.Core.IMCRerouter;
 import dmfmm.StarvationAhoy.Core.Init.CoreTextureRegistry;
 import dmfmm.StarvationAhoy.Core.Init.CropwashTextureRegistry;
 import dmfmm.StarvationAhoy.Core.Init.MeatTextureRegistry;
-import dmfmm.StarvationAhoy.api.CropWash.CropWash;
+import dmfmm.StarvationAhoy.Core.StarvationAhoyProvider;
+import dmfmm.StarvationAhoy.Core.items.ItemLoad;
+import dmfmm.StarvationAhoy.Core.lib.ModInfo;
+import dmfmm.StarvationAhoy.Core.util.ConfigHandler;
+import dmfmm.StarvationAhoy.Core.util.SALog;
+import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
+import dmfmm.StarvationAhoy.FoodEdit.EventHandler.FoodEatenResult;
+import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
+import dmfmm.StarvationAhoy.FoodEdit.PacketOverride;
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
+import dmfmm.StarvationAhoy.Meat.Events.Event_DoConfig;
+import dmfmm.StarvationAhoy.Meat.ModuleMeat;
+import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry;
+import dmfmm.StarvationAhoy.proxy.CommonProxy;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -16,27 +38,6 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
-import dmfmm.StarvationAhoy.Core.CoreRecipies;
-import dmfmm.StarvationAhoy.Core.EventHandler.event_configChange;
-import dmfmm.StarvationAhoy.Core.FoodModifyCommand;
-import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
-import dmfmm.StarvationAhoy.Core.IMCRerouter;
-import dmfmm.StarvationAhoy.Core.StarvationAhoyProvider;
-import dmfmm.StarvationAhoy.Core.items.ItemLoad;
-import dmfmm.StarvationAhoy.Core.lib.ModInfo;
-import dmfmm.StarvationAhoy.Core.util.ConfigHandler;
-import dmfmm.StarvationAhoy.Core.util.SALog;
-import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
-import dmfmm.StarvationAhoy.FoodEdit.EventHandler.FoodEatenResult;
-import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
-import dmfmm.StarvationAhoy.Meat.ModuleMeat;
-import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry;
-import dmfmm.StarvationAhoy.proxy.CommonProxy;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.EnumHelper;
 
 import java.io.File;
 
@@ -75,7 +76,7 @@ public class StarvationAhoy {
 		StarvationAhoyRegistry.init(new StarvationAhoyProvider());
 		ConfigHandler.init(new File(DIR, ModInfo.MOD_ID + ".cfg"));
 		FMLCommonHandler.instance().bus().register(new event_configChange());
-		OBJLoader.instance.addDomain(ModInfo.MOD_ID);
+		if (event.getSide() == Side.CLIENT) OBJLoader.instance.addDomain(ModInfo.MOD_ID);
 
 		//Module Initiation
 		ModuleCropWash.preinit();
@@ -87,9 +88,11 @@ public class StarvationAhoy {
 		//Packet Initiation
 		MultiBlockChannel = NetworkRegistry.INSTANCE.newSimpleChannel(ModInfo.MOD_ID);
 		MultiBlockChannel.registerMessage(PacketMultiBlock.Handler.class, PacketMultiBlock.class, 0, Side.CLIENT);
+		MultiBlockChannel.registerMessage(PacketOverride.Handler.class, PacketOverride.class, 5, Side.SERVER);
+		MultiBlockChannel.registerMessage(PacketOverride.PacketOverrideResponse.Handler.class, PacketOverride.PacketOverrideResponse.class, 6, Side.CLIENT);
         //MultiBlockChannel.registerMessage(ClientGetExhaustPacket.Handler.class, ClientGetExhaustPacket.class, 1, Side.CLIENT);
         //MultiBlockChannel.registerMessage(ServerGetExhaustPacket.Handler.class, ServerGetExhaustPacket.class, 2, Side.SERVER);
-
+		MinecraftForge.EVENT_BUS.register(new Event_DoConfig());
 		//Secondary Events
 		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
 		if(event.getSide() == Side.CLIENT){

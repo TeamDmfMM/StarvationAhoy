@@ -9,7 +9,6 @@ import dmfmm.StarvationAhoy.CropWash.item.CropItemLoader;
 import dmfmm.StarvationAhoy.CropWash.modelbake.ModelBakeInjector;
 import dmfmm.StarvationAhoy.CropWash.modelbake.TextureInjector;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,8 +26,6 @@ import net.minecraftforge.fml.relauncher.Side;
 public class ModuleCropWash {
 
     public static CropItemLoader cropItemLoader = new CropItemLoader();
-
-    public static ModelResourceLocation dirty_item_model = new ModelResourceLocation("starvationahoy:dirty_item_model_token", "inventory");
 
     public static Block blockCropWasher;
     public static DirtyBlocks d;

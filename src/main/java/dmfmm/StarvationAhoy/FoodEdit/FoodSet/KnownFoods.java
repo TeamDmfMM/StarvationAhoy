@@ -6,28 +6,36 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.ArrayList;
 
 public class KnownFoods {
-	
-	
-	
-	
-	public static ArrayList<ArrayList<Object>> knownFoods = new ArrayList<ArrayList<Object>>();
-	
+
+
+	public static ArrayList<ArrayList<Object>> activeKnownFoods = new ArrayList<ArrayList<Object>>();
+
+	public static ArrayList<ArrayList<Object>> myKnownFoods = new ArrayList<ArrayList<Object>>();
+
+	public void joinS(){
+		activeKnownFoods = (ArrayList<ArrayList<Object>>) myKnownFoods.clone();
+	}
+
+	public void joinM(ArrayList<ArrayList<Object>> n) {
+		activeKnownFoods = n;
+	}
+
 	
 	public void insertFoodI(String foodname, int HungerHunch, float saturation){
 		ArrayList<Object> Food = new ArrayList<>();
 		Food.add(foodname);
 		Food.add(HungerHunch);
 		Food.add(saturation);
-		if (KnownFoods.knownFoods.contains(Food)){
-			knownFoods.remove(Food);
+		if (KnownFoods.myKnownFoods.contains(Food)){
+			myKnownFoods.remove(Food);
 		}
-		KnownFoods.knownFoods.add(Food);
+		KnownFoods.myKnownFoods.add(Food);
 	}
 	
 	public static void ok(ItemStack is){
-		for (ArrayList<Object> Food : knownFoods){
+		for (ArrayList<Object> Food : myKnownFoods){
 			if (((ItemStack)Food.get(0)).getItem() == is.getItem()){
-				knownFoods.remove(Food);
+				myKnownFoods.remove(Food);
 				break;
 			}
 		}
@@ -39,7 +47,7 @@ public class KnownFoods {
 		Food.add(HungerHunch);
 		Food.add(saturation);
 		ok(foods);
-		KnownFoods.knownFoods.add(Food);
+		KnownFoods.myKnownFoods.add(Food);
 	}
 	
 	public static void insertFood(String foodname, int HungerHunch, float saturation){
@@ -47,10 +55,10 @@ public class KnownFoods {
 		Food.add(foodname);
 		Food.add(HungerHunch);
 		Food.add(saturation);
-		if (knownFoods.contains(Food)){
-			knownFoods.remove(Food);
+		if (myKnownFoods.contains(Food)){
+			myKnownFoods.remove(Food);
 		}
-		knownFoods.add(Food);
+		myKnownFoods.add(Food);
 	}
 	
 	public static void insertFood(ItemStack foods, int HungerHunch, float saturation){
@@ -58,27 +66,27 @@ public class KnownFoods {
 		Food.add(foods);
 		Food.add(HungerHunch);
 		Food.add(saturation);
-		if (knownFoods.contains(Food)){
-			knownFoods.remove(Food);
+		if (myKnownFoods.contains(Food)){
+			myKnownFoods.remove(Food);
 		}
 		ok(foods);
-		knownFoods.add(Food);
+		myKnownFoods.add(Food);
 	}
 
 	public static void changeFood(ItemStack i, int hunger, float saturation){
 		boolean found = false;
-		for(ArrayList<Object> foods : KnownFoods.knownFoods) {
+		for(ArrayList<Object> foods : KnownFoods.myKnownFoods) {
 			ItemStack bob = (ItemStack) foods.get(0);
 
 			if (bob == i){
-				int aboutToEdit = KnownFoods.knownFoods.indexOf(foods);
+				int aboutToEdit = KnownFoods.myKnownFoods.indexOf(foods);
 				ArrayList<Object> food = new ArrayList<>();
 
 				food.add(i);
 				food.add(hunger);
 				food.add(saturation);
 				found = true;
-				KnownFoods.knownFoods.set(aboutToEdit, food);
+				KnownFoods.myKnownFoods.set(aboutToEdit, food);
 			}
 
 		}
@@ -89,7 +97,7 @@ public class KnownFoods {
 	}
 	
 	public static int getFoodHunger(ItemStack stack){
-		for(ArrayList<Object> foods : knownFoods){
+		for(ArrayList<Object> foods : activeKnownFoods){
 			ItemStack bob =  (ItemStack) foods.get(0);
 			
 			if(bob.getItem() == stack.getItem() && bob.getItemDamage() == stack.getItemDamage()){
@@ -99,7 +107,7 @@ public class KnownFoods {
 		return -1;
 	}
 	public static int getFoodHunger(String name){
-		for(ArrayList<Object> foods : knownFoods){
+		for(ArrayList<Object> foods : activeKnownFoods){
 			ItemStack bob =  (ItemStack) foods.get(0);
 			ItemStack stack = OreDictionary.getOres(name).get(0);
 			
@@ -110,7 +118,7 @@ public class KnownFoods {
 		return -1;
 	}
 	public static float getFoodSaturation(ItemStack stack){
-		for(ArrayList<Object> foods : knownFoods){
+		for(ArrayList<Object> foods : activeKnownFoods){
 			ItemStack bob =  (ItemStack) foods.get(0);
 			
 			if(bob.getItem() == stack.getItem() && bob.getItemDamage() == stack.getItemDamage()){
@@ -120,7 +128,7 @@ public class KnownFoods {
 		return -1;
 	}
 	public static int getFoodSaturation(String name){
-		for(ArrayList<Object> foods : knownFoods){
+		for(ArrayList<Object> foods : activeKnownFoods){
 			ItemStack bob =  (ItemStack) foods.get(0);
 			ItemStack stack = OreDictionary.getOres(name).get(0);
 			

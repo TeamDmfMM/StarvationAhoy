@@ -7,11 +7,12 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.ISmartItemModel;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector3f;
 
 import java.awt.*;
@@ -22,6 +23,7 @@ import java.util.List;
  * Created by mincrmatt12. Do not copy this or you will have to face
  * our legal team. (dmf444)
  */
+@SideOnly(Side.CLIENT)
 public class DirtyItemSmartModel implements ISmartItemModel {
     String dirtyOverlay = "starvationahoy:items/dirty_overlay", dirtyOverlayBack ="starvationahoy:items/dirty_overlay_back";
     Item current = null;
