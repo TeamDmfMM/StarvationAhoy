@@ -14,8 +14,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-import java.lang.reflect.Method;
-
 public class HoldingStickRenderer extends TileEntitySpecialRenderer{
     
     //The model of your block
@@ -264,27 +262,15 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
 
                                 boolean hasSpecialRender = false;
 
-                                for (Class c : ModuleMeat.registry.getMeatTypeForId(meatType).entity.getInterfaces()){
-
-                                    if (c == ISpitRoastRender.class){
-                                        hasSpecialRender = true;
-                                    }
-
-                                }
+                                hasSpecialRender = toDraw instanceof ISpitRoastRender;
 
                                 if (hasSpecialRender){
 
-                                    Class t = ModuleMeat.registry.getMeatTypeForId(meatType).entity;
-                                    try {
-                                        Method changeModel = t.getMethod("updateExistingModel", ModelBase.class);
-                                        Method translation = t.getMethod("getTranslations");
-
-
-
-
-                                    } catch (NoSuchMethodException e) {
-                                        e.printStackTrace();
-                                    }
+                                    ISpitRoastRender render = (ISpitRoastRender) ModuleMeat.registry.getModel(meatType);
+                                    yoffset += render.getTranslations()[1];
+                                    xoffset += render.getTranslations()[0];
+                                    zoffset += render.getTranslations()[2];
+                                    toDraw = render.updateExistingModel(toDraw);
 
                                 }
 
