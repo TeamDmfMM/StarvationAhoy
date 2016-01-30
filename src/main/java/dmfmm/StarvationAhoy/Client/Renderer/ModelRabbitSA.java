@@ -7,8 +7,10 @@ import net.minecraft.client.model.ModelRabbit;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.fml.common.Optional;
 import org.lwjgl.opengl.GL11;
 
+//@Optional.Interface(iface = "dmfmm.StarvationAhoy.api.Meat.ISAModel", modid = "StarvationAhoy")
 public class ModelRabbitSA extends ModelBase implements ISAModel{
     public ModelRenderer rabbitLeftEar;
     public ModelRenderer rabbitNose;

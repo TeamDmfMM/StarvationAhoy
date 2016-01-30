@@ -1,9 +1,9 @@
 package dmfmm.StarvationAhoy.proxy;
 
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import dmfmm.StarvationAhoy.Client.Renderer.*;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
@@ -15,15 +15,10 @@ import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Items;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
 
 public class ClientProxy extends CommonProxy{
-
-    @SideOnly(Side.CLIENT)
-    public static ModelResourceLocation dirty_item_model =  new ModelResourceLocation("starvationahoy:dirty_item_model_token", "inventory");
 
     @Override
     public ModelBiped getArmorModel(int type) {

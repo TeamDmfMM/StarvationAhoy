@@ -170,7 +170,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                     switch (meatType) {
                         case 0:
                             break;
-                        case 1:
+                        /*case 1:
                             // ================================= COW Start ================================
                             ModelCowSA cow = new ModelCowSA();
                             cow.isChild = false;
@@ -233,7 +233,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             yoffset = 3.50f;
                             GL11.glTranslatef(xoffset+0, yoffset-3.00F, zoffset+0.9F);
                             GL11.glDisable(GL11.GL_CULL_FACE);
-                            rangle = desync    ;
+                            rangle = desync;
                             radians = (float) Math.toRadians(rangle);
                             GL11.glTranslatef(0, -0.2f,0);
 
@@ -247,48 +247,48 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             Minecraft.getMinecraft().renderEngine.bindTexture(chickT);
                             chick.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
                             // ================================ End ============================================
-                            break;
+                            break;*/
                         //case 4:
                         //Sheep
                         default:
                             // ================================= Other Start ================================
                             if (meatType > 0) {
-                                ModelBase toDraw = ModuleMeat.registry.getModel(meatType);
-                                GL11.glRotatef(180F, 1, 0, 0);
-                                GL11.glRotatef(180F, 0, 1, 0);
-                                GL11.glTranslatef(0, -2.3F, 0.2F);
                                 GL11.glDisable(GL11.GL_CULL_FACE);
+                                ModelBase toDraw = ModuleMeat.registry.getModel(meatType);
+                                toDraw.isChild =false;
 
+                                if (toDraw instanceof ISpitRoastRender){
 
-                                boolean hasSpecialRender = false;
-
-                                hasSpecialRender = toDraw instanceof ISpitRoastRender;
-
-                                if (hasSpecialRender){
-
-                                    ISpitRoastRender render = (ISpitRoastRender) ModuleMeat.registry.getModel(meatType);
-                                    yoffset += render.getTranslations()[1];
+                                    ISpitRoastRender render = (ISpitRoastRender) toDraw;
+                                    if(render.getTranslations().length == 5) {
+                                        zoffset = render.getTranslations()[3];
+                                        yoffset = render.getTranslations()[4];
+                                    }
                                     xoffset += render.getTranslations()[0];
+                                    yoffset += render.getTranslations()[1];
                                     zoffset += render.getTranslations()[2];
                                     toDraw = render.updateExistingModel(toDraw);
-
+                                    GL11.glTranslatef(xoffset, yoffset, zoffset);
+                                }else{
+                                    GL11.glRotatef(180F, 1, 0, 0);
+                                    GL11.glRotatef(180F, 0, 1, 0);
+                                    GL11.glTranslatef(0, -2.3F, 0.2F);
+                                    GL11.glTranslatef(xoffset + 0, yoffset - 1F, zoffset + -1.6F);
                                 }
 
 
-
-                                GL11.glTranslatef(xoffset+0, yoffset-1F, zoffset+-1.6F);
-                                rangle = desync;
-                                radians = (float) Math.toRadians(rangle);
+                                float rangle = desync;
+                                float radians = (float) Math.toRadians(rangle);
                                 GL11.glTranslatef(0, -0.2f,0);
 
-                                ztrans = (float) (Math.sin(radians));
-                                ytrans = (float) (Math.cos(radians));
+                                float ztrans = (float) (Math.sin(radians));
+                                float ytrans = (float) (Math.cos(radians));
                                 GL11.glTranslatef(ztrans, -ytrans, 0);
                                 GL11.glRotatef(rangle, 0, 0, 1);
                                 GL11.glTranslatef(0, 0.2f,0);
                                 GL11.glRotatef(0F, 1, 0, 0);
 
-
+                                this.bindTexture(getTexture(meatType, meatState));
                                 toDraw.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
                             }
                             // ================================ End ============================================

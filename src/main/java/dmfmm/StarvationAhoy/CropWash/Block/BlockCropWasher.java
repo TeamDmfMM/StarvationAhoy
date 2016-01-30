@@ -1,13 +1,18 @@
 package dmfmm.StarvationAhoy.CropWash.Block;
 
+import dmfmm.StarvationAhoy.Client.SAEntityDiggingFX;
 import dmfmm.StarvationAhoy.Core.SATabs;
 import dmfmm.StarvationAhoy.Core.lib.WashLib;
+import dmfmm.StarvationAhoy.Core.util.EffectsControl;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.EntityDiggingFX;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -17,6 +22,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Created by mincrmatt12. Do not copy this or you will have to face
@@ -74,4 +81,13 @@ public class BlockCropWasher extends BlockContainer{
         return false;
     }
 
+    @SideOnly(Side.CLIENT)
+    public boolean addDestroyEffects(World world, BlockPos pos, net.minecraft.client.particle.EffectRenderer effectRenderer)
+    {
+        if(world.getBlockState(pos).getBlock().equals(this)) {
+            EffectsControl.addBlockDestroyEffects(world, pos, world.getBlockState(pos), effectRenderer, "starvationahoy:blocks/WashBarrelItem");
+            return true;
+        }
+        return false;
+    }
 }

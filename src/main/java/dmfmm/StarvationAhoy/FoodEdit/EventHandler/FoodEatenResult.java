@@ -24,7 +24,7 @@ import java.util.Random;
 		@SubscribeEvent
 		public void foodTickEvent(PlayerUseItemEvent.Tick e){
 			ItemStack itemstack = e.entityPlayer.inventory.getCurrentItem();
-            if (e.duration <= 0)
+            if (e.duration <= 1)
             {
             	if(KnownFoods.getFoodHunger(e.item) != -1){
                 this.onFinish(e);

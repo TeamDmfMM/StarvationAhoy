@@ -3,7 +3,6 @@ package dmfmm.StarvationAhoy.Core.Init;
 
 import dmfmm.StarvationAhoy.Core.lib.WashLib;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
-import dmfmm.StarvationAhoy.proxy.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -14,6 +13,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CropwashTextureRegistry {
 
+    public static ModelResourceLocation dirty_item_model = new ModelResourceLocation("starvationahoy:dirty_item_model_token", "inventory");
 
     public static void initTextures(){
         registerBlock(WashLib.washBarrelName, 0);
@@ -24,7 +24,7 @@ public class CropwashTextureRegistry {
 
     private static void doDirtyItem() {
         RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
-        renderItem.getItemModelMesher().register(ModuleCropWash.cropItemLoader.getItem("dirty_item"),0,  ClientProxy.dirty_item_model);
+        renderItem.getItemModelMesher().register(ModuleCropWash.cropItemLoader.getItem("dirty_item"),0,  CropwashTextureRegistry.dirty_item_model);
     }
 
     private static void registerBlock(String blockName, int meta){

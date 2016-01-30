@@ -1,6 +1,7 @@
 package dmfmm.StarvationAhoy.Client.Renderer;
 
 import dmfmm.StarvationAhoy.api.Meat.ISAModel;
+import dmfmm.StarvationAhoy.api.Meat.ISpitRoastRender;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelChicken;
 import net.minecraft.entity.Entity;
@@ -8,7 +9,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
-public class ModelChickenSA extends ModelChicken implements ISAModel{
+public class ModelChickenSA extends ModelChicken implements ISAModel, ISpitRoastRender{
 	 public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity p_78087_7_)
 	    {
 	        this.head.rotateAngleX = p_78087_5_ / (180F / (float)Math.PI);
@@ -51,5 +52,16 @@ public class ModelChickenSA extends ModelChicken implements ISAModel{
 				y +maxY,
 				z + maxZ
 		);
+	}
+
+	@Override
+	public ModelBase updateExistingModel(ModelBase change) {
+		return change;
+	}
+
+	@Override
+	public float[] getTranslations() {
+		float[] carl = {0, -3.00F, 0.9F, 0.62f, 3.50f};
+		return carl;
 	}
 }

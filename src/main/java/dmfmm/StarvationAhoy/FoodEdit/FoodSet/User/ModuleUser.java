@@ -1,18 +1,21 @@
 package dmfmm.StarvationAhoy.FoodEdit.FoodSet.User;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import dmfmm.StarvationAhoy.FoodEdit.FileReader.FileLoader;
-import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
-import dmfmm.StarvationAhoy.api.FoodEdit.Module;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.gson.GsonBuilder;
+import dmfmm.StarvationAhoy.Core.util.SALog;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
+import com.google.gson.Gson;
+
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import dmfmm.StarvationAhoy.FoodEdit.FileReader.FileLoader;
+import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
+import dmfmm.StarvationAhoy.api.FoodEdit.Module;
 
 
 
@@ -25,8 +28,8 @@ public class ModuleUser extends Module {
 		File stuufs_dump = new File(FileLoader.getCfgPath(), "food_dump.json");
 		Overrides allFoods = new Overrides();
 		Map<String, ArrayList<FoodOverride>> mods = new HashMap<>();
-		//SALog.error(KnownFoods.myKnownFoods.size());
-		for (ArrayList<Object> foodies : KnownFoods.activeKnownFoods){
+		//SALog.error(KnownFoods.knownFoods.size());
+		for (ArrayList<Object> foodies : KnownFoods.knownFoods){
 			String[] comps = Item.itemRegistry.getNameForObject(((ItemStack) foodies.get(0)).getItem()).toString().split(":");
 
 

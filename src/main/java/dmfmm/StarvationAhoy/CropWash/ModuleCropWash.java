@@ -9,6 +9,7 @@ import dmfmm.StarvationAhoy.CropWash.item.CropItemLoader;
 import dmfmm.StarvationAhoy.CropWash.modelbake.ModelBakeInjector;
 import dmfmm.StarvationAhoy.CropWash.modelbake.TextureInjector;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

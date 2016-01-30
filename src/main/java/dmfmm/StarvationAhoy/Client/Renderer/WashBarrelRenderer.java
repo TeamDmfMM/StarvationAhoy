@@ -144,7 +144,10 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
                 this.draw(cake, 0.38, 0, 0, water.getMaxU(), water.getMinV());
                 this.draw(cake, 0, 0, 0, water.getMinU(), water.getMinV());
                 cake.draw();
+
+                cake.getWorldRenderer().finishDrawing();
             }
+        this.bindTexture(TextureMap.locationBlocksTexture);
         GL11.glPopMatrix();
         GL11.glPopAttrib();
 

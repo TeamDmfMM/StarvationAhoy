@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.api.Event;
 
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
@@ -34,6 +35,7 @@ public class MeatCutEvent extends Event{
             this.position = pos;
             this.burnt = Burnt;
             this.itemOut = outputItem;
+
         }
     }
 
@@ -47,6 +49,7 @@ public class MeatCutEvent extends Event{
      *
      *  This event is fired on the {@link MinecraftForge#EVENT_BUS}.
      */
+    @Cancelable
     public static class MeatHanger extends MeatCutEvent{
         public final World world;
         public final BlockPos position;
@@ -66,11 +69,13 @@ public class MeatCutEvent extends Event{
      *
      *  This event is fired on the {@link MinecraftForge#EVENT_BUS}.
      */
+    @Cancelable
     public static class MeatSkinned extends MeatCutEvent{
         public final World world;
         public final BlockPos position;
         public MeatSkinned(World world, int meat, BlockPos pos){
             super(meat);
+            SALog.error(this.isCancelable());
             this.world = world;
             this.position = pos;
         }
