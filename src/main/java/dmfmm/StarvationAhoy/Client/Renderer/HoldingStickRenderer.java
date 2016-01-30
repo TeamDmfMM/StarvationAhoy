@@ -253,6 +253,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                         default:
                             // ================================= Other Start ================================
                             if (meatType > 0) {
+                                float rotation = -0.2f;
                                 GL11.glDisable(GL11.GL_CULL_FACE);
                                 ModelBase toDraw = ModuleMeat.registry.getModel(meatType);
                                 toDraw.isChild =false;
@@ -260,9 +261,10 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                                 if (toDraw instanceof ISpitRoastRender){
 
                                     ISpitRoastRender render = (ISpitRoastRender) toDraw;
-                                    if(render.getTranslations().length == 5) {
+                                    if(render.getTranslations().length == 6) {
                                         zoffset = render.getTranslations()[3];
                                         yoffset = render.getTranslations()[4];
+                                        rotation = render.getTranslations()[5];
                                     }
                                     xoffset += render.getTranslations()[0];
                                     yoffset += render.getTranslations()[1];
@@ -279,13 +281,13 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
 
                                 float rangle = desync;
                                 float radians = (float) Math.toRadians(rangle);
-                                GL11.glTranslatef(0, -0.2f,0);
+                                GL11.glTranslatef(0, rotation,0);
 
                                 float ztrans = (float) (Math.sin(radians));
                                 float ytrans = (float) (Math.cos(radians));
                                 GL11.glTranslatef(ztrans, -ytrans, 0);
                                 GL11.glRotatef(rangle, 0, 0, 1);
-                                GL11.glTranslatef(0, 0.2f,0);
+                                GL11.glTranslatef(0, Math.abs(rotation),0);
                                 GL11.glRotatef(0F, 1, 0, 0);
 
                                 this.bindTexture(getTexture(meatType, meatState));

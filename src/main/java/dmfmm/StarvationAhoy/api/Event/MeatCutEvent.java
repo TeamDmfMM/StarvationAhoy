@@ -55,6 +55,7 @@ public class MeatCutEvent extends Event{
         public final BlockPos position;
         public MeatHanger(World world, int meat, BlockPos pos){
             super(meat);
+            SALog.error(this.isCanceled());
             this.world = world;
             this.position = pos;
         }

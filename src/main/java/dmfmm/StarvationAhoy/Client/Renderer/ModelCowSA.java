@@ -51,7 +51,7 @@ public class ModelCowSA extends ModelCow implements ISAModel, ISpitRoastRender{
 
     @Override
     public float[] getTranslations() {
-        float[] carl = {0, -0.95F, -1.9F, 3.42f, 1.871f};
+        float[] carl = {0, -0.95F, -1.9F, 3.42f, 1.871f, -0.66f};
         return carl;
     }
 }
