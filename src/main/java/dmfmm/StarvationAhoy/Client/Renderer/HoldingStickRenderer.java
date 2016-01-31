@@ -23,7 +23,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
     int desync = 0;
     
     public HoldingStickRenderer() {
-            this.model = new HoldingStick();
+        this.model = new HoldingStick();
         modelMulti = new ModelMeatRoaster();
     }
 
@@ -134,8 +134,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                         if (((TileEntityMultiBlock) te).multiBlockStructure.sharedData.getInteger("CookBurn") == 1){
                             //SALog.error("BL\nBL\n");
                             GL11.glColor3f(0.09f,0.09f,0.09f);
-                        }
-                        else if (r2.value){
+                        } else if (r2.value){
                             if (r2.meatID == 1 || r2.meatID == 2){
                                 GL11.glColor3f(0.4f,0.3f,0.3f);
                             }
@@ -144,10 +143,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                                 GL11.glColor3f(1.0f,0.6f,0.6f);
                             }
                         }
-
-
-                    }
-                    else if (r2.value){
+                    } else if (r2.value){
                         if (r2.meatID == 1 || r2.meatID == 2){
                             GL11.glColor3f(0.4f,0.3f,0.3f);
                         }
@@ -170,86 +166,6 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                     switch (meatType) {
                         case 0:
                             break;
-                        /*case 1:
-                            // ================================= COW Start ================================
-                            ModelCowSA cow = new ModelCowSA();
-                            cow.isChild = false;
-
-                            zoffset = 3.42f;
-                            yoffset = 1.871f;
-                            // ================================= Rotate Start ================================
-                           // GL11.glRotatef((float)short1, 0.0F, 1.0F, 0.0F);
-                            GL11.glRotatef(0F, 1, 0, 0);
-                            GL11.glTranslatef(xoffset + 0, yoffset + -0.95F, zoffset + -1.9F);
-
-                            ResourceLocation cowT = getTexture(meatType, meatState);
-                            Minecraft.getMinecraft().renderEngine.bindTexture(cowT);
-                            float rangle = desync;
-                            float radians = (float) Math.toRadians(rangle);
-                            GL11.glTranslatef(0, -0.66f,0);
-
-                            float ztrans = (float) (Math.sin(radians));
-                            float ytrans = (float) (Math.cos(radians));
-                            GL11.glTranslatef(ztrans, -ytrans, 0);
-                            GL11.glRotatef(rangle, 0, 0, 1);
-                            GL11.glTranslatef(0, 0.66f,0);
-
-                            //GL11.glTranslatef(0, 0, 0);
-                            cow.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
-                            // ================================ End ============================================
-                            break;
-                        case 2:
-                            // ================================= Pig Start ================================
-                            ModelPigSA pig = new ModelPigSA();
-                            pig.isChild = false;
-                            // ================================= Rotate Start ================================
-                            zoffset = 3.42f;
-                            yoffset = 1.42f;
-                            GL11.glTranslatef(xoffset+0, yoffset-1F, zoffset+-1.6F);
-                            rangle = desync;
-                            radians = (float) Math.toRadians(rangle);
-                            GL11.glTranslatef(0, -0.2f,0);
-
-                            ztrans = (float) (Math.sin(radians));
-                            ytrans = (float) (Math.cos(radians));
-                            GL11.glTranslatef(ztrans, -ytrans, 0);
-                            GL11.glRotatef(rangle, 0, 0, 1);
-                            GL11.glTranslatef(0, 0.2f,0);
-                            GL11.glRotatef(0F, 1, 0, 0);
-
-                            getTexture(meatType, meatState);
-                            ResourceLocation pigT = getTexture(meatType, meatState);
-                            Minecraft.getMinecraft().renderEngine.bindTexture(pigT);
-                            pig.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
-                            // ================================ End ============================================
-                            break;
-                        case 3:
-                            // ================================= Chicken Start ================================
-                            ModelChickenSA chick = new ModelChickenSA();
-                            chick.isChild = false;
-
-                            // ================================= Rotate Start ================================
-                            zoffset = 0.62f;
-                            yoffset = 3.50f;
-                            GL11.glTranslatef(xoffset+0, yoffset-3.00F, zoffset+0.9F);
-                            GL11.glDisable(GL11.GL_CULL_FACE);
-                            rangle = desync;
-                            radians = (float) Math.toRadians(rangle);
-                            GL11.glTranslatef(0, -0.2f,0);
-
-                            ztrans = (float) (Math.sin(radians));
-                            ytrans = (float) (Math.cos(radians));
-                            GL11.glTranslatef(ztrans, -ytrans, 0);
-                            GL11.glRotatef(rangle, 0, 0, 1);
-                            GL11.glTranslatef(0, 0.22f,0);
-
-                            ResourceLocation chickT = getTexture(meatType, meatState);
-                            Minecraft.getMinecraft().renderEngine.bindTexture(chickT);
-                            chick.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
-                            // ================================ End ============================================
-                            break;*/
-                        //case 4:
-                        //Sheep
                         default:
                             // ================================= Other Start ================================
                             if (meatType > 0) {

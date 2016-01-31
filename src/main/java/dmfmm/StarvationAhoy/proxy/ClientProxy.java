@@ -74,7 +74,7 @@ public class ClientProxy extends CommonProxy{
 		mt.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, Items.feather, Items.cooked_chicken, MItemLoader.skinlessChicken);
 		ModuleMeat.registry.addMeatType(mt);
         mt = new MeatType(4);
-        mt.doMeatType(new ModelSheepSA(), "starvationahoy:textures/entity/ModelSheep.png", "minecraft:textures/entity/sheep/sheep.png", "starvationahoy:textures/entity/rottenChicken.png");
+        mt.doMeatType(new ModelSheepSA.ModelSheepSA2(), "starvationahoy:textures/entity/ModelSheep.png", "minecraft:textures/entity/sheep/sheep.png", "starvationahoy:textures/entity/rottenChicken.png");
         mt.doDeadEntity(EntitySheep.class, MItemLoader.deadSheep, Item.getItemFromBlock(Blocks.wool), Items.cooked_mutton, MItemLoader.skinlessSheep);
         ModuleMeat.registry.addMeatType(mt);
         mt = new MeatType(5);

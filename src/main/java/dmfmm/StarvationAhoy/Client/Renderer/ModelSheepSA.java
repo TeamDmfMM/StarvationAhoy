@@ -2,6 +2,7 @@ package dmfmm.StarvationAhoy.Client.Renderer;
 
 
 import dmfmm.StarvationAhoy.api.Meat.ISAModel;
+import dmfmm.StarvationAhoy.api.Meat.ISpitRoastRender;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelSheep2;
@@ -124,7 +125,7 @@ public class ModelSheepSA extends ModelBase implements ISAModel{
     }
 
 
-    public static class  ModelSheepSA2 extends ModelSheep2  implements ISAModel{
+    public static class  ModelSheepSA2 extends ModelSheep2  implements ISAModel, ISpitRoastRender{
         public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity entityIn)
         {
             this.head.rotateAngleX = p_78087_5_ / (180F / (float)Math.PI);
@@ -152,6 +153,17 @@ public class ModelSheepSA extends ModelBase implements ISAModel{
         @Override
         public AxisAlignedBB getMeatAABB(double x, double minX, double maxX, double y, double minY, double maxY, double z, double minZ, double maxZ) {
             return new AxisAlignedBB((double) x + minX, (double) y + minY - 1.6F, (double) z + minZ, (double) x + maxX, (double) y + maxY, (double) z + maxZ);
+        }
+
+        @Override
+        public ModelBase updateExistingModel(ModelBase change) {
+            return change;
+        }
+
+        @Override
+        public float[] getTranslations() {
+            float[] carl = {0, -1F, 1.6F, 3.42f, 1.42f};
+            return carl;
         }
     }
 }
