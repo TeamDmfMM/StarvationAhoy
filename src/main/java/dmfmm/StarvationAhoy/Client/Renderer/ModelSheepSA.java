@@ -162,7 +162,7 @@ public class ModelSheepSA extends ModelBase implements ISAModel{
 
         @Override
         public float[] getTranslations() {
-            float[] carl = {0, -1F, 1.6F, 3.42f, 1.42f};
+            float[] carl = {0, -1.2F, 0.3F, 1.2f, 2f, -0.57f};
             return carl;
         }
     }

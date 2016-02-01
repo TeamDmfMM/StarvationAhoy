@@ -2,6 +2,7 @@ package dmfmm.StarvationAhoy.Client.Renderer;
 
 
 import dmfmm.StarvationAhoy.api.Meat.ISAModel;
+import dmfmm.StarvationAhoy.api.Meat.ISpitRoastRender;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRabbit;
 import net.minecraft.client.model.ModelRenderer;
@@ -11,7 +12,7 @@ import net.minecraftforge.fml.common.Optional;
 import org.lwjgl.opengl.GL11;
 
 //@Optional.Interface(iface = "dmfmm.StarvationAhoy.api.Meat.ISAModel", modid = "StarvationAhoy")
-public class ModelRabbitSA extends ModelBase implements ISAModel{
+public class ModelRabbitSA extends ModelBase implements ISAModel, ISpitRoastRender{
     public ModelRenderer rabbitLeftEar;
     public ModelRenderer rabbitNose;
     public ModelRenderer rabbitHead;
@@ -118,5 +119,16 @@ public class ModelRabbitSA extends ModelBase implements ISAModel{
     @Override
     public AxisAlignedBB getMeatAABB(double x, double minX, double maxX, double y, double minY, double maxY, double z, double minZ, double maxZ) {
         return new AxisAlignedBB((double) x + minX, (double) y + minY - 1.2F, (double) z + minZ, (double) x + maxX, (double) y + maxY, (double) z + maxZ);
+    }
+
+    @Override
+    public ModelBase updateExistingModel(ModelBase change) {
+        return change;
+    }
+
+    @Override
+    public float[] getTranslations() {
+        float[] carl = {0, -3.00F, 0.9F, 0.62f, 3.50f};
+        return carl;
     }
 }

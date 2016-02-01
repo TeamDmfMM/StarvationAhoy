@@ -6,6 +6,7 @@ import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.api.Meat.ISpitRoastRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
@@ -129,14 +130,17 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                     else {
                         short1 = 0;
                     }
+                    GlStateManager.pushMatrix();
                     //Color of the displayed model stuff
                     if (((TileEntityMultiBlock) te).multiBlockStructure.sharedData.hasKey("CookBurn")){
                         if (((TileEntityMultiBlock) te).multiBlockStructure.sharedData.getInteger("CookBurn") == 1){
                             //SALog.error("BL\nBL\n");
-                            GL11.glColor3f(0.09f,0.09f,0.09f);
+                            GlStateManager.color(0.09f,0.09f,0.09f);
+                            //GL11.glColor3f();
                         } else if (r2.value){
                             if (r2.meatID == 1 || r2.meatID == 2){
-                                GL11.glColor3f(0.4f,0.3f,0.3f);
+                                GlStateManager.color(0.4f,0.3f,0.3f);
+                                //GL11.glColor3f();
                             }
                             else {
                                 //SALog.error("Chicky whites");
@@ -165,6 +169,23 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                     GL11.glPushMatrix();
                     switch (meatType) {
                         case 0:
+                            break;
+                        case ModuleMeat.MEATTYPE_RABBIT:
+                            ModelBase rabbit = ModuleMeat.registry.getModel(meatType);
+                            rabbit.isChild =false;
+
+                            GlStateManager.rotate(22, 1, 0, 0);
+                            GlStateManager.translate(0, -0.3, 1);
+
+                            float radian = (float) Math.toRadians(desync);
+                            GlStateManager.translate(0, -0.2f, 0);
+                            GlStateManager.translate((float) (Math.sin(radian)), ((float) -(Math.cos(radian))), 0);
+                            GlStateManager.rotate(desync, 0, 0, 1);
+                            GlStateManager.translate(0, 0.2f, 0);
+                            GlStateManager.rotate(0F, 1, 0, 0);
+
+                            this.bindTexture(getTexture(meatType, meatState));
+                            rabbit.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
                             break;
                         default:
                             // ================================= Other Start ================================
@@ -214,6 +235,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
 
                     }
                     GL11.glPopMatrix();
+                    GlStateManager.popMatrix();
 
                 }
             }

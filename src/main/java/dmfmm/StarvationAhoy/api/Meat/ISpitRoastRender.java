@@ -23,7 +23,7 @@ public interface ISpitRoastRender {
      * Gets the desired translation to make model not hover around spit roast
      *
      *
-     * @return the translations: xoffset, yoffset, zoffset, center translation (size of model around y axis / 2)
+     * @return the translations: xoffset, yoffset, zoffset, (Optional) center translation (size of model around y axis / 2), (Optional) center translation around x axis, (Optional)rotation arch
      */
     public float[] getTranslations();
 
