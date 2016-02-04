@@ -1,19 +1,22 @@
 package dmfmm.StarvationAhoy.FoodEdit.EventHandler;
 
-import net.minecraft.item.EnumAction;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownEffects;
-import dmfmm.StarvationAhoy.FoodStats.PlayerInstanceHolder;
+import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketRequestNewFoods;
+import dmfmm.StarvationAhoy.StarvationAhoy;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -122,6 +125,25 @@ import java.util.Random;
 	            e.entityPlayer.clearItemInUse();
 	        }
 		}
+
+
+
+		// Just adding thing here for testing
+
+		@SubscribeEvent
+		@SideOnly(Side.CLIENT)
+		public void onServerJoin(FMLNetworkEvent.ClientConnectedToServerEvent e){
+			StarvationAhoy.MultiBlockChannel.sendToServer(new PacketRequestNewFoods());
+		}
+
+
+		@SubscribeEvent
+		@SideOnly(Side.CLIENT)
+		public void onServerLeave(FMLNetworkEvent.ClientDisconnectionFromServerEvent e) {
+			KnownFoods.leaveServer();
+		}
+
+
 
 
 

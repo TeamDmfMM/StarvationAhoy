@@ -1,12 +1,35 @@
 package dmfmm.StarvationAhoy;
 
+import dmfmm.StarvationAhoy.Core.CoreRecipies;
+import dmfmm.StarvationAhoy.Core.EventHandler.event_configChange;
+import dmfmm.StarvationAhoy.Core.FoodModifyCommand;
+import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
+import dmfmm.StarvationAhoy.Core.IMCRerouter;
 import dmfmm.StarvationAhoy.Core.Init.CoreTextureRegistry;
 import dmfmm.StarvationAhoy.Core.Init.CropwashTextureRegistry;
 import dmfmm.StarvationAhoy.Core.Init.MeatTextureRegistry;
-import dmfmm.StarvationAhoy.api.CropWash.CropWash;
+import dmfmm.StarvationAhoy.Core.StarvationAhoyProvider;
+import dmfmm.StarvationAhoy.Core.items.ItemLoad;
+import dmfmm.StarvationAhoy.Core.lib.ModInfo;
+import dmfmm.StarvationAhoy.Core.util.ConfigHandler;
+import dmfmm.StarvationAhoy.Core.util.SALog;
+import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
+import dmfmm.StarvationAhoy.FoodEdit.EventHandler.FoodEatenResult;
+import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
+import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketRequestNewFoods;
+import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketResponseNewFoods;
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
+import dmfmm.StarvationAhoy.Meat.ModuleMeat;
+import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
+import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry;
+import dmfmm.StarvationAhoy.proxy.CommonProxy;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -16,27 +39,6 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
-import dmfmm.StarvationAhoy.Core.CoreRecipies;
-import dmfmm.StarvationAhoy.Core.EventHandler.event_configChange;
-import dmfmm.StarvationAhoy.Core.FoodModifyCommand;
-import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
-import dmfmm.StarvationAhoy.Core.IMCRerouter;
-import dmfmm.StarvationAhoy.Core.StarvationAhoyProvider;
-import dmfmm.StarvationAhoy.Core.items.ItemLoad;
-import dmfmm.StarvationAhoy.Core.lib.ModInfo;
-import dmfmm.StarvationAhoy.Core.util.ConfigHandler;
-import dmfmm.StarvationAhoy.Core.util.SALog;
-import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
-import dmfmm.StarvationAhoy.FoodEdit.EventHandler.FoodEatenResult;
-import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
-import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
-import dmfmm.StarvationAhoy.Meat.ModuleMeat;
-import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry;
-import dmfmm.StarvationAhoy.proxy.CommonProxy;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.EnumHelper;
 
 import java.io.File;
 
@@ -87,6 +89,8 @@ public class StarvationAhoy {
 		//Packet Initiation
 		MultiBlockChannel = NetworkRegistry.INSTANCE.newSimpleChannel(ModInfo.MOD_ID);
 		MultiBlockChannel.registerMessage(PacketMultiBlock.Handler.class, PacketMultiBlock.class, 0, Side.CLIENT);
+		MultiBlockChannel.registerMessage(PacketResponseNewFoods.Handler.class, PacketResponseNewFoods.class, 1, Side.CLIENT);
+		MultiBlockChannel.registerMessage(PacketRequestNewFoods.Handler.class, PacketRequestNewFoods.class, 2, Side.SERVER);
         //MultiBlockChannel.registerMessage(ClientGetExhaustPacket.Handler.class, ClientGetExhaustPacket.class, 1, Side.CLIENT);
         //MultiBlockChannel.registerMessage(ServerGetExhaustPacket.Handler.class, ServerGetExhaustPacket.class, 2, Side.SERVER);
 
@@ -127,7 +131,9 @@ public class StarvationAhoy {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
-		
+		if (event.getSide() == Side.CLIENT) {
+			KnownFoods.leaveServer();
+		}
 	}
 	
 	@EventHandler

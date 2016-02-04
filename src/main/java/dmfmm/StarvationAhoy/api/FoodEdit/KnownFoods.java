@@ -13,6 +13,16 @@ public class KnownFoods {
 	 */
 	
 	public static ArrayList<ArrayList<Object>> knownFoods = new ArrayList<ArrayList<Object>>();
+	public static ArrayList<ArrayList<Object>> knownFoodsActive = new ArrayList<ArrayList<Object>>();
+
+	public static void swapToServer(ArrayList<ArrayList<Object>> swapTo) {
+		knownFoodsActive = (ArrayList<ArrayList<Object>>) swapTo.clone();
+	}
+
+	public static void leaveServer() {
+		knownFoodsActive = (ArrayList<ArrayList<Object>>) knownFoods.clone();
+	}
+
 	public static void changeFood(ItemStack i, int hunger, float saturation){
 		boolean found = false;
 		for(ArrayList<Object> foods : KnownFoods.knownFoods) {
@@ -89,7 +99,7 @@ public class KnownFoods {
 	}
 	
 	public static int getFoodHunger(ItemStack stack){
-		for(ArrayList<Object> foods : knownFoods){
+		for(ArrayList<Object> foods : knownFoodsActive){
 			ItemStack bob =  (ItemStack) foods.get(0);
 			
 			if(bob.getItem() == stack.getItem() && bob.getItemDamage() == stack.getItemDamage()){
@@ -99,7 +109,7 @@ public class KnownFoods {
 		return -1;
 	}
 	public static int getFoodHunger(String name){
-		for(ArrayList<Object> foods : knownFoods){
+		for(ArrayList<Object> foods : knownFoodsActive){
 			ItemStack bob =  (ItemStack) foods.get(0);
 			ItemStack stack = OreDictionary.getOres(name).get(0);
 			
@@ -110,7 +120,7 @@ public class KnownFoods {
 		return -1;
 	}
 	public static float getFoodSaturation(ItemStack stack){
-		for(ArrayList<Object> foods : knownFoods){
+		for(ArrayList<Object> foods : knownFoodsActive){
 			ItemStack bob =  (ItemStack) foods.get(0);
 			
 			if(bob.getItem() == stack.getItem() && bob.getItemDamage() == stack.getItemDamage()){
@@ -120,7 +130,7 @@ public class KnownFoods {
 		return -1;
 	}
 	public static int getFoodSaturation(String name){
-		for(ArrayList<Object> foods : knownFoods){
+		for(ArrayList<Object> foods : knownFoodsActive){
 			ItemStack bob =  (ItemStack) foods.get(0);
 			ItemStack stack = OreDictionary.getOres(name).get(0);
 			
