@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -115,7 +114,7 @@ public class DirtyItemSmartModel implements ISmartItemModel {
         BakedQuad back = createBakedQuadForFace(center1, size,
                 center2, size,
                 -DISTANCE_BEHIND_NORTH_FACE + delta,
-                r0, t3, EnumFacing.NORTH);
+                r0, t2, EnumFacing.NORTH);
 
         List<BakedQuad> quad = new ArrayList<>();
         quad.add(front);
@@ -132,6 +131,14 @@ public class DirtyItemSmartModel implements ISmartItemModel {
         float z1, z2, z3, z4;
         final float CUBE_MIN = 0.0F;
         final float CUBE_MAX = 1.0F;
+        float u = 16;
+        float v = 16;
+        float u4 = 0;
+        float u2 = 16;
+        float u3 = 0;
+        float v2 = 0;
+        float v3 = 0;
+        float v4 = 16;
 
         switch (face) {
             case UP: {
@@ -168,10 +175,18 @@ public class DirtyItemSmartModel implements ISmartItemModel {
             }
             case NORTH: {
                 x1 = x2 = centreLR - width/2.0F;
-                x3 = x4 = centreLR + width/2.0F;
+                x3 = x4 = centreLR +  width/2.0F;
                 y1 = y4 = centreUD - height/2.0F;
                 y2 = y3 = centreUD + height/2.0F;
                 z1 = z2 = z3 = z4 = CUBE_MIN - forwardDisplacement;
+                u = 16;
+                v = 0;
+                u4 = 0;
+                u2 = 16;
+                u3 = 0;
+                v2 = 16;
+                v3 = 16;
+                v4 = 0;
                 break;
             }
             case SOUTH: {
@@ -188,10 +203,12 @@ public class DirtyItemSmartModel implements ISmartItemModel {
             }
         }
 
-        return new BakedQuad(Ints.concat(vertexToInts(x1, y1, z1, Color.WHITE.getRGB(), texture, 16, 16),
-                vertexToInts(x2, y2, z2, Color.WHITE.getRGB(), texture, 16, 0),
-                vertexToInts(x3, y3, z3, Color.WHITE.getRGB(), texture, 0, 0),
-                vertexToInts(x4, y4, z4, Color.WHITE.getRGB(), texture, 0, 16)),
+
+
+        return new BakedQuad(Ints.concat(vertexToInts(x1, y1, z1, Color.WHITE.getRGB(), texture, u, v),
+                vertexToInts(x2, y2, z2, Color.WHITE.getRGB(), texture, u2, v2),
+                vertexToInts(x3, y3, z3, Color.WHITE.getRGB(), texture, u3, v3),
+                vertexToInts(x4, y4, z4, Color.WHITE.getRGB(), texture, u4, v4)),
                 itemRenderLayer, face);
     }
     private int[] vertexToInts(float x, float y, float z, int color, TextureAtlasSprite texture, float u, float v)

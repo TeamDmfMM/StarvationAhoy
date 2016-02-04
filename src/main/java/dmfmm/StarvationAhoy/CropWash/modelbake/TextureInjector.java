@@ -20,4 +20,6 @@ public class TextureInjector {
 
         event.map.registerSprite(new ResourceLocation("starvationahoy:items/dirty_overlay_back"));
     }
+
+
 }
