@@ -12,6 +12,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  */
 public class PacketRequestNewFoods implements IMessage{
 
+    public PacketRequestNewFoods() {}
+
     @Override
     public void fromBytes(ByteBuf buf) {
         buf.readByte();
@@ -22,10 +24,10 @@ public class PacketRequestNewFoods implements IMessage{
         buf.writeByte(5);
     }
 
-    public static class Handler implements IMessageHandler<PacketRequestNewFoods, PacketResponseNewFoods> {
+    public static class Handler implements IMessageHandler<PacketRequestNewFoods, IMessage> {
 
         @Override
-        public PacketResponseNewFoods onMessage(PacketRequestNewFoods message, MessageContext ctx) {
+        public IMessage onMessage(PacketRequestNewFoods message, MessageContext ctx) {
             PacketResponseNewFoods p = new PacketResponseNewFoods();
             p.foods = KnownFoods.knownFoods;
             System.out.println("Hello, i am commandblocktron 3000");

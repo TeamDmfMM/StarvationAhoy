@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class PacketResponseNewFoods implements IMessage {
 
     public ArrayList<ArrayList<Object>> foods;
+    public PacketResponseNewFoods() {}
 
     @Override
     public void fromBytes(ByteBuf buf) {
