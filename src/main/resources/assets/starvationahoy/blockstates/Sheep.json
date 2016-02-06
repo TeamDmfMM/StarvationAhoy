@@ -1,0 +1,60 @@
+{
+  "forge_marker": 1,
+  "defaults": {"transform":"forge:default-item"},
+  "variants": {
+    "type": {
+      "sheep": {
+        "model": "starvationahoy:ModelSheep.obj",
+        "transform": {
+          "thirdperson": {
+            "scale": 0.5,
+            "rotation": [{"x":180}],
+            "translation": [0.1, 0.2, -0.1]
+          },
+          "firstperson": {
+            "scale": 1.5,
+            "rotation": [{"y":180}],
+            "translation": [0, 0, 0]
+          },
+          "gui": {
+            "scale": 0.9,
+            "rotation": [{"y":90}],
+            "translation": [0, -0.2, 0]
+          },
+          "ground":{
+            "scale": 100.0
+          }
+        },
+        "custom": {
+          "flip-v": true
+        }
+      },
+      "skinned_sheep": {
+        "model": "starvationahoy:ModelSheepShear.obj",
+        "transform": {
+          "thirdperson": {
+            "scale": 0.5,
+            "rotation": [{"x":180}],
+            "translation": [0.1, 0.2, -0.1]
+          },
+          "firstperson": {
+            "scale": 1.5,
+            "rotation": [{"y":180}],
+            "translation": [0, 0, 0]
+          },
+          "gui": {
+            "scale": 0.9,
+            "rotation": [{"y":90}],
+            "translation": [0, -0.2, 0]
+          },
+          "ground":{
+            "scale": 100.0
+          }
+        },
+        "custom": {
+          "flip-v": true
+        }
+      }
+    }
+  }
+}

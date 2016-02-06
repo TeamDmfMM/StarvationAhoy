@@ -1,7 +1,9 @@
 package dmfmm.StarvationAhoy.FoodEdit.Packet;
 
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import io.netty.buffer.ByteBuf;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -12,26 +14,29 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  */
 public class PacketRequestNewFoods implements IMessage{
 
-    public PacketRequestNewFoods() {}
+    private String carl = "";
+
+    public PacketRequestNewFoods() {SALog.error("RequestMade");}
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        buf.readByte();
+        carl = ByteBufUtils.readUTF8String(buf);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        buf.writeByte(5);
+        ByteBufUtils.writeUTF8String(buf, carl);
     }
 
     public static class Handler implements IMessageHandler<PacketRequestNewFoods, IMessage> {
 
         @Override
         public IMessage onMessage(PacketRequestNewFoods message, MessageContext ctx) {
-            PacketResponseNewFoods p = new PacketResponseNewFoods();
-            p.foods = KnownFoods.knownFoods;
-            System.out.println("Hello, i am commandblocktron 3000");
-            return p;
+            SALog.error(message.carl);
+            //PacketResponseNewFoods p = new PacketResponseNewFoods();
+            //p.foods = KnownFoods.knownFoods;
+            //System.out.println("Hello, i am commandblocktron 3000");
+            return new PacketResponseNewFoods(KnownFoods.knownFoods);
         }
     }
 }

@@ -1,28 +1,34 @@
 package dmfmm.StarvationAhoy.FoodEdit.EventHandler;
 
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownEffects;
 import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketRequestNewFoods;
+import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketResponseNewFoods;
 import dmfmm.StarvationAhoy.StarvationAhoy;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import net.minecraftforge.fml.common.network.handshake.NetworkDispatcher;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-	public class FoodEatenResult
-	{	
+public class FoodEatenResult
+{
 
 		@SubscribeEvent
 		public void foodTickEvent(PlayerUseItemEvent.Tick e){
@@ -131,9 +137,9 @@ import java.util.Random;
 		// Just adding thing here for testing
 
 		@SubscribeEvent
-		@SideOnly(Side.CLIENT)
-		public void onServerJoin(FMLNetworkEvent.ClientConnectedToServerEvent e){
-			StarvationAhoy.MultiBlockChannel.sendToServer(new PacketRequestNewFoods());
+		public void onServerJoin(PlayerEvent.PlayerLoggedInEvent e){
+			//SALog.error("attempt Sending");
+			StarvationAhoy.MultiBlockChannel.sendTo(new PacketResponseNewFoods(KnownFoods.knownFoods), (EntityPlayerMP) e.player);
 		}
 
 
@@ -142,9 +148,4 @@ import java.util.Random;
 		public void onServerLeave(FMLNetworkEvent.ClientDisconnectionFromServerEvent e) {
 			KnownFoods.leaveServer();
 		}
-
-
-
-
-
-	}
+}
