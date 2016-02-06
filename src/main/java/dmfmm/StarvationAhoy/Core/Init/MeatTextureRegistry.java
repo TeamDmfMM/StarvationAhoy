@@ -35,6 +35,8 @@ public class MeatTextureRegistry {
         registerItemModel(MItemLoader.skinlessCow, 0, "Cow", "type=skinned_cow");
         registerItemModel(MItemLoader.deadChicken, 0, "Chicken", "type=chicken");
         registerItemModel(MItemLoader.skinlessChicken, 0, "Chicken", "type=skinned_chicken");
+        registerItemModel(MItemLoader.deadSheep, 0, "Sheep", "type=sheep");
+        registerItemModel(MItemLoader.skinlessSheep, 0, "Sheep", "type=skinned_sheep");
     }
 
 

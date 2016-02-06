@@ -105,14 +105,14 @@ public class DirtyItemSmartModel implements ISmartItemModel {
         TextureAtlasSprite t3 = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(dirtyOverlayBack);
 
 
-        BakedQuad front = createBakedQuadForFace(center1- 0.031f, size,
+        BakedQuad front = createBakedQuadForFace(center1, size,//- 0.031f
                 center2, size, -DISTANCE_BEHIND_SOUTH_FACE + delta,
                 r0,
                 t2,
                 EnumFacing.SOUTH);
 
-        BakedQuad back = createBakedQuadForFace(center1, size,
-                center2, size,
+        BakedQuad back = createBakedQuadForFace(center1-0.075f, size,
+                center2-0.125f, size,
                 -DISTANCE_BEHIND_NORTH_FACE + delta,
                 r0, t2, EnumFacing.NORTH);
 
