@@ -105,14 +105,14 @@ public class DirtyItemSmartModel implements ISmartItemModel {
         TextureAtlasSprite t3 = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(dirtyOverlayBack);
 
 
-        BakedQuad front = createBakedQuadForFace(center1- 0.031f, size,
+        BakedQuad front = createBakedQuadForFace(center1, size,
                 center2, size, -DISTANCE_BEHIND_SOUTH_FACE + delta,
                 r0,
                 t2,
                 EnumFacing.SOUTH);
 
-        BakedQuad back = createBakedQuadForFace(center1, size,
-                center2, size,
+        BakedQuad back = createBakedQuadForFace(0.5f, size,
+                0.5f, size,
                 -DISTANCE_BEHIND_NORTH_FACE + delta,
                 r0, t2, EnumFacing.NORTH);
 
@@ -176,18 +176,22 @@ public class DirtyItemSmartModel implements ISmartItemModel {
             case NORTH: {
                 x1 = x2 = centreLR - width/2.0F;
                 x3 = x4 = centreLR +  width/2.0F;
-                y1 = y4 = centreUD - height/2.0F;
-                y2 = y3 = centreUD + height/2.0F;
-                z1 = z2 = z3 = z4 = CUBE_MIN - forwardDisplacement;
-                u = 16;
+                y1 = y4 = centreUD + height/2.0F;
+                y2 = y3 = centreUD - height/2.0F;
+                z1 = z2 = z3 = z4 = CUBE_MIN - forwardDisplacement - 1;
+                u = 0;
                 v = 0;
-                u4 = 0;
-                u2 = 16;
-                u3 = 0;
+                u4 = 16;
+                u2 = 0;
+                u3 = 16;
                 v2 = 16;
                 v3 = 16;
                 v4 = 0;
-                break;
+                return new BakedQuad(Ints.concat(vertexToInts(x3, y3, z3, Color.WHITE.getRGB(), texture, u3, v3),
+                        vertexToInts(x4, y4, z4, Color.WHITE.getRGB(), texture, u4, v4),
+                        vertexToInts(x1, y1, z1, Color.WHITE.getRGB(), texture, u, v),
+                        vertexToInts(x2, y2, z2, Color.WHITE.getRGB(), texture, u2, v2)),
+                        itemRenderLayer, EnumFacing.SOUTH);
             }
             case SOUTH: {
                 x1 = x2 = centreLR + width/2.0F;
