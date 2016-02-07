@@ -1,7 +1,7 @@
 package dmfmm.StarvationAhoy.Core;
 
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.FoodChanger;
-import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketServerJsonUpdate;
+import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketFoodUpdate;
 import dmfmm.StarvationAhoy.StarvationAhoy;
 import net.minecraft.command.*;
 import net.minecraft.item.Item;
@@ -67,8 +67,13 @@ public class FoodModifyCommand implements ICommand{
 					throw new WrongUsageException("Food not found in config file to change.", new Object[0]);
 				}
 			}else{
-				//SEND PACKET TO SERVER
-				StarvationAhoy.MultiBlockChannel.sendToServer(new PacketServerJsonUpdate(new ItemStack(item), hunger, saturation));
+
+				try {
+					FoodChanger.change(item, hunger, saturation);
+					StarvationAhoy.MultiBlockChannel.sendToAll(new PacketFoodUpdate(new ItemStack(item), hunger, saturation));
+				} catch (IOException | FoodChanger.FoodNotFoundException e) {
+					e.printStackTrace();
+				}
 			}
 
         }

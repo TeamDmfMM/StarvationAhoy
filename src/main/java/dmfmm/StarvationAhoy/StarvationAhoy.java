@@ -19,7 +19,6 @@ import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
 import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketFoodUpdate;
 import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketRequestNewFoods;
 import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketResponseNewFoods;
-import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketServerJsonUpdate;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
@@ -93,7 +92,6 @@ public class StarvationAhoy {
 		MultiBlockChannel.registerMessage(PacketMultiBlock.Handler.class, PacketMultiBlock.class, 0, Side.CLIENT);
 		MultiBlockChannel.registerMessage(PacketResponseNewFoods.Handler.class, PacketResponseNewFoods.class, 1, Side.CLIENT);
 		MultiBlockChannel.registerMessage(PacketRequestNewFoods.Handler.class, PacketRequestNewFoods.class, 2, Side.SERVER);
-		MultiBlockChannel.registerMessage(PacketServerJsonUpdate.Handler.class, PacketServerJsonUpdate.class, 3, Side.SERVER);
 		MultiBlockChannel.registerMessage(PacketFoodUpdate.Handler.class, PacketFoodUpdate.class, 4, Side.CLIENT);
         //MultiBlockChannel.registerMessage(ClientGetExhaustPacket.Handler.class, ClientGetExhaustPacket.class, 1, Side.CLIENT);
         //MultiBlockChannel.registerMessage(ServerGetExhaustPacket.Handler.class, ServerGetExhaustPacket.class, 2, Side.SERVER);

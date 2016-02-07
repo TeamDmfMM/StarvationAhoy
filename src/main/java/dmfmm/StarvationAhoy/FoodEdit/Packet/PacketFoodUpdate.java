@@ -3,7 +3,9 @@ package dmfmm.StarvationAhoy.FoodEdit.Packet;
 
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -27,16 +29,19 @@ public class PacketFoodUpdate implements IMessage{
 
     @Override
     public void fromBytes(ByteBuf buf) {
+        NBTTagCompound tagCompound =ByteBufUtils.readTag(buf);
+        hunger = tagCompound.getInteger("int");
+        saturation = tagCompound.getFloat("float");
         tochange = ByteBufUtils.readItemStack(buf);
-        hunger = ByteBufUtils.readVarInt(buf, 5);
-        saturation = buf.getFloat(3);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
+        NBTTagCompound tagCompound = new NBTTagCompound();
+        tagCompound.setFloat("float", saturation);
+        tagCompound.setInteger("int", hunger);
+        ByteBufUtils.writeTag(buf, tagCompound);
         ByteBufUtils.writeItemStack(buf, tochange);
-        ByteBufUtils.writeVarInt(buf, hunger, 5);
-        buf.setFloat(3, saturation);
     }
 
     public static class Handler implements IMessageHandler<PacketFoodUpdate, IMessage> {
