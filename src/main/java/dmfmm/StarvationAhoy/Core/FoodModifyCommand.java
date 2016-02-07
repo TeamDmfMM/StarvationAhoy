@@ -1,8 +1,11 @@
 package dmfmm.StarvationAhoy.Core;
 
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.FoodChanger;
+import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketServerJsonUpdate;
+import dmfmm.StarvationAhoy.StarvationAhoy;
 import net.minecraft.command.*;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
@@ -53,15 +56,21 @@ public class FoodModifyCommand implements ICommand{
         	Item item = CommandBase.getItemByText(sender, CMDin[0]);
         	int hunger = CommandBase.parseInt(CMDin[1]);
         	float saturation = this.parseFloat(sender, CMDin[2]);
-        	
-        	try {
-				FoodChanger.change(item, hunger, saturation);
-				sender.addChatMessage(new ChatComponentText(StatCollector.translateToLocal(item.getUnlocalizedName() + ".name") + " was sucessfully changed to the new levels!"));
-			} catch (IOError | IOException e) {
-				throw new WrongUsageException(e.getMessage(), new Object[0]);
-			} catch (FoodChanger.FoodNotFoundException e){
-				throw new WrongUsageException("Food not found in config file to change.", new Object[0]);
+
+			if (MinecraftServer.getServer().isSinglePlayer()) {
+				try {
+					FoodChanger.change(item, hunger, saturation);
+					sender.addChatMessage(new ChatComponentText(StatCollector.translateToLocal(item.getUnlocalizedName() + ".name") + " was sucessfully changed to the new levels!"));
+				} catch (IOError | IOException e) {
+					throw new WrongUsageException(e.getMessage(), new Object[0]);
+				} catch (FoodChanger.FoodNotFoundException e){
+					throw new WrongUsageException("Food not found in config file to change.", new Object[0]);
+				}
+			}else{
+				//SEND PACKET TO SERVER
+				StarvationAhoy.MultiBlockChannel.sendToServer(new PacketServerJsonUpdate(new ItemStack(item), hunger, saturation));
 			}
+
         }
 		
 	}

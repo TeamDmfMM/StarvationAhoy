@@ -1,12 +1,9 @@
 package dmfmm.StarvationAhoy.FoodEdit.FoodSet;
 
-import java.util.Dictionary;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import dmfmm.StarvationAhoy.Core.util.CRef;
-import dmfmm.StarvationAhoy.Core.util.ConfigHandler;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import dmfmm.StarvationAhoy.api.FoodEdit.Module;
@@ -59,7 +56,7 @@ public class ModuleBase extends Module {
 				int hunger = (int) (foo.getHealAmount(new ItemStack(foo, 1))*(percentage/100.0f));
 				float sturan = foo.getSaturationModifier(new ItemStack(foo, 1))*(percentage/100.0f);
 				
-				food.insertFoodI(new ItemStack(foo, 1), hunger, sturan);
+				food.insertFood(new ItemStack(foo, 1), hunger, sturan);
 				
 			}
 		}

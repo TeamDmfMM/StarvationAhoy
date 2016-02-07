@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.GsonBuilder;
-import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -125,7 +124,7 @@ public class ModuleUser extends Module {
 			String modname = mod.mod;
 			for (FoodOverride foodie : mod.foods){
 				ItemStack istack = new ItemStack(GameRegistry.findItem(modname, foodie.name));
-				food.insertFoodI(istack, foodie.hunger, foodie.saturation);
+				food.insertFood(istack, foodie.hunger, foodie.saturation);
 			}
 		}
 
