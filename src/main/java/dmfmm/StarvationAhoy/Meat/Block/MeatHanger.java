@@ -2,7 +2,10 @@ package dmfmm.StarvationAhoy.Meat.Block;
 
 import dmfmm.StarvationAhoy.Core.Blocks.BlockContainerRotate;
 import dmfmm.StarvationAhoy.Core.util.SALog;
+import dmfmm.StarvationAhoy.Meat.MeatRegistry;
+import dmfmm.StarvationAhoy.api.FoodEdit.Module;
 import dmfmm.StarvationAhoy.api.Meat.ISAModel;
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
@@ -55,6 +58,31 @@ public class MeatHanger extends BlockContainerRotate{
     public boolean isFullCube() {
             return false;
     }
+	@Override
+	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+	{
+		int rotation = this.getMetaFromState(state);
+		//Facing (0-5). The order is D-U-N-S-W-E
+		BlockPos p = pos.offset(EnumFacing.VALUES[rotation].getOpposite());
+		if(worldIn.getBlockState(p).getBlock().isAir(worldIn, p)){
+			this.breakBlock(worldIn, pos, state);
+			worldIn.setBlockToAir(pos);
+		}
+	}
+
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state){
+		if(world.getTileEntity(pos) instanceof MeatHangerTileEntity){
+			MeatHangerTileEntity tile = (MeatHangerTileEntity)world.getTileEntity(pos);
+			if(tile.getMeatType() != 0) {
+				if (tile.getMeatState() == MeatHangerTileEntity.MeatStates.NORMAL) {
+					spawnAsEntity(world, pos, new ItemStack(ModuleMeat.registry.getMeatTypeForId(tile.getMeatType()).items.dead));
+				} else if (tile.getMeatState() == MeatHangerTileEntity.MeatStates.SKINNED) {
+					spawnAsEntity(world, pos, new ItemStack(ModuleMeat.registry.getMeatTypeForId(tile.getMeatType()).items.skinned));
+				}
+			}
+		}
+	}
 
 
     @Override

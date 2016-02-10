@@ -1,0 +1,61 @@
+{
+  "forge_marker": 1,
+  "defaults": {"transform":"forge:default-item"},
+  "variants": {
+    "type": {
+      "rabbit": {
+        "model": "starvationahoy:ModelRabbit.obj",
+        "transform": {
+          "thirdperson": {
+            "scale": 0.5,
+            "rotation": [{"x":180}],
+            "translation": [0.1, 0.1, -0.2]
+          },
+          "firstperson": {
+            "scale": 1.5,
+            "rotation": [{"y":180}],
+            "translation": [0.1, 0.2, 0]
+          },
+          "gui": {
+            "scale": 1.1,
+            "rotation": [{"y":90}],
+            "translation": [0.05, -0.1, 0]
+          },
+          "ground":{
+            "scale": 100.0
+          }
+        },
+        "custom": {
+          "flip-v": true
+        }
+      },
+      "skinned_rabbit": {
+        "model": "starvationahoy:ModelRabbit.obj",
+        "textures": { "#None": "starvationahoy:entity/skinnedRabbitItem" },
+        "transform": {
+          "thirdperson": {
+            "scale": 0.5,
+            "rotation": [{"x":180}],
+            "translation": [0.1, 0.1, -0.2]
+          },
+          "firstperson": {
+            "scale": 1.5,
+            "rotation": [{"y":180}],
+            "translation": [0.1, 0.2, 0]
+          },
+          "gui": {
+            "scale": 1.1,
+            "rotation": [{"y":90}],
+            "translation": [0.05, -0.1, 0]
+          },
+          "ground":{
+            "scale": 100.0
+          }
+        },
+        "custom": {
+          "flip-v": true
+        }
+      }
+    }
+  }
+}
