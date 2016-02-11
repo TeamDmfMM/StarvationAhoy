@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.Meat.Events;
 
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;

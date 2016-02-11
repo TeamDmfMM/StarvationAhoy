@@ -30,7 +30,7 @@ public class DirtyItemSmartModel implements ISmartItemModel {
 
 
     public IBakedModel handleItemState(ItemStack stack) {
-         current =  ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag("Original")).getItem();
+        current =  ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag("Original")).getItem();
         exist = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag("Original")));
 
         return this;
@@ -69,7 +69,7 @@ public class DirtyItemSmartModel implements ISmartItemModel {
 
     @Override
     public ItemCameraTransforms getItemCameraTransforms() {
-         ItemCameraTransforms cameraTransforms = new ItemCameraTransforms(
+        ItemCameraTransforms cameraTransforms = new ItemCameraTransforms(
                 new ItemTransformVec3f(new Vector3f(-90.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.05F, -0.2F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp
                 new ItemTransformVec3f(new Vector3f(0F, -135F, 25.0F), new Vector3f(0F, 0.3F, 0.1F), new Vector3f(1.7F, 1.7F, 1.7F)),//fp
                 new ItemTransformVec3f(new Vector3f(0F, 0F, 0.0F), new Vector3f(), new Vector3f(1.2F, 1.2F, 1.2F)),//head
@@ -105,14 +105,14 @@ public class DirtyItemSmartModel implements ISmartItemModel {
         TextureAtlasSprite t3 = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(dirtyOverlayBack);
 
 
-        BakedQuad front = createBakedQuadForFace(center1, size,
+        BakedQuad front = createBakedQuadForFace(center1, size,//- 0.031f
                 center2, size, -DISTANCE_BEHIND_SOUTH_FACE + delta,
                 r0,
                 t2,
                 EnumFacing.SOUTH);
 
-        BakedQuad back = createBakedQuadForFace(0.5f, size,
-                0.5f, size,
+        BakedQuad back = createBakedQuadForFace(center1-0.075f, size,
+                center2-0.125f, size,
                 -DISTANCE_BEHIND_NORTH_FACE + delta,
                 r0, t2, EnumFacing.NORTH);
 
@@ -176,22 +176,18 @@ public class DirtyItemSmartModel implements ISmartItemModel {
             case NORTH: {
                 x1 = x2 = centreLR - width/2.0F;
                 x3 = x4 = centreLR +  width/2.0F;
-                y1 = y4 = centreUD + height/2.0F;
-                y2 = y3 = centreUD - height/2.0F;
-                z1 = z2 = z3 = z4 = CUBE_MIN - forwardDisplacement - 1;
-                u = 0;
+                y1 = y4 = centreUD - height/2.0F;
+                y2 = y3 = centreUD + height/2.0F;
+                z1 = z2 = z3 = z4 = CUBE_MIN - forwardDisplacement;
+                u = 16;
                 v = 0;
-                u4 = 16;
-                u2 = 0;
-                u3 = 16;
+                u4 = 0;
+                u2 = 16;
+                u3 = 0;
                 v2 = 16;
                 v3 = 16;
                 v4 = 0;
-                return new BakedQuad(Ints.concat(vertexToInts(x3, y3, z3, Color.WHITE.getRGB(), texture, u3, v3),
-                        vertexToInts(x4, y4, z4, Color.WHITE.getRGB(), texture, u4, v4),
-                        vertexToInts(x1, y1, z1, Color.WHITE.getRGB(), texture, u, v),
-                        vertexToInts(x2, y2, z2, Color.WHITE.getRGB(), texture, u2, v2)),
-                        itemRenderLayer, EnumFacing.SOUTH);
+                break;
             }
             case SOUTH: {
                 x1 = x2 = centreLR + width/2.0F;

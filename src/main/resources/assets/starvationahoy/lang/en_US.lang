@@ -21,9 +21,13 @@ item.ButcherKnife.name=Butcher's Knife
 item.Chicken_Skinned.name=Skinned Chicken
 item.Pig_Skinned.name=Skinned Pig
 item.Cow_Skinned.name=Skinned Cow
+item.Rabbit_Skinned.name=Skinned Rabbit
+item.Sheep_Skinned.name=Skinned Sheep
 item.Chicken_Dead.name=Chicken Carcass
 item.Pig_Dead.name=Pig Carcass
 item.Cow_Dead.name=Cow Carcass
+item.Rabbit_Dead.name=Rabbit Carcass
+item.Sheep_Dead.name=Sheep Carcass
 item.PigLegs.name=Pig Legs
 item.CookedPigLeg.name=Cooked Pig Legs
 

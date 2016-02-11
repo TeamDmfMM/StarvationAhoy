@@ -5,9 +5,11 @@ import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import dmfmm.StarvationAhoy.Meat.MeatType;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
+import dmfmm.StarvationAhoy.api.Event.MeatCutEvent;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -18,6 +20,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * Created by Mm12 on 2/28/2015.
@@ -50,13 +53,14 @@ public class Cooker extends BlockContainer {
             TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(new BlockPos(x, y, z));
             if (te.multiBlockStructure.sharedData.hasKey("RoastingItem")){
                 ItemStack toSpawnInWorld = ItemStack.loadItemStackFromNBT(te.multiBlockStructure.sharedData.getCompoundTag("RoastingItem"));
+                MinecraftForge.EVENT_BUS.post(new MeatCutEvent.SpitRoast(world, te.multiBlockStructure.sharedData.getInteger("EntityID"), new BlockPos(x, y, z), toSpawnInWorld.getItem().equals(Items.bone), toSpawnInWorld.getItem()));
                 te.multiBlockStructure.sharedData = new NBTTagCompound();
                 EntityItem e = new EntityItem(world, x, y+2, z, toSpawnInWorld);
                 if (!world.isRemote){world.spawnEntityInWorld(e);}
-                if(toSpawnInWorld.getItem().equals(Items.cooked_porkchop)){
+                /*(toSpawnInWorld.getItem().equals(Items.cooked_porkchop)){
                     e = new EntityItem(world, x, y+2, z, new ItemStack(MItemLoader.pigleg, 4));
                     if(!world.isRemote){world.spawnEntityInWorld(e);}
-                }
+                }*/
                 te.multiBlockStructure.syncData(te.multiBlockStructure, te.multiBlockStructure.bPos,new BlockPos(te.multiBlockStructure.x, te.multiBlockStructure.y, te.multiBlockStructure.z), world);
             }
         }
@@ -66,6 +70,7 @@ public class Cooker extends BlockContainer {
             if (te.multiBlockStructure.sharedData.hasKey("RoastingItem")){ return false;}
             te.multiBlockStructure.sharedData.setTag("RoastingItem", player.inventory.mainInventory[player.inventory.currentItem].writeToNBT(new NBTTagCompound()));
             te.multiBlockStructure.sharedData.setTag("CookedItem", new ItemStack(t.items.meat, 1).writeToNBT(new NBTTagCompound()));
+            te.multiBlockStructure.sharedData.setInteger("EntityID", t.id);
             te.multiBlockStructure.syncData(te.multiBlockStructure, te.multiBlockStructure.bPos, new BlockPos(te.multiBlockStructure.x, te.multiBlockStructure.y, te.multiBlockStructure.z), world);
             player.inventory.mainInventory[player.inventory.currentItem].stackSize--;
             if (player.inventory.mainInventory[player.inventory.currentItem].stackSize < 1){

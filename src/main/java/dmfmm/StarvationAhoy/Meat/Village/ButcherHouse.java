@@ -3,7 +3,10 @@ package dmfmm.StarvationAhoy.Meat.Village;
 import java.util.List;
 import java.util.Random;
 
+import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFenceGate;
+import net.minecraft.block.BlockTorch;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityZombie;
@@ -30,6 +33,8 @@ public class ButcherHouse extends StructureVillagePieces.Village {
     private boolean hasdone = true;
     private int randomNum;
     private int randomNum1;
+	private boolean firstRun = true;
+	private boolean secondRun = false;
 	
 	public ButcherHouse(){}
 	
@@ -82,8 +87,8 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		fillWithBlocks(world, sbb, 4, 1, 6, 4, 3, 6, Blocks.cobblestone, Blocks.cobblestone, false);
 		this.placeBlockAtCurrentPosition(world, Blocks.cobblestone, 3, 3, 6, sbb);
 		this.placeBlockAtCurrentPosition(world, Blocks.cobblestone, 5, 3, 6, sbb);
-		this.placeDoorCurrentPosition(world, sbb, rand, 5, 1, 6, EnumFacing.getHorizontal(0));
-		this.placeDoorCurrentPosition(world, sbb, rand, 3, 1, 6, EnumFacing.getHorizontal(0));
+		this.placeDoorCurrentPosition(world, sbb, rand, 5, 1, 6, this.coordBaseMode.rotateY());
+		this.placeDoorCurrentPosition(world, sbb, rand, 3, 1, 6, this.coordBaseMode.rotateY());
 		
 		//Wooden Log Corners
 		fillWithBlocks(world, sbb, 0, 1, 6, 0, 3, 6, Blocks.log, Blocks.log, false);
@@ -101,7 +106,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		this.placeBlockAtCurrentPosition(world, Blocks.brick_block, 8, 3, 3, sbb);
 		int entryStair = getMetadataWithOffset(Blocks.stone_stairs, 1);
 		this.placeBlockAtCurrentPosition(world, Blocks.stone_stairs, entryStair, 9, 0, 3, sbb);
-		this.placeDoorCurrentPosition(world, sbb, rand, 8, 1, 3, EnumFacing.getHorizontal(0));
+		this.placeDoorCurrentPosition(world, sbb, rand, 8, 1, 3, this.coordBaseMode);
 		
 		//ROOF
 		fillWithBlocks(world, sbb, 0, 6, 3, 8, 6, 3, Blocks.planks, Blocks.planks, false);
@@ -192,17 +197,18 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		//Interior Decor
 		fillWithMetadataBlocks(world, sbb, 1, 0, 3, 2, 0, 5, Blocks.double_stone_slab, 7, Blocks.double_stone_slab, 7, false);
 		fillWithMetadataBlocks(world, sbb, 2, 1, 4, 2, 1, 5, Blocks.double_stone_slab, 7, Blocks.double_stone_slab, 7, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch,  2, 3, 5, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch,  6, 3, 5, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch,  1, 4, 1, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch,  7, 4, 1, sbb);
+		this.setBlockState(world, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, this.coordBaseMode.rotateYCCW()), 1, 4, 5, sbb);
+		this.setBlockState(world, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, this.coordBaseMode.getOpposite()), 4, 3, 5, sbb);//c
+		this.setBlockState(world, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, this.coordBaseMode.rotateYCCW()), 1, 4, 1, sbb);
+		this.setBlockState(world, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, this.coordBaseMode.rotateY()), 7, 4, 1, sbb);//c
+		this.setBlockState(world, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, this.coordBaseMode.rotateY()), 7, 4, 5, sbb);//c
 		placeHanger(world, sbb, getXOff(2, 1), getYOff(3), getZOff(2, 1), randomNum);
 		placeHanger(world, sbb, getXOff(4, 1), getYOff(3), getZOff(4, 1), randomNum1);
 		placeHanger(world, sbb, getXOff(6, 1), getYOff(3), getZOff(6, 1), randomNum);
-		
 		fillWithBlocks(world, sbb, 2, 3, 4, 2, 3, 5, Blocks.glass_pane, Blocks.glass_pane, false);
 		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane,  1, 3, 4, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.oak_fence_gate, 1, 1, 1, 4, sbb);
+		this.setBlockState(world, Blocks.oak_fence_gate.getDefaultState().withProperty(BlockFenceGate.FACING, this.coordBaseMode).withProperty(BlockFenceGate.OPEN, Boolean.FALSE), 1, 1, 4, sbb);
+		//this.placeBlockAtCurrentPosition(world, Blocks.oak_fence_gate, this.coordBaseMode.rotateY().getIndex(), 1, 1, 4, sbb);
 		this.placeBlockAtCurrentPosition(world, Blocks.oak_fence,  2, 2, 4, sbb);
 		spawnVillagers(world, sbb, 1, 1, 5, 1);
 		
@@ -213,14 +219,15 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	@Override
 	protected int func_180779_c(int p_180779_1_, int p_180779_2_)
     {
-        return VillagerTradeAdditions.getVID();
+        return 4;
+		//return VillagerTradeAdditions.getVID();
     }
 	
 	
 	private void placeHanger(World world, StructureBoundingBox sbb, int x, int y, int z, int rand){ 
 
 		//this.placeBlockAtCurrentPosition(world, MBlockLoader.MeatHanger, 4, 2, 3, 1, sbb);
-		world.setBlockState(new BlockPos(x, y, z), MBlockLoader.MeatHanger.getStateFromMeta(4), 2);
+		world.setBlockState(new BlockPos(x, y, z), MBlockLoader.MeatHanger.getStateFromMeta(this.coordBaseMode.getIndex()), 2);
 		TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
 		if(te instanceof MeatHangerTileEntity){
 			MeatHangerTileEntity MHA = (MeatHangerTileEntity) te;

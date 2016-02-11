@@ -175,13 +175,13 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                             rabbit.isChild =false;
 
 
-                            GlStateManager.translate(0, 0.6, 1);
+                            GlStateManager.translate(0, 0.5, 1);
 
                             float radian = (float) Math.toRadians(desync);
                             GlStateManager.translate(0, -0.2f, 0);
                             GlStateManager.translate((float) (Math.sin(radian)), ((float) -(Math.cos(radian))), 0);
                             GlStateManager.rotate(desync, 0, 0, 1);
-                            GlStateManager.translate(0, 0.2f, 0);
+                            GlStateManager.translate(0, 0.1f, 0);
                             GlStateManager.rotate(22F, 1, 0, 0);
 
                             this.bindTexture(getTexture(meatType, meatState));

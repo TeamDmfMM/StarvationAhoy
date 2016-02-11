@@ -11,6 +11,7 @@ import dmfmm.StarvationAhoy.Core.Init.MeatTextureRegistry;
 import dmfmm.StarvationAhoy.Core.StarvationAhoyProvider;
 import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import dmfmm.StarvationAhoy.Core.lib.ModInfo;
+import dmfmm.StarvationAhoy.Core.util.CRef;
 import dmfmm.StarvationAhoy.Core.util.ConfigHandler;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
@@ -120,10 +121,13 @@ public class StarvationAhoy {
 		//proxy.registerKeyBindings();
 
 		if(event.getSide() == Side.CLIENT){
-
 			CoreTextureRegistry.initTextures();
-			CropwashTextureRegistry.initTextures();
-			MeatTextureRegistry.initTextures();
+			if(CRef.useCropwash()) {
+				CropwashTextureRegistry.initTextures();
+			}
+			if(CRef.useMeatOverride()){
+				MeatTextureRegistry.initTextures();
+			}
 
 
 		}
