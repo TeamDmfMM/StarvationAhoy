@@ -134,7 +134,7 @@ public class MeatHanger extends BlockContainerRotate{
     
     public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state)
     {
-		return this.defaultABB(world, pos);
+		return super.getCollisionBoundingBox(world, pos, state);
     }
     
     @SideOnly(Side.CLIENT)
