@@ -5,10 +5,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Made by mincrmatt12. Do not copy or you will have to face
@@ -51,6 +48,18 @@ public class DirtyBlocks {
         return replace.get(block);
     }
 
+    public Block getBlockFromDrop(Item item){
+        Iterator<Block> set = replace.keySet().iterator();
+        while(set.hasNext()){
+            Block block = set.next();
+            for(int z=0; z < toReplace(block).size(); z++){
+                if(toReplace(block).get(z).equals(item)){
+                    return block;
+                }
+            }
+        }
+        return null;
+    }
 
 
 }
