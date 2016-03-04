@@ -1,14 +1,11 @@
 package dmfmm.StarvationAhoy;
 
-import dmfmm.StarvationAhoy.Core.CoreRecipies;
+import dmfmm.StarvationAhoy.Core.*;
 import dmfmm.StarvationAhoy.Core.EventHandler.event_configChange;
-import dmfmm.StarvationAhoy.Core.FoodModifyCommand;
 import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
-import dmfmm.StarvationAhoy.Core.IMCRerouter;
 import dmfmm.StarvationAhoy.Core.Init.CoreTextureRegistry;
 import dmfmm.StarvationAhoy.Core.Init.CropwashTextureRegistry;
 import dmfmm.StarvationAhoy.Core.Init.MeatTextureRegistry;
-import dmfmm.StarvationAhoy.Core.StarvationAhoyProvider;
 import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import dmfmm.StarvationAhoy.Core.lib.ModInfo;
 import dmfmm.StarvationAhoy.Core.util.CRef;
@@ -86,6 +83,7 @@ public class StarvationAhoy {
 		ItemLoad.initItems();
 		ModuleMeat.preinit(event.getSide());
 
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		pattern = addBannerIcon("starvationAhoy", "sta", new ItemStack(ItemLoad.HungerPotion));
 
 		//Packet Initiation

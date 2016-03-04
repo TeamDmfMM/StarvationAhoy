@@ -1,7 +1,7 @@
 package dmfmm.StarvationAhoy.CropWash.item;
 
 
-import dmfmm.StarvationAhoy.Core.GenericItemLoader;
+import dmfmm.StarvationAhoy.Core.items.GenericItemLoader;
 
 /**
  * Created by matthew on 22/05/15.

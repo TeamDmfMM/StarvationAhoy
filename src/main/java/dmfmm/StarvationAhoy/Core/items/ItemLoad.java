@@ -14,11 +14,13 @@ public class ItemLoad {
 	public static Item stat_helm;
 	public static Item stat_chest;
 	public static Item HungerPotion;
+	public static Item infoBook;
 	
 	public static void initItems(){
 		stat_helm = new SaturationArmorTracker(StarvationAhoy.StatusArmor, 0, CoreLib.Helmet);
 		stat_chest = new SaturationArmorTracker(StarvationAhoy.StatusArmor, 1, CoreLib.Chestplate);
 		HungerPotion = ((ItemFood) new HungerPotion().setUnlocalizedName(CoreLib.potion)).setAlwaysEdible();
+		infoBook = new InfoBook().setUnlocalizedName(CoreLib.book);
 	}
 	
 	public static void registerItems(){
