@@ -32,5 +32,5 @@ item.PigLegs.name=Pig Legs
 item.CookedPigLeg.name=Cooked Pig Legs
 
 starvationahoy.misc.dirty=Dirty
-
+starvationahoy.book_data.page.test=<TextBlock|-1|-1|-1>Test test</>
 tile.cropwashblock.name=Washing Barrel
