@@ -4,8 +4,6 @@ package dmfmm.StarvationAhoy.Client.Gui;
 import dmfmm.StarvationAhoy.Core.util.DualObjectLink;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -32,15 +30,15 @@ public class InfoBookGUI extends GuiScreen{
     }
 
     private void interpretBookPages() {
-        Map<String, DualObjectLink> pages = registry.getBookTabs();
+        Map<String, DualObjectLink<ItemStack, Boolean>> pages = registry.getBookTabs();
         int left = width / 2 - bookWidth / 2;
         int top = (height / 2 - bookHeight / 2) + 2;
 
         for(int i=0; i<pages.size(); i++){
             String page = (String) pages.keySet().toArray()[i];
-            DualObjectLink obj = pages.get(page);
-            boolean displayPage = (boolean) obj.getB();
-            ItemStack stack = (ItemStack) obj.getA();
+            DualObjectLink<ItemStack, Boolean> obj = pages.get(page);
+            boolean displayPage = obj.getB();
+            ItemStack stack = obj.getA();
 
             this.fontRendererObj.setUnicodeFlag(true);
             if(displayPage) {

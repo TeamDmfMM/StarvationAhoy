@@ -3,21 +3,15 @@ package dmfmm.StarvationAhoy.Client.Gui;
 
 import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import dmfmm.StarvationAhoy.Core.util.CRef;
-import dmfmm.StarvationAhoy.Core.util.ConfigHandler;
 import dmfmm.StarvationAhoy.Core.util.DualObjectLink;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
-import dmfmm.StarvationAhoy.CropWash.item.CropItemLoader;
 import dmfmm.StarvationAhoy.CropWash.item.DirtyItem;
 import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -30,7 +24,7 @@ class BookPageRegistry {
      * if Itemstack is Null, the book renders a centered title
      * Pages should be added in order wanted
      */
-    private static Map<String,DualObjectLink> bookTabs;
+    private static Map<String, DualObjectLink<ItemStack, Boolean>> bookTabs;
 
     public BookPageRegistry(){
         bookTabs = new LinkedHashMap<>();
@@ -59,7 +53,7 @@ class BookPageRegistry {
         bookTabs.put(string, obj);
     }
 
-    public static Map<String, DualObjectLink> getBookTabs(){
+    public static Map<String, DualObjectLink<ItemStack, Boolean>> getBookTabs(){
         return bookTabs;
     }
 }
