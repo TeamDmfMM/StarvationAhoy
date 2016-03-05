@@ -3,6 +3,7 @@ package dmfmm.StarvationAhoy.Client.Gui;
 
 import dmfmm.StarvationAhoy.Core.util.DualObjectLink;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
@@ -26,6 +27,7 @@ public class InfoBookGUI extends GuiScreen{
     public void drawScreen(int par1, int par2, float par3)
     {
         this.drawDefaultBackground();
+        //292, 541
         this.drawBookBackground();
         this.interpretBookPages();
     }
@@ -46,10 +48,16 @@ public class InfoBookGUI extends GuiScreen{
             if(displayPage) {
                 if (stack != null) {
                     GlStateManager.pushMatrix();
-                    GlStateManager.scale(0.5f, 0.5f, 0.5f);
                     RenderHelper.enableStandardItemLighting();
-                    this.itemRender.renderItemIntoGUI(stack, left+225, topItems + 25);
-                    topItems += 19;
+                    GlStateManager.translate(left+255, topItems + 25, 0);
+                    GlStateManager.scale(0.5f, 0.5f, 0.5f);
+                    GlStateManager.translate(-(left+255), -(topItems + 25), 0);
+                    ScaledResolution scaledresolution = new ScaledResolution(this.mc);
+                    int guiScale = scaledresolution.getScaleFactor();
+                   // GlStateManager.translate((292 - width), (541 - height), 0);
+                    this.itemRender.renderItemIntoGUI(stack, left - 225, topItems - 110);
+
+                    topItems += 9;
                     GlStateManager.popMatrix();
                     this.fontRendererObj.drawString(StatCollector.translateToLocal("infobook.title." + page), left + 25, top + 6, 000000);
                     top += 9;
@@ -58,7 +66,7 @@ public class InfoBookGUI extends GuiScreen{
                     int lefts = width / 2 - size / 2;
                     this.fontRendererObj.drawString("§n§l"+ StatCollector.translateToLocal("infobook.header." + page), lefts -6, top + 6, 000000);
                     top += 11;
-                    topItems += 19;
+                    topItems += 11;
                 }
             }
             this.fontRendererObj.setUnicodeFlag(false);
