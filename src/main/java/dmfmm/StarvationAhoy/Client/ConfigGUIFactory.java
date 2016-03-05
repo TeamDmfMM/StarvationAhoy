@@ -2,6 +2,7 @@ package dmfmm.StarvationAhoy.Client;
 
 import java.util.Set;
 
+import dmfmm.StarvationAhoy.Client.Gui.SAGuiConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.IModGuiFactory;

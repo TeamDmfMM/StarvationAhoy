@@ -72,10 +72,10 @@ public class StarvationAhoy {
 
 		//Config and API
 		side = event.getSide();
-		DIR = event.getModConfigurationDirectory() + "/StarvationAhoy";
+		DIR = event.getModConfigurationDirectory() + "\\StarvationAhoy";
 		StarvationAhoyRegistry.init(new StarvationAhoyProvider());
 		ConfigHandler.init(new File(DIR, ModInfo.MOD_ID + ".cfg"));
-		FMLCommonHandler.instance().bus().register(new event_configChange());
+		MinecraftForge.EVENT_BUS.register(new event_configChange());
 
 
 		//Module Initiation

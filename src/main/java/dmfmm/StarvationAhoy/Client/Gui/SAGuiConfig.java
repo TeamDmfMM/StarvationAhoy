@@ -1,4 +1,4 @@
-package dmfmm.StarvationAhoy.Client;
+package dmfmm.StarvationAhoy.Client.Gui;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;

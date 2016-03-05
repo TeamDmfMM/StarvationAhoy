@@ -1,8 +1,10 @@
 package dmfmm.StarvationAhoy.Client.Gui;
 
 
+import dmfmm.StarvationAhoy.Core.util.DualObjectLink;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -30,27 +32,33 @@ public class InfoBookGUI extends GuiScreen{
     }
 
     private void interpretBookPages() {
-        Map<String, ItemStack> pages = registry.getBookTabs();
+        Map<String, DualObjectLink> pages = registry.getBookTabs();
         int left = width / 2 - bookWidth / 2;
-        int top = height / 2 - bookHeight / 2;
+        int top = (height / 2 - bookHeight / 2) + 2;
 
         for(int i=0; i<pages.size(); i++){
             String page = (String) pages.keySet().toArray()[i];
-            ItemStack stack = pages.get(page);
+            DualObjectLink obj = pages.get(page);
+            boolean displayPage = (boolean) obj.getB();
+            ItemStack stack = (ItemStack) obj.getA();
 
-            if(stack != null){
-                GlStateManager.pushMatrix();
-                GlStateManager.scale(0.5f, 0.5f,0.5f);
-                this.itemRender.renderItemIntoGUI(stack, left, top+3);
-                GlStateManager.popMatrix();
-                this.fontRendererObj.drawString(StatCollector.translateToLocal("infobook.title."+page), left + 20, top+6, 000000);
-                top += 14;
-            }else{
-                int size = this.fontRendererObj.getStringWidth(page);
-                int lefts = width / 2 - size / 2;
-                this.fontRendererObj.drawString(StatCollector.translateToLocal("infobook.header."+page), lefts-(size/4), top+6, 000000);
-                top += 14;
+            this.fontRendererObj.setUnicodeFlag(true);
+            if(displayPage) {
+                if (stack != null) {
+                    GlStateManager.pushMatrix();
+                    GlStateManager.scale(0.5f, 0.5f, 0.5f);
+                    this.itemRender.renderItemIntoGUI(stack, left, top + 3);
+                    GlStateManager.popMatrix();
+                    this.fontRendererObj.drawString(StatCollector.translateToLocal("infobook.title." + page), left + 25, top + 6, 000000);
+                    top += 9;
+                } else {
+                    int size = this.fontRendererObj.getStringWidth(StatCollector.translateToLocal("infobook.header." + page));
+                    int lefts = width / 2 - size / 2;
+                    this.fontRendererObj.drawString("§n§l"+ StatCollector.translateToLocal("infobook.header." + page), lefts -6, top + 6, 000000);
+                    top += 11;
+                }
             }
+            this.fontRendererObj.setUnicodeFlag(false);
         }
 
 
