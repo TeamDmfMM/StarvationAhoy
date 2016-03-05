@@ -3,17 +3,20 @@ package dmfmm.StarvationAhoy.Client.Gui;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
+
+import java.util.Map;
 
 public class InfoBookGUI extends GuiScreen{
 
-    private static int PaneWidth = 256;
-    private static int PaneHeight = 202;
-    int bookHeight = 90;
-    int bookWidth = 73;
-    int guiWidth = 365;
-    int guiHeight = 450;
+    int bookHeight = 180;
+    int bookWidth = 146;
+    private BookPageRegistry registry = new BookPageRegistry();
+
 
 
 
@@ -23,18 +26,42 @@ public class InfoBookGUI extends GuiScreen{
     {
         this.drawDefaultBackground();
         this.drawBookBackground();
+        this.interpretBookPages();
+    }
+
+    private void interpretBookPages() {
+        Map<String, ItemStack> pages = registry.getBookTabs();
+        int left = width / 2 - bookWidth / 2;
+        int top = height / 2 - bookHeight / 2;
+
+        for(int i=0; i<pages.size(); i++){
+            String page = (String) pages.keySet().toArray()[i];
+            ItemStack stack = pages.get(page);
+
+            if(stack != null){
+                GlStateManager.pushMatrix();
+                GlStateManager.scale(0.5f, 0.5f,0.5f);
+                this.itemRender.renderItemIntoGUI(stack, left, top+3);
+                GlStateManager.popMatrix();
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("infobook.title."+page), left + 20, top+6, 000000);
+                top += 14;
+            }
+        }
+
+
+
+
     }
 
     private void drawBookBackground() {
-        int left = width / 2 - guiWidth / 2;
-        int top = height / 2 - guiHeight / 2;
+        int left = width / 2 - bookWidth / 2;
+        int top = height / 2 - bookHeight / 2;
 
 
         GlStateManager.pushMatrix();
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        GL11.glScaled(2.5, 2.5, 2.5);
-        this.mc.getTextureManager().bindTexture(new ResourceLocation("starvationahoy", "textures/gui/Infobook.png"));
-        this.drawTexturedModalRect(left, top, 409, 0, bookWidth, bookHeight);
+        this.mc.getTextureManager().bindTexture(new ResourceLocation("starvationahoy", "textures/gui/InfobookMain.png"));
+        this.drawTexturedModalRect(left, top, 0, 0, bookWidth, bookHeight);
         GlStateManager.popMatrix();
     }
 

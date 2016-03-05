@@ -1,6 +1,7 @@
 package dmfmm.StarvationAhoy.Core;
 
 
+import dmfmm.StarvationAhoy.Client.Gui.InfoBookGUI;
 import dmfmm.StarvationAhoy.Client.Gui.book_gui.BookPageGui;
 import dmfmm.StarvationAhoy.Core.lib.CoreLib;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,7 +17,8 @@ public class GuiHandler implements IGuiHandler{
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if(ID == CoreLib.bookGUIID){
-            return new BookPageGui("test");
+            return new InfoBookGUI();
+            //return new BookPageGui("test");
         }
         return null;
     }
