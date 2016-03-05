@@ -34,3 +34,21 @@ item.CookedPigLeg.name=Cooked Pig Legs
 starvationahoy.misc.dirty=Dirty
 starvationahoy.book_data.page.test=<TextBlock|-1|-1|-1>Test test</>
 tile.cropwashblock.name=Washing Barrel
+
+#pages
+infobook.title.gettingStarted=Getting Started
+infobook.title.starvePotion=Instant Hunger
+infobook.title.healthArmor=Health Monitoring Suit
+infobook.title.prepingFood=Preparing Food
+infobook.title.animalKilling=Killing Animals
+infobook.title.animalSkinning=Skinning Animals
+infobook.title.animalCooking=Cooking Animals
+infobook.title.pigLeg=Pig Legs
+infobook.title.washBarrel=Wash Barrel
+infobook.title.dirtyItems=Cleaning Crops
+infobook.title.levelReduction=Reduced Food Stats
+infobook.title.editLevels=Editing Food Stats
+infobook.header.baseModule=Basic Items
+infobook.header.moduleMeat=Animal Processing
+infobook.header.moduleCropwash=Crop Processing
+infobook.header.moduleMisc=Random Extras

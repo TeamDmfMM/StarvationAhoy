@@ -45,6 +45,11 @@ public class InfoBookGUI extends GuiScreen{
                 GlStateManager.popMatrix();
                 this.fontRendererObj.drawString(StatCollector.translateToLocal("infobook.title."+page), left + 20, top+6, 000000);
                 top += 14;
+            }else{
+                int size = this.fontRendererObj.getStringWidth(page);
+                int lefts = width / 2 - size / 2;
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("infobook.header."+page), lefts-(size/4), top+6, 000000);
+                top += 14;
             }
         }
 
