@@ -504,6 +504,7 @@ public class BookPageGui extends GuiScreen {
                 i += 1;
             }
         }
+        HashMap<Integer, Integer> lens2 = (HashMap<Integer, Integer>) lens.clone();
         int j = 0;
         for (BookElement.Token t : element.data){
             switch (t.type){
@@ -584,36 +585,22 @@ public class BookPageGui extends GuiScreen {
                                 origString = "§k" + origString;
 
                             }
-
+                            cent_extra = xpos - element.x;
                             String last = this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).get(this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).size()-1);
-                            for (Object s : this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra)) {
-                                String str = (String) s;
-                                if (Objects.equals(str, last)){
-                                    if (fontRendererObj.getStringWidth(str) < lens.get(j)) {
-                                        int full_len = lens.get(j);
-                                        int pos = xpos + (maximum / 2 - (full_len / 2));
-                                        lens.put(j, full_len - fontRendererObj.getStringWidth(str));
-                                        xpos += fontRendererObj.getStringWidth(str);
-                                        fontRendererObj.drawString(origString, pos, ypos, currcolor, false);
-                                    }
-                                    else {
-                                        int full_len = lens.get(j);
-                                        int extra = xpos - element.x;
-                                        int pos = xpos + (maximum / 2 - (full_len / 2));
-                                        fontRendererObj.drawString(origString, pos + extra, ypos, currcolor, false);
-                                        ypos += fontRendererObj.FONT_HEIGHT;
-                                        j += 1;
-                                        xpos = element.x;
-                                    }
+                            String[] words = origString.split(" ");
+                            for (String s : words){
+                                String str = (String)s + " ";
+                                int len = fontRendererObj.getStringWidth(str);
+                                int remain = lens.get(j) - len;
+                                if (lens.get(j) == lens2.get(j)) {
+                                    xpos = element.x + (maximum / 2) - (lens2.get(j) / 2);
                                 }
-                                else {
-                                    int full_len = lens.get(j);
-                                    int extra = xpos - element.x;
-                                    int pos = xpos + (maximum / 2 - (full_len / 2));
-                                    fontRendererObj.drawString(origString, pos + extra, ypos, currcolor, false);
-                                    ypos += fontRendererObj.FONT_HEIGHT;
+                                lens.put(j, remain);
+                                fontRendererObj.drawString(str, xpos + x_x, ypos + y_y, currcolor);
+                                xpos += len;
+                                if (remain <= 0) {
                                     j += 1;
-                                    xpos = element.x;
+                                    ypos += fontRendererObj.FONT_HEIGHT;
                                 }
                             }
 
@@ -626,11 +613,8 @@ public class BookPageGui extends GuiScreen {
 
                     switch (t.data){
                         case "newline":
-                            ypos += this.fontRendererObj.FONT_HEIGHT;
+                            //ypos += this.fontRendererObj.FONT_HEIGHT;
                             xpos = element.x;
-                            if (style == 1) {
-                                j += 1;
-                            }
                             break;
                         case "endlink":
                             drawing_link = false;

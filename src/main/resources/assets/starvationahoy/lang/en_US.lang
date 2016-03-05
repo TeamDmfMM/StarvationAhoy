@@ -32,7 +32,7 @@ item.PigLegs.name=Pig Legs
 item.CookedPigLeg.name=Cooked Pig Legs
 
 starvationahoy.misc.dirty=Dirty
-starvationahoy.book_data.page.test=<TextBlock|-1|-1|-1|1>{color:black}Test test{color:red}plz no newline{newline}{color:blue}test!</>
+starvationahoy.book_data.page.test=<TextBlock|-1|-1|-1|1>{color:black}Test test{color:red}plz no newline{newline}{color:orange}test!</>
 tile.cropwashblock.name=Washing Barrel
 
 #pages
