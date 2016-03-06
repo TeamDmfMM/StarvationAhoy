@@ -296,7 +296,35 @@ public class BookPageGui extends GuiScreen {
         GL11.glEnable(GL11.GL_BLEND);
         this.drawTexturedModalRect(base_x - 14, base_y - 51, 0, 0, BookPage.PAGE_WIDTH, BookPage.PAGE_HEIGHT);
         CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(GameRegistry.findItem(element.args.get(0).split(":")[0], element.args.get(0).split(":")[1])));
-
+        r.renderItemAndEffectIntoGUI(cpx.getOutput(), base_x, base_y);
+        ArrayList<ItemStack> itemStacks = cpx.getItems();
+        if (itemStacks.get(0) != null) {
+            r.renderItemAndEffectIntoGUI(itemStacks.get(0), base_x - 10, base_y);
+        }
+        if (itemStacks.get(1) != null) {
+            r.renderItemAndEffectIntoGUI(itemStacks.get(1), base_x, base_y);
+        }
+        if (itemStacks.get(2) != null) {
+            r.renderItemAndEffectIntoGUI(itemStacks.get(2), base_x + 10, base_y);
+        }
+        if (itemStacks.get(3) != null) {
+            r.renderItemAndEffectIntoGUI(itemStacks.get(3), base_x - 10, base_y + 10);
+        }
+        if (itemStacks.get(4) != null) {
+            r.renderItemAndEffectIntoGUI(itemStacks.get(4), base_x, base_y + 10);
+        }
+        if (itemStacks.get(5) != null) {
+            r.renderItemAndEffectIntoGUI(itemStacks.get(5), base_x + 10, base_y + 10);
+        }
+        if (itemStacks.get(6) != null) {
+            r.renderItemAndEffectIntoGUI(itemStacks.get(6), base_x - 10, base_y + 20);
+        }
+        if (itemStacks.get(7) != null) {
+            r.renderItemAndEffectIntoGUI(itemStacks.get(7), base_x, base_y + 20 );
+        }
+        if (itemStacks.get(8) != null) {
+            r.renderItemAndEffectIntoGUI(itemStacks.get(8), base_x + 10, base_y + 20);
+        }
         GL11.glDisable(GL11.GL_BLEND);
 
 

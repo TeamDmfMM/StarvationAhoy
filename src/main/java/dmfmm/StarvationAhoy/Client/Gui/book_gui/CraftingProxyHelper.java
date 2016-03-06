@@ -8,7 +8,7 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by mincrmatt12. Do not copy this or you will have to face
@@ -17,15 +17,20 @@ import java.util.Arrays;
 public class CraftingProxyHelper {
 
     IRecipe recipe;
-    ArrayList<ItemStack> items;
+    ArrayList<ItemStack> items = new ArrayList<>();
 
     public CraftingProxyHelper(ItemStack target) {
         for (IRecipe r : CraftingManager.getInstance().getRecipeList()) {
-            if (r.getRecipeOutput().getItem() == target.getItem()) {
-                if (!(r instanceof ShapelessRecipes || r instanceof ShapedRecipes)){
-                    continue;
+            try {
+                if (r.getRecipeOutput().getItem() == target.getItem()) {
+                    if (!(r instanceof ShapelessRecipes || r instanceof ShapedRecipes)) {
+                        continue;
+                    }
+                    recipe = r;
                 }
-                recipe = r;
+            }
+            catch (NullPointerException e) {
+
             }
         }
         if (recipe == null) {
@@ -38,7 +43,7 @@ public class CraftingProxyHelper {
 
     private void eat(){
         if (recipe instanceof ShapedRecipes) {
-            items = (ArrayList<ItemStack>) Arrays.asList(((ShapedRecipes)recipe).recipeItems);
+            Collections.addAll(items, ((ShapedRecipes) recipe).recipeItems);
         }
         else if (recipe instanceof ShapelessRecipes){
             items.addAll(((ShapelessRecipes) recipe).recipeItems);
