@@ -426,7 +426,7 @@ public class BookPageGui extends GuiScreen {
         }
         int frame = ((int)(crafting_ore_recipe_counter) / 10) % inputs.size();
         itemRender.renderItemAndEffectIntoGUI(inputs.get(frame), base_x, base_y - 20);
-        itemRender.renderItemAndEffectIntoGUI(output, base_x, base_y);
+        itemRender.renderItemAndEffectIntoGUI(output, base_x + 20, base_y);
 
         // Put arraylist of all possible fuels here. I'll handle the actual rendering and animation of them.
 
