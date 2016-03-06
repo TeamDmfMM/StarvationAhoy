@@ -4,8 +4,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
@@ -293,7 +295,10 @@ public class BookPageGui extends GuiScreen {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(GL11.GL_BLEND);
         this.drawTexturedModalRect(base_x - 14, base_y - 51, 0, 0, BookPage.PAGE_WIDTH, BookPage.PAGE_HEIGHT);
+        CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(GameRegistry.findItem(element.args.get(0).split(":")[0], element.args.get(0).split(":")[1])));
+
         GL11.glDisable(GL11.GL_BLEND);
+
 
 
 
@@ -441,6 +446,11 @@ public class BookPageGui extends GuiScreen {
                     break;
 
             }
+        }
+        if (element.args.size() == 0) { element.args.add("0"); }
+        int style = Integer.parseInt(element.args.get(0));
+        if (style == 1) {
+          //  ypos += mc.fontRendererObj.FONT_HEIGHT;
         }
         elements.add(current);
         elements.add(new BookElement("EndMarker", xpos, ypos, page, null, null));
@@ -613,7 +623,8 @@ public class BookPageGui extends GuiScreen {
 
                     switch (t.data){
                         case "newline":
-                            //ypos += this.fontRendererObj.FONT_HEIGHT;
+                            if (style == 0) { ypos += this.fontRendererObj.FONT_HEIGHT; }
+
                             xpos = element.x;
                             break;
                         case "endlink":
