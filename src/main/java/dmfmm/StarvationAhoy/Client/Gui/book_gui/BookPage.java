@@ -13,7 +13,7 @@ public class BookPage {
 
     // CONSTANTS BEGIN
 
-    public static final int PAGE_1_START_X = 10;
+    public static final int PAGE_1_START_X = 1;
     public static final int PAGE_2_START_X = 0;
     public static final int PAGE_WIDTH = 100;
     public static final int PAGE_START_Y = 10;

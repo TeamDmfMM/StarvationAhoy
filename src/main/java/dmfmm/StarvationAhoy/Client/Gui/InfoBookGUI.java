@@ -1,12 +1,10 @@
 package dmfmm.StarvationAhoy.Client.Gui;
 
 
-import dmfmm.StarvationAhoy.Core.items.ItemLoad;
+import dmfmm.StarvationAhoy.Client.Gui.book_gui.BookPageGui;
 import dmfmm.StarvationAhoy.Core.util.DualObjectLink;
-import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
@@ -121,7 +119,7 @@ public class InfoBookGUI extends GuiScreen{
     {
         if(button instanceof SelectionButton){
             SelectionButton b = (SelectionButton)button;
-            SALog.error(b.getPageName());
+            mc.displayGuiScreen(new BookPageGui(b.getPageName()));
         }
     }
 

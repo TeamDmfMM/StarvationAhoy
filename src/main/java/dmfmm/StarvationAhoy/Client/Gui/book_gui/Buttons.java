@@ -11,19 +11,19 @@ import org.lwjgl.opengl.GL11;
  */
 public class Buttons {
 
-    static int ARROW_BUTTON_WIDTH = 23;
-    static int ARROW_BUTTON_HEIGHT = 13;
+    static int ARROW_BUTTON_WIDTH = 18;
+    static int ARROW_BUTTON_HEIGHT = 12;
 
     static int ARROW_START_X = 0;
-    static int ARROW_START_Y = 192;
+    static int ARROW_START_Y = 166;
 
-    static int ARROW_LEFT_POS_X = 13;
-    static int ARROW_LEFT_POS_Y = 160;
+    static int ARROW_LEFT_POS_X = 21;
+    static int ARROW_LEFT_POS_Y = 150;
 
     static int ARROW_NEXT_POS_X = 221;
     static int ARROW_NEXT_POS_Y = 160;
 
-    static String ARROW_LOCATION = "starvationahoy:/textures/gui/book/Arrows.png";
+    static String ARROW_LOCATION = "starvationahoy:/textures/gui/infobook_background.png";
 
     public static class NextPage extends GuiButton {
 
@@ -46,7 +46,7 @@ public class Buttons {
                 int l = ARROW_START_Y;
 
                 if (flag){
-                    k += ARROW_BUTTON_WIDTH;
+                    k += ARROW_BUTTON_WIDTH + 5;
                 }
 
                 if (!isForward){

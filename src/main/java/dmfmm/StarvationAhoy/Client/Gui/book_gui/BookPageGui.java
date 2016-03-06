@@ -28,21 +28,23 @@ public class BookPageGui extends GuiScreen {
 
     public static Map<String, String> change_newline_to_newline = new HashMap<>();
 
-    static ResourceLocation IMG_LOCACATION = new ResourceLocation("starvationahoy", "textures/gui/Infobooknexist.png");
+    static ResourceLocation IMG_LOCACATION = new ResourceLocation("starvationahoy", "textures/gui/infobook_background.png");
     static int IMG_WIDTH = 280;
+
+    float crafting_ore_recipe_counter = 0;
 
     int page = 0;
     int numpages = 0;
 
 
-    static int IMG_HEIGHT = 100;
+    static int IMG_HEIGHT = 180;
 
     int x_x = 0;
     int y_y = 0;
     int ox = 0;
     int oy = 0;
 
-    static int IMG_START_X_P1 = 24;
+    static int IMG_START_X_P1 = 22;
     static int IMG_START_X_P2 = BookPage.PAGE_WIDTH + 37;
     static int IMG_START_Y_P1 = 15;
     static int IMG_START_Y_P2 = 15;
@@ -57,7 +59,9 @@ public class BookPageGui extends GuiScreen {
 
     public BookPage myPage;
 
-    public BookPageGui(String id){
+    public BookPageGui(String id)
+    {
+        id = "test";
         String thingy = "starvationahoy.book_data.page." + id;
         String data = StatCollector.translateToLocal(thingy);
         myPage = new BookPage();
@@ -84,7 +88,7 @@ public class BookPageGui extends GuiScreen {
         this.drawAllElements();
         GL11.glEnable(GL11.GL_LIGHTING);
         super.drawScreen(a, b, c);
-
+        crafting_ore_recipe_counter += c;
     }
 
     public void initGui(){
@@ -92,8 +96,8 @@ public class BookPageGui extends GuiScreen {
         int y = (int)(this.height - 202) / 2;
         ox = x;
         oy = y;
-        this.buttonList.add(new Buttons.NextPage(0, ox + Buttons.ARROW_LEFT_POS_X, oy + Buttons.ARROW_LEFT_POS_Y, false));
-        this.buttonList.add(new Buttons.NextPage(1, ox + Buttons.ARROW_NEXT_POS_X, oy + Buttons.ARROW_NEXT_POS_Y, true));
+        this.buttonList.add(new Buttons.NextPage(0, ox + Buttons.ARROW_LEFT_POS_X + 7, oy + Buttons.ARROW_LEFT_POS_Y - 10, false));
+        this.buttonList.add(new Buttons.NextPage(1, ox + Buttons.ARROW_NEXT_POS_X, oy + Buttons.ARROW_NEXT_POS_Y - 20, true));
 
     }
 
@@ -122,7 +126,8 @@ public class BookPageGui extends GuiScreen {
         GL11.glColor3d(1.0, 1.0, 1.0);
 
         this.mc.getTextureManager().bindTexture(IMG_LOCACATION);
-        this.drawTexturedModalRect((int)x, (int)y, 0,0, IMG_WIDTH, IMG_HEIGHT);
+        this.drawTexturedModalRect((int)x + 8
+                , (int)y, 0,0, 250, 165);
 
 
     }
@@ -297,7 +302,15 @@ public class BookPageGui extends GuiScreen {
         this.drawTexturedModalRect(base_x - 14, base_y - 51, 0, 0, BookPage.PAGE_WIDTH, BookPage.PAGE_HEIGHT);
         CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(GameRegistry.findItem(element.args.get(0).split(":")[0], element.args.get(0).split(":")[1])));
         r.renderItemAndEffectIntoGUI(cpx.getOutput(), base_x, base_y);
-        ArrayList<ItemStack> itemStacks = cpx.getItems();
+        ArrayList<ItemStack> itemStacksOld = cpx.getItems((int)(crafting_ore_recipe_counter));
+        ArrayList<ItemStack> itemStacks = new ArrayList<>();
+        for (ItemStack i : itemStacksOld){
+            if (i == null) {
+                itemStacks.add(i);
+                continue;
+            }
+            itemStacks.add(new ItemStack(i.getItem(), i.stackSize));
+        }
         if (itemStacks.get(0) != null) {
             r.renderItemAndEffectIntoGUI(itemStacks.get(0), base_x - 10, base_y);
         }
@@ -323,7 +336,8 @@ public class BookPageGui extends GuiScreen {
             r.renderItemAndEffectIntoGUI(itemStacks.get(7), base_x, base_y + 20 );
         }
         if (itemStacks.get(8) != null) {
-            r.renderItemAndEffectIntoGUI(itemStacks.get(8), base_x + 10, base_y + 20);
+
+            r.renderItemIntoGUI(itemStacks.get(8), base_x + 10, base_y + 20);
         }
         GL11.glDisable(GL11.GL_BLEND);
 
@@ -532,7 +546,7 @@ public class BookPageGui extends GuiScreen {
         int cent_extra = 0;
         HashMap<Integer, Integer> lens = new HashMap<>();
         int i = 0;
-        if (style == 1) {
+        if (style == 1) {ypos -= fontRendererObj.FONT_HEIGHT;
 
             for (String s : fontRendererObj.listFormattedStringToWidth(BookPage.tokenized(element.data, new HashMap<String, String>() {{
                 put("newline", "\n");
