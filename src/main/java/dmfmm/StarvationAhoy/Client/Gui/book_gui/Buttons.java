@@ -1,6 +1,8 @@
 package dmfmm.StarvationAhoy.Client.Gui.book_gui;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -56,6 +58,10 @@ public class Buttons {
                 this.drawTexturedModalRect(this.xPosition, this.yPosition, k, l, ARROW_BUTTON_WIDTH, ARROW_BUTTON_HEIGHT);
                 GL11.glDisable(GL11.GL_BLEND);
             }
+        }
+        public void playPressSound(SoundHandler soundHandlerIn)
+        {
+            soundHandlerIn.playSound(PositionedSoundRecord.create(new ResourceLocation("starvationahoy:pageFlip"), 1.0F));
         }
     }
 

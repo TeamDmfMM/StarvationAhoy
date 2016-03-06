@@ -10,7 +10,6 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ import java.util.List;
 public class CraftingProxyHelper {
 
     IRecipe recipe;
-    ArrayList<ItemStack> items = new ArrayList<>();
+    ArrayList<ArrayList<ItemStack>> items = new ArrayList<>();
 
     public CraftingProxyHelper(ItemStack target) {
         for (IRecipe r : CraftingManager.getInstance().getRecipeList()) {
@@ -46,12 +45,104 @@ public class CraftingProxyHelper {
 
     private void eat(){
         if (recipe instanceof ShapedRecipes) {
-            Collections.addAll(items, ((ShapedRecipes) recipe).recipeItems);
+            for (final ItemStack i : ((ShapedRecipes) recipe).recipeItems) {
+                if (i == null) {
+                    items.add(new ArrayList<ItemStack>() {{add(null);}});
+                }
+                else {
+                    if (i.getMetadata() != 32767){
+                        items.add(new ArrayList<ItemStack>() {{add(i);}});
+                    }
+                    else {
+                        ArrayList<ItemStack> subItems = new ArrayList<>();
+                        i.getItem().getSubItems(i.getItem(), i.getItem().getCreativeTab(), subItems);
+                        items.add(subItems);
+                    }
+                }
+            }
         }
         else if (recipe instanceof ShapelessRecipes){
-            items.addAll(((ShapelessRecipes) recipe).recipeItems);
+            for (final ItemStack i : ((ShapelessRecipes) recipe).recipeItems) {
+                if (i == null) {
+                    items.add(new ArrayList<ItemStack>() {{add(null);}});
+                }
+                else {
+                    if (i.getMetadata() != 32767){
+                        items.add(new ArrayList<ItemStack>() {{add(i);}});
+                    }
+                    else {
+                        ArrayList<ItemStack> subItems = new ArrayList<>();
+                        i.getItem().getSubItems(i.getItem(), i.getItem().getCreativeTab(), subItems);
+                        items.add(subItems);
+                    }
+                }
+            }
             while (items.size() < 9) {
-                items.add(null);
+                items.add(new ArrayList<ItemStack>() {{add(null);}});
+            }
+        }
+        else if (recipe instanceof ShapedOreRecipe){
+            for (Object object: ((ShapedOreRecipe) recipe).getInput()){
+                if (object instanceof ItemStack) {
+                    final ItemStack i = (ItemStack) object;
+                    if (i.getMetadata() != 32767){
+                        items.add(new ArrayList<ItemStack>() {{add(i);}});
+                    }
+                    else {
+                        ArrayList<ItemStack> subItems = new ArrayList<>();
+                        i.getItem().getSubItems(i.getItem(), i.getItem().getCreativeTab(), subItems);
+                        items.add(subItems);
+                    }
+                }
+                else if (object instanceof List){
+                    ArrayList<ItemStack> newItems = new ArrayList<>();
+                    for (ItemStack istack : (List<ItemStack>)object){
+                        if (istack.getMetadata() != 32767){
+                            newItems.add(istack);
+                        }
+                        else {
+                            ArrayList<ItemStack> subItems = new ArrayList<>();
+                            istack.getItem().getSubItems(istack.getItem(), istack.getItem().getCreativeTab(), subItems);
+                            newItems.addAll(subItems);
+                        }
+                    }
+                    items.add(newItems);
+                }
+                else if (object == null) {
+                    items.add(new ArrayList<ItemStack>() {{add(null);}});
+                }
+            }
+        }
+        else if (recipe instanceof ShapelessOreRecipe){
+            for (Object object: ((ShapelessOreRecipe) recipe).getInput()){
+                if (object instanceof ItemStack) {
+                    final ItemStack i = (ItemStack) object;
+                    if (i.getMetadata() != 32767){
+                        items.add(new ArrayList<ItemStack>() {{add(i);}});
+                    }
+                    else {
+                        ArrayList<ItemStack> subItems = new ArrayList<>();
+                        i.getItem().getSubItems(i.getItem(), i.getItem().getCreativeTab(), subItems);
+                        items.add(subItems);
+                    }
+                }
+                else if (object instanceof List){
+                    ArrayList<ItemStack> newItems = new ArrayList<>();
+                    for (ItemStack istack : (List<ItemStack>)object){
+                        if (istack.getMetadata() != 32767){
+                            newItems.add(istack);
+                        }
+                        else {
+                            ArrayList<ItemStack> subItems = new ArrayList<>();
+                            istack.getItem().getSubItems(istack.getItem(), istack.getItem().getCreativeTab(), subItems);
+                            newItems.addAll(subItems);
+                        }
+                    }
+                    items.add(newItems);
+                }
+                else if (object == null) {
+                    items.add(new ArrayList<ItemStack>() {{add(null);}});
+                }
             }
         }
     }
@@ -61,34 +152,14 @@ public class CraftingProxyHelper {
     }
 
     public ArrayList<ItemStack> getItems(int ticks) {
-        if (recipe instanceof ShapedRecipes || recipe instanceof ShapelessRecipes) {
-            return this.items;
+        ArrayList<ItemStack> output = new ArrayList<>();
+        for (ArrayList<ItemStack> itemStacks : items){
+            int frame = (ticks / 10) % itemStacks.size();
+            output.add(itemStacks.get(frame));
         }
-        else if (recipe instanceof ShapelessOreRecipe){
-            ArrayList<ItemStack> t = new ArrayList<>();
-            for (Object objects: ((ShapelessOreRecipe) recipe).getInput()) {
-                if (objects instanceof List) {
-                    int frame = (ticks / 10) % ((List) objects).size();
-                    t.add((ItemStack) ((List) objects).get(frame));
-                }
-                else {
-                    t.add((ItemStack) objects);
-                }
-            }
-            return t;
+        while (output.size() < 9) {
+            output.add(null);
         }
-        else {
-            ArrayList<ItemStack> t = new ArrayList<>();
-            for (Object objects: ((ShapedOreRecipe) recipe).getInput()) {
-                if (objects instanceof List) {
-                    int frame = (ticks / 10) % ((List) objects).size();
-                    t.add((ItemStack) ((List) objects).get(frame));
-                }
-                else {
-                    t.add((ItemStack) objects);
-                }
-            }
-            return t;
-        }
+        return output;
     }
 }

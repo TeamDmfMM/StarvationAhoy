@@ -3,8 +3,11 @@ package dmfmm.StarvationAhoy.Client.Gui.book_gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -79,16 +82,21 @@ public class BookPageGui extends GuiScreen {
     }
 
     public void drawScreen(int a, int b, float c){
+        GL11.glDisable(GL11.GL_LIGHTING);
+        RenderHelper.disableStandardItemLighting();
+
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         System.out.println(c);
         System.out.println(a);
         System.out.println(b);
         this.drawDefaultBackground();
         this.drawBackGround(c);
-        GL11.glDisable(GL11.GL_LIGHTING);
+
         this.drawAllElements();
         GL11.glEnable(GL11.GL_LIGHTING);
         super.drawScreen(a, b, c);
         crafting_ore_recipe_counter += c;
+        RenderHelper.enableGUIStandardItemLighting();
     }
 
     public void initGui(){
@@ -219,6 +227,25 @@ public class BookPageGui extends GuiScreen {
         return re;
     }
 
+    public ArrayList<BookElement> splitElementSmelting(BookElement element){
+        int space = BookPage.PAGE_HEIGHT;
+
+        int placepage = element.page;
+        int placex = element.x;
+        int placey = element.y;
+
+        if (BookPage.PAGE_HEIGHT - element.y < space){
+            placepage += 1;
+            placex = 0;
+            placey = 0;
+        }
+
+        ArrayList<BookElement> re = new ArrayList<>();
+        re.add(new BookElement("Smelting", placex, placey, placepage, element.args, element.data));
+        re.add(new BookElement("EndMarker", 0, placey + space, placepage, null, null));
+        return re;
+    }
+
 
     public ArrayList<BookElement> splitElementHungerStats(BookElement element){
         int space = BookPage.PAGE_HEIGHT;
@@ -301,15 +328,17 @@ public class BookPageGui extends GuiScreen {
         GL11.glEnable(GL11.GL_BLEND);
         this.drawTexturedModalRect(base_x - 14, base_y - 51, 0, 0, BookPage.PAGE_WIDTH, BookPage.PAGE_HEIGHT);
         CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(GameRegistry.findItem(element.args.get(0).split(":")[0], element.args.get(0).split(":")[1])));
+        GL11.glDisable(GL11.GL_LIGHTING);
         r.renderItemAndEffectIntoGUI(cpx.getOutput(), base_x, base_y);
         ArrayList<ItemStack> itemStacksOld = cpx.getItems((int)(crafting_ore_recipe_counter));
         ArrayList<ItemStack> itemStacks = new ArrayList<>();
+
         for (ItemStack i : itemStacksOld){
             if (i == null) {
                 itemStacks.add(i);
                 continue;
             }
-            itemStacks.add(new ItemStack(i.getItem(), i.stackSize));
+            itemStacks.add(new ItemStack(i.getItem(), i.stackSize, i.getMetadata()));
         }
         if (itemStacks.get(0) != null) {
             r.renderItemAndEffectIntoGUI(itemStacks.get(0), base_x - 10, base_y);
@@ -340,6 +369,8 @@ public class BookPageGui extends GuiScreen {
             r.renderItemIntoGUI(itemStacks.get(8), base_x + 10, base_y + 20);
         }
         GL11.glDisable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_LIGHTING);
+
 
 
 
@@ -364,6 +395,43 @@ public class BookPageGui extends GuiScreen {
         this.drawTexturedModalRect(x_x + element.x, y_y + element.y, p, y, xw, yw);
 
         GL11.glEnable(GL11.GL_LIGHTING);
+    }
+
+    public void drawElementSmelting(BookElement element) {
+        String[] itemInfo = element.args.get(0).split(":");
+        ItemStack output = new ItemStack(GameRegistry.findItem(itemInfo[0], itemInfo[1]), 1);
+        if (itemInfo.length == 3) {
+            output.setItemDamage(Integer.parseInt(itemInfo[2]));
+        }
+        else {
+            output.setItemDamage(32767);
+        }
+
+        int base_x = 50 + x_x;
+        int base_y = 30 + y_y;
+
+        ArrayList<ItemStack> inputs = new ArrayList<>();
+        for (ItemStack input : FurnaceRecipes.instance().getSmeltingList().keySet()){
+            ItemStack ofr = FurnaceRecipes.instance().getSmeltingResult(input);
+            if (ofr.getItem() == output.getItem()) {
+                if (output.getMetadata() == 32767 || output.getMetadata() == ofr.getMetadata()) {
+                    if (input.getMetadata() != 32767) {
+                        inputs.add(new ItemStack(input.getItem(), input.stackSize, input.getMetadata()));
+                    }
+                    else {
+                        input.getItem().getSubItems(input.getItem(), input.getItem().getCreativeTab(), inputs);
+                    }
+                }
+            }
+        }
+        int frame = ((int)(crafting_ore_recipe_counter) / 10) % inputs.size();
+        itemRender.renderItemAndEffectIntoGUI(inputs.get(frame), base_x, base_y - 20);
+        itemRender.renderItemAndEffectIntoGUI(output, base_x, base_y);
+
+        // Put arraylist of all possible fuels here. I'll handle the actual rendering and animation of them.
+
+
+
     }
 
     @Override

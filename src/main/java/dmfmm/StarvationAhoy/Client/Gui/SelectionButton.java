@@ -33,7 +33,7 @@ public class SelectionButton extends GuiButton{
         fontrenderer.setUnicodeFlag(true);
         int color=000000;
         if(mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height){
-            color = 16777215;
+            color = 13410464;
         }
 
         fontrenderer.drawString(StatCollector.translateToLocal("infobook.title." + text), (int) xPosition+15, yPosition, color);
