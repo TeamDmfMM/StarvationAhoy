@@ -58,7 +58,7 @@ public class BookPageGui extends GuiScreen {
     public BookPage myPage;
 
     public BookPageGui(String id){
-        String thingy = "starvationahoy.book_data.page.test";
+        String thingy = "starvationahoy.book_data.page." + id;
         String data = StatCollector.translateToLocal(thingy);
         myPage = new BookPage();
         myPage.digestString(data);
