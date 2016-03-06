@@ -110,7 +110,7 @@ public class InfoBookGUI extends GuiScreen{
 
                 if (guibutton.mousePressed(this.mc, mouseX, mouseY))
                 {
-                    //guibutton.playPressSound(this.mc.getSoundHandler());
+                    guibutton.playPressSound(this.mc.getSoundHandler());
                     this.actionPerformed(guibutton);
                 }
             }

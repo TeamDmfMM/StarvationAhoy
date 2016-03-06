@@ -1,8 +1,11 @@
 package dmfmm.StarvationAhoy.Client.Gui;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 /**
@@ -35,5 +38,10 @@ public class SelectionButton extends GuiButton{
 
         fontrenderer.drawString(StatCollector.translateToLocal("infobook.title." + text), (int) xPosition+15, yPosition, color);
         fontrenderer.setUnicodeFlag(false);
+    }
+
+    public void playPressSound(SoundHandler soundHandlerIn)
+    {
+        soundHandlerIn.playSound(PositionedSoundRecord.create(new ResourceLocation("starvationahoy:pageFlip"), 1.0F));
     }
 }
