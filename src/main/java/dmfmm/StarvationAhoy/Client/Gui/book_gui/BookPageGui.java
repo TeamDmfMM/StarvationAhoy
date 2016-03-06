@@ -429,6 +429,7 @@ public class BookPageGui extends GuiScreen {
         itemRender.renderItemAndEffectIntoGUI(output, base_x + 20, base_y);
 
         // Put arraylist of all possible fuels here. I'll handle the actual rendering and animation of them.
+        FurnaceHelper.afuels.get(0);
 
 
 

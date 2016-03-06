@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy;
 
+import dmfmm.StarvationAhoy.Client.Gui.book_gui.FurnaceHelper;
 import dmfmm.StarvationAhoy.Core.*;
 import dmfmm.StarvationAhoy.Core.EventHandler.event_configChange;
 import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
@@ -137,6 +138,8 @@ public class StarvationAhoy {
 	public void postInit(FMLPostInitializationEvent event){
 		if (event.getSide() == Side.CLIENT) {
 			KnownFoods.leaveServer();
+			FurnaceHelper.iterate();
+			FurnaceHelper.findFuels();
 		}
 	}
 	
