@@ -49,7 +49,7 @@ public class InfoBookGUI extends GuiScreen{
         int left = width / 2 - bookWidth / 2;
         int top = (height / 2 - bookHeight / 2) + 2;
         int topItems = (height / 2 - bookHeight / 2) + 50;
-
+        this.buttonList.clear();
         for(int i=0; i<pages.size(); i++){
             String page = (String) pages.keySet().toArray()[i];
             DualObjectLink<ItemStack, Boolean> obj = pages.get(page);
@@ -64,14 +64,11 @@ public class InfoBookGUI extends GuiScreen{
                     GlStateManager.translate(left+255, topItems + 25, 0);
                     GlStateManager.scale(0.5f, 0.5f, 0.5f);
                     GlStateManager.translate(-(left+255), -(topItems + 25), 0);
-                    //ScaledResolution scaledresolution = new ScaledResolution(this.mc);
-                    //int guiScale = scaledresolution.getScaleFactor();
-                    // GlStateManager.translate((292 - width), (541 - height), 0);
                     this.itemRender.renderItemIntoGUI(stack, left - 225, topItems - 110);
 
                     topItems += 9;
                     GlStateManager.popMatrix();
-                    this.buttonList.clear();
+
                     this.buttonList.add(new SelectionButton(i, left+12, top +5, page));
                     //this.fontRendererObj.drawString(StatCollector.translateToLocal("infobook.title." + page), left + 25, top + 6, 000000);
                     top += 9;
