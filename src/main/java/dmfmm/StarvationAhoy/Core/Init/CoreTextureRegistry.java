@@ -17,6 +17,7 @@ public class CoreTextureRegistry {
         register(ItemLoad.HungerPotion, 0);
         register(ItemLoad.stat_chest, 0);
         register(ItemLoad.stat_helm, 0);
+        register(ItemLoad.infoBook, 0);
 
     }
 
