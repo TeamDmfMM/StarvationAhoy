@@ -3,10 +3,6 @@ package dmfmm.StarvationAhoy.Client.Gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 /**
@@ -17,7 +13,7 @@ import net.minecraft.util.StatCollector;
  */
 public class SelectionButton extends GuiButton{
 
-    private static String text;
+    private String text;
 
 
     public SelectionButton(int buttonId, int x, int y, String buttonText) {
@@ -25,7 +21,7 @@ public class SelectionButton extends GuiButton{
         this.text = buttonText;
     }
 
-    public static String getPageName(){
+    public String getPageName(){
         return text;
     }
     public void drawButton(Minecraft mc, int mouseX, int mouseY){
