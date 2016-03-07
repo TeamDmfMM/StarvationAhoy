@@ -5,6 +5,7 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -33,7 +34,12 @@ public class SelectionButton extends GuiButton{
         fontrenderer.setUnicodeFlag(true);
         int color=000000;
         if(mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height){
-            color = 13410464;
+            color = 10066431;
+            GlStateManager.pushMatrix();
+            Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("starvationahoy", "textures/gui/InfobookMain.png"));
+            GlStateManager.color(1f, 1f, 0.8f);
+            this.drawTexturedModalRect(xPosition, yPosition, 0, 180, 118, 9);
+            GlStateManager.popMatrix();
         }
 
         fontrenderer.drawString(StatCollector.translateToLocal("infobook.title." + text), (int) xPosition+15, yPosition, color);
