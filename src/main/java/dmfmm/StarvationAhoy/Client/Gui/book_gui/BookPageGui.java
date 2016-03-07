@@ -64,7 +64,7 @@ public class BookPageGui extends GuiScreen {
 
     public BookPageGui(String id)
     {
-        id = "test";
+        //id = "test";
         String thingy = "starvationahoy.book_data.page." + id;
         String data = StatCollector.translateToLocal(thingy);
         myPage = new BookPage();
@@ -429,7 +429,9 @@ public class BookPageGui extends GuiScreen {
         itemRender.renderItemAndEffectIntoGUI(output, base_x + 20, base_y);
 
         // Put arraylist of all possible fuels here. I'll handle the actual rendering and animation of them.
-        FurnaceHelper.afuels.get(0);
+        frame = ((int)(crafting_ore_recipe_counter) / 10) % FurnaceHelper.afuels.size();
+        ItemStack theItemStack = FurnaceHelper.afuels.get(frame).stack.copy();
+        itemRender.renderItemAndEffectIntoGUI(theItemStack, base_x, base_y + 20);
 
 
 

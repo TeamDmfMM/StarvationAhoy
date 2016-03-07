@@ -68,7 +68,7 @@ public class FurnaceHelper {
             if (item == null)
                 continue;
 
-            items.add(new ItemStack(item));
+            item.getSubItems(item, item.getCreativeTab(), items);
         }
         iteml = items;
 
