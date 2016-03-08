@@ -15,9 +15,10 @@ public class BookPage {
 
     public static final int PAGE_1_START_X = 1;
     public static final int PAGE_2_START_X = 0;
-    public static final int PAGE_WIDTH = 100;
+    public static int PAGE_WIDTH = 95;
+    public static final int PAGE_WIDTH_ORIG = 95;
     public static final int PAGE_START_Y = 10;
-    public static final int PAGE_HEIGHT = 120;
+    public static final int PAGE_HEIGHT = 180;
 
     // CONSTANTS END
 

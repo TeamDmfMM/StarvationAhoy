@@ -49,9 +49,10 @@ public class BookPageGui extends GuiScreen {
     int oy = 0;
 
     static int IMG_START_X_P1 = 22;
-    static int IMG_START_X_P2 = BookPage.PAGE_WIDTH + 37;
+    static int IMG_START_X_P2 = BookPage.PAGE_WIDTH + 44;
     static int IMG_START_Y_P1 = 15;
-    static int IMG_START_Y_P2 = 15;
+    static int IMG_START_Y_P2 = 24;
+    static int IMG_ACCOUNT_EXTRA_WIDTH_PAGE_2 = 7;
 
     static {
 
@@ -148,9 +149,12 @@ public class BookPageGui extends GuiScreen {
                 if (element.page == this.page) {
                     x_x = ox + this.IMG_START_X_P1;
                     y_y = oy + this.IMG_START_Y_P1;
+                    BookPage.PAGE_WIDTH = BookPage.PAGE_WIDTH_ORIG;
+
                 } else {
                     x_x = ox + this.IMG_START_X_P2;
                     y_y = oy + this.IMG_START_Y_P2;
+                    BookPage.PAGE_WIDTH += this.IMG_ACCOUNT_EXTRA_WIDTH_PAGE_2;
                 }
 
                 // System.out.println("Testsetstestestest");
@@ -474,6 +478,9 @@ public class BookPageGui extends GuiScreen {
         boolean nosplit = false;
 
         int maximum = BookPage.PAGE_WIDTH - element.x - 2;
+        if (element.args.size() == 2) {
+            maximum = Math.min(maximum, Integer.parseInt(element.args.get(1)));
+        }
         int remain = BookPage.PAGE_HEIGHT - element.y;
 
         GL11.glColor3f(0.0f, 0.0f, 0.0f);
@@ -590,9 +597,12 @@ public class BookPageGui extends GuiScreen {
         int ypos = element.y;
 
         int maximum = BookPage.PAGE_WIDTH - element.x - 2;
+        if (element.args.size() == 2) {
+            maximum = Math.min(maximum, maximum - Integer.parseInt(element.args.get(1)));
+        }
         System.out.println(maximum);
 
-        int currcolor = toArmorCode(255, 255, 255);
+        int currcolor = toArmorCode(0, 0, 0);
         if (element.args.size() == 0) {
             element.args.add("0");
         }
@@ -609,13 +619,14 @@ public class BookPageGui extends GuiScreen {
         int cent_extra = 0;
         HashMap<Integer, Integer> lens = new HashMap<>();
         int i = 0;
-        if (style == 1) {
+        if (style != 0) {
             ypos -= fontRendererObj.FONT_HEIGHT;
 
             for (String s : fontRendererObj.listFormattedStringToWidth(BookPage.tokenized(element.data, new HashMap<String, String>() {{
                         put("newline", "\n");
                     }}
             ), maximum)) {
+                if (Objects.equals(s, " ")) { continue; }
                 lens.put(i, fontRendererObj.getStringWidth(s));
                 i += 1;
             }
@@ -683,7 +694,59 @@ public class BookPageGui extends GuiScreen {
                             xpos += x_displacement;
                         }
 
-                    } else {
+                    } else if (style == 1) {
+                        if ((line_status & 1) == 1 || drawing_link == true) {
+                            origString = "§n" + origString;
+                        }
+                        if ((line_status & 2) == 2) {
+                            origString = "§l" + origString;
+                        }
+                        if ((line_status & 4) == 4) {
+                            origString = "§o" + origString;
+                        }
+                        if ((line_status & 8) == 8) {
+                            origString = "§m" + origString;
+                        }
+                        if ((line_status & 16) == 16) {
+                            origString = "§k" + origString;
+
+                        }
+                        cent_extra = xpos - element.x;
+                        String last = this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).get(this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).size() - 1);
+                        String[] words = origString.split(" ");
+                        for (String s : words) {
+                            String str = (String) s + " ";
+                            if ((line_status & 1) == 1 || drawing_link == true) {
+                                str = "§n" + str;
+                            }
+                            if ((line_status & 2) == 2) {
+                                str = "§l" + str;
+                            }
+                            if ((line_status & 4) == 4) {
+                                str = "§o" + str;
+                            }
+                            if ((line_status & 8) == 8) {
+                                str = "§m" + str;
+                            }
+                            if ((line_status & 16) == 16) {
+                                str = "§k" + str;
+
+                            }
+                            int len = fontRendererObj.getStringWidth(str);
+                            int remain = (lens.get(j) - len) + 1;
+                            if (lens.get(j) == lens2.get(j)) {
+                                xpos = element.x + (maximum / 2) - (lens2.get(j) / 2);
+                            }
+                            lens.put(j, remain);
+                            fontRendererObj.drawString(str, xpos + x_x, ypos + y_y, currcolor);
+                            xpos += len;
+                            if (remain < 0) {
+                                j += 1;
+                                ypos += fontRendererObj.FONT_HEIGHT;
+                            }
+                        }
+
+                    } else if (style == 2) {
                         if ((line_status & 1) == 1 || drawing_link == true) {
                             origString = "§n" + origString;
                         }
@@ -708,7 +771,7 @@ public class BookPageGui extends GuiScreen {
                             int len = fontRendererObj.getStringWidth(str);
                             int remain = lens.get(j) - len;
                             if (lens.get(j) == lens2.get(j)) {
-                                xpos = element.x + (maximum / 2) - (lens2.get(j) / 2);
+                                xpos = element.x + maximum - lens2.get(j);
                             }
                             lens.put(j, remain);
                             fontRendererObj.drawString(str, xpos + x_x, ypos + y_y, currcolor);
@@ -762,15 +825,7 @@ public class BookPageGui extends GuiScreen {
                                 currcolor = toArmorCode(Integer.parseInt(stuff[0]), Integer.parseInt(stuff[1]), Integer.parseInt(stuff[2]));
                             }
                             break;
-                        case "align":
-                            if (t.data.equals("center")) {
-                                ypos += fontRendererObj.FONT_HEIGHT;
-                                style = 1;
-                            } else {
-                                style = 0;
-                                ypos += fontRendererObj.FONT_HEIGHT;
-                            }
-                            break;
+
                         case "style":
                             switch (t.data) {
                                 case "bold":
