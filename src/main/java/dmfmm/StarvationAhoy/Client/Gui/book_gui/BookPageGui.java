@@ -49,10 +49,10 @@ public class BookPageGui extends GuiScreen {
     int oy = 0;
 
     static int IMG_START_X_P1 = 22;
-    static int IMG_START_X_P2 = BookPage.PAGE_WIDTH + 44;
+    static int IMG_START_X_P2 = BookPage.PAGE_WIDTH + 47;
     static int IMG_START_Y_P1 = 15;
     static int IMG_START_Y_P2 = 24;
-    static int IMG_ACCOUNT_EXTRA_WIDTH_PAGE_2 = 7;
+    static int IMG_ACCOUNT_EXTRA_WIDTH_PAGE_2 = 5;
 
     static {
 
