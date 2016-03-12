@@ -378,11 +378,35 @@ public class BookPageGui extends GuiScreen {
 
 
     public void drawElementImage(BookElement element) {
-        String image = element.args.get(4);
-        int xw = Integer.parseInt(element.args.get(0));
-        int yw = Integer.parseInt(element.args.get(1));
-        int p = Integer.parseInt(element.args.get(2));
-        int y = Integer.parseInt(element.args.get(3));
+        String image;
+        int xw;
+        int yw;
+        int p;
+        int y;
+        int imgw = 0;
+        int imgh = 0;
+        boolean tex_custom_size = element.args.size() == 7;
+        if (tex_custom_size) {
+            imgw = Integer.parseInt(element.args.get(5));
+            imgh = Integer.parseInt(element.args.get(6));
+        }
+        if (element.args.size() == 3) {
+            xw = Integer.parseInt(element.args.get(0));
+            yw = Integer.parseInt(element.args.get(1));
+            image = element.args.get(2);
+            p = 0;
+            y = 0;
+            imgw = xw;
+            imgh = yw;
+        }
+        else {
+            image = element.args.get(4);
+            xw = Integer.parseInt(element.args.get(0));
+            yw = Integer.parseInt(element.args.get(1));
+            p = Integer.parseInt(element.args.get(2));
+            y = Integer.parseInt(element.args.get(3));
+        }
+
 
         ResourceLocation l = new ResourceLocation(image);
 
@@ -390,9 +414,14 @@ public class BookPageGui extends GuiScreen {
 
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glColor3f(1.0f, 1.0f, 1.0f);
+        if (element.args.size() == 5) {
+            this.drawTexturedModalRect(x_x + element.x, y_y + element.y, p, y, xw, yw);
+        }
+        else {
 
-        this.drawTexturedModalRect(x_x + element.x, y_y + element.y, p, y, xw, yw);
 
+            drawModalRectWithCustomSizedTexture(x_x + element.x, y_y + element.y, p, y, xw, yw, imgw, imgh);
+        }
         GL11.glEnable(GL11.GL_LIGHTING);
     }
 
