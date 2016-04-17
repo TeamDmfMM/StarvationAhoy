@@ -5,8 +5,8 @@ import dmfmm.StarvationAhoy.api.Meat.ISpitRoastRender;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelChicken;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class ModelChickenSA extends ModelChicken implements ISAModel, ISpitRoastRender{

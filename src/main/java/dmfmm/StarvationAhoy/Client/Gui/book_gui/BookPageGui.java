@@ -6,11 +6,11 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.lwjgl.opengl.GL11;
 
@@ -67,7 +67,7 @@ public class BookPageGui extends GuiScreen {
     public BookPageGui(String id) {
         //id = "test";
         String thingy = "starvationahoy.book_data.page." + id;
-        String data = StatCollector.translateToLocal(thingy);
+        String data = I18n.translateToLocal(thingy);
         myPage = new BookPage();
         myPage.digestString(data);
         try {
@@ -475,7 +475,7 @@ public class BookPageGui extends GuiScreen {
                 page = 0;
                 String thingy = this.links.get(i);
                 links = new HashMap<>();
-                String data = StatCollector.translateToLocal(thingy);
+                String data = I18n.translateToLocal(thingy);
                 myPage = new BookPage();
                 myPage.digestString(data);
                 try {

@@ -1,10 +1,8 @@
 package dmfmm.StarvationAhoy.Core.util;
 
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,10 +29,13 @@ public class GenericItemLoader {
 
 
         for (String s : items.keySet()) {
-            GameRegistry.registerItem(items.get(s), s);
+            registerItem(items.get(s), s);
         }
 
     }
 
-
+    private static void registerItem(Item item, String name){
+        item.setRegistryName(name);
+        GameRegistry.register(item);
+    }
 }

@@ -7,9 +7,9 @@ import net.minecraft.command.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.translation.I18n;
 
 import java.io.IOError;
 import java.io.IOException;
@@ -47,7 +47,7 @@ public class FoodModifyCommand implements ICommand{
 	}
 
 	@Override
-	public void processCommand(ICommandSender sender, String[] CMDin) throws WrongUsageException, NumberInvalidException {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] CMDin) throws WrongUsageException, NumberInvalidException {
         if (CMDin.length < 3)
         {
             throw new WrongUsageException(getCommandUsage(null), new Object[0]);
@@ -57,10 +57,10 @@ public class FoodModifyCommand implements ICommand{
         	int hunger = CommandBase.parseInt(CMDin[1]);
         	float saturation = this.parseFloat(sender, CMDin[2]);
 
-			if (MinecraftServer.getServer().isSinglePlayer()) {
+			if (server.isSinglePlayer()) {
 				try {
 					FoodChanger.change(item, hunger, saturation);
-					sender.addChatMessage(new ChatComponentText(StatCollector.translateToLocal(item.getUnlocalizedName() + ".name") + " was sucessfully changed to the new levels!"));
+					sender.addChatMessage(new TextComponentString(I18n.translateToLocal(item.getUnlocalizedName() + ".name") + " was sucessfully changed to the new levels!"));
 				} catch (IOError | IOException e) {
 					throw new WrongUsageException(e.getMessage(), new Object[0]);
 				} catch (FoodChanger.FoodNotFoundException e){
@@ -81,14 +81,14 @@ public class FoodModifyCommand implements ICommand{
 	}
 
 	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_) {
-		return true;
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+		return sender.canCommandSenderUseCommand(2, this.getCommandName());
 	}
 
 
 
 	@Override
-	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
+	public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
 		return args.length == 1 ? CommandBase.getListOfStringsMatchingLastWord(args, Item.itemRegistry.getKeys()) : null;
 	}
 
@@ -96,11 +96,7 @@ public class FoodModifyCommand implements ICommand{
 	public boolean isUsernameIndex(String[] p_82358_1_, int p_82358_2_) {
 		return false;
 	}
-	
-    protected String[] getPlayers()
-    {
-        return MinecraftServer.getServer().getAllUsernames();
-    }
+
 	
 	private static float parseFloat(ICommandSender s, String string) throws NumberInvalidException {
         try

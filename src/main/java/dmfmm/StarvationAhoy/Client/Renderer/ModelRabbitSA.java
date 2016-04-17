@@ -4,11 +4,9 @@ package dmfmm.StarvationAhoy.Client.Renderer;
 import dmfmm.StarvationAhoy.api.Meat.ISAModel;
 import dmfmm.StarvationAhoy.api.Meat.ISpitRoastRender;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRabbit;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.fml.common.Optional;
+import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
 
 //@Optional.Interface(iface = "dmfmm.StarvationAhoy.api.Meat.ISAModel", modid = "StarvationAhoy")

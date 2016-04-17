@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
@@ -71,9 +71,9 @@ public class InfoBookGUI extends GuiScreen{
                     //this.fontRendererObj.drawString(StatCollector.translateToLocal("infobook.title." + page), left + 25, top + 6, 000000);
                     top += 9;
                 } else {
-                    int size = this.fontRendererObj.getStringWidth(StatCollector.translateToLocal("infobook.header." + page));
+                    int size = this.fontRendererObj.getStringWidth(I18n.translateToLocal("infobook.header." + page));
                     int lefts = width / 2 - size / 2;
-                    this.fontRendererObj.drawString("§n§l"+ StatCollector.translateToLocal("infobook.header." + page), lefts -6, top + 6, 000000);
+                    this.fontRendererObj.drawString("§n§l"+ I18n.translateToLocal("infobook.header." + page), lefts -6, top + 6, 000000);
                     top += 11;
                     topItems += 11;
                 }

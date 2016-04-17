@@ -3,16 +3,14 @@ package dmfmm.StarvationAhoy.Core.Init;
 
 import dmfmm.StarvationAhoy.Core.lib.MeatLib;
 import dmfmm.StarvationAhoy.Core.lib.ModInfo;
-import dmfmm.StarvationAhoy.Core.lib.WashLib;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class MeatTextureRegistry {
 
@@ -45,7 +43,7 @@ public class MeatTextureRegistry {
 
     private static void registerBlock(String blockName, int meta){
         RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
-        Item itemB = GameRegistry.findItem("starvationahoy", blockName);
+        Item itemB = Item.itemRegistry.getObject(new ResourceLocation("starvationahoy", blockName));
         renderItem.getItemModelMesher().register(itemB, meta, new ModelResourceLocation("starvationahoy:"+ blockName, "inventory"));
     }
 

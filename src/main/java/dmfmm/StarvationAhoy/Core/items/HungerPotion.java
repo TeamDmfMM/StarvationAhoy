@@ -1,21 +1,11 @@
 package dmfmm.StarvationAhoy.Core.items;
 
 import dmfmm.StarvationAhoy.Core.SATabs;
-import dmfmm.StarvationAhoy.Core.lib.CoreLib;
-import dmfmm.StarvationAhoy.Core.lib.ModInfo;
-import dmfmm.StarvationAhoy.Core.util.SALog;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
-/**
- * Created by David on 2015-10-23.
- */
+
 public class HungerPotion extends ItemFood {
 
     public HungerPotion()

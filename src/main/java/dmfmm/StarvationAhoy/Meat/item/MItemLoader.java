@@ -55,7 +55,7 @@ private static boolean IRegister=false;
 						}
 						if (toRegister instanceof Item){
 							if (toRegister != null){
-								GameRegistry.registerItem((Item) toRegister, item.getName());
+								registerItem((Item) toRegister, item.getName());
 							}
 						}
 					}
@@ -64,7 +64,7 @@ private static boolean IRegister=false;
 			}
 
 			for (String meat : modMeatItems.keySet()) {
-				GameRegistry.registerItem(modMeatItems.get(meat), meat);
+				registerItem(modMeatItems.get(meat), meat);
 			}
 
 			
@@ -73,5 +73,10 @@ private static boolean IRegister=false;
 			
 		}
 		IRegister=true;
+	}
+
+	private static void registerItem(Item item, String name){
+		item.setRegistryName(name);
+		GameRegistry.register(item);
 	}
 }

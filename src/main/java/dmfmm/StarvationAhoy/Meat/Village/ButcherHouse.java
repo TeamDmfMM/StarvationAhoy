@@ -1,31 +1,27 @@
 package dmfmm.StarvationAhoy.Meat.Village;
 
-import java.util.List;
-import java.util.Random;
-
-import dmfmm.StarvationAhoy.Core.util.SALog;
+import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
+import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
-import dmfmm.StarvationAhoy.Meat.Block.MBlockLoader;
-import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
-import sun.corba.EncapsInputStreamFactory;
+
+import java.util.List;
+import java.util.Random;
 
 public class ButcherHouse extends StructureVillagePieces.Village {
     
@@ -35,6 +31,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
     private int randomNum1;
 	private boolean firstRun = true;
 	private boolean secondRun = false;
+	private EnumFacing coordBaseMode;
 	
 	public ButcherHouse(){}
 	
@@ -232,7 +229,8 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		if(te instanceof MeatHangerTileEntity){
 			MeatHangerTileEntity MHA = (MeatHangerTileEntity) te;
 			MHA.setMeatType(rand);
-			world.markBlockForUpdate(new BlockPos(x, y, z));
+			world.notifyBlockUpdate(new BlockPos(x, y, z), world.getBlockState(new BlockPos(x, y, z)).getBlock().getDefaultState(),
+					world.getBlockState(new BlockPos(x, y, z)).getBlock().getDefaultState(), 3);
 		}
 
 		
@@ -270,7 +268,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 			{
 				for (int k2 = minZ; k2 <= maxZ; ++k2)
 				{
-					if (!alwaysReplace || this.getBlockStateFromPos(world, j2, i2, k2, sbb).getBlock().getMaterial() != Material.air)
+					if (!alwaysReplace || this.getBlockStateFromPos(world, j2, i2, k2, sbb).getBlock().getMaterial(this.getBlockStateFromPos(world, j2, i2, k2, sbb)) != Material.air)
 					{
 						if (i2 != minY && i2 != maxY && j2 != minX && j2 != maxX && k2 != minZ && k2 != maxZ)
 						{

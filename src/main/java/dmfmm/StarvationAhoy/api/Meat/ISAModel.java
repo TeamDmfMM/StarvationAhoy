@@ -1,6 +1,7 @@
 package dmfmm.StarvationAhoy.api.Meat;
 
-import net.minecraft.util.AxisAlignedBB;
+
+import net.minecraft.util.math.AxisAlignedBB;
 
 /**
  *

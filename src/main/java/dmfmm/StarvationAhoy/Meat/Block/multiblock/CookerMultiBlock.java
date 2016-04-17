@@ -1,13 +1,12 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
 import dmfmm.StarvationAhoy.Core.lib.MeatLib;
-import dmfmm.StarvationAhoy.Core.util.SALog;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.Random;

@@ -9,7 +9,7 @@ public class event_configChange {
 	
 	@SubscribeEvent
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent e){
-		if(e.modID.equalsIgnoreCase(ModInfo.MOD_ID)){
+		if(e.getModID().equalsIgnoreCase(ModInfo.MOD_ID)){
 			ConfigHandler.loadConfig();
 		}
 	}

@@ -1,6 +1,5 @@
 package dmfmm.StarvationAhoy.FoodEdit.Packet;
 
-import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -57,7 +56,8 @@ public class PacketResponseNewFoods implements IMessage {
             NBTTagCompound info = new NBTTagCompound();
             ArrayList<Object> food = foods.get(i);
             if(food.size() == 3){
-                info.setString("item", ((ItemStack)food.get(0)).getItem().getRegistryName());
+                //TODO: CHECK THIS
+                info.setString("item", ((ItemStack)food.get(0)).getItem().getUnlocalizedName());
                 info.setInteger("meta", ((ItemStack)food.get(0)).getMetadata());
                 info.setInteger("stacksize", ((ItemStack)food.get(0)).stackSize);
                 if(((ItemStack) food.get(0)).hasTagCompound()) {

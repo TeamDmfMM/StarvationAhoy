@@ -4,9 +4,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-/**
- * Created by David on 2015-08-02.
- */
+
 public class CropCraftingRecipies {
 
 

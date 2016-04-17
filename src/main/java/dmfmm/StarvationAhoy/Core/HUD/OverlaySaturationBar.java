@@ -1,20 +1,20 @@
 package dmfmm.StarvationAhoy.Core.HUD;
 
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import dmfmm.StarvationAhoy.Core.util.CRef;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class OverlaySaturationBar extends Gui {
 	
@@ -36,7 +36,7 @@ public class OverlaySaturationBar extends Gui {
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	  public void onRenderExperienceBar(RenderGameOverlayEvent event)
 	  {
-		if(event.isCancelable() || event.type != ElementType.EXPERIENCE)
+		if(event.isCancelable() || event.getType() != ElementType.EXPERIENCE)
 	    {      
 	      return;
 	    }
@@ -74,22 +74,22 @@ public class OverlaySaturationBar extends Gui {
             this.drawTexturedModalRect((int) (EXHAUSTION_BAR_X + i), EXHAUSTION_BAR_Y + 2, 0, 9, 1, 5);
         }
         this.mc.fontRendererObj.setUnicodeFlag(true);
-        this.mc.fontRendererObj.drawString(StatCollector.translateToLocal(SATURATION_TEXT_UNLOCALIZED), SATURATION_BAR_X + 7, SATURATION_BAR_Y, 16430373);
+        this.mc.fontRendererObj.drawString(I18n.translateToLocal(SATURATION_TEXT_UNLOCALIZED), SATURATION_BAR_X + 7, SATURATION_BAR_Y, 16430373);
         this.mc.fontRendererObj.setUnicodeFlag(false);
     }
 
 	public void getCurrentFoodStat(EntityPlayerSP player){
         Item unknown = null;
-        if(player.getHeldItem() != null) {
-            unknown = player.getHeldItem().getItem();
+        if(player.getHeldItemMainhand() != null) {
+            unknown = player.getHeldItemMainhand().getItem();
             if (unknown instanceof ItemFood) {
                 ItemFood food = (ItemFood) unknown;
                 int HealAmt = KnownFoods.getFoodHunger(new ItemStack(food));
                 float Saturation = KnownFoods.getFoodSaturation(new ItemStack(food));
                 this.mc.fontRendererObj.setUnicodeFlag(true);
-                this.mc.fontRendererObj.drawString(StatCollector.translateToLocal(FOODHUNGER_TEXT_UNLOCALIZED), SATURATION_BAR_X , SATURATION_BAR_Y + 15, 16430373);
+                this.mc.fontRendererObj.drawString(I18n.translateToLocal(FOODHUNGER_TEXT_UNLOCALIZED), SATURATION_BAR_X , SATURATION_BAR_Y + 15, 16430373);
                 drawFoodHunks((float) HealAmt / 2);
-                this.mc.fontRendererObj.drawString(String.format(StatCollector.translateToLocal(FOODSAT_TEXT_UNLOCALIZED), Saturation), SATURATION_BAR_X, SATURATION_BAR_Y + 22, 16430373);
+                this.mc.fontRendererObj.drawString(String.format(I18n.translateToLocal(FOODSAT_TEXT_UNLOCALIZED), Saturation), SATURATION_BAR_X, SATURATION_BAR_Y + 22, 16430373);
                 this.mc.fontRendererObj.setUnicodeFlag(false);
             }
         }

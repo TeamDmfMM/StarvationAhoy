@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.Core.items;
 
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import dmfmm.StarvationAhoy.Core.lib.CoreLib;
 import dmfmm.StarvationAhoy.StarvationAhoy;
@@ -17,8 +18,8 @@ public class ItemLoad {
 	public static Item infoBook;
 	
 	public static void initItems(){
-		stat_helm = new SaturationArmorTracker(StarvationAhoy.StatusArmor, 0, CoreLib.Helmet);
-		stat_chest = new SaturationArmorTracker(StarvationAhoy.StatusArmor, 1, CoreLib.Chestplate);
+		stat_helm = new SaturationArmorTracker(StarvationAhoy.StatusArmor, EntityEquipmentSlot.HEAD, CoreLib.Helmet);
+		stat_chest = new SaturationArmorTracker(StarvationAhoy.StatusArmor, EntityEquipmentSlot.CHEST, CoreLib.Chestplate);
 		HungerPotion = ((ItemFood) new HungerPotion().setUnlocalizedName(CoreLib.potion)).setAlwaysEdible();
 		infoBook = new InfoBook().setUnlocalizedName(CoreLib.book);
 	}
@@ -37,13 +38,17 @@ public class ItemLoad {
 					}
 					if (toRegister instanceof Item){
 						if (toRegister != null){
-							GameRegistry.registerItem((Item) toRegister, item.getName());
+							registerItem((Item) toRegister, item.getName());
 						}
 					}
 				}
 				
 			}
 		}
+	}
+	private static void registerItem(Item item, String name){
+		item.setRegistryName(name);
+		GameRegistry.register(item);
 	}
 	
 }

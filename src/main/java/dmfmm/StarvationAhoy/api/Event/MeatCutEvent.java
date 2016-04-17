@@ -1,12 +1,12 @@
 package dmfmm.StarvationAhoy.api.Event;
 
 import dmfmm.StarvationAhoy.Core.util.SALog;
-import net.minecraft.util.BlockPos;
+import net.minecraft.item.Item;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraft.item.Item;
-import net.minecraft.world.World;
 
 /**
  * Created by DMF444 for Starvation Ahoy. All rights
@@ -16,19 +16,22 @@ import net.minecraft.world.World;
  */
 public class MeatCutEvent extends Event{
 
-    public final int meattype;
+    private final int meattype;
     public MeatCutEvent(int meat)
     {
         this.meattype = meat;
     }
 
+    public int getMeattype(){
+        return meattype;
+    }
     //Event posted when a player right clicks on the Spit Roast with a butcher's knife and
     //the entity is cooked, This is only for supplimentary items being added to a entity
     public static class SpitRoast extends MeatCutEvent{
-        public final World world;
-        public final BlockPos position;
-        public final boolean burnt;
-        public final Item itemOut;
+        private final World world;
+        private final BlockPos position;
+        private final boolean burnt;
+        private final Item itemOut;
         public SpitRoast(World world, int meat, BlockPos pos, boolean Burnt, Item outputItem){
             super(meat);
             this.world = world;
@@ -36,6 +39,18 @@ public class MeatCutEvent extends Event{
             this.burnt = Burnt;
             this.itemOut = outputItem;
 
+        }
+        public World getWorld() {
+            return world;
+        }
+        public BlockPos getPosition() {
+            return position;
+        }
+        public Boolean getBurnt() {
+            return burnt;
+        }
+        public Item getItemOut() {
+            return itemOut;
         }
     }
 
@@ -51,13 +66,19 @@ public class MeatCutEvent extends Event{
      */
     @Cancelable
     public static class MeatHanger extends MeatCutEvent{
-        public final World world;
-        public final BlockPos position;
+        private final World world;
+        private final BlockPos position;
         public MeatHanger(World world, int meat, BlockPos pos){
             super(meat);
             SALog.error(this.isCanceled());
             this.world = world;
             this.position = pos;
+        }
+        public World getWorld(){
+            return this.world;
+        }
+        public BlockPos getPosition(){
+            return this.position;
         }
     }
 
@@ -72,13 +93,19 @@ public class MeatCutEvent extends Event{
      */
     @Cancelable
     public static class MeatSkinned extends MeatCutEvent{
-        public final World world;
-        public final BlockPos position;
+        private final World world;
+        private final BlockPos position;
         public MeatSkinned(World world, int meat, BlockPos pos){
             super(meat);
             SALog.error(this.isCancelable());
             this.world = world;
             this.position = pos;
+        }
+        public World getWorld(){
+            return this.world;
+        }
+        public BlockPos getPosition(){
+            return this.position;
         }
     }
 }

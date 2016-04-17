@@ -7,26 +7,27 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import dmfmm.StarvationAhoy.Core.util.SALog;
+
 
 public class Event_KillAnimal {
 	
 	
 	@SubscribeEvent
 	public void OverrideDropEvent(LivingDropsEvent e){
-		if (!(e.entity instanceof EntityLiving ) ){
+		if (!(e.getEntityLiving() instanceof EntityLiving ) ){
 			return;
 		}
 		//SALog.fatal("MEH");
-		//SALog.fatal("IS EP" + e.entity);
-		//SALog.fatal("DROPS?" + ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entity).value);
-    if(e.entity instanceof EntityPlayer){
+		//SALog.fatal("IS EP" + e.getEntityLiving());
+		//SALog.fatal("DROPS?" + ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.getEntityLiving()).value);
+    if(e.getEntityLiving() instanceof EntityPlayer){
     	//How about no messing with player Drops? kk?
-	}else if (ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entity).value == true){
+		return;
+	}else if (ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.getEntityLiving()).value == true){
 
-			e.drops.clear();
-			//SALog.fatal(ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entityLiving).meat.items.dead);
-			e.drops.add(new EntityItem(e.entity.worldObj, e.entity.posX, e.entity.posY, e.entity.posZ, new ItemStack(ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.entityLiving).meat.items.dead)));
+			e.getDrops().clear();
+			//SALog.fatal(ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.getEntityLiving()Living).meat.items.dead);
+			e.getDrops().add(new EntityItem(e.getEntityLiving().worldObj, e.getEntityLiving().posX, e.getEntityLiving().posY, e.getEntityLiving().posZ, new ItemStack(ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.getEntityLiving()).meat.items.dead)));
 		}
 	}
 }

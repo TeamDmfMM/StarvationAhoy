@@ -6,7 +6,7 @@ import dmfmm.StarvationAhoy.FoodStats.FileManage.SaveFileLoad;
 import dmfmm.StarvationAhoy.FoodStats.FoodStat;
 import dmfmm.StarvationAhoy.FoodStats.FoodStatRegistry;
 import net.minecraft.item.Item;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 import java.io.IOException;
 import java.util.*;

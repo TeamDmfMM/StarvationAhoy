@@ -33,18 +33,18 @@ minecraft {
     version = config.minecraft_version + "-" + config.forge_version
 
     replaceIn "Core/lib/ModInfo.java"
-    replace "@VERSION@", "${config.mod_version}.${System.getenv("BUILD_NUMBER") ?: config.build_number}"
+    replace "@VERSION@", "${config.mod_version}.${System.getenv("BUILD_NUMBER") ?: 0}"
 
     runDir = "run"
-	mappings = "snapshot_20151229"
+	mappings = "snapshot_20160312"
 }
-version = "${config.minecraft_version}-${config.mod_version}.${System.getenv("DRONE_BUILD_NUMBER") ?: config.build_number}"
+version = "${config.minecraft_version}-${config.mod_version}.${System.getenv("DRONE_BUILD_NUMBER") ?: System.getenv("BUILD_NUMBER")}"
 
 
 dependencies {
 
-    //compile files('libs/AgriCraft-1.7.10-1.4.6-hotfix.jar')
-    //compile files('Pam\'s HarvestCraft 1.7.10Lb.jar')
+    compile files('libs/AgriCraft-1.7.10-1.4.6-hotfix.jar')
+    compile files('Pam\'s HarvestCraft 1.7.10Lb.jar')
 
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..

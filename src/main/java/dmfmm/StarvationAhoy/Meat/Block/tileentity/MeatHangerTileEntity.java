@@ -3,9 +3,9 @@ package dmfmm.StarvationAhoy.Meat.Block.tileentity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 
 public class MeatHangerTileEntity extends TileEntity {
 	private int MeatType = 0;//0-n|1-Cow|2-Pig|3-Chicken
@@ -57,11 +57,11 @@ public class MeatHangerTileEntity extends TileEntity {
 	       NBTTagCompound syncData = new NBTTagCompound();
 	       syncData.setInteger("Meattype", MeatType);
 	       syncData.setInteger("State", MeatState);
-	       return new S35PacketUpdateTileEntity(this.pos, 1, syncData);
+	       return new SPacketUpdateTileEntity(this.pos, 1, syncData);
 	   }
 
 	   @Override
-	   public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+	   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
 	   {
 	       MeatState = pkt.getNbtCompound().getInteger("State");
 		   MeatType = pkt.getNbtCompound().getInteger("Meattype");

@@ -9,10 +9,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.ITickable;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.ITextComponent;
+
 
 public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInventory {
     ItemStack meat;
@@ -32,11 +32,11 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
         NBTTagCompound syncData = new NBTTagCompound();
         syncData.setInteger("MultiBlockIndex", multiBlockStructure.bPos);
         syncData.setTag("SharedData", multiBlockStructure.sharedData);
-        return new S35PacketUpdateTileEntity(pos, 1, syncData);
+        return new SPacketUpdateTileEntity(pos, 1, syncData);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
     {
         if (this.multiBlockStructure == null){this.multiBlockStructure = new CookerMultiBlock();}
         multiBlockStructure.bPos = pkt.getNbtCompound().getInteger("MultiBlockIndex");
@@ -112,7 +112,7 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
     }
 
     @Override
-    public IChatComponent getDisplayName() {
+    public ITextComponent getDisplayName() {
         return null;
     }
 

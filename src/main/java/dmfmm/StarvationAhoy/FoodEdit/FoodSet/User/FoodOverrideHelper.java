@@ -1,8 +1,6 @@
 package dmfmm.StarvationAhoy.FoodEdit.FoodSet.User;
 
-/**
- * Created by Matthew on 3/21/2015.
- */
+
 public class FoodOverrideHelper {
 
     public static FoodOverride makeFoodOverride(String name, int hunger, float sturan){

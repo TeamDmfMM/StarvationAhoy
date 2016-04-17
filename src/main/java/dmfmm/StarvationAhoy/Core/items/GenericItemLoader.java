@@ -33,10 +33,13 @@ public class GenericItemLoader {
 
 
         for (String s : items.keySet()) {
-            GameRegistry.registerItem(items.get(s), s);
+            registerItem(items.get(s), s);
         }
 
     }
 
-
+    private static void registerItem(Item item, String name){
+        item.setRegistryName(name);
+        GameRegistry.register(item);
+    }
 }

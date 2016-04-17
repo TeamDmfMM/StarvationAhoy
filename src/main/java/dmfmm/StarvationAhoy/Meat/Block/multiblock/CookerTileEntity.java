@@ -6,8 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.util.text.ITextComponent;
 
 /**
  * Created by Mincrmatt12 on 2/7/2015.
@@ -29,11 +29,11 @@ public class CookerTileEntity extends TileEntityMultiBlock implements IInventory
         NBTTagCompound syncData = new NBTTagCompound();
         syncData.setInteger("MultiBlockIndex", multiBlockStructure.bPos);
         syncData.setTag("SharedData", multiBlockStructure.sharedData);
-        return new S35PacketUpdateTileEntity(this.getPos(), 1, syncData);
+        return new SPacketUpdateTileEntity(this.getPos(), 1, syncData);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
     {
         if (this.multiBlockStructure == null){this.multiBlockStructure = new CookerMultiBlock();}
         multiBlockStructure.bPos = pkt.getNbtCompound().getInteger("MultiBlockIndex");
@@ -108,7 +108,7 @@ public class CookerTileEntity extends TileEntityMultiBlock implements IInventory
     }
 
     @Override
-    public IChatComponent getDisplayName() {
+    public ITextComponent getDisplayName() {
         return null;
     }
 

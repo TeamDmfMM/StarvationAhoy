@@ -1,6 +1,5 @@
 package dmfmm.StarvationAhoy.Client.Renderer;
 
-import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
@@ -8,16 +7,11 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
-import scala.collection.parallel.ParIterableLike;
 
 /**
 * Created by DMF444 for Starvation Ahoy. All rights
@@ -94,11 +88,11 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
                 Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
                 Tessellator cake = Tessellator.getInstance();
-               // cake.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX);
+               // cake.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
                 //cake.setBrightness(1000);
 
                 //Main SQ
-                cake.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+                cake.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
                 this.draw(cake, 0, 0.6, 0, water.getMinU(), water.getMaxV());
                 this.draw(cake, 0.625, 0.6, 0, water.getMaxU(), water.getMaxV());
                 this.draw(cake, 0.625, 0, 0, water.getMaxU(), water.getMinV());
@@ -108,7 +102,7 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
 
                 GL11.glTranslated(-0.4F, -0.86, 0);
                 //Sides 1
-                cake.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+                cake.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
                 this.draw(cake, 0, 0.32, 0, water.getMinU(), water.getMaxV());
                 this.draw(cake, 0.125, 0.37, 0, water.getMaxU(), water.getMaxV());
                 this.draw(cake, 0.125, -0.1, 0, water.getMaxU(), water.getMinV());
@@ -118,7 +112,7 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
 
                 GL11.glTranslated(0.31F, -0.86, 0);
                 //Sides 2
-                cake.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+                cake.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
                 this.draw(cake, 0, 0.31, 0, water.getMinU(), water.getMaxV());
                 this.draw(cake, 0.124, 0.21, 0, water.getMaxU(), water.getMaxV());
                 this.draw(cake, 0.124, 0.1, 0, water.getMaxU(), water.getMinV());
@@ -128,7 +122,7 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
 
                 GL11.glTranslated(-0.09F, 0.599F, 0F); //0.599
                 //Sides 3
-                cake.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+                cake.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
                 this.draw(cake, -0.1, 0.126, 0, water.getMinU(), water.getMaxV());
                 this.draw(cake, 0.30, 0.126, 0, water.getMaxU(), water.getMaxV());
                 this.draw(cake, 0.24, 0, 0, water.getMaxU(), water.getMinV());
@@ -138,14 +132,14 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
 
                 GL11.glTranslated(-0.39F, -0.15F, 0F);
                 //Sides 4
-                cake.getWorldRenderer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+                cake.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
                 this.draw(cake, 0.17, 0.126, 0, water.getMinU(), water.getMaxV());
                 this.draw(cake, 0.26, 0.126, 0, water.getMaxU(), water.getMaxV());
                 this.draw(cake, 0.38, 0, 0, water.getMaxU(), water.getMinV());
                 this.draw(cake, 0, 0, 0, water.getMinU(), water.getMinV());
                 cake.draw();
 
-                //cake.getWorldRenderer().finishDrawing();
+                //cake.getBuffer().finishDrawing();
             }
         this.bindTexture(TextureMap.locationBlocksTexture);
         GL11.glPopMatrix();
@@ -160,10 +154,10 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
     }
 
     private static void draw(Tessellator tess, double x, double y, double z, float U, float V){
-        tess.getWorldRenderer().pos(x, y ,z);
-        tess.getWorldRenderer().tex(U, V);
-        tess.getWorldRenderer().color(1.0f, 1.0f, 1.0f, 1.0f);
-        tess.getWorldRenderer().endVertex();
+        tess.getBuffer().pos(x, y ,z);
+        tess.getBuffer().tex(U, V);
+        tess.getBuffer().color(1.0f, 1.0f, 1.0f, 1.0f);
+        tess.getBuffer().endVertex();
     }
 
 }

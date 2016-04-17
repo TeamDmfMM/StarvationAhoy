@@ -1,7 +1,6 @@
 package dmfmm.StarvationAhoy.Client.Gui.book_gui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
@@ -61,7 +60,8 @@ public class Buttons {
         }
         public void playPressSound(SoundHandler soundHandlerIn)
         {
-            soundHandlerIn.playSound(PositionedSoundRecord.create(new ResourceLocation("starvationahoy:pageFlip"), 1.0F));
+            //TODO: FIX ME
+            //soundHandlerIn.playSound(PositionedSoundRecord.create(new ResourceLocation("starvationahoy:pageFlip"), 1.0F));
         }
     }
 

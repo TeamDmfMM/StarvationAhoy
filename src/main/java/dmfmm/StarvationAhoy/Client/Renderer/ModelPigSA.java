@@ -3,9 +3,9 @@ package dmfmm.StarvationAhoy.Client.Renderer;
 import dmfmm.StarvationAhoy.api.Meat.ISAModel;
 import dmfmm.StarvationAhoy.api.Meat.ISpitRoastRender;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.entity.Entity;
 import net.minecraft.client.model.ModelPig;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
 
 public class ModelPigSA extends ModelPig implements ISAModel, ISpitRoastRender{

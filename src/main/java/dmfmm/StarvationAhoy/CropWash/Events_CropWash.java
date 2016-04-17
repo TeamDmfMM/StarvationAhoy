@@ -14,12 +14,12 @@ public class Events_CropWash {
     @SubscribeEvent
     public void breakCropBlock(BlockEvent.HarvestDropsEvent e){
 
-        if (ModuleCropWash.d.isReplace(e.state.getBlock())){
+        if (ModuleCropWash.d.isReplace(e.getState().getBlock())){
 
-            for (Item i : ModuleCropWash.d.toReplace(e.state.getBlock())){
-                for (ItemStack itemStack : e.drops){
+            for (Item i : ModuleCropWash.d.toReplace(e.getState().getBlock())){
+                for (ItemStack itemStack : e.getDrops()){
                     if (itemStack.getItem() == i){
-                        e.drops.set(e.drops.indexOf(itemStack), DirtyItem.createDirtyItem(itemStack));
+                        e.getDrops().set(e.getDrops().indexOf(itemStack), DirtyItem.createDirtyItem(itemStack));
                     }
                 }
             }

@@ -1,14 +1,12 @@
 package dmfmm.StarvationAhoy.CropWash.Block.tilentity;
 
-import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fluids.*;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraftforge.fluids.TileFluidHandler;
 
 /**
  * Created by mincrmatt12. Do not copy this or you will have to face
@@ -43,11 +41,11 @@ public class TileEntityCropWasher extends TileFluidHandler{
     {
         NBTTagCompound syncData = new NBTTagCompound();
         syncData.setTag("fluid", tank.writeToNBT(new NBTTagCompound()));
-        return new S35PacketUpdateTileEntity(this.pos, 1, syncData);
+        return new SPacketUpdateTileEntity(this.pos, 1, syncData);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
     {
         tank.readFromNBT(pkt.getNbtCompound().getCompoundTag("fluid"));
     }

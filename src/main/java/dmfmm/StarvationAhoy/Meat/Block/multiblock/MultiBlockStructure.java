@@ -1,12 +1,10 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-/**
- * Created by Matthew on 2/6/2015.
- */
+
 public abstract class MultiBlockStructure {
 
     public MultiBlockStructure(){

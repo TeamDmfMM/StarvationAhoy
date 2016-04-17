@@ -9,18 +9,20 @@ import dmfmm.StarvationAhoy.api.Event.MeatCutEvent;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Created by Mm12 on 2/28/2015.
@@ -82,49 +84,49 @@ public class Cooker extends BlockContainer {
         return false;
     }
 
-    public AxisAlignedBB getSelectedBoundingBox(World world, BlockPos pos)
-    {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
-        CookerTileEntity tile = (CookerTileEntity)world.getTileEntity(pos);
+        CookerTileEntity tile = (CookerTileEntity)source.getTileEntity(pos);
         if(tile.multiBlockStructure.orient == 0) {
-            return new AxisAlignedBB((double) x + this.minX,
-                    (double) y + this.minY + 1.16f,
-                    (double) z + this.minZ + 0.4389,
-                    (double) x + this.maxX,
-                    (double) y + this.maxY + 0.31f,
-                    (double) z + this.maxZ - 0.3989);
+            return new AxisAlignedBB((double) x,
+                    (double) y + 1.16f,
+                    (double) z + 0.4389,
+                    (double) x + 1,
+                    (double) y + 1 + 0.31f,
+                    (double) z + 1 - 0.3989);
         }else{
-            return new AxisAlignedBB((double) x + this.minX+ 0.4389,
-                    (double) y + this.minY + 1.16f,
-                    (double) z + this.minZ ,
-                    (double) x + this.maxX - 0.3989,
-                    (double) y + this.maxY + 0.31f,
-                    (double) z + this.maxZ);
+            return new AxisAlignedBB((double) x + 0.4389,
+                    (double) y + 1.16f,
+                    (double) z  ,
+                    (double) x + 1 - 0.3989,
+                    (double) y + 1 + 0.31f,
+                    (double) z + 1);
         }
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state)
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
     {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
         CookerTileEntity tile = (CookerTileEntity)world.getTileEntity(pos);
         if(tile.multiBlockStructure.orient == 0) {
-            return new AxisAlignedBB((double) x + this.minX,
-                    (double) y + this.minY + 1.16f,
-                    (double) z + this.minZ + 0.4389,
-                    (double) x + this.maxX,
-                    (double) y + this.maxY + 0.31f,
-                    (double) z + this.maxZ - 0.3989);
+            return new AxisAlignedBB((double) x,
+                    (double) y + 1.16f,
+                    (double) z + 0.4389,
+                    (double) x + 1,
+                    (double) y + 1 + 0.31f,
+                    (double) z + 1 - 0.3989);
         }else{
-            return new AxisAlignedBB((double) x + this.minX + 0.4389,
-                    (double) y + this.minY + 1.16f,
-                    (double) z + this.minZ,
-                    (double) x + this.maxX - 0.3989,
-                    (double) y + this.maxY + 0.31f,
-                    (double) z + this.maxZ);
+            return new AxisAlignedBB((double) x + 0.4389,
+                    (double) y + 1.16f,
+                    (double) z  ,
+                    (double) x + 1 - 0.3989,
+                    (double) y + 1 + 0.31f,
+                    (double) z + 1);
         }
     }
     
