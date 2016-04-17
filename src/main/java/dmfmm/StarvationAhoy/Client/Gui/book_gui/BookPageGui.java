@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.ResourceLocation;
@@ -329,7 +330,7 @@ public class BookPageGui extends GuiScreen {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(GL11.GL_BLEND);
         this.drawTexturedModalRect(base_x - 14, base_y - 51, 0, 0, BookPage.PAGE_WIDTH, BookPage.PAGE_HEIGHT);
-        CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(GameRegistry.findItem(element.args.get(0).split(":")[0], element.args.get(0).split(":")[1])));
+        CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(element.args.get(0).split(":")[0], element.args.get(0).split(":")[1]))));
         GL11.glDisable(GL11.GL_LIGHTING);
         r.renderItemAndEffectIntoGUI(cpx.getOutput(), base_x, base_y);
         ArrayList<ItemStack> itemStacksOld = cpx.getItems((int) (crafting_ore_recipe_counter));
@@ -427,7 +428,7 @@ public class BookPageGui extends GuiScreen {
 
     public void drawElementSmelting(BookElement element) {
         String[] itemInfo = element.args.get(0).split(":");
-        ItemStack output = new ItemStack(GameRegistry.findItem(itemInfo[0], itemInfo[1]), 1);
+        ItemStack output = new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(itemInfo[0], itemInfo[1])), 1);
         if (itemInfo.length == 3) {
             output.setItemDamage(Integer.parseInt(itemInfo[2]));
         } else {

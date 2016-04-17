@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 
 import com.google.gson.Gson;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import dmfmm.StarvationAhoy.FoodEdit.FileReader.FileLoader;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
@@ -123,7 +124,7 @@ public class ModuleUser extends Module {
 		for (ModOverrides mod : stuffies.foods){
 			String modname = mod.mod;
 			for (FoodOverride foodie : mod.foods){
-				ItemStack istack = new ItemStack(GameRegistry.findItem(modname, foodie.name));
+				ItemStack istack = new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(modname, foodie.name)));
 				food.insertFood(istack, foodie.hunger, foodie.saturation);
 			}
 		}

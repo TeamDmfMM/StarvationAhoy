@@ -101,14 +101,14 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		fillWithBlocks(world, sbb, 8, 1, 1, 8, 3, 2, Blocks.brick_block, Blocks.brick_block, false);
 		fillWithBlocks(world, sbb, 8, 1, 4, 8, 3, 5, Blocks.brick_block, Blocks.brick_block, false);
 		this.placeBlockAtCurrentPosition(world, Blocks.brick_block, 8, 3, 3, sbb);
-		int entryStair = getMetadataWithOffset(Blocks.stone_stairs, 1);
-		this.placeBlockAtCurrentPosition(world, Blocks.stone_stairs, entryStair, 9, 0, 3, sbb);
+		//int entryStair = getMetadataWithOffset(Blocks.stone_stairs, 1);
+		this.placeBlockAtCurrentPosition(world, Blocks.stone_stairs, 0, 9, 0, 3, sbb);
 		this.placeDoorCurrentPosition(world, sbb, rand, 8, 1, 3, this.coordBaseMode);
 		
 		//ROOF
 		fillWithBlocks(world, sbb, 0, 6, 3, 8, 6, 3, Blocks.planks, Blocks.planks, false);
-		int FSS = getMetadataWithOffset(Blocks.stone_stairs, 2);
-		int SSS = getMetadataWithOffset(Blocks.stone_stairs, 3);
+		int FSS = 0;
+		int SSS = 2;
 		for (int i = 0; i <= 8; i++){
 			//To Pen
 			this.placeBlockAtCurrentPosition(world, Blocks.oak_stairs, FSS, i, 6, 4, sbb);
