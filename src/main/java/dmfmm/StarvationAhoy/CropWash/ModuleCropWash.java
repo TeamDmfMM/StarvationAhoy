@@ -6,7 +6,6 @@ import dmfmm.StarvationAhoy.CropWash.Block.BlockCropWasher;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
 import dmfmm.StarvationAhoy.CropWash.Crossmod.CrossMod;
 import dmfmm.StarvationAhoy.CropWash.item.CropItemLoader;
-import dmfmm.StarvationAhoy.CropWash.modelbake.ModelBakeInjector;
 import dmfmm.StarvationAhoy.CropWash.modelbake.TextureInjector;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -41,6 +40,7 @@ public class ModuleCropWash {
         blockCropWasher.setRegistryName("cropwashblock");
         GameRegistry.register(blockCropWasher);
         GameRegistry.register(new ItemBlock(blockCropWasher).setRegistryName(blockCropWasher.getRegistryName()));
+        MinecraftForge.EVENT_BUS.register(new VillagerCropOverride());
         //GameRegistry.registerBlock(blockCropWasher, "cropwashblock");
 
     }
@@ -51,7 +51,7 @@ public class ModuleCropWash {
             return;
         }
         if (side == Side.CLIENT) {
-            MinecraftForge.EVENT_BUS.register(new ModelBakeInjector());
+            //MinecraftForge.EVENT_BUS.register(new ModelBakeInjector());
             MinecraftForge.EVENT_BUS.register(new TextureInjector());
         }
         cropItemLoader.load();

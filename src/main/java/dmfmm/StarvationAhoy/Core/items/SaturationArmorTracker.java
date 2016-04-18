@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.Core.items;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.util.EnumHand;
@@ -35,18 +36,18 @@ public class SaturationArmorTracker extends ItemArmor{
 		}else{
 			return "starvationahoy:textures/armor/body.png";
 		}
+
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack stack, EntityEquipmentSlot armorSlot, ModelBiped model) {
-		GL11.glEnable(GL11.GL_BLEND);
 		ModelBiped armorModel = null;
 		if(stack != null){
 			if(stack.getItem() instanceof SaturationArmorTracker){
 				EntityEquipmentSlot type = ((ItemArmor)stack.getItem()).armorType;
 				if(type == EntityEquipmentSlot.CHEST || type == EntityEquipmentSlot.HEAD){
-					armorModel = StarvationAhoy.proxy.getArmorModel(1);
+					armorModel = StarvationAhoy.proxy.getArmorModel(model, type);
 				}else{
 					armorModel = null;
 				}
@@ -68,7 +69,6 @@ public class SaturationArmorTracker extends ItemArmor{
 				if(entityLiving instanceof EntityPlayer) {
 					pleaseWork(entityLiving.getHeldItem(EnumHand.MAIN_HAND), entityLiving.getHeldItem(EnumHand.OFF_HAND), (EntityPlayer) entityLiving, armorModel);
 				}
-					GL11.glDisable(GL11.GL_BLEND);
 				return armorModel;
 			}
 		}

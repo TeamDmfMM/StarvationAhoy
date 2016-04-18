@@ -72,20 +72,6 @@ public class HoldingStick extends BlockContainerRotate{
 		return new AxisAlignedBB(0, 0, 0, 1, 1.30F, 1);
 	}
 
-	/*public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state) {
-		int x = pos.getX();
-		int y = pos.getY();
-		int z = pos.getZ();
-		return new AxisAlignedBB((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY +0.30F, (double)z + this.maxZ);
-	}
-	    
-	@SideOnly(Side.CLIENT)
-	public AxisAlignedBB getSelectedBoundingBox(World world, BlockPos pos) {
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-		return new AxisAlignedBB((double)x + this.minX, (double)y + this.minY, (double)z + this.minZ, (double)x + this.maxX, (double)y + this.maxY +0.30F, (double)z + this.maxZ);
-	}*/
 
     public void breakBlock(World world, BlockPos pos, IBlockState state){
         if(world.getTileEntity(pos) instanceof TileEntityMultiBlock){

@@ -6,6 +6,7 @@ import dmfmm.StarvationAhoy.Meat.MeatType;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
 import dmfmm.StarvationAhoy.api.Event.MeatCutEvent;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -16,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -43,7 +45,7 @@ public class Cooker extends BlockContainer {
         return new CookerTileEntity(null);
     }
 
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (player.inventory.mainInventory[player.inventory.currentItem] == null){
             return false;
         }
@@ -89,21 +91,24 @@ public class Cooker extends BlockContainer {
         int y = pos.getY();
         int z = pos.getZ();
         CookerTileEntity tile = (CookerTileEntity)source.getTileEntity(pos);
-        if(tile.multiBlockStructure.orient == 0) {
-            return new AxisAlignedBB((double) x,
-                    (double) y + 1.16f,
-                    (double) z + 0.4389,
-                    (double) x + 1,
-                    (double) y + 1 + 0.31f,
-                    (double) z + 1 - 0.3989);
-        }else{
-            return new AxisAlignedBB((double) x + 0.4389,
-                    (double) y + 1.16f,
-                    (double) z  ,
-                    (double) x + 1 - 0.3989,
-                    (double) y + 1 + 0.31f,
-                    (double) z + 1);
+        if(tile.multiBlockStructure != null) {
+            if (tile.multiBlockStructure.orient == 0) {
+                return new AxisAlignedBB((double) x,
+                        (double) y + 1.16f,
+                        (double) z + 0.4389,
+                        (double) x + 1,
+                        (double) y + 1 + 0.31f,
+                        (double) z + 1 - 0.3989);
+            } else {
+                return new AxisAlignedBB((double) x + 0.4389,
+                        (double) y + 1.16f,
+                        (double) z,
+                        (double) x + 1 - 0.3989,
+                        (double) y + 1 + 0.31f,
+                        (double) z + 1);
+            }
         }
+        return Block.FULL_BLOCK_AABB;
     }
 
     @SideOnly(Side.CLIENT)
@@ -130,11 +135,11 @@ public class Cooker extends BlockContainer {
         }
     }
     
-    public boolean isOpaqueCube(){
+    public boolean isOpaqueCube(IBlockState state){
         return false;
     }
 
-    public boolean isFullCube(){
+    public boolean isFullCube(IBlockState state){
         return false;
     }
 }

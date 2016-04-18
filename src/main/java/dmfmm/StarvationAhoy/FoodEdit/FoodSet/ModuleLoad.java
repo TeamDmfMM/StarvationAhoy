@@ -31,17 +31,9 @@ public class ModuleLoad {
 				} catch (NoSuchMethodException | SecurityException e) {
 					
 					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					e.printStackTrace();
 				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

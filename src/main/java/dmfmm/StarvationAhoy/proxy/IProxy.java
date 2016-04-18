@@ -2,15 +2,18 @@ package dmfmm.StarvationAhoy.proxy;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.inventory.EntityEquipmentSlot;
 
 public interface IProxy {
-	public KeyBinding debugKey = null;
+	KeyBinding debugKey = null;
 
-	public abstract void registerKeyBindings();
-	public abstract void registerRenderers();
+	 void registerKeyBindings();
+	 void registerRenderers();
 
-	public abstract void registerMeatTypes();
+	void registerMeatTypes();
 
-	public abstract ModelBiped getArmorModel(int i);
+	ModelBiped getArmorModel(ModelBiped model, EntityEquipmentSlot slot);
+
+	void initSounds();
 
 }

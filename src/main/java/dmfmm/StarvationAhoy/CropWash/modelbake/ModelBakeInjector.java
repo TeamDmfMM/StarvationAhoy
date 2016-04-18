@@ -1,5 +1,5 @@
 package dmfmm.StarvationAhoy.CropWash.modelbake;
-
+/*
 import dmfmm.StarvationAhoy.Core.Init.CropwashTextureRegistry;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
 import net.minecraft.client.resources.model.IBakedModel;
@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * Created by mincrmatt12. Do not copy this or you will have to face
  * our legal team. (dmf444)
- */
+ *
 public class ModelBakeInjector {
 
     public static final ModelBakeInjector instance = new ModelBakeInjector();
@@ -29,4 +29,4 @@ public class ModelBakeInjector {
 
     }
 
-}
+}*/

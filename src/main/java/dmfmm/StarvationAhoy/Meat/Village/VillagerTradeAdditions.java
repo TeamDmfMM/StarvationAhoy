@@ -12,9 +12,11 @@ import java.util.Random;
 
 public class VillagerTradeAdditions {
 
-	//TODO REINSERT VILLAGERS!
+
 	public static void addVillager(Side side) {
-		VillagerRegistry.instance().register(new SAButcher());
+		VillagerRegistry.VillagerProfession prof = new SAButcher();
+		VillagerRegistry.instance().register(prof);
+		new TradeHandler(prof);
 		//if(side == Side.CLIENT){VillagerRegistry.instance().registerVillagerSkin(getVID(), new ResourceLocation("starvationahoy:textures/entity/VillageButcher.png"));}
 		//VillagerRegistry.instance().registerVillageTradeHandler(getVID(), TradeHandler.INSTANCE);
 	}
@@ -63,11 +65,7 @@ public class VillagerTradeAdditions {
 	public static class SAButcher extends VillagerRegistry.VillagerProfession{
 
 		public SAButcher() {
-			super("SAButcher", "starvationahoy:textures/entity/VillageButcher.png");
-		}
-		public VillagerRegistry.VillagerCareer getCareer(int id)
-		{
-			return new TradeHandler(this);
+			super("starvationahoy:SAButcher", "starvationahoy:textures/entity/VillageButcher.png");
 		}
 	}
 }

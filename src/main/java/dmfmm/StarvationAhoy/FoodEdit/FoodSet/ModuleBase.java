@@ -8,6 +8,8 @@ import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import dmfmm.StarvationAhoy.api.FoodEdit.Module;
 
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.reflect.*;
 
@@ -15,7 +17,6 @@ public class ModuleBase extends Module {
 
 	@Override
 	public void init(KnownFoods food) {
-		// TODO Auto-generated method stub
 		
 		int percentage = CRef.getFoodPrecent();
 		
@@ -25,7 +26,7 @@ public class ModuleBase extends Module {
 				
 				//SALog.fatal(Item.itemRegistry.getNameForObject(foo).toString());
 				try {
-					int effect = (int) FieldUtils.readField(foo.getClass().getDeclaredField("potionId"), foo, true);
+					PotionEffect effect = (PotionEffect) FieldUtils.readField(foo.getClass().getDeclaredField("potionId"), foo, true);
 					int duration = (int) FieldUtils.readField(foo.getClass().getDeclaredField("potionDuration"), foo, true);
 					int amplifier = (int) FieldUtils.readField(foo.getClass().getDeclaredField("potionAmplifier"), foo, true);
 					float prob = (float) FieldUtils.readField(foo.getClass().getDeclaredField("potionEffectProbability"), foo, true);
@@ -34,20 +35,15 @@ public class ModuleBase extends Module {
 					
 					//SALog.info("Potion data for: " + foo.getUnlocalizedName() + " Effect: " + effect + " Duration: " + duration + " Amplifier: " + amplifier + " Prob: " + prob);
 					
-					KnownEffects.addEffect(foo, effect, duration, amplifier, prob);
+					KnownEffects.addEffect(foo, Potion.getIdFromPotion(effect.getPotion()), duration, amplifier, prob);
 					}
 					
 				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
+
 					SALog.error("Could not extract potion data for: " + foo.getUnlocalizedName());
 					
-				} catch (NoSuchFieldException e) {
-					// TODO Auto-generated catch block
-					
-				} catch (SecurityException e) {
-					// TODO Auto-generated catch block
-					
-					
+				} catch (NoSuchFieldException | SecurityException e) {
+
 					SALog.error("Could not extract potion data for: " + foo.getUnlocalizedName());
 				}
 

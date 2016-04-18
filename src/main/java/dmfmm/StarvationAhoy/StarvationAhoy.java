@@ -102,6 +102,7 @@ public class StarvationAhoy {
 			OBJLoader.INSTANCE.addDomain(ModInfo.MOD_ID);
 			MinecraftForge.EVENT_BUS.register(new OverlaySaturationBar(Minecraft.getMinecraft()));
 		}
+		proxy.initSounds();
 	}
 	
 	@EventHandler

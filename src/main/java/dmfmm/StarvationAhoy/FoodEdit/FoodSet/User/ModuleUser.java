@@ -24,7 +24,6 @@ public class ModuleUser extends Module {
 
 	@Override
 	public void init(KnownFoods food) {
-		// TODO Auto-generated method stub
 		File stuufs_dump = new File(FileLoader.getCfgPath(), "food_dump.json");
 		Overrides allFoods = new Overrides();
 		Map<String, ArrayList<FoodOverride>> mods = new HashMap<>();
@@ -116,7 +115,6 @@ public class ModuleUser extends Module {
 		try {
 			buff = new BufferedReader(new FileReader(stuufs));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			buff = null;
 			return;
 		}

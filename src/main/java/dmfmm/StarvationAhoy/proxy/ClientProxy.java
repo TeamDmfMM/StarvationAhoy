@@ -1,7 +1,9 @@
 package dmfmm.StarvationAhoy.proxy;
 
+import dmfmm.StarvationAhoy.Core.Init.SASoundEvent;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -21,19 +23,24 @@ import org.lwjgl.input.Keyboard;
 public class ClientProxy extends CommonProxy{
 
     @Override
-    public ModelBiped getArmorModel(int type) {
-        switch(type){
-            case 0:
-                return null;
-            case 1:
+    public ModelBiped getArmorModel(ModelBiped model, EntityEquipmentSlot slot) {
+        switch(slot){
+            case HEAD:
+                return model;
+            case CHEST:
                 return new HTArmor();
             default:
                 return null;
         }
     }
 
+    @Override
+    public void initSounds() {
+        SASoundEvent.init();
+    }
 
-	@Override
+
+    @Override
 	public void registerKeyBindings() {
 
 		debugKey = new KeyBinding("starvationahoy.key.dietdebug.desc", Keyboard.KEY_F4, "starvationahoy.key.category");

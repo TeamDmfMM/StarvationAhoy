@@ -56,8 +56,7 @@ public class PacketResponseNewFoods implements IMessage {
             NBTTagCompound info = new NBTTagCompound();
             ArrayList<Object> food = foods.get(i);
             if(food.size() == 3){
-                //TODO: CHECK THIS
-                info.setString("item", ((ItemStack)food.get(0)).getItem().getUnlocalizedName());
+                info.setString("item", ((ItemStack)food.get(0)).getItem().getRegistryName().toString());
                 info.setInteger("meta", ((ItemStack)food.get(0)).getMetadata());
                 info.setInteger("stacksize", ((ItemStack)food.get(0)).stackSize);
                 if(((ItemStack) food.get(0)).hasTagCompound()) {

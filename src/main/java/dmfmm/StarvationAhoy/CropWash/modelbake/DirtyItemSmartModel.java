@@ -1,226 +1,220 @@
 package dmfmm.StarvationAhoy.CropWash.modelbake;
 
-import com.google.common.primitives.Ints;
+
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
+import dmfmm.StarvationAhoy.CropWash.item.DirtyItem;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
+import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.item.Item;
+import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import org.lwjgl.util.vector.Vector3f;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.client.model.*;
+import net.minecraftforge.common.model.IModelPart;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.TRSRTransformation;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.vecmath.Matrix4f;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by mincrmatt12. Do not copy this or you will have to face
  * our legal team. (dmf444)
  */
-public class DirtyItemSmartModel implements ISmartItemModel {
-    String dirtyOverlay = "starvationahoy:items/dirty_overlay", dirtyOverlayBack ="starvationahoy:items/dirty_overlay_back";
-    Item current = null;
+public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetexturableModel {
 
-    IBakedModel exist;
+    DirtyItem nbtFood;
+    ArrayList<String> nbtFoodAddivites;
 
+    private static final String BASEIMGLOC = "starvationahoy:items/dirty_overlay";
 
+    static DirtyItemSmartModel MODEL = new DirtyItemSmartModel();
 
-    public IBakedModel handleItemState(ItemStack stack) {
-        current =  ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag("Original")).getItem();
-        exist = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag("Original")));
+    public DirtyItemSmartModel() {
+        this("dirty_item", new ArrayList<String>());
+    }
 
+    public DirtyItemSmartModel(String nbtFood, ArrayList<String> strings) {
+        this.nbtFood = (DirtyItem) ModuleCropWash.cropItemLoader.items.get("dirty_item");
+        this.nbtFoodAddivites = strings;
+    }
+
+    @Override
+    public IModel process(ImmutableMap<String, String> customData) {
+
+        ArrayList<String> strings = new ArrayList<>();
+
+        if (customData.containsKey("data")) {
+            strings.addAll(Arrays.asList(customData.get("data").split(";")));
+        }
+        return new DirtyItemSmartModel("dirty_item", strings);
+    }
+
+    @Override
+    public Collection<ResourceLocation> getDependencies() {
+        return ImmutableList.of();
+    }
+
+    @Override
+    public Collection<ResourceLocation> getTextures() {
+        ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
+        builder.add(new ResourceLocation("minecraft:carrot"));
+        builder.add(new ResourceLocation(BASEIMGLOC));
+        return builder.build();
+    }
+
+    @Override
+    public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+        ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
+        TRSRTransformation transform = state.apply(Optional.<IModelPart>absent()).or(TRSRTransformation.identity());
+
+        TextureAtlasSprite base = bakedTextureGetter.apply(new ResourceLocation("minecraft:carrot"));
+        ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
+
+        ImmutableList.Builder<ResourceLocation> objectBuilder = ImmutableList.builder();
+        objectBuilder.add(new ResourceLocation("minecraft:carrot"));
+            try {
+                ResourceLocation r = new ResourceLocation(BASEIMGLOC);
+                objectBuilder.add(r);
+            }
+            catch (NullPointerException e) {
+
+            }
+
+        IBakedModel model = new ItemLayerModel(objectBuilder.build()).bake(state, format, bakedTextureGetter);
+        builder.addAll(model.getQuads(null, null, 0));
+
+        return new BakedDirtyItemModel(this, builder.build(), base, format, transformMap);
+    }
+
+    @Override
+    public IModelState getDefaultState() {
+        return TRSRTransformation.identity();
+    }
+
+    @Override
+    public IModel retexture(ImmutableMap<String, String> textures) {
         return this;
     }
 
-    @Override
-    public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) {
-        return getQuadsForT();
-    }
+    private static final class BakedNBTFoodOverrideHandler extends ItemOverrideList {
 
-    @Override
-    public List<BakedQuad> getGeneralQuads() {
-        return exist.getGeneralQuads();
-    }
+        public static final BakedNBTFoodOverrideHandler INSTANCE = new BakedNBTFoodOverrideHandler();
 
-    @Override
-    public boolean isAmbientOcclusion() {
-        return false;
-    }
-
-    @Override
-    public boolean isGui3d() {
-        return false;
-    }
-
-    @Override
-    public boolean isBuiltInRenderer() {
-        return false;
-    }
-
-    @Override
-    public TextureAtlasSprite getParticleTexture() {
-        return Minecraft.getMinecraft().getTextureMapBlocks()
-                .getAtlasSprite("minecraft:blocks/diamond_block");
-    }
-
-    @Override
-    public ItemCameraTransforms getItemCameraTransforms() {
-        ItemCameraTransforms cameraTransforms = new ItemCameraTransforms(
-                new ItemTransformVec3f(new Vector3f(-90.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.05F, -0.2F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp
-                new ItemTransformVec3f(new Vector3f(0F, -135F, 25.0F), new Vector3f(0F, 0.3F, 0.1F), new Vector3f(1.7F, 1.7F, 1.7F)),//fp
-                new ItemTransformVec3f(new Vector3f(0F, 0F, 0.0F), new Vector3f(), new Vector3f(1.2F, 1.2F, 1.2F)),//head
-                new ItemTransformVec3f(new Vector3f(0F, 0F, 0.0F), new Vector3f(0.0F, 0.0F, 0.F), new Vector3f(1.0F, 1.0F, 1.0F)),//gui
-                new ItemTransformVec3f(new Vector3f(0F, -190F, 0.0F), new Vector3f(0.0F, -0.05F, 0.F), new Vector3f(1.2F, 1.2F, 1.2F)),//ground
-                new ItemTransformVec3f(new Vector3f(0F, -190F, 0.0F), new Vector3f(0.0F, -0.05F, 0.F), new Vector3f(1.2F, 1.2F, 1.2F))//fixed
-        );
-        return cameraTransforms;
-    }
-
-    public List<BakedQuad> getQuadsForT() {
-
-
-        final float center1 = 0.5f;
-        final float center2 = 0.5f;
-        final float size = 1.0f;
-
-        final float BUILTIN_GEN_ITEM_THICKNESS = 1/16.0F;
-        final float BUILTIN_GEN_ITEM_Z_CENTRE = 0.5F;
-        final float BUILTIN_GEN_ITEM_Z_MAX = BUILTIN_GEN_ITEM_Z_CENTRE + BUILTIN_GEN_ITEM_THICKNESS / 2.0F;
-        final float BUILTIN_GEN_ITEM_Z_MIN = BUILTIN_GEN_ITEM_Z_CENTRE - BUILTIN_GEN_ITEM_THICKNESS / 2.0F;
-        final float SOUTH_FACE_POSITION = 1.0F;  // the south face of the cube is at z = 1.0F
-        final float NORTH_FACE_POSITION = 0.0F;  // the north face of the cube is at z = 0.0F
-
-        final float DISTANCE_BEHIND_SOUTH_FACE = SOUTH_FACE_POSITION - BUILTIN_GEN_ITEM_Z_MAX;
-        final float DISTANCE_BEHIND_NORTH_FACE = BUILTIN_GEN_ITEM_Z_MIN - NORTH_FACE_POSITION;
-
-        int r0 = 0;
-
-        float delta = 0.001f;
-
-        TextureAtlasSprite t2 = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(dirtyOverlay);
-        TextureAtlasSprite t3 = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(dirtyOverlayBack);
-
-
-        BakedQuad front = createBakedQuadForFace(center1, size,//- 0.031f
-                center2, size, -DISTANCE_BEHIND_SOUTH_FACE + delta,
-                r0,
-                t2,
-                EnumFacing.SOUTH);
-
-        BakedQuad back = createBakedQuadForFace(center1-0.075f, size,
-                center2-0.125f, size,
-                -DISTANCE_BEHIND_NORTH_FACE + delta,
-                r0, t2, EnumFacing.NORTH);
-
-        List<BakedQuad> quad = new ArrayList<>();
-        quad.add(front);
-        quad.add(back);
-        return quad;
-    }
-
-    private BakedQuad createBakedQuadForFace(float centreLR, float width, float centreUD, float height, float forwardDisplacement,
-                                             int itemRenderLayer,
-                                             TextureAtlasSprite texture, EnumFacing face)
-    {
-        float x1, x2, x3, x4;
-        float y1, y2, y3, y4;
-        float z1, z2, z3, z4;
-        final float CUBE_MIN = 0.0F;
-        final float CUBE_MAX = 1.0F;
-        float u = 16;
-        float v = 16;
-        float u4 = 0;
-        float u2 = 16;
-        float u3 = 0;
-        float v2 = 0;
-        float v3 = 0;
-        float v4 = 16;
-
-        switch (face) {
-            case UP: {
-                x1 = x2 = centreLR + width/2.0F;
-                x3 = x4 = centreLR - width/2.0F;
-                z1 = z4 = centreUD + height/2.0F;
-                z2 = z3 = centreUD - height/2.0F;
-                y1 = y2 = y3 = y4 = CUBE_MAX + forwardDisplacement;
-                break;
-            }
-            case DOWN: {
-                x1 = x2 = centreLR + width/2.0F;
-                x3 = x4 = centreLR - width/2.0F;
-                z1 = z4 = centreUD - height/2.0F;
-                z2 = z3 = centreUD + height/2.0F;
-                y1 = y2 = y3 = y4 = CUBE_MIN - forwardDisplacement;
-                break;
-            }
-            case WEST: {
-                z1 = z2 = centreLR + width/2.0F;
-                z3 = z4 = centreLR - width/2.0F;
-                y1 = y4 = centreUD - height/2.0F;
-                y2 = y3 = centreUD + height/2.0F;
-                x1 = x2 = x3 = x4 = CUBE_MIN - forwardDisplacement;
-                break;
-            }
-            case EAST: {
-                z1 = z2 = centreLR - width/2.0F;
-                z3 = z4 = centreLR + width/2.0F;
-                y1 = y4 = centreUD - height/2.0F;
-                y2 = y3 = centreUD + height/2.0F;
-                x1 = x2 = x3 = x4 = CUBE_MAX + forwardDisplacement;
-                break;
-            }
-            case NORTH: {
-                x1 = x2 = centreLR - width/2.0F;
-                x3 = x4 = centreLR +  width/2.0F;
-                y1 = y4 = centreUD - height/2.0F;
-                y2 = y3 = centreUD + height/2.0F;
-                z1 = z2 = z3 = z4 = CUBE_MIN - forwardDisplacement;
-                u = 16;
-                v = 0;
-                u4 = 0;
-                u2 = 16;
-                u3 = 0;
-                v2 = 16;
-                v3 = 16;
-                v4 = 0;
-                break;
-            }
-            case SOUTH: {
-                x1 = x2 = centreLR + width/2.0F;
-                x3 = x4 = centreLR - width/2.0F;
-                y1 = y4 = centreUD - height/2.0F;
-                y2 = y3 = centreUD + height/2.0F;
-                z1 = z2 = z3 = z4 = CUBE_MAX + forwardDisplacement;
-                break;
-            }
-            default: {
-                assert false : "Unexpected facing in createBakedQuadForFace:" + face;
-                return null;
-            }
+        public BakedNBTFoodOverrideHandler() {
+            super (ImmutableList.<ItemOverride>of());
         }
 
+        @Override
+        public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
 
+            BakedDirtyItemModel model = (BakedDirtyItemModel) originalModel;
 
-        return new BakedQuad(Ints.concat(vertexToInts(x1, y1, z1, Color.WHITE.getRGB(), texture, u, v),
-                vertexToInts(x2, y2, z2, Color.WHITE.getRGB(), texture, u2, v2),
-                vertexToInts(x3, y3, z3, Color.WHITE.getRGB(), texture, u3, v3),
-                vertexToInts(x4, y4, z4, Color.WHITE.getRGB(), texture, u4, v4)),
-                itemRenderLayer, face);
+            ArrayList<String> dtat = new ArrayList<>();
+            for (String key : stack.getTagCompound().getKeySet()){
+                if (stack.getTagCompound().hasKey(key, 1)) {
+                    if (stack.getTagCompound().getBoolean(key)){
+                        dtat.add(key);
+                    }
+                }
+            }
+
+            if (!model.cache.containsKey(dtat)) {
+                Joiner joiner = Joiner.on(";");
+                IModel model2 = model.parent.process(ImmutableMap.of("food", model.parent.nbtFood.getUnlocalizedName(), "data", joiner.join(dtat)));
+                Function<ResourceLocation, TextureAtlasSprite> textureGetter;
+                textureGetter = new Function<ResourceLocation, TextureAtlasSprite>()
+                {
+                    public TextureAtlasSprite apply(ResourceLocation location)
+                    {
+                        return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+                    }
+                };
+
+                IBakedModel bakedModel = model2.bake(new SimpleModelState(model.transforms), model.format, textureGetter);
+                model.cache.put(dtat, bakedModel);
+                return bakedModel;
+            }
+
+            return model.cache.get(dtat);
+
+        }
     }
-    private int[] vertexToInts(float x, float y, float z, int color, TextureAtlasSprite texture, float u, float v)
+
+    public static class BakedDirtyItemModel implements IPerspectiveAwareModel {
+
+        private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
+        private final DirtyItemSmartModel parent;
+        private final Map<ArrayList<String>, IBakedModel> cache;
+        private final ImmutableList<BakedQuad> quads;
+        private final TextureAtlasSprite particle;
+        private final VertexFormat format;
+
+        public BakedDirtyItemModel(DirtyItemSmartModel parent, ImmutableList<BakedQuad> quads, TextureAtlasSprite particle, VertexFormat fmt, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
+            this.quads = quads;
+            this.particle = particle;
+            this.format = fmt;
+            this.parent = parent;
+            this.transforms = transforms;
+            this.cache = Maps.newHashMap();
+        }
+
+        @Override
+        public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+            return MapWrapper.handlePerspective(this, transforms, cameraTransformType);
+        }
+
+        @Override
+        public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand)
+        {
+            if(side == null) return quads;
+            return ImmutableList.of();
+        }
+
+        public boolean isAmbientOcclusion() { return true;  }
+        public boolean isGui3d() { return false; }
+        public boolean isBuiltInRenderer() { return false; }
+        public TextureAtlasSprite getParticleTexture() { return particle; }
+        public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
+
+        @Override
+        public ItemOverrideList getOverrides() {
+            return BakedNBTFoodOverrideHandler.INSTANCE;
+        }
+    }
+    public enum ModelLodaer implements ICustomModelLoader
     {
-        return new int[] {
-                Float.floatToRawIntBits(x),
-                Float.floatToRawIntBits(y),
-                Float.floatToRawIntBits(z),
-                color,
-                Float.floatToRawIntBits(texture.getInterpolatedU(u)),
-                Float.floatToRawIntBits(texture.getInterpolatedV(v)),
-                0
-        };
-    }
+        instance;
 
+        @Override
+        public boolean accepts(ResourceLocation modelLocation)
+        {
+            return modelLocation.getResourceDomain().equals("starvationahoy") && modelLocation.getResourcePath().contains("dirtymodel");
+        }
+
+        @Override
+        public IModel loadModel(ResourceLocation modelLocation) throws IOException
+        {
+            return MODEL;
+        }
+
+        @Override
+        public void onResourceManagerReload(IResourceManager resourceManager)
+        {
+            // no need to clear cache since we create a new model instance
+        }
+    }
 }

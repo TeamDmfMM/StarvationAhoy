@@ -1,11 +1,14 @@
 package dmfmm.StarvationAhoy.Client.Gui;
 
+import dmfmm.StarvationAhoy.Core.Init.SASoundEvent;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.translation.I18n;
 
 /**
@@ -47,7 +50,6 @@ public class SelectionButton extends GuiButton{
 
     public void playPressSound(SoundHandler soundHandlerIn)
     {
-        //TODO: FIX THIS
-        //soundHandlerIn.playSound(PositionedSoundRecord.getMasterRecord(new ResourceLocation("starvationahoy:pageFlip"), 1.0F));
+        soundHandlerIn.playSound(PositionedSoundRecord.getMasterRecord(SASoundEvent.pageFlip, 1.0F));
     }
 }

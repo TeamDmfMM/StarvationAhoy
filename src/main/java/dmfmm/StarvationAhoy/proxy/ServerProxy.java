@@ -9,6 +9,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 
 public class ServerProxy extends CommonProxy{
@@ -55,8 +56,13 @@ public class ServerProxy extends CommonProxy{
     }
 
 
-    public ModelBiped getArmorModel(int type) {
+    public ModelBiped getArmorModel(ModelBiped modelBiped, EntityEquipmentSlot slot) {
         return null;
+    }
+
+    @Override
+    public void initSounds() {
+
     }
 
 

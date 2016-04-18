@@ -25,6 +25,7 @@ public class DirtyBlocks {
         addReplace(Blocks.carrots, Items.carrot);
         addReplace(Blocks.potatoes, Items.poisonous_potato, Items.potato);
         addReplace(Blocks.wheat, Items.wheat);
+        addReplace(Blocks.beetroots, Items.beetroot);
 
     }
 

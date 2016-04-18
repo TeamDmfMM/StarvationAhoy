@@ -40,8 +40,6 @@ public class StarvationAhoyProvider implements IStarvationAhoyProvider {
 		ModuleMeat.registry.onMeatType(id, modelEntity, normalTexture, skinnedTexture, rottenTexture);
 
 
-		// TODO Auto-generated method stub
-
 	}
 
 
