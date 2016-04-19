@@ -7,8 +7,6 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
-import dmfmm.StarvationAhoy.CropWash.item.DirtyItem;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.*;
@@ -16,6 +14,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -28,7 +27,9 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.vecmath.Matrix4f;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mincrmatt12. Do not copy this or you will have to face
@@ -36,31 +37,31 @@ import java.util.*;
  */
 public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetexturableModel {
 
-    DirtyItem nbtFood;
-    ArrayList<String> nbtFoodAddivites;
+    private final IBakedModel model;
+    String drawing;
 
     private static final String BASEIMGLOC = "starvationahoy:items/dirty_overlay";
 
     static DirtyItemSmartModel MODEL = new DirtyItemSmartModel();
 
     public DirtyItemSmartModel() {
-        this("dirty_item", new ArrayList<String>());
+        this("minecraft:carrot");
     }
 
-    public DirtyItemSmartModel(String nbtFood, ArrayList<String> strings) {
-        this.nbtFood = (DirtyItem) ModuleCropWash.cropItemLoader.items.get("dirty_item");
-        this.nbtFoodAddivites = strings;
+    public DirtyItemSmartModel(String dr) {
+        this.drawing = dr;
+        model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(dr)), 1));
     }
 
     @Override
     public IModel process(ImmutableMap<String, String> customData) {
 
-        ArrayList<String> strings = new ArrayList<>();
+        String strings = "";
 
         if (customData.containsKey("data")) {
-            strings.addAll(Arrays.asList(customData.get("data").split(";")));
+            strings = customData.get("data");
         }
-        return new DirtyItemSmartModel("dirty_item", strings);
+        return new DirtyItemSmartModel(strings);
     }
 
     @Override
@@ -71,7 +72,6 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
     @Override
     public Collection<ResourceLocation> getTextures() {
         ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
-        builder.add(new ResourceLocation("minecraft:carrot"));
         builder.add(new ResourceLocation(BASEIMGLOC));
         return builder.build();
     }
@@ -81,23 +81,22 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
         TRSRTransformation transform = state.apply(Optional.<IModelPart>absent()).or(TRSRTransformation.identity());
 
-        TextureAtlasSprite base = bakedTextureGetter.apply(new ResourceLocation("minecraft:carrot"));
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
 
         ImmutableList.Builder<ResourceLocation> objectBuilder = ImmutableList.builder();
-        objectBuilder.add(new ResourceLocation("minecraft:carrot"));
+
             try {
                 ResourceLocation r = new ResourceLocation(BASEIMGLOC);
                 objectBuilder.add(r);
             }
-            catch (NullPointerException e) {
+            catch (NullPointerException ignored) {
 
             }
-
         IBakedModel model = new ItemLayerModel(objectBuilder.build()).bake(state, format, bakedTextureGetter);
+        builder.addAll(this.model.getQuads(null, null, 0));
         builder.addAll(model.getQuads(null, null, 0));
 
-        return new BakedDirtyItemModel(this, builder.build(), base, format, transformMap);
+        return new BakedDirtyItemModel(this, builder.build(), this.model.getParticleTexture(), format, transformMap);
     }
 
     @Override
@@ -123,18 +122,11 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
 
             BakedDirtyItemModel model = (BakedDirtyItemModel) originalModel;
 
-            ArrayList<String> dtat = new ArrayList<>();
-            for (String key : stack.getTagCompound().getKeySet()){
-                if (stack.getTagCompound().hasKey(key, 1)) {
-                    if (stack.getTagCompound().getBoolean(key)){
-                        dtat.add(key);
-                    }
-                }
-            }
+            String dtat = Item.itemRegistry.getNameForObject(ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag("Original")).getItem()).toString();
 
             if (!model.cache.containsKey(dtat)) {
                 Joiner joiner = Joiner.on(";");
-                IModel model2 = model.parent.process(ImmutableMap.of("food", model.parent.nbtFood.getUnlocalizedName(), "data", joiner.join(dtat)));
+                IModel model2 = model.parent.process(ImmutableMap.of("data", dtat));
                 Function<ResourceLocation, TextureAtlasSprite> textureGetter;
                 textureGetter = new Function<ResourceLocation, TextureAtlasSprite>()
                 {
@@ -158,7 +150,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
 
         private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
         private final DirtyItemSmartModel parent;
-        private final Map<ArrayList<String>, IBakedModel> cache;
+        private final Map<String, IBakedModel> cache;
         private final ImmutableList<BakedQuad> quads;
         private final TextureAtlasSprite particle;
         private final VertexFormat format;

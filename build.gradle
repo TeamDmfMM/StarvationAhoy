@@ -30,6 +30,7 @@ group= "dmfmm.StarvationAhoy" // http://maven.apache.org/guides/mini/guide-namin
 archivesBaseName = "StarvationAhoy"
 
 minecraft {
+
     version = config.minecraft_version + "-" + config.forge_version
 
     replaceIn "Core/lib/ModInfo.java"

@@ -1,0 +1,12 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "inventory": {
+      "model": "starvationahoy:dirtymodel",
+      "textures": {
+
+      },
+      "transform": "forge:default-item",
+    }
+  }
+}
