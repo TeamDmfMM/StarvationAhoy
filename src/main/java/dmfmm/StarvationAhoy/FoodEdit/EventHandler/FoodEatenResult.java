@@ -20,7 +20,9 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
@@ -28,18 +30,20 @@ import net.minecraftforge.fml.common.network.handshake.NetworkDispatcher;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class FoodEatenResult
 {
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void foodTickEvent(LivingEntityUseItemEvent.Tick e){
 		if(e.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer entityPlayer = (EntityPlayer)e.getEntityLiving();
 			ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-			if (e.getDuration() <= 1) {
+			if (e.getDuration() <= 2) {
 				if (KnownFoods.getFoodHunger(e.getItem()) != -1) {
 					this.onFinish(e);
 					e.setCanceled(true);
@@ -74,7 +78,7 @@ public class FoodEatenResult
 					}
 				}
 
-				if (e.getDuration() - 1 == 0 && !entityPlayer.worldObj.isRemote) {
+				if (e.getDuration() - 2 == 0 && !entityPlayer.worldObj.isRemote) {
 					if (KnownFoods.getFoodHunger(e.getItem()) != -1) {
 						this.onFinish(e);
 						e.setCanceled(true);
@@ -103,7 +107,20 @@ public class FoodEatenResult
 				entityPlayer.playSound(SoundEvents.entity_generic_eat, 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
 				Minecraft.getMinecraft().theWorld.playSound((EntityPlayer)null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.entity_player_burp, SoundCategory.PLAYERS, 0.5F, Minecraft.getMinecraft().theWorld.rand.nextFloat() * 0.1F + 0.9F);
 				}
-				if (KnownEffects.effects.keySet().contains(e.getItem().getItem())){
+
+			try{
+				Method[] methods = usingFood.getClass().getMethods();
+				SALog.fatal(methods.length);
+				Method method = usingFood.getClass().getDeclaredMethod("onFoodEaten", ItemStack.class, World.class, EntityPlayer.class);
+				method.setAccessible(true);
+				method.invoke(usingFood, e.getItem(), entityPlayer.getEntityWorld(), entityPlayer);
+				//usingFood.onFoodEaten(usingFood, entityPlayer.getEntityWorld(), entityPlayer);
+			} catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
+				ex.printStackTrace();
+			}
+
+			//TODO: REMOVE REDUNDANT ARRAY
+			/*if (KnownEffects.effects.keySet().contains(e.getItem().getItem())){
 					ArrayList<Double> data = KnownEffects.effects.get(e.getItem().getItem());
 					Double prob = data.get(3);
 					if (rand.nextFloat() < prob){
@@ -113,7 +130,8 @@ public class FoodEatenResult
 						PotionEffect effecter = new PotionEffect(Potion.getPotionById(potion), duration, amplifier);
 						entityPlayer.addPotionEffect(effecter);
 					}
-				}
+				}*/
+
 	            if (itemstack != e.getItem() || itemstack != null && itemstack.stackSize != i)
 	            {
 	                entityPlayer.inventory.mainInventory[entityPlayer.inventory.currentItem] = itemstack;

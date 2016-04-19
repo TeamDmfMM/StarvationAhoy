@@ -27,16 +27,17 @@ public class ModuleBase extends Module {
 				//SALog.fatal(Item.itemRegistry.getNameForObject(foo).toString());
 				try {
 					PotionEffect effect = (PotionEffect) FieldUtils.readField(foo.getClass().getDeclaredField("potionId"), foo, true);
-					int duration = (int) FieldUtils.readField(foo.getClass().getDeclaredField("potionDuration"), foo, true);
-					int amplifier = (int) FieldUtils.readField(foo.getClass().getDeclaredField("potionAmplifier"), foo, true);
-					float prob = (float) FieldUtils.readField(foo.getClass().getDeclaredField("potionEffectProbability"), foo, true);
-					if (prob != 0.0F){
-						
-					
-					//SALog.info("Potion data for: " + foo.getUnlocalizedName() + " Effect: " + effect + " Duration: " + duration + " Amplifier: " + amplifier + " Prob: " + prob);
-					
-					KnownEffects.addEffect(foo, Potion.getIdFromPotion(effect.getPotion()), duration, amplifier, prob);
+					if (effect != null) {
+						int duration = effect.getDuration();
+						int amplifier = effect.getAmplifier();
+						float prob = (float) FieldUtils.readField(foo.getClass().getDeclaredField("potionEffectProbability"), foo, true);
+						if (prob != 0.0F){
+							//SALog.info("Potion data for: " + foo.getUnlocalizedName() + " Effect: " + effect + " Duration: " + duration + " Amplifier: " + amplifier + " Prob: " + prob);
+
+							KnownEffects.addEffect(foo, Potion.getIdFromPotion(effect.getPotion()), duration, amplifier, prob);
+						}
 					}
+
 					
 				} catch (IllegalAccessException e) {
 
