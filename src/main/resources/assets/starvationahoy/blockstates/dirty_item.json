@@ -6,7 +6,7 @@
       "textures": {
 
       },
-      "transform": "forge:default-item",
+      "transform": "forge:default-item"
     }
   }
 }
