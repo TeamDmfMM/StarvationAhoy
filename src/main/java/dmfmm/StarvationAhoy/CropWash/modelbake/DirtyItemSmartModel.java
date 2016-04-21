@@ -56,7 +56,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
     @Override
     public IModel process(ImmutableMap<String, String> customData) {
 
-        String strings = "";
+        String strings = "minecraft:carrot";
 
         if (customData.containsKey("data")) {
             strings = customData.get("data");
