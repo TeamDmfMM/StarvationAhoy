@@ -25,7 +25,6 @@ public class BookElement {
         }
 
         public Token(String value, String data, int type){
-
             this.value = value;
             this.data = data;
             this.type = type;
