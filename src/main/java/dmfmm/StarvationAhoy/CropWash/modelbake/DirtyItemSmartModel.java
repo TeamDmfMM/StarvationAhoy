@@ -194,7 +194,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         @Override
         public boolean accepts(ResourceLocation modelLocation)
         {
-            return modelLocation.getResourceDomain().equals("starvationahoy") && modelLocation.getResourcePath().contains("dirtymodel");
+            return modelLocation.getResourceDomain().equals("starvationahoy") && modelLocation.getResourcePath().contains("dirty_item");
         }
 
         @Override
