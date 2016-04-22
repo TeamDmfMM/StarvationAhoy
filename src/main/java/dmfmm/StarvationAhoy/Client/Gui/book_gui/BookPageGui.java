@@ -27,9 +27,9 @@ import java.util.Objects;
  * our legal team. (dmf444)
  */
 public class BookPageGui extends GuiScreen {
-    
+
     public BookPageGui self;
-    
+
     public Map<int[], String> links = new HashMap<>();
 
     public static Map<String, String> change_newline_to_newline = new HashMap<>();
@@ -68,13 +68,12 @@ public class BookPageGui extends GuiScreen {
 
     public BookPageGui(String id) {
         //id = "test";
-        this.self = this;
         String thingy = "starvationahoy.book_data.page." + id;
         String data = I18n.translateToLocal(thingy);
         myPage = new BookPage();
         myPage.digestString(data);
         try {
-            myPage.rasterizeToLayout(self);
+            myPage.rasterizeToLayout(this);
             numpages = myPage.numpages;
         } catch (InvocationTargetException e) {
             e.printStackTrace();
@@ -93,10 +92,10 @@ public class BookPageGui extends GuiScreen {
         System.out.println(c);
         System.out.println(a);
         System.out.println(b);
-        self.drawDefaultBackground();
-        self.drawBackGround(c);
+        this.drawDefaultBackground();
+        this.drawBackGround(c);
 
-        self.drawAllElements();
+        this.drawAllElements();
         GL11.glEnable(GL11.GL_LIGHTING);
         super.drawScreen(a, b, c);
         crafting_ore_recipe_counter += c;
@@ -104,25 +103,25 @@ public class BookPageGui extends GuiScreen {
     }
 
     public void initGui() {
-        int x = (int) (self.width - 256) / 2;
-        int y = (int) (self.height - 202) / 2;
+        int x = (int) (this.width - 256) / 2;
+        int y = (int) (this.height - 202) / 2;
         ox = x;
         oy = y;
-        self.buttonList.add(new Buttons.NextPage(0, ox + Buttons.ARROW_LEFT_POS_X + 7, oy + Buttons.ARROW_LEFT_POS_Y - 10, false));
-        self.buttonList.add(new Buttons.NextPage(1, ox + Buttons.ARROW_NEXT_POS_X, oy + Buttons.ARROW_NEXT_POS_Y - 20, true));
+        this.buttonList.add(new Buttons.NextPage(0, ox + Buttons.ARROW_LEFT_POS_X + 7, oy + Buttons.ARROW_LEFT_POS_Y - 10, false));
+        this.buttonList.add(new Buttons.NextPage(1, ox + Buttons.ARROW_NEXT_POS_X, oy + Buttons.ARROW_NEXT_POS_Y - 20, true));
 
     }
 
     @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
-            if (self.page - 2 > -1) {
+            if (this.page - 2 > -1) {
                 page -= 2;
             }
 
         }
         if (button.id == 1) {
-            if (self.page + 2 < self.numpages + 1) {
+            if (this.page + 2 < this.numpages + 1) {
                 page += 2;
             }
         }
@@ -130,41 +129,41 @@ public class BookPageGui extends GuiScreen {
 
     public void drawBackGround(float c) {
 
-        int x = (int) (self.width - 256) / 2;
-        int y = (int) (self.height - 202) / 2;
+        int x = (int) (this.width - 256) / 2;
+        int y = (int) (this.height - 202) / 2;
         ox = x;
         oy = y;
 
         GL11.glColor3d(1.0, 1.0, 1.0);
 
-        self.mc.getTextureManager().bindTexture(IMG_LOCACATION);
-        self.drawTexturedModalRect((int) x + 8
+        this.mc.getTextureManager().bindTexture(IMG_LOCACATION);
+        this.drawTexturedModalRect((int) x + 8
                 , (int) y, 0, 0, 250, 165);
 
 
     }
 
     public void drawAllElements() {
-        for (BookElement element : self.myPage.elements) {
+        for (BookElement element : this.myPage.elements) {
 
-            if (element.page == self.page || element.page == self.page + 1) {
+            if (element.page == this.page || element.page == this.page + 1) {
 
-                if (element.page == self.page) {
-                    x_x = ox + self.IMG_START_X_P1;
-                    y_y = oy + self.IMG_START_Y_P1;
+                if (element.page == this.page) {
+                    x_x = ox + this.IMG_START_X_P1;
+                    y_y = oy + this.IMG_START_Y_P1;
                     BookPage.PAGE_WIDTH = BookPage.PAGE_WIDTH_ORIG;
 
                 } else {
-                    x_x = ox + self.IMG_START_X_P2;
-                    y_y = oy + self.IMG_START_Y_P2;
-                    BookPage.PAGE_WIDTH += self.IMG_ACCOUNT_EXTRA_WIDTH_PAGE_2;
+                    x_x = ox + this.IMG_START_X_P2;
+                    y_y = oy + this.IMG_START_Y_P2;
+                    BookPage.PAGE_WIDTH += this.IMG_ACCOUNT_EXTRA_WIDTH_PAGE_2;
                 }
 
                 // System.out.println("Testsetstestestest");
                 try {
-                    Method drawer = self.getClass().getMethod("drawElement" + element.drawFunction, BookElement.class);
+                    Method drawer = this.getClass().getMethod("drawElement" + element.drawFunction, BookElement.class);
 
-                    drawer.invoke(self, element);
+                    drawer.invoke(this, element);
                 } catch (NoSuchMethodException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
@@ -287,13 +286,13 @@ public class BookPageGui extends GuiScreen {
             int x = element.x + x_x;
             int y = element.y + y_y;
 
-            self.mc.renderEngine.bindTexture(new ResourceLocation("starvationahoy:/textures/gui/book/BookIcons.png"));
-            self.drawTexturedModalRect(x + 3, y + 30, 0, 0, 12, 24);
-            self.drawTexturedModalRect(x + 3, y + 50, 12, 0, 12, 24);
+            this.mc.renderEngine.bindTexture(new ResourceLocation("starvationahoy:/textures/gui/book/BookIcons.png"));
+            this.drawTexturedModalRect(x + 3, y + 30, 0, 0, 12, 24);
+            this.drawTexturedModalRect(x + 3, y + 50, 12, 0, 12, 24);
             GL11.glPopMatrix();
             GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glDisable(GL11.GL_BLEND);
-            //FontRenderer fontr = self.fontRendererObj;
+            //FontRenderer fontr = this.fontRendererObj;
             fontRendererObj.setUnicodeFlag(true);
             fontRendererObj.drawStringWithShadow("Hunger Stats:", x + 19, y, 0x3333FF);
             fontRendererObj.setUnicodeFlag(false);
@@ -321,17 +320,17 @@ public class BookPageGui extends GuiScreen {
 
     public void drawElementCrafting(BookElement element) {
 
-        RenderItem r = self.itemRender;
+        RenderItem r = this.itemRender;
 
         int base_x = 20 + x_x;
         int base_y = 50 + y_y;
 
 
-        self.fontRendererObj.setUnicodeFlag(false);
-        self.mc.getTextureManager().bindTexture(new ResourceLocation("starvationahoy:/textures/gui/book/Crafting.png"));
+        this.fontRendererObj.setUnicodeFlag(false);
+        this.mc.getTextureManager().bindTexture(new ResourceLocation("starvationahoy:/textures/gui/book/Crafting.png"));
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(GL11.GL_BLEND);
-        self.drawTexturedModalRect(base_x - 14, base_y - 51, 0, 0, BookPage.PAGE_WIDTH, BookPage.PAGE_HEIGHT);
+        this.drawTexturedModalRect(base_x - 14, base_y - 51, 0, 0, BookPage.PAGE_WIDTH, BookPage.PAGE_HEIGHT);
         CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(element.args.get(0).split(":")[0], element.args.get(0).split(":")[1]))));
         GL11.glDisable(GL11.GL_LIGHTING);
         r.renderItemAndEffectIntoGUI(cpx.getOutput(), base_x, base_y);
@@ -418,7 +417,7 @@ public class BookPageGui extends GuiScreen {
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glColor3f(1.0f, 1.0f, 1.0f);
         if (element.args.size() == 5) {
-            self.drawTexturedModalRect(x_x + element.x, y_y + element.y, p, y, xw, yw);
+            this.drawTexturedModalRect(x_x + element.x, y_y + element.y, p, y, xw, yw);
         }
         else {
 
@@ -472,17 +471,17 @@ public class BookPageGui extends GuiScreen {
         int x = p_73864_1_;
         int y = p_73864_2_;
 
-        for (int[] i : self.links.keySet()) {
+        for (int[] i : this.links.keySet()) {
             if (x > i[0] && x < i[2] && y > i[1] && y < i[3]) {
 
                 page = 0;
-                String thingy = self.links.get(i);
+                String thingy = this.links.get(i);
                 links = new HashMap<>();
                 String data = I18n.translateToLocal(thingy);
                 myPage = new BookPage();
                 myPage.digestString(data);
                 try {
-                    myPage.rasterizeToLayout(self);
+                    myPage.rasterizeToLayout(this);
                     numpages = myPage.numpages;
 
                 } catch (InvocationTargetException e) {
@@ -607,20 +606,20 @@ public class BookPageGui extends GuiScreen {
         // 1 = drawSegment1
         // 2+ = drawSegment2+
 
-        self.fontRendererObj.setUnicodeFlag(true);
+        this.fontRendererObj.setUnicodeFlag(true);
 
         HashMap<String, Integer> colors = new HashMap<String, Integer>() {{
-            self.put("red", toArmorCode(255, 85, 85));
-            self.put("blue", toArmorCode(85, 85, 255));
-            self.put("green", toArmorCode(35, 255, 35));
-            self.put("orange", toArmorCode(255, 165, 0));
-            self.put("silver", toArmorCode(120, 120, 120));
-            self.put("purple", toArmorCode(128, 0, 128));
-            self.put("yellow", toArmorCode(255, 255, 0));
-            self.put("white", toArmorCode(255, 255, 255));
+            this.put("red", toArmorCode(255, 85, 85));
+            this.put("blue", toArmorCode(85, 85, 255));
+            this.put("green", toArmorCode(35, 255, 35));
+            this.put("orange", toArmorCode(255, 165, 0));
+            this.put("silver", toArmorCode(120, 120, 120));
+            this.put("purple", toArmorCode(128, 0, 128));
+            this.put("yellow", toArmorCode(255, 255, 0));
+            this.put("white", toArmorCode(255, 255, 255));
 
-            self.put("defualt", toArmorCode(255, 255, 255));
-            self.put("black", toArmorCode(0, 0, 0));
+            this.put("defualt", toArmorCode(255, 255, 255));
+            this.put("black", toArmorCode(0, 0, 0));
         }};
 
         // calculate segment
@@ -699,7 +698,7 @@ public class BookPageGui extends GuiScreen {
                             int x_displacement = fontRendererObj.getStringWidth(word) + fontRendererObj.getCharWidth(' ');
                             if (xpos + x_displacement > maximum) {
                                 xpos = element.x;
-                                ypos += self.fontRendererObj.FONT_HEIGHT;
+                                ypos += this.fontRendererObj.FONT_HEIGHT;
                                 if (drawing_link) {
                                     if (!initLists) {
 
@@ -707,7 +706,7 @@ public class BookPageGui extends GuiScreen {
                                         links.put(new int[]{line_start_x + x_x, line_start_y + y_y, line_end_x + x_x, line_end_y + y_y}, link_id);
                                         line_start_x = xpos;
                                         line_start_y = ypos;
-                                        line_end_y = ypos + self.fontRendererObj.FONT_HEIGHT;
+                                        line_end_y = ypos + this.fontRendererObj.FONT_HEIGHT;
                                         line_end_x = xpos;
                                     }
                                 }
@@ -744,7 +743,7 @@ public class BookPageGui extends GuiScreen {
 
                         }
                         cent_extra = xpos - element.x;
-                        String last = self.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).get(self.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).size() - 1);
+                        String last = this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).get(this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).size() - 1);
                         String[] words = origString.split(" ");
                         for (String s : words) {
                             String str = (String) s + " ";
@@ -796,7 +795,7 @@ public class BookPageGui extends GuiScreen {
 
                         }
                         cent_extra = xpos - element.x;
-                        String last = self.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).get(self.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).size() - 1);
+                        String last = this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).get(this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).size() - 1);
                         String[] words = origString.split(" ");
                         for (String s : words) {
                             String str = (String) s + " ";
@@ -823,7 +822,7 @@ public class BookPageGui extends GuiScreen {
                     switch (t.data) {
                         case "newline":
                             if (style == 0) {
-                                ypos += self.fontRendererObj.FONT_HEIGHT;
+                                ypos += this.fontRendererObj.FONT_HEIGHT;
                             }
 
                             xpos = element.x;
@@ -834,7 +833,7 @@ public class BookPageGui extends GuiScreen {
                                 links.put(new int[]{line_start_x + x_x, line_start_y + y_y, line_end_x + x_x, line_end_y + y_y}, link_id);
                                 line_start_x = xpos;
                                 line_start_y = ypos;
-                                line_end_y = ypos + self.fontRendererObj.FONT_HEIGHT;
+                                line_end_y = ypos + this.fontRendererObj.FONT_HEIGHT;
                                 line_end_x = xpos;
                             }
                             break;
@@ -892,14 +891,14 @@ public class BookPageGui extends GuiScreen {
                             line_start_x = xpos;
                             line_start_y = ypos;
                             line_end_x = xpos;
-                            line_end_y = ypos + self.fontRendererObj.FONT_HEIGHT;
+                            line_end_y = ypos + this.fontRendererObj.FONT_HEIGHT;
                             drawing_link = true;
                     }
             }
         }
 
 
-        self.fontRendererObj.setUnicodeFlag(false);
+        this.fontRendererObj.setUnicodeFlag(false);
         initLists = false;
         return null;
 

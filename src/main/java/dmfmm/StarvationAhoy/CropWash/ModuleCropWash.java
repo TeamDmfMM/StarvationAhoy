@@ -43,7 +43,7 @@ public class ModuleCropWash {
         GameRegistry.register(blockCropWasher);
         GameRegistry.register(new ItemBlock(blockCropWasher).setRegistryName(blockCropWasher.getRegistryName()));
         MinecraftForge.EVENT_BUS.register(new VillagerCropOverride());
-        ModelLoaderRegistry.registerLoader(DirtyItemSmartModel.ModelLodaer.instance);
+        ModelLoaderRegistry.registerLoader(DirtyItemSmartModel.Loader.instance);
         //GameRegistry.registerBlock(blockCropWasher, "cropwashblock");
 
     }

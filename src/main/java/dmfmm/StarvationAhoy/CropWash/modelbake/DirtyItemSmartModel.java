@@ -2,7 +2,6 @@ package dmfmm.StarvationAhoy.CropWash.modelbake;
 
 
 import com.google.common.base.Function;
-import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -14,19 +13,18 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.*;
-import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.vecmath.Matrix4f;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -37,126 +35,108 @@ import java.util.Map;
  */
 public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetexturableModel {
 
-    private final IBakedModel model;
-    String drawing;
+    ResourceLocation orig_tex = new ResourceLocation("startvationahoy:items/dirty_overlay");
 
-    private static final String BASEIMGLOC = "starvationahoy:items/dirty_overlay";
+    IBakedModel mimicky;
 
     static DirtyItemSmartModel MODEL = new DirtyItemSmartModel();
 
     public DirtyItemSmartModel() {
-        this("minecraft:carrot");
+        this(null); // # should be a missingtex.
     }
 
-    public DirtyItemSmartModel(String dr) {
-        this.drawing = dr;
-        model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(dr)), 1));
+    public DirtyItemSmartModel(IBakedModel mimic) {
+        this.mimicky = mimic;
     }
 
+    /**
+     * Allows the model to process custom data from the variant definition.
+     * If unknown data is encountered it should be skipped.
+     *
+     * @param customData
+     * @return a new model, with data applied.
+     */
     @Override
     public IModel process(ImmutableMap<String, String> customData) {
-
-        String strings = "minecraft:carrot";
-
-        if (customData.containsKey("data")) {
-            strings = customData.get("data");
+        if (customData.get("id_name") != null) {
+            ItemStack assumed_itemstack = new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(customData.get("id_name"))));
+            IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(assumed_itemstack);
+            return new DirtyItemSmartModel(model);
         }
-        return new DirtyItemSmartModel(strings);
+        else {
+            ItemStack assumed_itemstack = new ItemStack(Items.apple);
+            IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(assumed_itemstack);
+            return new DirtyItemSmartModel(model);
+        }
     }
 
-    @Override
-    public Collection<ResourceLocation> getDependencies() {
-        return ImmutableList.of();
-    }
-
-    @Override
-    public Collection<ResourceLocation> getTextures() {
-        ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
-        builder.add(new ResourceLocation(BASEIMGLOC));
-        return builder.build();
-    }
-
-    @Override
-    public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-        ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
-        TRSRTransformation transform = state.apply(Optional.<IModelPart>absent()).or(TRSRTransformation.identity());
-
-        ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-
-        ImmutableList.Builder<ResourceLocation> objectBuilder = ImmutableList.builder();
-
-            try {
-                ResourceLocation r = new ResourceLocation(BASEIMGLOC);
-                objectBuilder.add(r);
-            }
-            catch (NullPointerException ignored) {
-
-            }
-        IBakedModel model = new ItemLayerModel(objectBuilder.build()).bake(state, format, bakedTextureGetter);
-        builder.addAll(this.model.getQuads(null, null, 0));
-        builder.addAll(model.getQuads(null, null, 0));
-
-        return new BakedDirtyItemModel(this, builder.build(), this.model.getParticleTexture(), format, transformMap);
-    }
-
-    @Override
-    public IModelState getDefaultState() {
-        return TRSRTransformation.identity();
-    }
-
+    /**
+     * Applies new textures to the model.
+     * The returned model should be independent of the accessed one,
+     * as a model should be able to be retextured multiple times producing
+     * a separate model each time.
+     * <p>
+     * The input map MAY map to an empty string "" which should be used
+     * to indicate the texture was removed. Handling of that is up to
+     * the model itself. Such as using default, missing texture, or
+     * removing vertices.
+     * <p>
+     * The input should be considered a DIFF of the old textures, not a
+     * replacement as it may not contain everything.
+     *
+     * @param textures New
+     * @return Model with textures applied.
+     */
     @Override
     public IModel retexture(ImmutableMap<String, String> textures) {
         return this;
     }
 
-    private static final class BakedNBTFoodOverrideHandler extends ItemOverrideList {
-
-        public static final BakedNBTFoodOverrideHandler INSTANCE = new BakedNBTFoodOverrideHandler();
-
-        public BakedNBTFoodOverrideHandler() {
-            super (ImmutableList.<ItemOverride>of());
-        }
-
-        @Override
-        public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
-
-            BakedDirtyItemModel model = (BakedDirtyItemModel) originalModel;
-
-            String dtat = Item.itemRegistry.getNameForObject(ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag("Original")).getItem()).toString();
-
-            if (!model.cache.containsKey(dtat)) {
-                Joiner joiner = Joiner.on(";");
-                IModel model2 = model.parent.process(ImmutableMap.of("data", dtat));
-                Function<ResourceLocation, TextureAtlasSprite> textureGetter;
-                textureGetter = new Function<ResourceLocation, TextureAtlasSprite>()
-                {
-                    public TextureAtlasSprite apply(ResourceLocation location)
-                    {
-                        return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
-                    }
-                };
-
-                IBakedModel bakedModel = model2.bake(new SimpleModelState(model.transforms), model.format, textureGetter);
-                model.cache.put(dtat, bakedModel);
-                return bakedModel;
-            }
-
-            return model.cache.get(dtat);
-
-        }
+    @Override
+    public Collection<ResourceLocation> getDependencies()
+    {
+        return ImmutableList.of();
     }
 
-    public static class BakedDirtyItemModel implements IPerspectiveAwareModel {
+    @Override
+    public Collection<ResourceLocation> getTextures() {
+        ImmutableList.Builder<ResourceLocation> r = ImmutableList.builder();
+        r.add(orig_tex);
+        return r.build();
+    }
+
+    @Override
+    public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+        ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
+
+        TextureAtlasSprite baseSprite = this.mimicky.getParticleTexture();
+        TextureAtlasSprite overlaySprite = bakedTextureGetter.apply(this.orig_tex);
+        ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
+
+        builder.addAll(ItemLayerModel.getQuadsForSprite(0, baseSprite, format, Optional.<TRSRTransformation>absent()));
+        builder.addAll(ItemLayerModel.getQuadsForSprite(1, overlaySprite, format, Optional.<TRSRTransformation>absent()));
+
+        return new Baked(this, builder.build(), baseSprite, format, transformMap);
+
+    }
+
+    @Override
+    public IModelState getDefaultState()
+    {
+        return TRSRTransformation.identity();
+    }
+
+    public static class Baked implements IPerspectiveAwareModel {
 
         private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
-        private final DirtyItemSmartModel parent;
-        private final Map<String, IBakedModel> cache;
+        private final Map<Item, IBakedModel> cache;
         private final ImmutableList<BakedQuad> quads;
         private final TextureAtlasSprite particle;
         private final VertexFormat format;
+        private final DirtyItemSmartModel parent;
 
-        public BakedDirtyItemModel(DirtyItemSmartModel parent, ImmutableList<BakedQuad> quads, TextureAtlasSprite particle, VertexFormat fmt, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
-            this.quads = quads;
+        public Baked(DirtyItemSmartModel parent, ImmutableList<BakedQuad> quadrilaterals, TextureAtlasSprite particle, VertexFormat fmt, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
+            this.quads = quadrilaterals;
             this.particle = particle;
             this.format = fmt;
             this.parent = parent;
@@ -170,8 +150,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         }
 
         @Override
-        public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand)
-        {
+        public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
             if(side == null) return quads;
             return ImmutableList.of();
         }
@@ -184,29 +163,59 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
 
         @Override
         public ItemOverrideList getOverrides() {
-            return BakedNBTFoodOverrideHandler.INSTANCE;
+            return null;
         }
     }
-    public enum ModelLodaer implements ICustomModelLoader
-    {
+
+    public static class DirtyOverrides extends ItemOverrideList {
+
+        public DirtyOverrides() {
+            super (ImmutableList.<ItemOverride>of());
+        }
+
+        @Override
+        public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
+
+            Baked model = (Baked) originalModel;
+
+            Item itemy = stack.getItem();
+
+            if (!model.cache.containsKey(itemy)) {
+                IModel new_model = model.parent.process(ImmutableMap.of("id_name", Item.itemRegistry.getNameForObject(itemy).toString()));
+                Function<ResourceLocation, TextureAtlasSprite> textureGetter;
+                textureGetter = new Function<ResourceLocation, TextureAtlasSprite>()
+                {
+                    public TextureAtlasSprite apply(ResourceLocation location)
+                    {
+                        return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+                    }
+                };
+                IBakedModel bakedModel = new_model.bake(new SimpleModelState(model.transforms), model.format, textureGetter);
+                model.cache.put(itemy, bakedModel);
+                return bakedModel;
+            }
+
+            return model.cache.get(itemy);
+
+        }
+    }
+
+    public enum Loader implements ICustomModelLoader {
         instance;
 
         @Override
-        public boolean accepts(ResourceLocation modelLocation)
-        {
-            return modelLocation.getResourceDomain().equals("starvationahoy") && modelLocation.getResourcePath().contains("dirty_item");
+        public boolean accepts(ResourceLocation modelLocation) {
+            return modelLocation.getResourceDomain().equals("starvationahoy") && modelLocation.getResourcePath().contains("dirtymodel");
         }
 
         @Override
-        public IModel loadModel(ResourceLocation modelLocation) throws IOException
-        {
+        public IModel loadModel(ResourceLocation modelLocation) throws Exception {
             return MODEL;
         }
 
         @Override
-        public void onResourceManagerReload(IResourceManager resourceManager)
-        {
-            // no need to clear cache since we create a new model instance
+        public void onResourceManagerReload(IResourceManager resourceManager) {
+
         }
     }
 }
