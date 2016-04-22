@@ -108,8 +108,13 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
     @Override
     public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
         ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
-
-        TextureAtlasSprite baseSprite = this.mimicky.getParticleTexture();
+        TextureAtlasSprite baseSprite;
+        try {
+            baseSprite = this.mimicky.getParticleTexture();
+        }
+        catch (NullPointerException e) {
+            baseSprite = bakedTextureGetter.apply(new ResourceLocation("minecraft:carrot"));
+        }
         TextureAtlasSprite overlaySprite = bakedTextureGetter.apply(this.orig_tex);
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
 
@@ -205,7 +210,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
 
         @Override
         public boolean accepts(ResourceLocation modelLocation) {
-            return modelLocation.getResourceDomain().equals("starvationahoy") && modelLocation.getResourcePath().contains("dirtymodel");
+            return modelLocation.getResourceDomain().equals("starvationahoy") && modelLocation.getResourcePath().contains("dirty_item");
         }
 
         @Override

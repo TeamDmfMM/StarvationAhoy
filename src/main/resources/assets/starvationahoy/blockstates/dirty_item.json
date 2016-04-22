@@ -3,9 +3,6 @@
   "variants": {
     "inventory": {
       "model": "starvationahoy:dirtymodel",
-      "textures": {
-
-      },
       "transform": "forge:default-item"
     }
   }
