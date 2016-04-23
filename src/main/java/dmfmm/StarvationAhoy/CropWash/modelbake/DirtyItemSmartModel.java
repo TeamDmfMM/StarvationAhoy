@@ -35,7 +35,7 @@ import java.util.Map;
  */
 public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetexturableModel {
 
-    ResourceLocation orig_tex = new ResourceLocation("startvationahoy:items/dirty_overlay");
+    ResourceLocation orig_tex = new ResourceLocation("starvationahoy", "items/dirty_overlay");
 
     IBakedModel mimicky;
 
@@ -168,11 +168,13 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
 
         @Override
         public ItemOverrideList getOverrides() {
-            return null;
+            return DirtyOverrides.INSTANCE;
         }
     }
 
     public static class DirtyOverrides extends ItemOverrideList {
+
+        public static final DirtyOverrides INSTANCE = new DirtyOverrides();
 
         public DirtyOverrides() {
             super (ImmutableList.<ItemOverride>of());
@@ -210,7 +212,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
 
         @Override
         public boolean accepts(ResourceLocation modelLocation) {
-            return modelLocation.getResourceDomain().equals("starvationahoy") && modelLocation.getResourcePath().contains("dirty_item");
+            return modelLocation.getResourceDomain().equals("starvationahoy") && modelLocation.getResourcePath().contains("dirtymodel");
         }
 
         @Override
