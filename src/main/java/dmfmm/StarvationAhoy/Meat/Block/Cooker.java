@@ -120,11 +120,11 @@ public class Cooker extends BlockContainer {
         CookerTileEntity tile = (CookerTileEntity)world.getTileEntity(pos);
         if(tile.multiBlockStructure.orient == 0) {
             return new AxisAlignedBB((double) x,
-                    (double) y + 1.16f,
-                    (double) z + 0.4389,
-                    (double) x + 1,
-                    (double) y + 1 + 0.31f,
-                    (double) z + 1 - 0.3989);
+                    (double) 1.16f,
+                    (double) 0.4389,
+                    (double) 1,
+                    (double) 1 + 0.31f,
+                    (double) 1 - 0.3989);
         }else{
             return new AxisAlignedBB((double) x + 0.4389,
                     (double) y + 1.16f,
