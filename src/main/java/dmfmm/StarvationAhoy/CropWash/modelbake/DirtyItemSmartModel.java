@@ -42,7 +42,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
     static DirtyItemSmartModel MODEL = new DirtyItemSmartModel();
 
     public DirtyItemSmartModel() {
-        this(null); // # should be a missingtex.
+        this(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(Items.apple))); // # should be a missingtex.
     }
 
     public DirtyItemSmartModel(IBakedModel mimic) {
@@ -121,7 +121,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         builder.addAll(ItemLayerModel.getQuadsForSprite(0, baseSprite, format, Optional.<TRSRTransformation>absent()));
         builder.addAll(ItemLayerModel.getQuadsForSprite(1, overlaySprite, format, Optional.<TRSRTransformation>absent()));
 
-        return new Baked(this, builder.build(), baseSprite, format, transformMap);
+        return new BakedDirtyModel(this, builder.build(), baseSprite, format, transformMap);
 
     }
 
@@ -131,7 +131,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         return TRSRTransformation.identity();
     }
 
-    public static class Baked implements IPerspectiveAwareModel {
+    public static class BakedDirtyModel implements IPerspectiveAwareModel {
 
         private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
         private final Map<Item, IBakedModel> cache;
@@ -140,7 +140,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         private final VertexFormat format;
         private final DirtyItemSmartModel parent;
 
-        public Baked(DirtyItemSmartModel parent, ImmutableList<BakedQuad> quadrilaterals, TextureAtlasSprite particle, VertexFormat fmt, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
+        public BakedDirtyModel(DirtyItemSmartModel parent, ImmutableList<BakedQuad> quadrilaterals, TextureAtlasSprite particle, VertexFormat fmt, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
             this.quads = quadrilaterals;
             this.particle = particle;
             this.format = fmt;
@@ -183,7 +183,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         @Override
         public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
 
-            Baked model = (Baked) originalModel;
+            BakedDirtyModel model = (BakedDirtyModel) originalModel;
 
             Item itemy = stack.getItem();
 
@@ -212,7 +212,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
 
         @Override
         public boolean accepts(ResourceLocation modelLocation) {
-            return modelLocation.getResourceDomain().equals("starvationahoy") && modelLocation.getResourcePath().contains("dirtymodel");
+            return modelLocation.getResourceDomain().equals("starvationahoy") && (modelLocation.getResourcePath().contains("dirtymodel") || modelLocation.getResourcePath().contains("dirty_item"));
         }
 
         @Override

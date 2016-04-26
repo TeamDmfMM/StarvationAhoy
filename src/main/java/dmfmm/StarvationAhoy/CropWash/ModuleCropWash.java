@@ -32,7 +32,7 @@ public class ModuleCropWash {
     public static Block blockCropWasher;
     public static DirtyBlocks d;
 
-    public static void preinit() {
+    public static void preinit(Side side) {
 
         if (CRef.useCropwash() == false){
             return;
@@ -43,7 +43,7 @@ public class ModuleCropWash {
         GameRegistry.register(blockCropWasher);
         GameRegistry.register(new ItemBlock(blockCropWasher).setRegistryName(blockCropWasher.getRegistryName()));
         MinecraftForge.EVENT_BUS.register(new VillagerCropOverride());
-        ModelLoaderRegistry.registerLoader(DirtyItemSmartModel.Loader.instance);
+        if(side == Side.CLIENT) ModelLoaderRegistry.registerLoader(DirtyItemSmartModel.Loader.instance);
         //GameRegistry.registerBlock(blockCropWasher, "cropwashblock");
 
     }

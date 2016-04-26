@@ -80,7 +80,7 @@ public class StarvationAhoy {
 
 
 		//Module Initiation
-		ModuleCropWash.preinit();
+		ModuleCropWash.preinit(side);
 		ItemLoad.initItems();
 		ModuleMeat.preinit(event.getSide());
 

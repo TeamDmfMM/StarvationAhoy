@@ -3,7 +3,13 @@
   "variants": {
     "inventory": {
       "model": "starvationahoy:dirtymodel",
-      "transform": "forge:default-item"
+      "textures": {
+
+      },
+      "transform": "forge:default-item",
+      "custom": {
+        "death": ""
+      }
     }
   }
 }
