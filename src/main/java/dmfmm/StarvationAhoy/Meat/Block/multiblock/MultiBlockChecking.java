@@ -26,7 +26,9 @@ public class MultiBlockChecking {
         public void crtn_a(World w){
             w.setBlockState(new BlockPos(x, y, z), MBlockLoader.Cooker.getDefaultState());
         }
-
+        public void crtn_b(World w){
+            w.setBlockState(new BlockPos(x, y, z), MBlockLoader.HoldingStick.getDefaultState());
+        }
 
     }
 
@@ -65,8 +67,10 @@ public class MultiBlockChecking {
             return false;
         }
 
+        bpos0.crtn_b(w);
         bpos1.crtn_a(w);
         bpos2.crtn_a(w);
+        bpos3.crtn_b(w);
 
         CookerMultiBlock n = new CookerMultiBlock();
         n.x = bpos0.x;
