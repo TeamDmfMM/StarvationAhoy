@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.Meat.Block;
 
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.CookerMultiBlock;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.CookerTileEntity;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.TileEntityMultiBlock;
 import dmfmm.StarvationAhoy.Meat.MeatType;
@@ -20,7 +21,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
@@ -91,21 +91,23 @@ public class Cooker extends BlockContainer {
         int y = pos.getY();
         int z = pos.getZ();
         CookerTileEntity tile = (CookerTileEntity)source.getTileEntity(pos);
-        if(tile.multiBlockStructure != null) {
-            if (tile.multiBlockStructure.orient == 0) {
-                return new AxisAlignedBB((double) x,
-                        (double) 1.16f,
-                        (double) 0.4389,
-                        (double) 1,
-                        (double) 1 + 0.31f,
-                        (double) 1 - 0.3989);
-            } else {
-                return new AxisAlignedBB((double) x + 0.4389,
-                        (double) 1.16f,
-                        (double) 0,
-                        (double) 1 - 0.3989,
-                        (double) 1 + 0.31f,
-                        (double) 1);
+        if (tile != null) {
+            if (tile.multiBlockStructure != null) {
+                if (tile.multiBlockStructure.orient == 0) {
+                    return new AxisAlignedBB((double) x,
+                            (double) 1.16f,
+                            (double) 0.4389,
+                            (double) 1,
+                            (double) 1 + 0.31f,
+                            (double) 1 - 0.3989);
+                } else {
+                    return new AxisAlignedBB((double) x + 0.4389,
+                            (double) 1.16f,
+                            (double) 0,
+                            (double) 1 - 0.3989,
+                            (double) 1 + 0.31f,
+                            (double) 1);
+                }
             }
         }
         return Block.FULL_BLOCK_AABB;
@@ -141,5 +143,12 @@ public class Cooker extends BlockContainer {
 
     public boolean isFullCube(IBlockState state){
         return false;
+    }
+
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntityMultiBlock tileEntityMultiBlock = (TileEntityMultiBlock) worldIn.getTileEntity(pos);
+        CookerMultiBlock multiBlock = (CookerMultiBlock) tileEntityMultiBlock.multiBlockStructure;
+        multiBlock.destroy(worldIn);
     }
 }
