@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.CropWash;
 
+import dmfmm.StarvationAhoy.Core.Init.CropwashTextureRegistry;
 import dmfmm.StarvationAhoy.Core.util.CRef;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.CropWash.Block.BlockCropWasher;
@@ -43,7 +44,10 @@ public class ModuleCropWash {
         GameRegistry.register(blockCropWasher);
         GameRegistry.register(new ItemBlock(blockCropWasher).setRegistryName(blockCropWasher.getRegistryName()));
         MinecraftForge.EVENT_BUS.register(new VillagerCropOverride());
-        if(side == Side.CLIENT) ModelLoaderRegistry.registerLoader(DirtyItemSmartModel.Loader.instance);
+        if(side == Side.CLIENT) {
+            ModelLoaderRegistry.registerLoader(DirtyItemSmartModel.Loader.instance);
+            CropwashTextureRegistry.doDirtyItem();
+        }
         //GameRegistry.registerBlock(blockCropWasher, "cropwashblock");
 
     }

@@ -18,12 +18,12 @@ public class CropwashTextureRegistry {
 
     public static void initTextures(){
         registerBlock(WashLib.washBarrelName, 0);
-        doDirtyItem();
+        //doDirtyItem();
     }
 
 
 
-    private static void doDirtyItem() {
+    public static void doDirtyItem() {
         ModelLoader.setCustomModelResourceLocation(ModuleCropWash.cropItemLoader.getItem("dirty_item"), 0, new ModelResourceLocation(ModInfo.MOD_ID + ":" + "dirty_item", "inventory"));
     }
 

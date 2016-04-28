@@ -16,6 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -23,6 +24,7 @@ import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.util.vector.Vector3f;
 
 import javax.vecmath.Matrix4f;
 import java.util.Collection;
@@ -164,7 +166,19 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         public boolean isGui3d() { return false; }
         public boolean isBuiltInRenderer() { return false; }
         public TextureAtlasSprite getParticleTexture() { return particle; }
-        public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
+        public ItemCameraTransforms getItemCameraTransforms() {
+            ItemCameraTransforms cameraTransforms = new ItemCameraTransforms(
+                    new ItemTransformVec3f(new Vector3f(-90.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.05F, -0.2F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp
+                    new ItemTransformVec3f(new Vector3f(-90.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.05F, -0.2F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp_l
+                    new ItemTransformVec3f(new Vector3f(0F, -135F, 25.0F), new Vector3f(0F, 0.3F, 0.1F), new Vector3f(1.7F, 1.7F, 1.7F)),//fp
+                    new ItemTransformVec3f(new Vector3f(0F, -135F, 25.0F), new Vector3f(0F, 0.3F, 0.1F), new Vector3f(1.7F, 1.7F, 1.7F)),//fp_l
+                    new ItemTransformVec3f(new Vector3f(0F, 0F, 0.0F), new Vector3f(), new Vector3f(1.2F, 1.2F, 1.2F)),//head
+                    new ItemTransformVec3f(new Vector3f(0F, 0F, 0.0F), new Vector3f(0.0F, 0.0F, 0.F), new Vector3f(1.0F, 1.0F, 1.0F)),//gui
+                    new ItemTransformVec3f(new Vector3f(0F, -190F, 0.0F), new Vector3f(0.0F, -0.05F, 0.F), new Vector3f(0.005F, 0.005F, 0.005F)),//ground
+                    new ItemTransformVec3f(new Vector3f(0F, -190F, 0.0F), new Vector3f(0.0F, -0.05F, 0.F), new Vector3f(1.2F, 1.2F, 1.2F))//fixed
+            );
+            return cameraTransforms;
+        }
 
         @Override
         public ItemOverrideList getOverrides() {
@@ -200,6 +214,20 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
                 IBakedModel bakedModel = new_model.bake(new SimpleModelState(model.transforms), model.format, textureGetter);
                 model.cache.put(itemy, bakedModel);
                 return bakedModel;
+            }
+            if(stack.hasTagCompound()) {
+                NBTTagCompound tag = stack.getTagCompound().getCompoundTag("Original");
+                String namze = tag.getString("id");
+                Function<ResourceLocation, TextureAtlasSprite> textureGetter;
+                IBakedModel InnerModel = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getModel(new ModelResourceLocation(namze, "inventory"));
+                textureGetter = new Function<ResourceLocation, TextureAtlasSprite>()
+                {
+                    public TextureAtlasSprite apply(ResourceLocation location)
+                    {
+                        return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+                    }
+                };
+                return new DirtyItemSmartModel(InnerModel).bake(new SimpleModelState(model.transforms), model.format, textureGetter);
             }
 
             return model.cache.get(itemy);
