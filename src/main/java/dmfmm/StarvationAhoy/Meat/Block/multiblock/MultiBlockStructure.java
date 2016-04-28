@@ -1,8 +1,11 @@
 package dmfmm.StarvationAhoy.Meat.Block.multiblock;
 
+import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
+import dmfmm.StarvationAhoy.StarvationAhoy;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 
 public abstract class MultiBlockStructure {
@@ -59,6 +62,7 @@ public abstract class MultiBlockStructure {
             if (te == null){return;}
             MultiBlockStructure struct = te.multiBlockStructure;
             struct.sharedData = structToSync.sharedData;
+            if (!world.isRemote) StarvationAhoy.MultiBlockChannel.sendToAllAround(new PacketMultiBlock(struct.bPos, struct.orient, struct.sharedData, struct.x, struct.y, struct.z), new NetworkRegistry.TargetPoint(world.provider.getDimension(), struct.x, struct.y, struct.z, 40));
             te.onSync();
         }
 
