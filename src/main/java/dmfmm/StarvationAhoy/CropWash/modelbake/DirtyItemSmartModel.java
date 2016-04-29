@@ -109,7 +109,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
 
     @Override
     public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-        ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
+        ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper.getTransforms(BakedDirtyModel.getItemCameraTransforms2());
         TextureAtlasSprite baseSprite;
         try {
             baseSprite = this.mimicky.getParticleTexture();
@@ -153,13 +153,14 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
 
         @Override
         public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-            return MapWrapper.handlePerspective(this, transforms, cameraTransformType);
+            return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, transforms, cameraTransformType);
         }
 
         @Override
         public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
             if(side == null) return quads;
             return ImmutableList.of();
+
         }
 
         public boolean isAmbientOcclusion() { return true;  }
@@ -167,14 +168,29 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         public boolean isBuiltInRenderer() { return false; }
         public TextureAtlasSprite getParticleTexture() { return particle; }
         public ItemCameraTransforms getItemCameraTransforms() {
+
             ItemCameraTransforms cameraTransforms = new ItemCameraTransforms(
                     new ItemTransformVec3f(new Vector3f(-90.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.05F, -0.2F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp
                     new ItemTransformVec3f(new Vector3f(-90.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.05F, -0.2F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp_l
-                    new ItemTransformVec3f(new Vector3f(0F, -135F, 25.0F), new Vector3f(0F, 0.3F, 0.1F), new Vector3f(1.7F, 1.7F, 1.7F)),//fp
-                    new ItemTransformVec3f(new Vector3f(0F, -135F, 25.0F), new Vector3f(0F, 0.3F, 0.1F), new Vector3f(1.7F, 1.7F, 1.7F)),//fp_l
+                    new ItemTransformVec3f(new Vector3f(0F, -135F, 25.0F), new Vector3f(0F, 0.3F, 0.1F), new Vector3f(.17F, .17F, .17F)),//fp
+                    new ItemTransformVec3f(new Vector3f(0F, -135F, 25.0F), new Vector3f(0F, 0.3F, 0.1F), new Vector3f(.17F, .17F, .17F)),//fp_l
                     new ItemTransformVec3f(new Vector3f(0F, 0F, 0.0F), new Vector3f(), new Vector3f(1.2F, 1.2F, 1.2F)),//head
                     new ItemTransformVec3f(new Vector3f(0F, 0F, 0.0F), new Vector3f(0.0F, 0.0F, 0.F), new Vector3f(1.0F, 1.0F, 1.0F)),//gui
-                    new ItemTransformVec3f(new Vector3f(0F, -190F, 0.0F), new Vector3f(0.0F, -0.05F, 0.F), new Vector3f(0.005F, 0.005F, 0.005F)),//ground
+                    new ItemTransformVec3f(new Vector3f(0F, -190F, 0.0F), new Vector3f(0.0F, -0.05F, 0.F), new Vector3f(0.0005F, 0.0005F, 0.0005F)),//ground
+                    new ItemTransformVec3f(new Vector3f(0F, -190F, 0.0F), new Vector3f(0.0F, -0.05F, 0.F), new Vector3f(1.2F, 1.2F, 1.2F))//fixed
+            );
+            return cameraTransforms;
+        }
+        public static ItemCameraTransforms getItemCameraTransforms2() {
+
+            ItemCameraTransforms cameraTransforms = new ItemCameraTransforms(
+                    new ItemTransformVec3f(new Vector3f(0.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.15F, 0.05F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp
+                    new ItemTransformVec3f(new Vector3f(0.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.15F, 0.05F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp_l
+                    new ItemTransformVec3f(new Vector3f(0F, -950F, 20.0F), new Vector3f(0F, 0.25F, 0.1F), new Vector3f(.57F, .57F, .57F)),//fp
+                    new ItemTransformVec3f(new Vector3f(0F, -95F, 20.0F), new Vector3f(0F, 0.25F, 0.1F), new Vector3f(.57F, .57F, .57F)),//fp_l
+                    new ItemTransformVec3f(new Vector3f(0F, 0F, 0.0F), new Vector3f(), new Vector3f(1.2F, 1.2F, 1.2F)),//head
+                    new ItemTransformVec3f(new Vector3f(0F, 0F, 0.0F), new Vector3f(0.0F, 0.0F, 0.F), new Vector3f(1.0F, 1.0F, 1.0F)),//gui
+                    new ItemTransformVec3f(new Vector3f(0F, -190F, 0.0F), new Vector3f(0.0F, 0.25F, 0.F), new Vector3f(0.5F, 0.5F, 0.5F)),//ground
                     new ItemTransformVec3f(new Vector3f(0F, -190F, 0.0F), new Vector3f(0.0F, -0.05F, 0.F), new Vector3f(1.2F, 1.2F, 1.2F))//fixed
             );
             return cameraTransforms;
