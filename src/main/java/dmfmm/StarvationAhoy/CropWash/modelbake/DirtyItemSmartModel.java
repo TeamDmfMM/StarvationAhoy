@@ -184,8 +184,8 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         public static ItemCameraTransforms getItemCameraTransforms2() {
 
             ItemCameraTransforms cameraTransforms = new ItemCameraTransforms(
-                    new ItemTransformVec3f(new Vector3f(0.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.15F, 0.05F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp
-                    new ItemTransformVec3f(new Vector3f(0.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.15F, 0.05F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp_l
+                    new ItemTransformVec3f(new Vector3f(0.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.20F, 0.05F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp
+                    new ItemTransformVec3f(new Vector3f(0.0F, 0.0F, 0.0F), new Vector3f(0.0F, 0.20F, 0.05F), new Vector3f(0.55F, 0.55F, 0.55F)),//tp_l
                     new ItemTransformVec3f(new Vector3f(0F, -950F, 20.0F), new Vector3f(0F, 0.25F, 0.1F), new Vector3f(.57F, .57F, .57F)),//fp
                     new ItemTransformVec3f(new Vector3f(0F, -95F, 20.0F), new Vector3f(0F, 0.25F, 0.1F), new Vector3f(.57F, .57F, .57F)),//fp_l
                     new ItemTransformVec3f(new Vector3f(0F, 0F, 0.0F), new Vector3f(), new Vector3f(1.2F, 1.2F, 1.2F)),//head
