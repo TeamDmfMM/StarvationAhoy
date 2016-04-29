@@ -51,7 +51,7 @@ public class ModelPigSA extends ModelPig implements ISAModel, ISpitRoastRender{
 
     @Override
     public float[] getTranslations() {
-            float[] carl = {0, -1F, -1.6F, 3.42f, 1.42f};
+            float[] carl = {0, -1.2F, 1.5F, 3.42f, 1.42f};
             return carl;
     }
 }

@@ -61,7 +61,7 @@ public class ModelChickenSA extends ModelChicken implements ISAModel, ISpitRoast
 
 	@Override
 	public float[] getTranslations() {
-		float[] carl = {0, -3.00F, 0.9F, 0.62f, 3.50f};
+		float[] carl = {0, -1.40F, 01.5F, 0.62f, 3.50f};
 		return carl;
 	}
 }
