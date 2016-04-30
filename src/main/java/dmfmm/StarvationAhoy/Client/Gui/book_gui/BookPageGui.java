@@ -93,6 +93,7 @@ public class BookPageGui extends GuiScreen {
         //System.out.println(c);
         //System.out.println(a);
         //System.out.println(b);
+        this.setButtonStates();
         this.drawDefaultBackground();
         this.drawBackGround(c);
 
@@ -101,6 +102,15 @@ public class BookPageGui extends GuiScreen {
         super.drawScreen(a, b, c);
         crafting_ore_recipe_counter += c;
         RenderHelper.enableGUIStandardItemLighting();
+    }
+
+    private void setButtonStates() {
+        if (this.page + 2 > this.numpages){
+            this.buttonList.get(1).visible = false;
+        }
+        else{
+            this.buttonList.get(1).visible = true;
+        }
     }
 
     public void initGui() {
@@ -118,6 +128,9 @@ public class BookPageGui extends GuiScreen {
         if (button.id == 0) {
             if (this.page - 2 > -1) {
                 page -= 2;
+            }
+            else {
+                mc.displayGuiScreen(new InfoBookGUI());
             }
 
         }
@@ -145,6 +158,7 @@ public class BookPageGui extends GuiScreen {
     }
 
     public void drawAllElements() {
+        RenderHelper.disableStandardItemLighting();
         for (BookElement element : this.myPage.elements) {
 
             if (element.page == this.page || element.page == this.page + 1) {
@@ -174,6 +188,7 @@ public class BookPageGui extends GuiScreen {
                 }
             }
         }
+        RenderHelper.enableGUIStandardItemLighting();
     }
 
 
@@ -342,7 +357,7 @@ public class BookPageGui extends GuiScreen {
         this.drawTexturedModalRect(base_x, base_y - 51, 0, 0, BookPage.PAGE_WIDTH, BookPage.PAGE_HEIGHT);
         CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(element.args.get(0).split(":")[0], element.args.get(0).split(":")[1]))));
         GL11.glDisable(GL11.GL_LIGHTING);
-        RenderHelper.enableGUIStandardItemLighting();
+
         r.renderItemAndEffectIntoGUI(cpx.getOutput(), base_x + 26, base_y-43);
         ArrayList<ItemStack> itemStacksOld = cpx.getItems((int) (crafting_ore_recipe_counter));
         ArrayList<ItemStack> itemStacks = new ArrayList<>();
