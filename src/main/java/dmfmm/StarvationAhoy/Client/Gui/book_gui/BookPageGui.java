@@ -35,6 +35,7 @@ public class BookPageGui extends GuiScreen {
     public static Map<String, String> change_newline_to_newline = new HashMap<>();
 
     static ResourceLocation IMG_LOCACATION = new ResourceLocation("starvationahoy", "textures/gui/infobook_background.png");
+    static ResourceLocation ADDITIVES = new ResourceLocation("starvationahoy", "textures/gui/infobook_Additives.png");
     static int IMG_WIDTH = 280;
 
     float crafting_ore_recipe_counter = 0;
@@ -89,9 +90,9 @@ public class BookPageGui extends GuiScreen {
         RenderHelper.disableStandardItemLighting();
 
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        System.out.println(c);
-        System.out.println(a);
-        System.out.println(b);
+        //System.out.println(c);
+        //System.out.println(a);
+        //System.out.println(b);
         this.drawDefaultBackground();
         this.drawBackGround(c);
 
@@ -325,15 +326,24 @@ public class BookPageGui extends GuiScreen {
         int base_x = 20 + x_x;
         int base_y = 50 + y_y;
 
+        int TOP_SUBTRACT = 3;
+        int MIDDLE_ADD = 17;
+        int BOTTOM_ADD = 38;
+
+        int VERTICAL_RIGHT_S = -5;
+        int VERTICAL_MIDDLE_A = 26;
+        int VERTICAL_LEFT_A = 47;
+
 
         this.fontRendererObj.setUnicodeFlag(false);
-        this.mc.getTextureManager().bindTexture(new ResourceLocation("starvationahoy:/textures/gui/book/Crafting.png"));
+        this.mc.getTextureManager().bindTexture(ADDITIVES);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(GL11.GL_BLEND);
-        this.drawTexturedModalRect(base_x - 14, base_y - 51, 0, 0, BookPage.PAGE_WIDTH, BookPage.PAGE_HEIGHT);
-        CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(Item.getByNameOrId(element.args.get(0))));
+        this.drawTexturedModalRect(base_x, base_y - 51, 0, 0, BookPage.PAGE_WIDTH, BookPage.PAGE_HEIGHT);
+        CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(element.args.get(0).split(":")[0], element.args.get(0).split(":")[1]))));
         GL11.glDisable(GL11.GL_LIGHTING);
-        r.renderItemAndEffectIntoGUI(cpx.getOutput(), base_x, base_y);
+        RenderHelper.enableGUIStandardItemLighting();
+        r.renderItemAndEffectIntoGUI(cpx.getOutput(), base_x + 26, base_y-43);
         ArrayList<ItemStack> itemStacksOld = cpx.getItems((int) (crafting_ore_recipe_counter));
         ArrayList<ItemStack> itemStacks = new ArrayList<>();
 
@@ -345,32 +355,31 @@ public class BookPageGui extends GuiScreen {
             itemStacks.add(new ItemStack(i.getItem(), i.stackSize, i.getMetadata()));
         }
         if (itemStacks.get(0) != null) {
-            r.renderItemAndEffectIntoGUI(itemStacks.get(0), base_x - 10, base_y);
+            r.renderItemAndEffectIntoGUI(itemStacks.get(0), base_x - VERTICAL_RIGHT_S, base_y- TOP_SUBTRACT);
         }
         if (itemStacks.get(1) != null) {
-            r.renderItemAndEffectIntoGUI(itemStacks.get(1), base_x, base_y);
+            r.renderItemAndEffectIntoGUI(itemStacks.get(1), base_x+VERTICAL_MIDDLE_A, base_y- TOP_SUBTRACT);
         }
         if (itemStacks.get(2) != null) {
-            r.renderItemAndEffectIntoGUI(itemStacks.get(2), base_x + 10, base_y);
+            r.renderItemAndEffectIntoGUI(itemStacks.get(2), base_x + VERTICAL_LEFT_A, base_y - TOP_SUBTRACT);
         }
         if (itemStacks.get(3) != null) {
-            r.renderItemAndEffectIntoGUI(itemStacks.get(3), base_x - 10, base_y + 10);
+            r.renderItemAndEffectIntoGUI(itemStacks.get(3), base_x - VERTICAL_RIGHT_S, base_y + MIDDLE_ADD);
         }
         if (itemStacks.get(4) != null) {
-            r.renderItemAndEffectIntoGUI(itemStacks.get(4), base_x, base_y + 10);
+            r.renderItemAndEffectIntoGUI(itemStacks.get(4), base_x+VERTICAL_MIDDLE_A, base_y + MIDDLE_ADD);
         }
         if (itemStacks.get(5) != null) {
-            r.renderItemAndEffectIntoGUI(itemStacks.get(5), base_x + 10, base_y + 10);
+            r.renderItemAndEffectIntoGUI(itemStacks.get(5), base_x + VERTICAL_LEFT_A, base_y + MIDDLE_ADD);
         }
         if (itemStacks.get(6) != null) {
-            r.renderItemAndEffectIntoGUI(itemStacks.get(6), base_x - 10, base_y + 20);
+            r.renderItemAndEffectIntoGUI(itemStacks.get(6), base_x - VERTICAL_RIGHT_S, base_y + BOTTOM_ADD);
         }
         if (itemStacks.get(7) != null) {
-            r.renderItemAndEffectIntoGUI(itemStacks.get(7), base_x, base_y + 20);
+            r.renderItemAndEffectIntoGUI(itemStacks.get(7), base_x + VERTICAL_MIDDLE_A, base_y + BOTTOM_ADD);
         }
         if (itemStacks.get(8) != null) {
-
-            r.renderItemIntoGUI(itemStacks.get(8), base_x + 10, base_y + 20);
+            r.renderItemIntoGUI(itemStacks.get(8), base_x + VERTICAL_LEFT_A, base_y + BOTTOM_ADD);
         }
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glEnable(GL11.GL_LIGHTING);
@@ -631,7 +640,7 @@ public class BookPageGui extends GuiScreen {
         if (element.args.size() == 2) {
             maximum = Math.min(maximum, maximum - Integer.parseInt(element.args.get(1)));
         }
-        System.out.println(maximum);
+        //System.out.println(maximum);
 
         int currcolor = toArmorCode(0, 0, 0);
         if (element.args.size() == 0) {
@@ -849,9 +858,9 @@ public class BookPageGui extends GuiScreen {
 
                             if (colors.containsKey(t.data)) {
                                 currcolor = colors.get(t.data);
-                                System.out.println("hrll");
+                                //System.out.println("hrll");
                             } else {
-                                System.out.println("hrll");
+                                //System.out.println("hrll");
                                 String[] stuff = t.data.split(",");
                                 currcolor = toArmorCode(Integer.parseInt(stuff[0]), Integer.parseInt(stuff[1]), Integer.parseInt(stuff[2]));
                             }
