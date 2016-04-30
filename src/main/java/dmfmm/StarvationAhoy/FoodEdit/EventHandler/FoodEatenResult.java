@@ -1,8 +1,6 @@
 package dmfmm.StarvationAhoy.FoodEdit.EventHandler;
 
 import dmfmm.StarvationAhoy.Core.util.SALog;
-import dmfmm.StarvationAhoy.FoodEdit.FoodSet.KnownEffects;
-import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketRequestNewFoods;
 import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketResponseNewFoods;
 import dmfmm.StarvationAhoy.StarvationAhoy;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
@@ -14,9 +12,6 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
@@ -26,13 +21,11 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-import net.minecraftforge.fml.common.network.handshake.NetworkDispatcher;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class FoodEatenResult

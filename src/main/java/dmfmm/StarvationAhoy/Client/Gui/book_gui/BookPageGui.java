@@ -331,7 +331,7 @@ public class BookPageGui extends GuiScreen {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(GL11.GL_BLEND);
         this.drawTexturedModalRect(base_x - 14, base_y - 51, 0, 0, BookPage.PAGE_WIDTH, BookPage.PAGE_HEIGHT);
-        CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(element.args.get(0).split(":")[0], element.args.get(0).split(":")[1]))));
+        CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(Item.getByNameOrId(element.args.get(0))));
         GL11.glDisable(GL11.GL_LIGHTING);
         r.renderItemAndEffectIntoGUI(cpx.getOutput(), base_x, base_y);
         ArrayList<ItemStack> itemStacksOld = cpx.getItems((int) (crafting_ore_recipe_counter));

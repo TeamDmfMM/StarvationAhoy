@@ -1,17 +1,12 @@
 package dmfmm.StarvationAhoy.FoodEdit.FoodSet;
 
+import dmfmm.StarvationAhoy.Core.util.CRef;
+import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
+import dmfmm.StarvationAhoy.api.FoodEdit.Module;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import dmfmm.StarvationAhoy.Core.util.CRef;
-import dmfmm.StarvationAhoy.Core.util.SALog;
-import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
-import dmfmm.StarvationAhoy.api.FoodEdit.Module;
-
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.lang3.reflect.*;
 
 public class ModuleBase extends Module {
 
@@ -25,7 +20,7 @@ public class ModuleBase extends Module {
 				ItemFood foo = (ItemFood) Item.itemRegistry.getObject(key);
 				
 				//SALog.fatal(Item.itemRegistry.getNameForObject(foo).toString());
-				try {
+				/*try {
 					PotionEffect effect = (PotionEffect) FieldUtils.readField(foo.getClass().getDeclaredField("potionId"), foo, true);
 					if (effect != null) {
 						int duration = effect.getDuration();
@@ -47,7 +42,7 @@ public class ModuleBase extends Module {
 
 					SALog.error("Could not extract potion data for: " + foo.getUnlocalizedName());
 				}
-
+				*/
 				// Percent of for ALL foods. (anything that extends ItemFood in the item registry)
 
 				int hunger = (int) (foo.getHealAmount(new ItemStack(foo, 1))*(percentage/100.0f));
