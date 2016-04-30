@@ -30,6 +30,7 @@ item.Rabbit_Dead.name=Rabbit Carcass
 item.Sheep_Dead.name=Sheep Carcass
 item.PigLegs.name=Pig Legs
 item.CookedPigLeg.name=Cooked Pig Legs
+item.infoBook.name=Starvation Ahoy: Info Book [WIP]
 starvationahoy.misc.dirty=Dirty
 tile.cropwashblock.name=Washing Barrel
 
