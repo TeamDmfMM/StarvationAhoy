@@ -501,7 +501,7 @@ public class BookPageGui extends GuiScreen {
                 page = 0;
                 String thingy = this.links.get(i);
                 links = new HashMap<>();
-                String data = I18n.translateToLocal(thingy);
+                String data = I18n.translateToLocal("starvationahoy.book_data.page." + thingy);
                 myPage = new BookPage();
                 myPage.digestString(data);
                 try {
