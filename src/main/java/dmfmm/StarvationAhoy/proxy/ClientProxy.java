@@ -1,11 +1,16 @@
 package dmfmm.StarvationAhoy.proxy;
 
+import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
 import dmfmm.StarvationAhoy.Core.Init.SASoundEvent;
+import dmfmm.StarvationAhoy.Core.lib.ModInfo;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import dmfmm.StarvationAhoy.Client.Renderer.*;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
@@ -37,6 +42,12 @@ public class ClientProxy extends CommonProxy{
     @Override
     public void initSounds() {
         SASoundEvent.init();
+    }
+
+    @Override
+    public void preInit() {
+        OBJLoader.INSTANCE.addDomain(ModInfo.MOD_ID);
+        MinecraftForge.EVENT_BUS.register(new OverlaySaturationBar(Minecraft.getMinecraft()));
     }
 
 

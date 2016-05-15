@@ -16,4 +16,6 @@ public interface IProxy {
 
 	void initSounds();
 
+	void preInit();
+
 }

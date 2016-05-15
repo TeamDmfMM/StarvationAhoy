@@ -4,6 +4,7 @@ package dmfmm.StarvationAhoy.Core.Init;
 import dmfmm.StarvationAhoy.Core.lib.ModInfo;
 import dmfmm.StarvationAhoy.Core.lib.WashLib;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
+import dmfmm.StarvationAhoy.CropWash.modelbake.DirtyItemSmartModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.RenderItem;
@@ -11,6 +12,8 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.common.MinecraftForge;
 
 public class CropwashTextureRegistry {
 
@@ -19,6 +22,10 @@ public class CropwashTextureRegistry {
     public static void initTextures(){
         registerBlock(WashLib.washBarrelName, 0);
         //doDirtyItem();
+    }
+
+    public static void preInitTexture(){
+        ModelLoaderRegistry.registerLoader(DirtyItemSmartModel.Loader.instance);
     }
 
 

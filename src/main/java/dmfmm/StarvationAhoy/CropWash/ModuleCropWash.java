@@ -7,7 +7,6 @@ import dmfmm.StarvationAhoy.CropWash.Block.BlockCropWasher;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
 import dmfmm.StarvationAhoy.CropWash.Crossmod.CrossMod;
 import dmfmm.StarvationAhoy.CropWash.item.CropItemLoader;
-import dmfmm.StarvationAhoy.CropWash.modelbake.DirtyItemSmartModel;
 import dmfmm.StarvationAhoy.CropWash.modelbake.TextureInjector;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -16,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -45,7 +43,8 @@ public class ModuleCropWash {
         GameRegistry.register(new ItemBlock(blockCropWasher).setRegistryName(blockCropWasher.getRegistryName()));
         MinecraftForge.EVENT_BUS.register(new VillagerCropOverride());
         if(side == Side.CLIENT) {
-            ModelLoaderRegistry.registerLoader(DirtyItemSmartModel.Loader.instance);
+            //ModelLoaderRegistry.registerLoader(DirtyItemSmartModel.Loader.instance);
+            CropwashTextureRegistry.preInitTexture();
             CropwashTextureRegistry.doDirtyItem();
         }
         //GameRegistry.registerBlock(blockCropWasher, "cropwashblock");

@@ -23,12 +23,12 @@ import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry;
 import dmfmm.StarvationAhoy.proxy.CommonProxy;
-import net.minecraft.client.Minecraft;
+//import net.minecraft.client.Minecraft;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityBanner;
-import net.minecraftforge.client.model.obj.OBJLoader;
+//import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
@@ -49,7 +49,7 @@ public class StarvationAhoy {
 	public static StarvationAhoy instance;
 	
 	public static ArmorMaterial StatusArmor = EnumHelper.addArmorMaterial("statusarmor", "", 16, new int[]{2,5,2,1}, 21, SoundEvents.item_armor_equip_generic);
-	public static TileEntityBanner.EnumBannerPattern pattern;
+	//public static TileEntityBanner.EnumBannerPattern pattern;
 	public static String DIR;
 
 	public static Side side;
@@ -85,7 +85,7 @@ public class StarvationAhoy {
 		ModuleMeat.preinit(event.getSide());
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-		pattern = addBannerIcon("starvationAhoy", "sta", new ItemStack(ItemLoad.HungerPotion));
+		//pattern = addBannerIcon("starvationAhoy", "sta", new ItemStack(ItemLoad.HungerPotion));
 
 		//Packet Initiation
 		MultiBlockChannel = NetworkRegistry.INSTANCE.newSimpleChannel(ModInfo.MOD_ID);
@@ -98,10 +98,7 @@ public class StarvationAhoy {
 
 		//Secondary Events
 		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
-		if(event.getSide() == Side.CLIENT){
-			OBJLoader.INSTANCE.addDomain(ModInfo.MOD_ID);
-			MinecraftForge.EVENT_BUS.register(new OverlaySaturationBar(Minecraft.getMinecraft()));
-		}
+		proxy.preInit();
 		proxy.initSounds();
 	}
 	
