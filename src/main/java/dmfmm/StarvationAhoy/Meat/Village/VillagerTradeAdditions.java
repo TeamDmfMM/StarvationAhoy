@@ -16,7 +16,10 @@ public class VillagerTradeAdditions {
 	public static void addVillager(Side side) {
 		VillagerRegistry.VillagerProfession prof = new SAButcher();
 		VillagerRegistry.instance().register(prof);
-		new TradeHandler(prof);
+		VillagerRegistry.VillagerCareer carrer = new VillagerRegistry.VillagerCareer(prof, "butcher");
+		carrer.addTrade(1, TradeHandler.trades[0][0]);
+		carrer.addTrade(2, TradeHandler.trades[0][1]);
+		carrer.addTrade(3, TradeHandler.trades[0][2]);
 		//if(side == Side.CLIENT){VillagerRegistry.instance().registerVillagerSkin(getVID(), new ResourceLocation("starvationahoy:textures/entity/VillageButcher.png"));}
 		//VillagerRegistry.instance().registerVillageTradeHandler(getVID(), TradeHandler.INSTANCE);
 	}
@@ -26,16 +29,7 @@ public class VillagerTradeAdditions {
 	}
 
 
-	public static class TradeHandler extends VillagerRegistry.VillagerCareer {
-
-		public TradeHandler(VillagerRegistry.VillagerProfession parent) {
-			super(parent, "SAButcher");
-		}
-
-		public EntityVillager.ITradeList[][] getTrades() {
-			return this.trades;
-		}
-
+	public static class TradeHandler {
 		private static final EntityVillager.ITradeList[][] trades =
 				{
 						{
