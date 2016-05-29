@@ -36,13 +36,13 @@ public class CropwashTextureRegistry {
 
     private static void registerBlock(String blockName, int meta){
         RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
-        Item itemB = Item.itemRegistry.getObject(new ResourceLocation("starvationahoy", blockName));
+        Item itemB = Item.REGISTRY.getObject(new ResourceLocation("starvationahoy", blockName));
         renderItem.getItemModelMesher().register(itemB, meta, new ModelResourceLocation("starvationahoy:"+ blockName, "inventory"));
     }
 
     private static void register(Item item, int meta){
         ItemModelMesher modelRegistry = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
         //EFLog.fatal((ResourceLocation) Item.itemRegistry.getNameForObject(item));
-        modelRegistry.register(item, 0, new ModelResourceLocation((ResourceLocation) Item.itemRegistry.getNameForObject(item), "inventory"));
+        modelRegistry.register(item, 0, new ModelResourceLocation((ResourceLocation) Item.REGISTRY.getNameForObject(item), "inventory"));
     }
 }

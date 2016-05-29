@@ -20,6 +20,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
@@ -30,7 +31,7 @@ public class MeatHanger extends BlockContainerRotate{
 	//private boolean hasAnimal = false;
 	
 	protected MeatHanger() {
-		super(Material.iron);
+		super(Material.IRON);
 		this.setCreativeTab(SATabs.INSTANCE);
 	}
 
@@ -55,14 +56,17 @@ public class MeatHanger extends BlockContainerRotate{
             return false;
     }
 	@Override
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+	public void onNeighborChange(IBlockAccess worldIn, BlockPos pos, BlockPos neighbor)
 	{
-		int rotation = this.getMetaFromState(state);
-		//Facing (0-5). The order is D-U-N-S-W-E
-		BlockPos p = pos.offset(EnumFacing.VALUES[rotation].getOpposite());
-		if(worldIn.getBlockState(p).getBlock().isAir(state, worldIn, p)){
-			this.breakBlock(worldIn, pos, state);
-			worldIn.setBlockToAir(pos);
+		if(worldIn instanceof World) {
+			IBlockState state = worldIn.getBlockState(pos);
+			int rotation = this.getMetaFromState(state);
+			//Facing (0-5). The order is D-U-N-S-W-E
+			BlockPos p = pos.offset(EnumFacing.VALUES[rotation].getOpposite());
+			if (worldIn.getBlockState(p).getBlock().isAir(state, worldIn, p)) {
+				this.breakBlock((World)worldIn, pos, state);
+				((World)worldIn).setBlockToAir(pos);
+			}
 		}
 	}
 
@@ -128,13 +132,13 @@ public class MeatHanger extends BlockContainerRotate{
     }
 
     
-    public AxisAlignedBB getCollisionBoundingBox(World world, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
     {
 		return super.getCollisionBoundingBox(state, world, pos);
     }
 
 	@SideOnly(Side.CLIENT)
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos) {return this.defaultABB(world, pos);}
+	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos) {return this.defaultABB(world, pos);}
 
 	private AxisAlignedBB defaultABB(World world, BlockPos pos){
 		int x = pos.getX();

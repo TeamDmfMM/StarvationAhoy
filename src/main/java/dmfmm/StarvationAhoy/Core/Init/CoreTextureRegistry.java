@@ -26,6 +26,6 @@ public class CoreTextureRegistry {
     private static void register(Item item, int meta){
         ItemModelMesher modelRegistry = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
         //EFLog.fatal((ResourceLocation) Item.itemRegistry.getNameForObject(item));
-        modelRegistry.register(item, 0, new ModelResourceLocation((ResourceLocation) Item.itemRegistry.getNameForObject(item), "inventory"));
+        modelRegistry.register(item, 0, new ModelResourceLocation((ResourceLocation) Item.REGISTRY.getNameForObject(item), "inventory"));
     }
 }

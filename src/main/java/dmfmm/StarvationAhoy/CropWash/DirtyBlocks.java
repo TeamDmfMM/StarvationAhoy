@@ -22,10 +22,10 @@ public class DirtyBlocks {
     public DirtyBlocks(){
         replace = new HashMap<>();
 
-        addReplace(Blocks.carrots, Items.carrot);
-        addReplace(Blocks.potatoes, Items.poisonous_potato, Items.potato);
-        addReplace(Blocks.wheat, Items.wheat);
-        addReplace(Blocks.beetroots, Items.beetroot);
+        addReplace(Blocks.CARROTS, Items.CARROT);
+        addReplace(Blocks.POTATOES, Items.POISONOUS_POTATO, Items.POTATO);
+        addReplace(Blocks.WHEAT, Items.WHEAT);
+        addReplace(Blocks.BEETROOTS, Items.BEETROOT);
 
     }
 

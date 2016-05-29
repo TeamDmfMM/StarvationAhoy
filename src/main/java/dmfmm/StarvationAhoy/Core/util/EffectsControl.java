@@ -4,6 +4,7 @@ package dmfmm.StarvationAhoy.Core.util;
 import dmfmm.StarvationAhoy.Client.SAEntityDiggingFX;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -11,10 +12,10 @@ import net.minecraft.world.World;
 public class EffectsControl {
 
 
-    public static void addBlockDestroyEffects(World world, BlockPos pos, IBlockState state, net.minecraft.client.particle.EffectRenderer effectRenderer, String iconName) {
+    public static void addBlockDestroyEffects(World world, BlockPos pos, IBlockState state, ParticleManager effectRenderer, String iconName) {
         if (!state.getBlock().isAir(state, world, pos))
         {
-            state = state.getBlock().getActualState(state, world, pos);
+            state = state.getActualState(world, pos);
             int i = 4;
 
             for (int j = 0; j < i; ++j)

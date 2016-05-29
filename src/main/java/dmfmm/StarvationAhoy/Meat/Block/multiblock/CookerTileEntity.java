@@ -24,7 +24,7 @@ public class CookerTileEntity extends TileEntityMultiBlock implements IInventory
     }
 
     @Override
-    public Packet getDescriptionPacket()
+    public SPacketUpdateTileEntity getUpdatePacket()
     {
         NBTTagCompound syncData = new NBTTagCompound();
         syncData.setInteger("MultiBlockIndex", multiBlockStructure.bPos);

@@ -48,9 +48,9 @@ public class VillagerTradeAdditions {
 								new EntityVillager.ListItemForEmeralds(MItemLoader.deadSheep, new EntityVillager.PriceInfo(3, 8))
 						},
 						{
-								new EntityVillager.ListItemForEmeralds(new ItemStack(Items.beef, getRandomStackNumber(7, 10)), new EntityVillager.PriceInfo(2, 3)),
+								new EntityVillager.ListItemForEmeralds(new ItemStack(Items.BEEF, getRandomStackNumber(7, 10)), new EntityVillager.PriceInfo(2, 3)),
 								new EntityVillager.ListItemForEmeralds(new ItemStack(MBlockLoader.MeatHanger), new EntityVillager.PriceInfo(3, 9)),
-								new EntityVillager.ListItemForEmeralds(new ItemStack(Items.cooked_porkchop, getRandomStackNumber(4, 9)), new EntityVillager.PriceInfo(3, 3))
+								new EntityVillager.ListItemForEmeralds(new ItemStack(Items.COOKED_PORKCHOP, getRandomStackNumber(4, 9)), new EntityVillager.PriceInfo(3, 3))
 						}
 
 				};

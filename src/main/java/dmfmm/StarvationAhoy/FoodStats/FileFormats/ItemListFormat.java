@@ -45,7 +45,7 @@ public class ItemListFormat {
     public void load() throws IOException {
         String line = reader.readLine();
         while (line != null){
-            this.items.add((Item) Item.itemRegistry.getObject(new ResourceLocation(line.split("\n")[0])));//TODO: MM12 LOOK hERE AND FIX LINE!
+            this.items.add((Item) Item.REGISTRY.getObject(new ResourceLocation(line.split("\n")[0])));//TODO: MM12 LOOK hERE AND FIX LINE!
             line = reader.readLine();
         }
     }
@@ -79,7 +79,7 @@ public class ItemListFormat {
         undump();
 
         for (Item i : this.items){
-            String towrite = Item.itemRegistry.getNameForObject(i) + "\n";
+            String towrite = Item.REGISTRY.getNameForObject(i) + "\n";
             System.out.println(towrite);
 
             this.writer.write(towrite);

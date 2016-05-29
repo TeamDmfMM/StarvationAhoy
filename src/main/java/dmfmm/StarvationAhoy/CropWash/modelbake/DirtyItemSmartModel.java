@@ -44,7 +44,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
     static DirtyItemSmartModel MODEL = new DirtyItemSmartModel();
 
     public DirtyItemSmartModel() {
-        this(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(Items.apple))); // # should be a missingtex.
+        this(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(Items.APPLE))); // # should be a missingtex.
     }
 
     public DirtyItemSmartModel(IBakedModel mimic) {
@@ -61,12 +61,12 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
     @Override
     public IModel process(ImmutableMap<String, String> customData) {
         if (customData.get("id_name") != null) {
-            ItemStack assumed_itemstack = new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(customData.get("id_name"))));
+            ItemStack assumed_itemstack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(customData.get("id_name"))));
             IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(assumed_itemstack);
             return new DirtyItemSmartModel(model);
         }
         else {
-            ItemStack assumed_itemstack = new ItemStack(Items.apple);
+            ItemStack assumed_itemstack = new ItemStack(Items.APPLE);
             IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(assumed_itemstack);
             return new DirtyItemSmartModel(model);
         }
@@ -167,6 +167,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         public boolean isGui3d() { return false; }
         public boolean isBuiltInRenderer() { return false; }
         public TextureAtlasSprite getParticleTexture() { return particle; }
+        @SuppressWarnings("deprecation")
         public ItemCameraTransforms getItemCameraTransforms() {
 
             ItemCameraTransforms cameraTransforms = new ItemCameraTransforms(
@@ -181,6 +182,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
             );
             return cameraTransforms;
         }
+        @SuppressWarnings("deprecation")
         public static ItemCameraTransforms getItemCameraTransforms2() {
 
             ItemCameraTransforms cameraTransforms = new ItemCameraTransforms(
@@ -218,7 +220,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
             Item itemy = stack.getItem();
 
             if (!model.cache.containsKey(itemy)) {
-                IModel new_model = model.parent.process(ImmutableMap.of("id_name", Item.itemRegistry.getNameForObject(itemy).toString()));
+                IModel new_model = model.parent.process(ImmutableMap.of("id_name", Item.REGISTRY.getNameForObject(itemy).toString()));
                 Function<ResourceLocation, TextureAtlasSprite> textureGetter;
                 textureGetter = new Function<ResourceLocation, TextureAtlasSprite>()
                 {

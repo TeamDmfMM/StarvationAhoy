@@ -29,7 +29,7 @@ public class ModuleUser extends Module {
 		Map<String, ArrayList<FoodOverride>> mods = new HashMap<>();
 		//SALog.error(KnownFoods.knownFoods.size());
 		for (ArrayList<Object> foodies : KnownFoods.knownFoods){
-			String[] comps = Item.itemRegistry.getNameForObject(((ItemStack) foodies.get(0)).getItem()).toString().split(":");
+			String[] comps = Item.REGISTRY.getNameForObject(((ItemStack) foodies.get(0)).getItem()).toString().split(":");
 
 
 			if (true){
@@ -122,7 +122,7 @@ public class ModuleUser extends Module {
 		for (ModOverrides mod : stuffies.foods){
 			String modname = mod.mod;
 			for (FoodOverride foodie : mod.foods){
-				ItemStack istack = new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(modname, foodie.name)));
+				ItemStack istack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(modname, foodie.name)));
 				food.insertFood(istack, foodie.hunger, foodie.saturation);
 			}
 		}

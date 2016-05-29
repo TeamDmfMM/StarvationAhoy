@@ -37,7 +37,7 @@ public class TileEntityCropWasher extends TileFluidHandler{
     }
 
     @Override
-    public Packet getDescriptionPacket()
+    public SPacketUpdateTileEntity getUpdatePacket()
     {
         NBTTagCompound syncData = new NBTTagCompound();
         syncData.setTag("fluid", tank.writeToNBT(new NBTTagCompound()));

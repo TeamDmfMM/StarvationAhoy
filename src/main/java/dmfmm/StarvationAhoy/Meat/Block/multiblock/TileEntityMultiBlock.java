@@ -46,14 +46,15 @@ public abstract class TileEntityMultiBlock extends TileEntity implements ITickab
     public void onSync(){}
 
     @Override
-    public void writeToNBT(NBTTagCompound nbtTagCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);
-        if (multiBlockStructure == null) return;
+        if (multiBlockStructure == null) return nbtTagCompound;
 
         nbtTagCompound.setTag("MultiBlockShared", multiBlockStructure.sharedData);
         nbtTagCompound.setInteger("MultiBlockIndex", multiBlockStructure.bPos);
         nbtTagCompound.setInteger("MultiBlockOrient", multiBlockStructure.orient);
 
+        return nbtTagCompound;
     }
 
     public abstract Class<? extends MultiBlockStructure> getMultiBlock();

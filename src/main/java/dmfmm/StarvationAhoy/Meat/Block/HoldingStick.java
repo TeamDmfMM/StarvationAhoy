@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 public class HoldingStick extends BlockContainerRotate{
 
 	protected HoldingStick() {
-		super(Material.wood);
+		super(Material.WOOD);
 		this.setCreativeTab(SATabs.INSTANCE);
 	}
 
@@ -49,7 +49,7 @@ public class HoldingStick extends BlockContainerRotate{
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if(player.inventory.getCurrentItem() != null) {
-			if (player.inventory.getCurrentItem().getItem() == Items.stick) {
+			if (player.inventory.getCurrentItem().getItem() == Items.STICK) {
 				boolean s = MultiBlockChecking.checkCookerStructure(world, pos.getX(), pos.getY(), pos.getZ());
 				if (s) {
 					player.inventory.mainInventory[player.inventory.currentItem].stackSize--;

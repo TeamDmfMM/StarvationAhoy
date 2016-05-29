@@ -17,7 +17,7 @@ public class SASoundEvent {
     private static int size = 0;
 
     public static void init() {
-        size = SoundEvent.soundEventRegistry.getKeys().size();
+        size = SoundEvent.REGISTRY.getKeys().size();
 
         pageFlip = register("pageFlip");
     }
@@ -26,7 +26,7 @@ public class SASoundEvent {
         ResourceLocation loc = new ResourceLocation("starvationahoy:" + name);
         SoundEvent e = new SoundEvent(loc);
 
-        SoundEvent.soundEventRegistry.register(size, loc, e);
+        SoundEvent.REGISTRY.register(size, loc, e);
         size++;
 
         return e;

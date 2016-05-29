@@ -67,6 +67,7 @@ public class BookPageGui extends GuiScreen {
 
     public BookPage myPage;
 
+
     public BookPageGui(String id) {
         //id = "test";
         String thingy = "starvationahoy.book_data.page." + id;
@@ -355,7 +356,7 @@ public class BookPageGui extends GuiScreen {
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(GL11.GL_BLEND);
         this.drawTexturedModalRect(base_x, base_y - 51, 0, 0, BookPage.PAGE_WIDTH, BookPage.PAGE_HEIGHT);
-        CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(element.args.get(0).split(":")[0], element.args.get(0).split(":")[1]))));
+        CraftingProxyHelper cpx = new CraftingProxyHelper(new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(element.args.get(0).split(":")[0], element.args.get(0).split(":")[1]))));
         GL11.glDisable(GL11.GL_LIGHTING);
         RenderHelper.enableGUIStandardItemLighting();
         r.renderItemAndEffectIntoGUI(cpx.getOutput(), base_x + 26, base_y-43);
@@ -453,7 +454,7 @@ public class BookPageGui extends GuiScreen {
 
     public void drawElementSmelting(BookElement element) {
         String[] itemInfo = element.args.get(0).split(":");
-        ItemStack output = new ItemStack(Item.itemRegistry.getObject(new ResourceLocation(itemInfo[0], itemInfo[1])), 1);
+        ItemStack output = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(itemInfo[0], itemInfo[1])), 1);
         if (itemInfo.length == 3) {
             output.setItemDamage(Integer.parseInt(itemInfo[2]));
         } else {

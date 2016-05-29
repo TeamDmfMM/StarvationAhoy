@@ -40,7 +40,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	
 	public ButcherHouse(Start villagePiece, int par2, Random par3Random, StructureBoundingBox sbb, EnumFacing facing) {
          super(villagePiece, par2);
-		this.func_186164_a(facing);
+		this.setCoordBaseMode(facing);
          this.coordBaseMode = facing;
          this.boundingBox = sbb; 
 	}
@@ -53,89 +53,89 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	
 	@Override
 	public boolean addComponentParts(World world, Random rand, StructureBoundingBox sbb) {
-		if (this.field_143015_k < 0)
+		if (this.averageGroundLvl < 0)
 		{
-			this.field_143015_k = this.getAverageGroundLevel(world, sbb);
+			this.averageGroundLvl = this.getAverageGroundLevel(world, sbb);
 
-			if (this.field_143015_k < 0)
+			if (this.averageGroundLvl < 0)
 			{
 				return true;
 			}
 
-			this.boundingBox.offset(0, this.field_143015_k - this.boundingBox.maxY + 6, 0);
+			this.boundingBox.offset(0, this.averageGroundLvl - this.boundingBox.maxY + 6, 0);
 		}
        // int x = this.boundingBox.minX;
        // int y = this.boundingBox.minY;
        // int z = this.boundingBox.minZ;
         
         //Clear Everything
-		fillWithBlocks(world, sbb, 0, 0, 0, 9, 7, 11, Blocks.air, Blocks.air, false);
+		fillWithBlocks(world, sbb, 0, 0, 0, 9, 7, 11, Blocks.AIR, Blocks.AIR, false);
 		
 		//Place Floor
-		fillWithBlocks(world, sbb, 0, 0, 7, 8, 0, 11, Blocks.grass, Blocks.grass, false);
-		fillWithBlocks(world, sbb, 0, 0, 0, 8, 0, 6, Blocks.cobblestone, Blocks.cobblestone, false);
+		fillWithBlocks(world, sbb, 0, 0, 7, 8, 0, 11, Blocks.GRASS, Blocks.GRASS, false);
+		fillWithBlocks(world, sbb, 0, 0, 0, 8, 0, 6, Blocks.COBBLESTONE, Blocks.COBBLESTONE, false);
 		
 		//Fence & Torches
-		fillWithBlocks(world, sbb, 0, 1, 7, 0, 1, 11, Blocks.oak_fence, Blocks.oak_fence, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 0, 2, 11, sbb);
-		fillWithBlocks(world, sbb, 8, 1, 7, 8, 1, 11, Blocks.oak_fence, Blocks.oak_fence, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 8, 2, 11, sbb);
-		fillWithBlocks(world, sbb, 1, 1, 11, 7, 1, 11, Blocks.oak_fence, Blocks.oak_fence, false);
+		fillWithBlocks(world, sbb, 0, 1, 7, 0, 1, 11, Blocks.OAK_FENCE, Blocks.OAK_FENCE, false);
+		this.placeBlockAtCurrentPosition(world, Blocks.TORCH, 0, 0, 2, 11, sbb);
+		fillWithBlocks(world, sbb, 8, 1, 7, 8, 1, 11, Blocks.OAK_FENCE, Blocks.OAK_FENCE, false);
+		this.placeBlockAtCurrentPosition(world, Blocks.TORCH, 0, 8, 2, 11, sbb);
+		fillWithBlocks(world, sbb, 1, 1, 11, 7, 1, 11, Blocks.OAK_FENCE, Blocks.OAK_FENCE, false);
 			//Middle Torch/Fence
-		fillWithBlocks(world,sbb, 4, 1, 7, 4, 1, 11, Blocks.oak_fence, Blocks.oak_fence, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.torch, 0, 4, 2, 11, sbb);
+		fillWithBlocks(world,sbb, 4, 1, 7, 4, 1, 11, Blocks.OAK_FENCE, Blocks.OAK_FENCE, false);
+		this.placeBlockAtCurrentPosition(world, Blocks.TORCH, 0, 4, 2, 11, sbb);
 		
 		//Wall @ Pen
-		fillWithBlocks(world, sbb, 1, 1, 6, 2, 3, 6, Blocks.cobblestone, Blocks.cobblestone, false);
-		fillWithBlocks(world, sbb, 6, 1, 6, 7, 3, 6, Blocks.cobblestone, Blocks.cobblestone, false);
-		fillWithBlocks(world, sbb, 4, 1, 6, 4, 3, 6, Blocks.cobblestone, Blocks.cobblestone, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.cobblestone, 3, 3, 6, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.cobblestone, 5, 3, 6, sbb);
+		fillWithBlocks(world, sbb, 1, 1, 6, 2, 3, 6, Blocks.COBBLESTONE, Blocks.COBBLESTONE, false);
+		fillWithBlocks(world, sbb, 6, 1, 6, 7, 3, 6, Blocks.COBBLESTONE, Blocks.COBBLESTONE, false);
+		fillWithBlocks(world, sbb, 4, 1, 6, 4, 3, 6, Blocks.COBBLESTONE, Blocks.COBBLESTONE, false);
+		this.placeBlockAtCurrentPosition(world, Blocks.COBBLESTONE, 3, 3, 6, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.COBBLESTONE, 5, 3, 6, sbb);
 		this.placeDoorCurrentPosition(world, sbb, rand, 5, 1, 6, EnumFacing.SOUTH);
 		this.placeDoorCurrentPosition(world, sbb, rand, 3, 1, 6, EnumFacing.SOUTH);
 		
 		//Wooden Log Corners
-		fillWithBlocks(world, sbb, 0, 1, 6, 0, 3, 6, Blocks.log, Blocks.log, false);
-		fillWithBlocks(world, sbb, 8, 1, 6, 8, 3, 6, Blocks.log, Blocks.log, false);
-		fillWithBlocks(world, sbb, 0, 1, 0, 0, 3, 0, Blocks.log, Blocks.log, false);
-		fillWithBlocks(world, sbb, 8, 1, 0, 8, 3, 0, Blocks.log, Blocks.log, false);
+		fillWithBlocks(world, sbb, 0, 1, 6, 0, 3, 6, Blocks.LOG, Blocks.LOG, false);
+		fillWithBlocks(world, sbb, 8, 1, 6, 8, 3, 6, Blocks.LOG, Blocks.LOG, false);
+		fillWithBlocks(world, sbb, 0, 1, 0, 0, 3, 0, Blocks.LOG, Blocks.LOG, false);
+		fillWithBlocks(world, sbb, 8, 1, 0, 8, 3, 0, Blocks.LOG, Blocks.LOG, false);
 		
 		//Solid Walls
-		fillWithBlocks(world, sbb, 0, 1, 1, 0, 3, 5, Blocks.brick_block, Blocks.brick_block, false);
-		fillWithBlocks(world, sbb, 1, 1, 0, 7, 3, 0, Blocks.brick_block, Blocks.brick_block, false);
+		fillWithBlocks(world, sbb, 0, 1, 1, 0, 3, 5, Blocks.BRICK_BLOCK, Blocks.BRICK_BLOCK, false);
+		fillWithBlocks(world, sbb, 1, 1, 0, 7, 3, 0, Blocks.BRICK_BLOCK, Blocks.BRICK_BLOCK, false);
 		
 		//Exit/Entrance Wall
-		fillWithBlocks(world, sbb, 8, 1, 1, 8, 3, 2, Blocks.brick_block, Blocks.brick_block, false);
-		fillWithBlocks(world, sbb, 8, 1, 4, 8, 3, 5, Blocks.brick_block, Blocks.brick_block, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.brick_block, 8, 3, 3, sbb);
-		//int entryStair = getMetadataWithOffset(Blocks.stone_stairs, 1);
-		//this.placeBlockAtCurrentPosition(world, Blocks.stone_stairs, 0, 9, 0, 3, sbb);
-		this.setBlockState(world, Blocks.stone_stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST), 9, 0, 3, sbb);
+		fillWithBlocks(world, sbb, 8, 1, 1, 8, 3, 2, Blocks.BRICK_BLOCK, Blocks.BRICK_BLOCK, false);
+		fillWithBlocks(world, sbb, 8, 1, 4, 8, 3, 5, Blocks.BRICK_BLOCK, Blocks.BRICK_BLOCK, false);
+		this.placeBlockAtCurrentPosition(world, Blocks.BRICK_BLOCK, 8, 3, 3, sbb);
+		//int entryStair = getMetadataWithOffset(Blocks.STONE_STAIRS, 1);
+		//this.placeBlockAtCurrentPosition(world, Blocks.STONE_STAIRS, 0, 9, 0, 3, sbb);
+		this.setBlockState(world, Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST), 9, 0, 3, sbb);
 
 		this.placeDoorCurrentPosition(world, sbb, rand, 8, 1, 3, EnumFacing.EAST);
 		
 		//ROOF
-		fillWithBlocks(world, sbb, 0, 6, 3, 8, 6, 3, Blocks.planks, Blocks.planks, false);
+		fillWithBlocks(world, sbb, 0, 6, 3, 8, 6, 3, Blocks.PLANKS, Blocks.PLANKS, false);
 		for (int i = 0; i <= 8; i++){
 			//To Pen
-			this.setBlockState(world, Blocks.oak_stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH), i, 6, 4, sbb);
-			this.setBlockState(world, Blocks.oak_stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH), i, 5, 5, sbb);
-			this.setBlockState(world, Blocks.oak_stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH), i, 4, 6, sbb);
+			this.setBlockState(world, Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH), i, 6, 4, sbb);
+			this.setBlockState(world, Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH), i, 5, 5, sbb);
+			this.setBlockState(world, Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH), i, 4, 6, sbb);
 			//Out Side
-			this.setBlockState(world, Blocks.oak_stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH), i, 6, 2, sbb);
-			this.setBlockState(world, Blocks.oak_stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH), i, 5, 1, sbb);
-			this.setBlockState(world, Blocks.oak_stairs.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH), i, 4, 0, sbb);
+			this.setBlockState(world, Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH), i, 6, 2, sbb);
+			this.setBlockState(world, Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH), i, 5, 1, sbb);
+			this.setBlockState(world, Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH), i, 4, 0, sbb);
 			
 		}
-		fillWithBlocks(world, sbb, 0, 4, 1, 0, 4, 5, Blocks.planks, Blocks.planks, false);
-		fillWithBlocks(world, sbb, 8, 4, 1, 8, 4, 5, Blocks.planks, Blocks.planks, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.planks,  0, 5, 2, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 5, 3, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.planks,  0, 5, 4, sbb);
+		fillWithBlocks(world, sbb, 0, 4, 1, 0, 4, 5, Blocks.PLANKS, Blocks.PLANKS, false);
+		fillWithBlocks(world, sbb, 8, 4, 1, 8, 4, 5, Blocks.PLANKS, Blocks.PLANKS, false);
+		this.placeBlockAtCurrentPosition(world, Blocks.PLANKS,  0, 5, 2, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.GLASS_PANE, 0, 5, 3, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.PLANKS,  0, 5, 4, sbb);
 		
-		this.placeBlockAtCurrentPosition(world, Blocks.planks,  8, 5, 2, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 8, 5, 3, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.planks,  8, 5, 4, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.PLANKS,  8, 5, 2, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.GLASS_PANE, 8, 5, 3, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.PLANKS,  8, 5, 4, sbb);
 		
 
 		
@@ -199,21 +199,21 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		}
 		
 		//Interior Decor
-		fillWithMetadataBlocks(world, sbb, 1, 0, 3, 2, 0, 5, Blocks.double_stone_slab, 7, Blocks.double_stone_slab, 7, false);
-		fillWithMetadataBlocks(world, sbb, 2, 1, 4, 2, 1, 5, Blocks.double_stone_slab, 7, Blocks.double_stone_slab, 7, false);
-		this.setBlockState(world, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.SOUTH), 1, 4, 5, sbb);
-		this.setBlockState(world, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.SOUTH), 4, 3, 5, sbb);//Middle to outside
-		this.setBlockState(world, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.NORTH), 1, 4, 1, sbb);
-		this.setBlockState(world, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.WEST), 7, 4, 1, sbb);//AT DOOR
-		this.setBlockState(world, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.WEST), 7, 4, 5, sbb);//AT DOOR
+		fillWithMetadataBlocks(world, sbb, 1, 0, 3, 2, 0, 5, Blocks.DOUBLE_STONE_SLAB, 7, Blocks.DOUBLE_STONE_SLAB, 7, false);
+		fillWithMetadataBlocks(world, sbb, 2, 1, 4, 2, 1, 5, Blocks.DOUBLE_STONE_SLAB, 7, Blocks.DOUBLE_STONE_SLAB, 7, false);
+		this.setBlockState(world, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.SOUTH), 1, 4, 5, sbb);
+		this.setBlockState(world, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.SOUTH), 4, 3, 5, sbb);//Middle to outside
+		this.setBlockState(world, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.NORTH), 1, 4, 1, sbb);
+		this.setBlockState(world, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.WEST), 7, 4, 1, sbb);//AT DOOR
+		this.setBlockState(world, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.WEST), 7, 4, 5, sbb);//AT DOOR
 		placeHanger(world, sbb, getXOff(2, 1), getYOff(3), getZOff(2, 1), randomNum);
 		placeHanger(world, sbb, getXOff(4, 1), getYOff(3), getZOff(4, 1), randomNum1);
 		placeHanger(world, sbb, getXOff(6, 1), getYOff(3), getZOff(6, 1), randomNum);
-		fillWithBlocks(world, sbb, 2, 3, 4, 2, 3, 5, Blocks.glass_pane, Blocks.glass_pane, false);
-		this.placeBlockAtCurrentPosition(world, Blocks.glass_pane,  1, 3, 4, sbb);
-		this.setBlockState(world, Blocks.oak_fence_gate.getDefaultState().withProperty(BlockFenceGate.FACING, EnumFacing.NORTH).withProperty(BlockFenceGate.OPEN, Boolean.FALSE), 1, 1, 4, sbb);
-		//this.placeBlockAtCurrentPosition(world, Blocks.oak_fence_gate, this.coordBaseMode.rotateY().getIndex(), 1, 1, 4, sbb);
-		this.placeBlockAtCurrentPosition(world, Blocks.oak_fence,  2, 2, 4, sbb);
+		fillWithBlocks(world, sbb, 2, 3, 4, 2, 3, 5, Blocks.GLASS_PANE, Blocks.GLASS_PANE, false);
+		this.placeBlockAtCurrentPosition(world, Blocks.GLASS_PANE,  1, 3, 4, sbb);
+		this.setBlockState(world, Blocks.OAK_FENCE_GATE.getDefaultState().withProperty(BlockFenceGate.FACING, EnumFacing.NORTH).withProperty(BlockFenceGate.OPEN, Boolean.FALSE), 1, 1, 4, sbb);
+		//this.placeBlockAtCurrentPosition(world, Blocks.OAK_FENCE_gate, this.coordBaseMode.rotateY().getIndex(), 1, 1, 4, sbb);
+		this.placeBlockAtCurrentPosition(world, Blocks.OAK_FENCE,  2, 2, 4, sbb);
 
 
 
@@ -236,7 +236,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	}
 	
 	@Override
-	protected int func_180779_c(int p_180779_1_, int p_180779_2_)
+	protected int chooseProfession(int villagersSpawnedIn, int currentVillagerProfession)
     {
         return 4;
 		//return VillagerTradeAdditions.getVID();
@@ -290,7 +290,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 			{
 				for (int k2 = minZ; k2 <= maxZ; ++k2)
 				{
-					if (!alwaysReplace || this.getBlockStateFromPos(world, j2, i2, k2, sbb).getBlock().getMaterial(this.getBlockStateFromPos(world, j2, i2, k2, sbb)) != Material.air)
+					if (!alwaysReplace || this.getBlockStateFromPos(world, j2, i2, k2, sbb).getBlock().getMaterial(this.getBlockStateFromPos(world, j2, i2, k2, sbb)) != Material.AIR)
 					{
 						if (i2 != minY && i2 != maxY && j2 != minX && j2 != maxX && k2 != minZ && k2 != maxZ)
 						{

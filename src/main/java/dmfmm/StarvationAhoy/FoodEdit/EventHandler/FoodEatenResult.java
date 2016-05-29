@@ -46,7 +46,7 @@ public class FoodEatenResult
 				if (e.getDuration() <= 25 && e.getDuration() % 4 == 0) {
 					Random rand = new Random();
 					if (itemstack.getItemUseAction() == EnumAction.DRINK) {
-						e.getEntity().playSound(SoundEvents.entity_generic_death, 0.5F, e.getEntity().worldObj.rand.nextFloat() * 0.1F + 0.9F);
+						e.getEntity().playSound(SoundEvents.ENTITY_GENERIC_DEATH, 0.5F, e.getEntity().worldObj.rand.nextFloat() * 0.1F + 0.9F);
 					}
 
 					if (itemstack.getItemUseAction() == EnumAction.EAT) {
@@ -67,7 +67,7 @@ public class FoodEatenResult
 							}
 						}
 
-						e.getEntity().playSound(SoundEvents.entity_generic_eat, 0.5F + 0.5F * (float) rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+						e.getEntity().playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.5F + 0.5F * (float) rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
 					}
 				}
 
@@ -97,8 +97,8 @@ public class FoodEatenResult
 	            float SaturationAmt = KnownFoods.getFoodSaturation(e.getItem());
 				entityPlayer.getFoodStats().addStats(HealAmount, SaturationAmt);
 				if(entityPlayer.worldObj.isRemote){
-				entityPlayer.playSound(SoundEvents.entity_generic_eat, 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
-				Minecraft.getMinecraft().theWorld.playSound((EntityPlayer)null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.entity_player_burp, SoundCategory.PLAYERS, 0.5F, Minecraft.getMinecraft().theWorld.rand.nextFloat() * 0.1F + 0.9F);
+				entityPlayer.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+				Minecraft.getMinecraft().theWorld.playSound((EntityPlayer)null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, Minecraft.getMinecraft().theWorld.rand.nextFloat() * 0.1F + 0.9F);
 				}
 
 			try{

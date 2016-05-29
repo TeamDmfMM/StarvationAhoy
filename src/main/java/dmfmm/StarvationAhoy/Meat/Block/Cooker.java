@@ -21,6 +21,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
@@ -31,7 +32,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class Cooker extends BlockContainer {
     protected Cooker() {
-        super(Material.anvil);
+        super(Material.ANVIL);
         //this.setCreativeTab(SATabs.INSTANCE);
        // this.setBlockBounds(0.0F, 0.6F, 0.0F, 1.0F, 1.0F, 1.0F);
 
@@ -57,7 +58,7 @@ public class Cooker extends BlockContainer {
             TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(new BlockPos(x, y, z));
             if (te.multiBlockStructure.sharedData.hasKey("RoastingItem")){
                 ItemStack toSpawnInWorld = ItemStack.loadItemStackFromNBT(te.multiBlockStructure.sharedData.getCompoundTag("RoastingItem"));
-                MinecraftForge.EVENT_BUS.post(new MeatCutEvent.SpitRoast(world, te.multiBlockStructure.sharedData.getInteger("EntityID"), new BlockPos(x, y, z), toSpawnInWorld.getItem().equals(Items.bone), toSpawnInWorld.getItem()));
+                MinecraftForge.EVENT_BUS.post(new MeatCutEvent.SpitRoast(world, te.multiBlockStructure.sharedData.getInteger("EntityID"), new BlockPos(x, y, z), toSpawnInWorld.getItem().equals(Items.BONE), toSpawnInWorld.getItem()));
                 te.multiBlockStructure.sharedData = new NBTTagCompound();
                 EntityItem e = new EntityItem(world, x, y+2, z, toSpawnInWorld);
                 if (!world.isRemote){world.spawnEntityInWorld(e);}
@@ -85,7 +86,8 @@ public class Cooker extends BlockContainer {
 
         return false;
     }
-
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings("deprecation")
     public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World source, BlockPos pos) {
         int x = pos.getX();
         int y = pos.getY();
@@ -95,52 +97,65 @@ public class Cooker extends BlockContainer {
             if (tile.multiBlockStructure != null) {
                 if (tile.multiBlockStructure.orient == 0) {
                     return new AxisAlignedBB((double) x,
-                            (double) 1.16f,
-                            (double) 0.4389,
-                            (double) 1,
-                            (double) 1 + 0.31f,
-                            (double) 1 - 0.3989);
+                            (double) y + 1.16f,
+                            (double) z + 0.4389,
+                            (double) x + 1,
+                            (double) y + 1 + 0.31f,
+                            (double) z + 1 - 0.3989);
                 } else {
                     return new AxisAlignedBB((double) x + 0.4389,
-                            (double) 1.16f,
-                            (double) 0,
-                            (double) 1 - 0.3989,
-                            (double) 1 + 0.31f,
-                            (double) 1);
+                            (double) y + 1.16f,
+                            (double) z,
+                            (double) x + 1 - 0.3989,
+                            (double) y + 1 + 0.31f,
+                            (double) z + 1).offset(-0.06, 0, 0);
                 }
             }
         }
         return Block.FULL_BLOCK_AABB;
     }
 
-    @SideOnly(Side.CLIENT)
+    @SuppressWarnings("deprecation")
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
+    {
+        return new AxisAlignedBB(0.0F, 0.6F, 0.0F, 1.0F, 1.0F, 1.0F).offset(0, 0.2, 0);
+    }
+
+    @SuppressWarnings("deprecation")
     public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World world, BlockPos pos)
     {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
         CookerTileEntity tile = (CookerTileEntity)world.getTileEntity(pos);
-        if(tile.multiBlockStructure.orient == 0) {
-            return new AxisAlignedBB((double) x,
-                    (double) y + 1.16f,
-                    (double) z + 0.4389,
-                    (double) x + 1,
-                    (double) y + 1 + 0.31f,
-                    (double) z + 1 - 0.3989);
-        }else{
-            return new AxisAlignedBB((double) x + 0.4389,
-                    (double) y + 1.16f,
-                    (double) z  ,
-                    (double) x + 1 - 0.3989,
-                    (double) y + 1 + 0.31f,
-                    (double) z + 1);
+        if (tile != null) {
+            if (tile.multiBlockStructure != null) {
+                if (tile.multiBlockStructure.orient == 0) {
+                    return new AxisAlignedBB((double) 0,
+                            (double) 0 + 1.16f,
+                            (double) 0 + 0.4389,
+                            (double)  1,
+                            (double) 1 + 0.31f,
+                            (double)  1 - 0.3989);
+                } else {
+                    return new AxisAlignedBB((double) 0 + 0.4389,
+                            (double) 0 + 1.16f,
+                            (double) 0,
+                            (double) 1 - 0.3989,
+                            (double)  1 + 0.31f,
+                            (double)  1).offset(-0.06, 0, 0);
+                }
+            }
         }
+        return Block.FULL_BLOCK_AABB;
     }
-    
+
+    @SuppressWarnings("deprecation")
     public boolean isOpaqueCube(IBlockState state){
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     public boolean isFullCube(IBlockState state){
         return false;
     }

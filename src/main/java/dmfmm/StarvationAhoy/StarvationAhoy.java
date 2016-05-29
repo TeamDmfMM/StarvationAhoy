@@ -48,7 +48,7 @@ public class StarvationAhoy {
 	@Instance(value = "StarvationAhoy")
 	public static StarvationAhoy instance;
 	
-	public static ArmorMaterial StatusArmor = EnumHelper.addArmorMaterial("statusarmor", "", 16, new int[]{2,5,2,1}, 21, SoundEvents.item_armor_equip_generic);
+	public static ArmorMaterial StatusArmor = EnumHelper.addArmorMaterial("statusarmor", "", 16, new int[]{2,5,2,1}, 21, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 2);
 	//public static TileEntityBanner.EnumBannerPattern pattern;
 	public static String DIR;
 
@@ -73,7 +73,7 @@ public class StarvationAhoy {
 
 		//Config and API
 		side = event.getSide();
-		DIR = event.getModConfigurationDirectory() + "\\StarvationAhoy";
+		DIR = event.getModConfigurationDirectory() + File.separator+ "StarvationAhoy";
 		StarvationAhoyRegistry.init(new StarvationAhoyProvider());
 		ConfigHandler.init(new File(DIR, ModInfo.MOD_ID + ".cfg"));
 		MinecraftForge.EVENT_BUS.register(new event_configChange());
@@ -153,8 +153,4 @@ public class StarvationAhoy {
 		//ModuleFoodStats.serverStop();
 	}
 
-	public static TileEntityBanner.EnumBannerPattern addBannerIcon(String name, String id, ItemStack craftingItem)
-	{
-		return EnumHelper.addEnum(TileEntityBanner.EnumBannerPattern.class, name, id, craftingItem);
-	}
 }

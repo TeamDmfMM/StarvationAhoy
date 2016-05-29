@@ -41,10 +41,10 @@ class BookPageRegistry {
         addTab("pigLeg", new DualObjectLink(new ItemStack(MItemLoader.cookedpigleg), CRef.useMeatOverride()));
         addTab("moduleCropwash", new DualObjectLink(null, CRef.useCropwash()));
         addTab("washBarrel", new DualObjectLink(new ItemStack(ModuleCropWash.blockCropWasher), CRef.useCropwash()));
-        addTab("dirtyItems", new DualObjectLink(DirtyItem.createDirtyItem(new ItemStack(Items.carrot, 1)), CRef.useCropwash()));
+        addTab("dirtyItems", new DualObjectLink(DirtyItem.createDirtyItem(new ItemStack(Items.CARROT, 1)), CRef.useCropwash()));
         addTab("moduleMisc", new DualObjectLink(null, true));
-        addTab("levelReduction", new DualObjectLink(new ItemStack(Items.wheat), true));
-        addTab("editLevels", new DualObjectLink(new ItemStack(Blocks.command_block), true));
+        addTab("levelReduction", new DualObjectLink(new ItemStack(Items.WHEAT), true));
+        addTab("editLevels", new DualObjectLink(new ItemStack(Blocks.COMMAND_BLOCK), true));
 
     }
 

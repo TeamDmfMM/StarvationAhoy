@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class FoodModifyCommand implements ICommand{
 	
 	private List others;
@@ -89,7 +90,7 @@ public class FoodModifyCommand implements ICommand{
 
 	@Override
 	public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
-		return args.length == 1 ? CommandBase.getListOfStringsMatchingLastWord(args, Item.itemRegistry.getKeys()) : null;
+		return args.length == 1 ? CommandBase.getListOfStringsMatchingLastWord(args, Item.REGISTRY.getKeys()) : null;
 	}
 
 	@Override

@@ -110,7 +110,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                 MeatRegistry.MeatReturn r = ModuleMeat.registry.isSkinnedItem(is);
                 MeatRegistry.MeatReturn r2 = ModuleMeat.registry.isCookedItem(is);
                 MeatRegistry.MeatReturn r3 = ModuleMeat.registry.isCookedItem(ItemStack.loadItemStackFromNBT(((TileEntityMultiBlock) te).multiBlockStructure.sharedData.getCompoundTag("CookedItem")));
-                if (r.value || r2.value || is.getItem() == Items.bone) {
+                if (r.value || r2.value || is.getItem() == Items.BONE) {
                     //SALog.error("Spam 1");
 
                     int meatState = 1;
@@ -118,7 +118,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                     if (r.value) meatType = r.meatID;
                     else meatType = r2.meatID;
 
-                    if (r3.value == true && is.getItem() == Items.bone) {
+                    if (r3.value == true && is.getItem() == Items.BONE) {
                         meatType = r3.meatID;
                     }
                     float xoffset = 0.0255f;

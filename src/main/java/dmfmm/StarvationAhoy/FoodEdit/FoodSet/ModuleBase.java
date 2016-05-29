@@ -15,9 +15,9 @@ public class ModuleBase extends Module {
 		
 		int percentage = CRef.getFoodPrecent();
 		
-		for (ResourceLocation key : Item.itemRegistry.getKeys()){
-			if (Item.itemRegistry.getObject(key) instanceof ItemFood){
-				ItemFood foo = (ItemFood) Item.itemRegistry.getObject(key);
+		for (ResourceLocation key : Item.REGISTRY.getKeys()){
+			if (Item.REGISTRY.getObject(key) instanceof ItemFood){
+				ItemFood foo = (ItemFood) Item.REGISTRY.getObject(key);
 				
 				//SALog.fatal(Item.itemRegistry.getNameForObject(foo).toString());
 				/*try {

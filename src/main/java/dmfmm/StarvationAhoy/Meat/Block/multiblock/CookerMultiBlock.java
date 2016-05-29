@@ -46,7 +46,7 @@ public class CookerMultiBlock extends MultiBlockStructure{
         int[] p2 = getPosForBlock(1, bPos, x, y, z, w);
         int[] p3 = getPosForBlock(2, bPos, x, y, z, w);
 
-        if (w.getBlockState(new BlockPos(p2[0], p2[1] - 1, p2[2])).getBlock() == Blocks.fire) if (w.getBlockState(new BlockPos(p3[0], p3[1] - 1, p3[2])).getBlock() == Blocks.fire) return true;
+        if (w.getBlockState(new BlockPos(p2[0], p2[1] - 1, p2[2])).getBlock() == Blocks.FIRE) if (w.getBlockState(new BlockPos(p3[0], p3[1] - 1, p3[2])).getBlock() == Blocks.FIRE) return true;
         else return false;
         return false;
     }
@@ -80,9 +80,9 @@ public class CookerMultiBlock extends MultiBlockStructure{
             }
             if (ctime >= 3900){
                 int amt = 1;
-                ItemStack touse = new ItemStack(Items.bone);
+                ItemStack touse = new ItemStack(Items.BONE);
                 touse.stackSize = amt;
-                if (!(ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("RoastingItem")).getItem() == Items.bone)){
+                if (!(ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("RoastingItem")).getItem() == Items.BONE)){
                     sharedData.setTag("RoastingItem", touse.writeToNBT(new NBTTagCompound()));
                     sharedData.setInteger("CookBurn", 1);
                 }

@@ -2,7 +2,6 @@ package dmfmm.StarvationAhoy.Meat.Block.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -28,11 +27,12 @@ public class MeatHangerTileEntity extends TileEntity {
 		MeatType = type;
 	}
 	   @Override
-	   public void writeToNBT(NBTTagCompound tagCompound)
+	   public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	   {
 	       super.writeToNBT(tagCompound);
 	       tagCompound.setInteger("Meattype", MeatType);
 	       tagCompound.setInteger("Meatstate", MeatState);
+		   return tagCompound;
 	   }
 
     @Override
@@ -52,7 +52,7 @@ public class MeatHangerTileEntity extends TileEntity {
 	   }
 
 	   @Override
-	   public Packet getDescriptionPacket()
+	   public SPacketUpdateTileEntity getUpdatePacket()
 	   {
 	       NBTTagCompound syncData = new NBTTagCompound();
 	       syncData.setInteger("Meattype", MeatType);

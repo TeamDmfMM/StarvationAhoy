@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -33,7 +34,7 @@ public class BlockCropWasher extends Block implements ITileEntityProvider{
 
 
     public BlockCropWasher() {
-        super(Material.wood);
+        super(Material.WOOD);
         this.setCreativeTab(SATabs.INSTANCE);
         this.setUnlocalizedName(WashLib.washBarrelName);
     }
@@ -51,9 +52,9 @@ public class BlockCropWasher extends Block implements ITileEntityProvider{
         if (stack == null){
             return false;
         }
-        else if (stack.getItem() == Items.water_bucket){
+        else if (stack.getItem() == Items.WATER_BUCKET){
             ((TileEntityCropWasher) world.getTileEntity(pos)).fill(EnumFacing.UP, new FluidStack(FluidRegistry.getFluid("water"), 1000), true);
-            ItemStack bucket = new ItemStack(Items.bucket);
+            ItemStack bucket = new ItemStack(Items.BUCKET);
             player.inventory.setInventorySlotContents(player.inventory.currentItem, bucket);
             return true;
         }
@@ -81,7 +82,7 @@ public class BlockCropWasher extends Block implements ITileEntityProvider{
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean addDestroyEffects(World world, BlockPos pos, net.minecraft.client.particle.EffectRenderer effectRenderer)
+    public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager effectRenderer)
     {
         if(world.getBlockState(pos).getBlock().equals(this)) {
             EffectsControl.addBlockDestroyEffects(world, pos, world.getBlockState(pos), effectRenderer, "starvationahoy:blocks/WashBarrelItem");

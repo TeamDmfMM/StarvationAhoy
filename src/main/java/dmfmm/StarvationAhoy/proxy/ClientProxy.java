@@ -81,23 +81,23 @@ public class ClientProxy extends CommonProxy{
 
 		MeatType mt = new MeatType(1);
 		mt.doMeatType(new ModelCowSA(), "minecraft:textures/entity/cow/cow.png", "starvationahoy:textures/entity/skinnedCow.png", "starvationahoy:textures/entity/rottenCow.png");
-		mt.doDeadEntity(EntityCow.class, MItemLoader.deadCow, Items.leather, Items.cooked_beef, MItemLoader.skinlessCow);
+		mt.doDeadEntity(EntityCow.class, MItemLoader.deadCow, Items.LEATHER, Items.COOKED_BEEF, MItemLoader.skinlessCow);
 		ModuleMeat.registry.addMeatType(mt);
 		mt = new MeatType(2);
 		mt.doMeatType(new ModelPigSA(), "minecraft:textures/entity/pig/pig.png", "starvationahoy:textures/entity/skinnedPig.png", "starvationahoy:textures/entity/rottenPig.png");
-		mt.doDeadEntity(EntityPig.class, MItemLoader.deadPig, null, Items.cooked_porkchop, MItemLoader.skinlessPig);
+		mt.doDeadEntity(EntityPig.class, MItemLoader.deadPig, null, Items.COOKED_PORKCHOP, MItemLoader.skinlessPig);
 		ModuleMeat.registry.addMeatType(mt);
 		mt = new MeatType(3);
 		mt.doMeatType(new ModelChickenSA(), "minecraft:textures/entity/chicken.png", "starvationahoy:textures/entity/skinnedChicken.png", "starvationahoy:textures/entity/rottenChicken.png");
-		mt.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, Items.feather, Items.cooked_chicken, MItemLoader.skinlessChicken);
+		mt.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, Items.FEATHER, Items.COOKED_CHICKEN, MItemLoader.skinlessChicken);
 		ModuleMeat.registry.addMeatType(mt);
         mt = new MeatType(4);
         mt.doMeatType(new ModelSheepSA.ModelSheepSA2(), "starvationahoy:textures/entity/ModelSheep.png", "minecraft:textures/entity/sheep/sheep.png", "starvationahoy:textures/entity/rottenChicken.png");
-        mt.doDeadEntity(EntitySheep.class, MItemLoader.deadSheep, Item.getItemFromBlock(Blocks.wool), Items.cooked_mutton, MItemLoader.skinlessSheep);
+        mt.doDeadEntity(EntitySheep.class, MItemLoader.deadSheep, Item.getItemFromBlock(Blocks.WOOL), Items.COOKED_MUTTON, MItemLoader.skinlessSheep);
         ModuleMeat.registry.addMeatType(mt);
         mt = new MeatType(5);
         mt.doMeatType(new ModelRabbitSA(), "minecraft:textures/entity/rabbit/brown.png", "starvationahoy:textures/entity/skinnedRabbit.png", "starvationahoy:textures/entity/rottenChicken.png");
-        mt.doDeadEntity(EntityRabbit.class, MItemLoader.deadRabbit, Items.rabbit_hide, Items.cooked_rabbit, MItemLoader.skinlessRabbit);
+        mt.doDeadEntity(EntityRabbit.class, MItemLoader.deadRabbit, Items.RABBIT_HIDE, Items.COOKED_RABBIT, MItemLoader.skinlessRabbit);
         ModuleMeat.registry.addMeatType(mt);
 	}
 

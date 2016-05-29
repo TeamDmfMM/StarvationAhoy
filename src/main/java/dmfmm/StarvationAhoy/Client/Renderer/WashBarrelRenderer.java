@@ -85,7 +85,7 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
                 GL11.glRotatef(180F, 0.0F, 0.0F, -1.0F);
                 GL11.glTranslated(-0.3F, -1.55 + UPDOWN, -0.3F );
                 GL11.glRotated(90, 1, 0, 0);
-                Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+                Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
                 Tessellator cake = Tessellator.getInstance();
                // cake.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -141,7 +141,7 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
 
                 //cake.getBuffer().finishDrawing();
             }
-        this.bindTexture(TextureMap.locationBlocksTexture);
+        this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         GL11.glPopMatrix();
         GL11.glPopAttrib();
 

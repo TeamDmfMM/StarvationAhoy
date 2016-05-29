@@ -29,29 +29,29 @@ public class ServerProxy extends CommonProxy{
 
     public void registerMeatTypes(){
         MeatType meatType = new MeatType(1);
-        meatType.doDeadEntity(EntityCow.class, MItemLoader.deadCow, Items.leather, Items.cooked_beef, MItemLoader.skinlessCow);
+        meatType.doDeadEntity(EntityCow.class, MItemLoader.deadCow, Items.LEATHER, Items.COOKED_BEEF, MItemLoader.skinlessCow);
         meatType.doMeatType(null, "starvationahoy:textures/null.png", "starvationahoy:textures/null.png", "starvationahoy:textures/null.png");
         ModuleMeat.registry.addMeatType(meatType);
 
 
         meatType = new MeatType(2);
-        meatType.doDeadEntity(EntityPig.class, MItemLoader.deadPig, null, Items.cooked_porkchop, MItemLoader.skinlessPig);
+        meatType.doDeadEntity(EntityPig.class, MItemLoader.deadPig, null, Items.COOKED_PORKCHOP, MItemLoader.skinlessPig);
         meatType.doMeatType(null, "starvationahoy:textures/null.png", "starvationahoy:textures/null.png", "starvationahoy:textures/null.png");
         ModuleMeat.registry.addMeatType(meatType);
 
         meatType = new MeatType(3);
-        meatType.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, Items.feather, Items.cooked_chicken,  MItemLoader.skinlessChicken);
+        meatType.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, Items.FEATHER, Items.COOKED_CHICKEN,  MItemLoader.skinlessChicken);
         meatType.doMeatType(null, "starvationahoy:textures/null.png", "starvationahoy:textures/null.png", "starvationahoy:textures/null.png");
         ModuleMeat.registry.addMeatType(meatType);
 
         meatType = new MeatType(4);
         meatType.doMeatType(null, "starvationahoy:textures/null.png", "starvationahoy:textures/null.png", "starvationahoy:textures/null.png");
-        meatType.doDeadEntity(EntitySheep.class, MItemLoader.deadSheep, Item.getItemFromBlock(Blocks.wool), Items.cooked_mutton, MItemLoader.skinlessSheep);
+        meatType.doDeadEntity(EntitySheep.class, MItemLoader.deadSheep, Item.getItemFromBlock(Blocks.WOOL), Items.COOKED_MUTTON, MItemLoader.skinlessSheep);
         ModuleMeat.registry.addMeatType(meatType);
 
         meatType = new MeatType(5);
         meatType.doMeatType(null, "starvationahoy:textures/null.png", "starvationahoy:textures/null.png", "starvationahoy:textures/null.png");
-        meatType.doDeadEntity(EntityRabbit.class, MItemLoader.deadRabbit, Items.rabbit_hide, Items.cooked_rabbit, MItemLoader.skinlessRabbit);
+        meatType.doDeadEntity(EntityRabbit.class, MItemLoader.deadRabbit, Items.RABBIT_HIDE, Items.COOKED_RABBIT, MItemLoader.skinlessRabbit);
         ModuleMeat.registry.addMeatType(meatType);
     }
 

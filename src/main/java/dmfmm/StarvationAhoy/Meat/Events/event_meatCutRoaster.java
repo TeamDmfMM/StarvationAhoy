@@ -18,11 +18,11 @@ public class event_meatCutRoaster {
 
     @SubscribeEvent
     public void roasterCut(MeatCutEvent.SpitRoast e){
-        if(e.getMeattype() == ModuleMeat.MEATTYPE_PIG && e.getItemOut() == Items.cooked_porkchop){
+        if(e.getMeattype() == ModuleMeat.MEATTYPE_PIG && e.getItemOut() == Items.COOKED_PORKCHOP){
             EntityItem p = new EntityItem(e.getWorld(), e.getPosition().getX(), e.getPosition().getY()+2, e.getPosition().getZ(), new ItemStack(MItemLoader.pigleg, 4));
             if (!e.getWorld().isRemote){e.getWorld().spawnEntityInWorld(p);}
-        }else if(e.getMeattype() == ModuleMeat.MEATTYPE_RABBIT && e.getItemOut() == Items.cooked_rabbit){
-            EntityItem p = new EntityItem(e.getWorld(), e.getPosition().getX(), e.getPosition().getY()+2, e.getPosition().getZ(), new ItemStack(Items.rabbit_foot, 4));
+        }else if(e.getMeattype() == ModuleMeat.MEATTYPE_RABBIT && e.getItemOut() == Items.COOKED_RABBIT){
+            EntityItem p = new EntityItem(e.getWorld(), e.getPosition().getX(), e.getPosition().getY()+2, e.getPosition().getZ(), new ItemStack(Items.RABBIT_FOOT, 4));
             if (!e.getWorld().isRemote){e.getWorld().spawnEntityInWorld(p);}
         }
     }

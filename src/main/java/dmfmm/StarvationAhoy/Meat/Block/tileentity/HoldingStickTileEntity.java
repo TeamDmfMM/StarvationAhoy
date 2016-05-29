@@ -26,7 +26,7 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
     }
 
     @Override
-    public Packet getDescriptionPacket()
+    public SPacketUpdateTileEntity getUpdatePacket()
     {
         if (this.multiBlockStructure == null){return null;}
         NBTTagCompound syncData = new NBTTagCompound();
