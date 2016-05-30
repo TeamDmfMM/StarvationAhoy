@@ -51,7 +51,10 @@ public class DirtyItem extends Item {
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         String dirty = I18n.translateToLocal("starvationahoy.misc.dirty");
-        String original = ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag("Original")).getDisplayName();
+        String original = "";
+        if(stack.hasTagCompound()) {
+             original = ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag("Original")).getDisplayName();
+        }
         return dirty + " " + original;
     }
 
