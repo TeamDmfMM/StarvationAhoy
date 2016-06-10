@@ -9,6 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -46,7 +47,7 @@ public class ClientProxy extends CommonProxy{
 
     @Override
     public void preInit() {
-        OBJLoader.INSTANCE.addDomain(ModInfo.MOD_ID);
+        //OBJLoader.INSTANCE.addDomain(ModInfo.MOD_ID);
         MinecraftForge.EVENT_BUS.register(new OverlaySaturationBar(Minecraft.getMinecraft()));
     }
 

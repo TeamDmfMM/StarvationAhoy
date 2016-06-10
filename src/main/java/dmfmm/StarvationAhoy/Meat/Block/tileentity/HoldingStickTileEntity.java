@@ -42,6 +42,10 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
         multiBlockStructure.bPos = pkt.getNbtCompound().getInteger("MultiBlockIndex");
         multiBlockStructure.sharedData = pkt.getNbtCompound().getCompoundTag("SharedData");
     }
+    public NBTTagCompound getUpdateTag()
+    {
+        return this.writeToNBT(new NBTTagCompound());
+    }
     @Override
     public Class<? extends MultiBlockStructure> getMultiBlock() {
         return CookerMultiBlock.class;

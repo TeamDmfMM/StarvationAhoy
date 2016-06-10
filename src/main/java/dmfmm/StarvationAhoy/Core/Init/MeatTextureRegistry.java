@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 
 public class MeatTextureRegistry {
 
@@ -27,6 +28,7 @@ public class MeatTextureRegistry {
     }
 
     public static void preinitTextures(){
+        ModelLoaderRegistry.registerLoader(dmfmm.StarvationAhoy.Client.OBJLoaderz.INSTANCE);
         registerItemModel(MItemLoader.deadPig, 0, "Pig", "type=pig");
         registerItemModel(MItemLoader.skinlessPig, 0, "Pig", "type=skinned_pig");
         registerItemModel(MItemLoader.deadCow, 0, "Cow", "type=cow");

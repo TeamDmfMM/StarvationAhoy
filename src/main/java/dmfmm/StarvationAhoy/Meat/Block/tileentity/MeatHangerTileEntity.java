@@ -50,6 +50,10 @@ public class MeatHangerTileEntity extends TileEntity {
 	       
 	       // ... continue reading non-syncable data 
 	   }
+	public NBTTagCompound getUpdateTag()
+	{
+		return this.writeToNBT(new NBTTagCompound());
+	}
 
 	   @Override
 	   public SPacketUpdateTileEntity getUpdatePacket()

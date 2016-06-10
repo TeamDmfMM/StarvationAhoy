@@ -49,4 +49,8 @@ public class TileEntityCropWasher extends TileFluidHandler{
     {
         tank.readFromNBT(pkt.getNbtCompound().getCompoundTag("fluid"));
     }
+    public NBTTagCompound getUpdateTag()
+    {
+        return this.writeToNBT(new NBTTagCompound());
+    }
 }
