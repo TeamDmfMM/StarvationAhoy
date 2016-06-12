@@ -70,7 +70,7 @@ public class ModuleCropWash {
 
     }
 
-    public static void postnit() {
+    public static void postInit() {
         CrossMod.postinit();
     }
 

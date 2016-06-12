@@ -20,6 +20,7 @@ import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketRequestNewFoods;
 import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketResponseNewFoods;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
+import dmfmm.StarvationAhoy.api.CropWash.CropWash;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry;
 import dmfmm.StarvationAhoy.proxy.CommonProxy;
@@ -134,6 +135,7 @@ public class StarvationAhoy {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
+		ModuleCropWash.postInit();
 		if (event.getSide() == Side.CLIENT) {
 			KnownFoods.leaveServer();
 			FurnaceHelper.iterate();
