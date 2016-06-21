@@ -1,6 +1,5 @@
 package dmfmm.StarvationAhoy.FoodStats;
 
-import dmfmm.StarvationAhoy.FoodStats.DebugKeyBind.OverlayHungerDebug;
 import dmfmm.StarvationAhoy.FoodStats.DietaryHistoryManage.DietaryHistoryEvents;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -20,7 +19,7 @@ public class ModuleFoodStats {
 
 
         MinecraftForge.EVENT_BUS.register(new DietaryHistoryEvents());
-        MinecraftForge.EVENT_BUS.register(new OverlayHungerDebug());
+
 
 
     }

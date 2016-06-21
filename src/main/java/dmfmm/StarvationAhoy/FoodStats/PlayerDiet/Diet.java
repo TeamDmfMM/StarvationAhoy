@@ -116,7 +116,7 @@ public class Diet {
 
     public void calculateWeight(){
 
-        weight = 200;
+        weight = 110;
         float dif = 0;
 
 

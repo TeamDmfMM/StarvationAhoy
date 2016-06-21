@@ -2,6 +2,7 @@ package dmfmm.StarvationAhoy.FoodEdit.EventHandler;
 
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketResponseNewFoods;
+import dmfmm.StarvationAhoy.FoodStats.PlayerInstanceHolder;
 import dmfmm.StarvationAhoy.StarvationAhoy;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import net.minecraft.client.Minecraft;
@@ -84,7 +85,7 @@ public class FoodEatenResult
 	public void onFinish(LivingEntityUseItemEvent e){
 		if (e.getItem() != null)
 		{
-				//PlayerInstanceHolder.instance.playerEatFood(entityPlayer, e.getItem().getItem());
+				PlayerInstanceHolder.instance.playerEatFood((EntityPlayer) e.getEntity(), e.getItem().getItem());
 			EntityPlayer entityPlayer = (EntityPlayer)e.getEntityLiving();
 	            //this.updateItemUse(e.getItem(), 16);
 				Random rand = new Random();

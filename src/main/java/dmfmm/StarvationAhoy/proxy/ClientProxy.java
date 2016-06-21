@@ -1,28 +1,25 @@
 package dmfmm.StarvationAhoy.proxy;
 
+import dmfmm.StarvationAhoy.Client.Renderer.*;
 import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
 import dmfmm.StarvationAhoy.Core.Init.SASoundEvent;
-import dmfmm.StarvationAhoy.Core.lib.ModInfo;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.passive.*;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.client.model.obj.OBJLoader;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import dmfmm.StarvationAhoy.Client.Renderer.*;
 import dmfmm.StarvationAhoy.CropWash.Block.tilentity.TileEntityCropWasher;
+import dmfmm.StarvationAhoy.FoodStats.DebugKeyBind.OverlayHungerDebug;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.HoldingStickTileEntity;
 import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
 import dmfmm.StarvationAhoy.Meat.MeatType;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.passive.*;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.lwjgl.input.Keyboard;
 
 
@@ -49,6 +46,7 @@ public class ClientProxy extends CommonProxy{
     public void preInit() {
         //OBJLoader.INSTANCE.addDomain(ModInfo.MOD_ID);
         MinecraftForge.EVENT_BUS.register(new OverlaySaturationBar(Minecraft.getMinecraft()));
+        MinecraftForge.EVENT_BUS.register(new OverlayHungerDebug());
     }
 
 
