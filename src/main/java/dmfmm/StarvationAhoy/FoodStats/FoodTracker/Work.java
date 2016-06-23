@@ -69,7 +69,7 @@ public class Work {
             calories = 1;
         }
         this.referenceDiet.calories -= calories / 4;
-        this.referenceDiet.fat -= fat / 4;
+        this.referenceDiet.fat -= fat / 16;
         this.referenceDiet.fat = Math.max(0, this.referenceDiet.fat);
 
         float bmr = this.calculateBasalMetabolicRate() / 256; // This seems like a lot, but this just balances the whole system out.
