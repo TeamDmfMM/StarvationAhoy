@@ -1,6 +1,9 @@
 package dmfmm.StarvationAhoy.FoodStats.FoodTracker;
 
 import dmfmm.StarvationAhoy.FoodStats.PlayerDiet.Diet;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.stats.StatList;
+import net.minecraft.stats.StatisticsManagerServer;
 
 /**
  * Created by TeamDMFMM on 6/20/2016. Code originally written
@@ -13,8 +16,10 @@ public class Work {
     private Diet referenceDiet;
     public float deltaDistance = 0;
     public int currentJumps = 0;
+    public float lastDistance = -1;
+    public int lastJumps = -1;
 
-    private int currentExertion = 0;
+    private float currentExertion = 0;
 
     public Work(Diet referenceDiet) {
 
@@ -29,20 +34,50 @@ public class Work {
     }
 
     public float calculateBasalMetabolicRate() {
-        return this.referenceDiet.weight * 11; // Backed by science!! (then again, this is the lazy estimate...)
+        return this.referenceDiet.weight * 11 / (24000 / 5); // Backed by science!! (then again, this is the lazy estimate...)
     }
 
     public float calculateCaloriesFromWalkingDistanceDelta(float deltaDistance) {
-        return (this.referenceDiet.weight / 5 / 5 / 60) * (deltaDistance / 5); // More science!!
+        return (this.referenceDiet.weight / 5 / 5 / 60) * ((deltaDistance / 100) / 5); // More science!!
     }
 
     public float calculateCaloriesFromTotalJumps(int totalJumps) {
         return (float) (totalJumps * (0.010 * this.referenceDiet.weight));
     }
 
-    public void resetDeltas() {
-        this.deltaDistance = 0;
-        this.currentJumps = 0;
+    public void calculateDeltas(EntityPlayerMP player) {
+        StatisticsManagerServer manager = player.getStatFile();
+        int currentDistance = manager.readStat(StatList.WALK_ONE_CM) + manager.readStat(StatList.SPRINT_ONE_CM) * 9;
+        int currentJumps = manager.readStat(StatList.JUMP);
+        if (this.lastDistance == -1) {
+            this.lastDistance = currentDistance;
+        }
+        if (this.lastJumps == -1) {
+            this.lastJumps = currentJumps;
+        }
+        this.currentJumps = currentJumps - this.lastJumps;
+        this.deltaDistance = currentDistance - this.lastDistance;
+        this.lastJumps = currentJumps;
+        this.lastDistance = currentDistance;
     }
 
+    public void applyExertions() {
+        float calories = this.currentExertion;
+        float fat = 0.0f;
+        if (calories > 1){
+            fat = calories - 1;
+            calories = 1;
+        }
+        this.referenceDiet.calories -= calories / 4;
+        this.referenceDiet.fat -= fat / 4;
+        this.referenceDiet.fat = Math.max(0, this.referenceDiet.fat);
+
+        float bmr = this.calculateBasalMetabolicRate() / 256; // This seems like a lot, but this just balances the whole system out.
+        this.referenceDiet.nutrient1 -= bmr; this.referenceDiet.nutrient2 -= bmr;
+
+        this.referenceDiet.calculateNutrient();
+        this.referenceDiet.calculateWeight();
+
+        // TODO: change hunger bar and add hungriness metrics
+    }
 }

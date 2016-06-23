@@ -5,6 +5,7 @@ import dmfmm.StarvationAhoy.FoodStats.FileFormats.IntLoadFormat;
 import dmfmm.StarvationAhoy.FoodStats.FileManage.SaveFileLoad;
 import dmfmm.StarvationAhoy.FoodStats.FoodStat;
 import dmfmm.StarvationAhoy.FoodStats.FoodStatRegistry;
+import dmfmm.StarvationAhoy.FoodStats.FoodTracker.Work;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.MathHelper;
 
@@ -33,6 +34,8 @@ public class Diet {
 
     public IntLoadFormat t;
 
+    public Work work;
+
     public Diet(String playername, UUID playeruuid, Random r){
         this.playername = playername;
         this.playeruuid = playeruuid;
@@ -43,7 +46,7 @@ public class Diet {
             this.load();
         } catch (IOException | NullPointerException e) {
             try {
-                calories = (float) MathHelper.getRandomDoubleInRange(r, 1500, 1700);
+                calories = (float) MathHelper.getRandomDoubleInRange(r, 5000, 15000);
 
                 nutrient1 = 70;
                 nutrient2 = 70;
@@ -58,6 +61,8 @@ public class Diet {
                 SALog.fatal("Failed to create a user's diet. THIS IS BAD!!!");
             }
         }
+
+        this.work = new Work(this);
 
     }
 
@@ -116,58 +121,10 @@ public class Diet {
 
     public void calculateWeight(){
 
-        weight = 110;
-        float dif = 0;
+        float weight = 0;
+        weight += ((this.calories+((this.fat / 200) * 3500)) * 0.001) + 100;
 
-
-
-        if (1200 <= calories && calories <= 2000){
-
-            if (calories < 1600){
-                dif = (float) -(0.00006 * Math.pow((calories - 1600), 2));
-            }
-            else {
-                dif = (float) (0.00006 * Math.pow((calories - 1600), 2));
-            }
-
-        }
-        else if (calories > 2000){
-            dif = (float) ((0.0009 * Math.pow((calories - 2000), 2)) + 10);
-        }
-        else {
-            dif = (float) -((0.0009 * Math.pow((calories - 1200), 2)) + 10);
-        }
-
-
-
-        weight += dif;
-
-        dif = 0;
-        dif = (float) (0.0004 * (Math.pow(fat, 2)));
-
-
-
-        weight += dif;
-
-        dif = 0;
-
-        if (nutrient > 100){
-            dif = (float) (0.0005 * Math.pow((nutrient - 100), 2));
-        }
-        else if (nutrient < 50){
-            dif = (float) (0.004 * Math.pow((nutrient - 50), 2));
-        }
-
-        System.out.println(dif);
-
-        weight += dif;
-
-
-
-
-
-
-
+        this.weight = weight;
 
     }
 
