@@ -1,0 +1,60 @@
+#Tab Name
+itemGroup.StarvationAhoy=饥荒！
+
+#Armour Overlay Text
+hud.statarmor.saturation=饱和度
+hud.statarmor.foodSat=饱和度：%s
+hud.statarmor.hunger=回复：
+
+#Items
+item.stat_helm.name=健康追踪头盔
+item.stat_chest.name=健康追踪胸甲
+item.hungerPotion.name=Badcholo的神秘药水
+
+#Meat Module Blocks
+tile.HoldingStick.name=烧烤架
+tile.MeatHanger.name=肉类晾晒架
+
+#Meat Module Items
+item.FiletKnife.name=剔刀
+item.ButcherKnife.name=屠刀
+item.Chicken_Skinned.name=去皮鸡
+item.Pig_Skinned.name=去皮猪
+item.Cow_Skinned.name=去皮牛
+item.Rabbit_Skinned.name=去皮兔
+item.Sheep_Skinned.name=去皮羊
+item.Chicken_Dead.name=整鸡
+item.Pig_Dead.name=整猪
+item.Cow_Dead.name=整牛
+item.Rabbit_Dead.name=整兔
+item.Sheep_Dead.name=整羊
+item.PigLegs.name=猪腿
+item.CookedPigLeg.name=烤猪腿
+item.infoBook.name=[WIP]饥荒求生: 信息手册 
+starvationahoy.misc.dirty=脏
+tile.cropwashblock.name=清洗桶
+
+#pages
+infobook.title.gettingStarted=起步
+infobook.title.starvePotion=快速饥饿
+infobook.title.healthArmor=健康追踪套装
+infobook.title.prepingFood=食物准备
+infobook.title.animalKilling=屠宰动物
+infobook.title.animalSkinning=为动物去皮
+infobook.title.animalCooking=烹调动物
+infobook.title.pigLeg=猪腿
+infobook.title.washBarrel=清洗桶
+infobook.title.dirtyItems=清洗谷物
+infobook.title.levelReduction=降低食物水平
+infobook.title.editLevels=更改食物水平
+infobook.header.baseModule=基础物品
+infobook.header.moduleMeat=动物处理
+infobook.header.moduleCropwash=谷物处理
+infobook.header.moduleMisc=杂项
+
+#page Text
+starvationahoy.book_data.page.gettingStarted=<TextBlock|-1|-1|-1|1>{color:orange}{style:bold}从这本手册开始</><TextBlock|-1|-1|-1>{color:black}Starvation Ahoy提供的这本手册详细介绍了这个MOD的工作机制。如果它的界面还是不够直观的话，看下面的解释。</><TextBlock|0|-10|1|2>{color:orange}翻页以了解详情</><TextBlock|0|-10|3|1>{color:blue}== 首页 ==</><TextBlock|-1|-1|-1|2>{color:black}这本手册的首页是你打开手册看到的第一页，它实际上是整本手册内容的目录。</><Image|0|-10|2|90|120|starvationahoy:textures/gui/book/mainpage.png></>
+starvationahoy.book_data.page.starvePotion=<TextBlock|-1|-9|-1>{color:black}看上去你昨天还没吃饱，然而你今天突然要想办法重新清空你的饥饿条！搞什么鬼？不管怎么说，这瓶神奇的药剂可以消除你4点饥饿(2个鸡腿)。现在又能吃了吧？</><Crafting|-1|-1|0|starvationahoy:HungerPotion></>
+starvationahoy.book_data.page.healthArmor=<TextBlock|-1|-9|-1>{color:black}这很魔法？不，这很科学。这两件装备可以让你非常方便地了解你当起的食物饱和情况。其实只需要其中的一件就可以了。但如果把两件都穿上的话，你就可以知道你手中任何事物的食物水平和饱和度了。是不是很方便！</><Crafting|-1|-1|-1|starvationahoy:stat_helm></><Crafting|-1|-1|-1|starvationahoy:stat_chest></>
+starvationahoy.book_data.page.washBarrel=<TextBlock|-1|-9|-1>{color:black}你每天都在吃脏东西！为什么你要这样？！麻烦吃东西前先找个桶，往里面倒些水(右击即可倒水)，把食物洗干净，让你的食物真正变成可以吃的食物。</><Crafting|-1|-1|-1|starvationahoy:cropwashblock></>
+starvationahoy.book_data.page.dirtyItems=<TextBlock|-1|-9|-1>{color:black}TESTING {link:washBarrel}Washing Barrrel{endlink}</>
