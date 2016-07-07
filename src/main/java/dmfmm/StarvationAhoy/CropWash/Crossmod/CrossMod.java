@@ -1,6 +1,8 @@
 package dmfmm.StarvationAhoy.CropWash.Crossmod;
 
 
+import net.minecraftforge.fml.common.Loader;
+
 public class CrossMod {
 
 
@@ -12,7 +14,10 @@ public class CrossMod {
     }
 
     public static void postinit(){
-        CrossHarvestcraft.load();
+
+        if ( Loader.isModLoaded("harvestcraft")) {
+            CrossHarvestcraft.load();
+        }
     }
 
 }
