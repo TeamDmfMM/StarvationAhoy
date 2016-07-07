@@ -29,6 +29,8 @@ public class Diet {
 
     public float weight;
 
+    public int saturation;
+
     public String playername;
     public UUID playeruuid;
 
@@ -48,10 +50,12 @@ public class Diet {
             try {
                 calories = (float) MathHelper.getRandomDoubleInRange(r, 5000, 15000);
 
-                nutrient1 = 70;
-                nutrient2 = 70;
+                nutrient1 = 100;
+                nutrient2 = 100;
 
                 fat = 0;
+
+                saturation = 0;
 
                 calculateNutrient();
                 calculateWeight();
@@ -72,6 +76,7 @@ public class Diet {
         nutrient2 += t.nutrient2;
         calories += t.calories;
         fat += t.fat;
+        saturation += t.saturation;
         calculateNutrient();
         calculateWeight();
         System.out.println(weight);
@@ -96,6 +101,7 @@ public class Diet {
         fat = t.data.get("fat");
 
         weight = t.data.get("wht");
+        saturation = t.data.get("sat").intValue();
 
         calculateNutrient();
 
@@ -112,6 +118,7 @@ public class Diet {
         data.put("cal", calories);
         data.put("fat", fat);
         data.put("wht", weight);
+        data.put("sat", (float) (saturation));
 
         t.data = data;
 
@@ -122,7 +129,7 @@ public class Diet {
     public void calculateWeight(){
 
         float weight = 0;
-        weight += ((this.calories+((this.fat / 200) * 3500)) * 0.001) + 100;
+        weight += ((this.calories+((this.fat) * 250)) * 0.001) + 100;
 
         this.weight = weight;
 

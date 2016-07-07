@@ -13,5 +13,7 @@ public class FoodStat {
 
     public float fat;
 
+    public int saturation;
+
 
 }

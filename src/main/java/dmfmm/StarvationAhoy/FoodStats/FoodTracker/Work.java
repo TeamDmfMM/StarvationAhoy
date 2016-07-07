@@ -4,6 +4,7 @@ import dmfmm.StarvationAhoy.FoodStats.PlayerDiet.Diet;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.stats.StatList;
 import net.minecraft.stats.StatisticsManagerServer;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * Created by TeamDMFMM on 6/20/2016. Code originally written
@@ -64,15 +65,21 @@ public class Work {
     public void applyExertions() {
         float calories = this.currentExertion;
         float fat = 0.0f;
-        if (calories > 1){
-            fat = calories - 1;
-            calories = 1;
+        if (calories > .5){
+            fat = calories - .5f;
+            calories = .5f;
         }
+        this.referenceDiet.saturation -= 1;
+        this.referenceDiet.saturation = MathHelper.clamp_int(this.referenceDiet.saturation, 0, 5000);
+
+        calories /= (this.referenceDiet.saturation / 2) + 1;
+
         this.referenceDiet.calories -= calories / 4;
-        this.referenceDiet.fat -= fat / 16;
+        this.referenceDiet.fat -= fat / 32;
         this.referenceDiet.fat = Math.max(0, this.referenceDiet.fat);
 
-        float bmr = this.calculateBasalMetabolicRate() / 256; // This seems like a lot, but this just balances the whole system out.
+        float bmr = this.currentExertion / 12; // This seems like a lot, but this just balances the whole system out.
+        bmr /= (this.referenceDiet.saturation / 2) + 1;
         this.referenceDiet.nutrient1 -= bmr; this.referenceDiet.nutrient2 -= bmr;
 
         this.referenceDiet.calculateNutrient();

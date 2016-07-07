@@ -5,6 +5,7 @@ import dmfmm.StarvationAhoy.FoodStats.PlayerDiet.Diet;
 import dmfmm.StarvationAhoy.FoodStats.PlayerInstanceHolder;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.FakePlayer;
@@ -41,6 +42,10 @@ public class WorkEvents {
             d.work.calculateDeltas(mp);
             d.work.calculateCurrentExertion();
             d.work.applyExertions();
+
+            int hungerValue = MathHelper.clamp_int((int) ((d.nutrient / 5) + 0.5), 0, 20);
+            mp.getFoodStats().setFoodLevel(hungerValue);
+            mp.getFoodStats().setFoodSaturationLevel(hungerValue);
         }
 
     }
