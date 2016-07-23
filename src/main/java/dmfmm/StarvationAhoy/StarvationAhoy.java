@@ -3,7 +3,6 @@ package dmfmm.StarvationAhoy;
 import dmfmm.StarvationAhoy.Client.Gui.book_gui.FurnaceHelper;
 import dmfmm.StarvationAhoy.Core.*;
 import dmfmm.StarvationAhoy.Core.EventHandler.event_configChange;
-import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
 import dmfmm.StarvationAhoy.Core.Init.CoreTextureRegistry;
 import dmfmm.StarvationAhoy.Core.Init.CropwashTextureRegistry;
 import dmfmm.StarvationAhoy.Core.Init.MeatTextureRegistry;
@@ -20,16 +19,12 @@ import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketRequestNewFoods;
 import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketResponseNewFoods;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
-import dmfmm.StarvationAhoy.api.CropWash.CropWash;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry;
+import dmfmm.StarvationAhoy.btmstuff.ModuleBTMStuff;
 import dmfmm.StarvationAhoy.proxy.CommonProxy;
-//import net.minecraft.client.Minecraft;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityBanner;
-//import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
@@ -42,6 +37,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.io.File;
+
+//import net.minecraft.client.Minecraft;
+//import net.minecraftforge.client.model.obj.OBJLoader;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.VERSION, guiFactory = ModInfo.GUIFactory)
 public class StarvationAhoy {
@@ -57,7 +55,6 @@ public class StarvationAhoy {
 	public static SimpleNetworkWrapper MultiBlockChannel;
 	@SidedProxy(clientSide= ModInfo.Clientproxy, serverSide= ModInfo.Serverproxy)
 	public static CommonProxy proxy;
-
 
 	public static IMCRerouter router = new IMCRerouter();
 
@@ -99,6 +96,10 @@ public class StarvationAhoy {
 
 		//Secondary Events
 		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
+
+		ModuleBTMStuff.instance.preinit();
+
+
 		proxy.preInit();
 		proxy.initSounds();
 	}
@@ -111,6 +112,7 @@ public class StarvationAhoy {
 		CoreRecipies.registerRecipies();
 		ModuleCropWash.init(event.getSide());
 		ModuleMeat.init();
+		ModuleBTMStuff.instance.init();
 		//ModuleFoodStats.init();
 
 		//Client Rendering and Food Overrides
