@@ -4,13 +4,9 @@ import dmfmm.StarvationAhoy.StarvationAhoy;
 import dmfmm.StarvationAhoy.btmstuff.blocks.AutomaticRoaster;
 import dmfmm.StarvationAhoy.btmstuff.blocks.SignBlock;
 import dmfmm.StarvationAhoy.btmstuff.entity.EntityDummy;
-import dmfmm.StarvationAhoy.btmstuff.entity.*;
 import dmfmm.StarvationAhoy.btmstuff.te.AutoRoasterTE;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemBlock;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -36,7 +32,7 @@ public class ModuleBTMStuff {
 
         EntityRegistry.registerModEntity(EntityDummy.class, "[SA]BTMDummy", 0, StarvationAhoy.instance, 256, 1, false, 000000, 15435844);
         if(StarvationAhoy.side == Side.CLIENT){
-            RenderingRegistry.registerEntityRenderingHandler(EntityDummy.class, RenderDummy.FACTORY);
+
         }
     }
 

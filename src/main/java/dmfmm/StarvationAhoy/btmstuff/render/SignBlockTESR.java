@@ -3,6 +3,7 @@ package dmfmm.StarvationAhoy.btmstuff.render;
 import dmfmm.StarvationAhoy.btmstuff.te.SignBlockTE;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -32,7 +33,26 @@ public class SignBlockTESR extends TileEntitySpecialRenderer<SignBlockTE> {
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y, z);
 
+       // GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
         Minecraft.getMinecraft().getTextureManager().bindTexture(TEX_LOCATION);
+        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+        if (te == null || te.state == null) {
+            double[][] tex = new double[][] {
+                    new double[] {0.0, 0.0},
+                    new double[] {0.0, 0.0},
+                    new double[] {0.0, 0.0},
+                    new double[] {0.0, 0.0}
+            };
+
+            renderCubeFace(te, EnumFacing.UP, false, new float[]{1.0f, 0.0f, 0.0f}, tex);
+            renderCubeFace(te, EnumFacing.DOWN, false, new float[]{1.0f, 0.0f, 0.0f}, tex);
+            renderCubeFace(te, EnumFacing.EAST, false, new float[]{1.0f, 0.0f, 0.0f}, tex);
+            renderCubeFace(te, EnumFacing.WEST, false, new float[]{1.0f, 0.0f, 0.0f}, tex);
+            renderCubeFace(te, EnumFacing.NORTH, false, new float[]{1.0f, 0.0f, 0.0f}, tex);
+            renderCubeFace(te, EnumFacing.SOUTH, false, new float[]{1.0f, 0.0f, 0.0f}, tex);
+            GlStateManager.popMatrix();
+            return;
+        }
 
         switch (te.state) {
             case SINGULAR:
@@ -65,10 +85,10 @@ public class SignBlockTESR extends TileEntitySpecialRenderer<SignBlockTE> {
                     double block_y = 1.0 / te.height;
 
                     real_tex = new double[][] {
-                            new double[] {0.0, 0.0},
-                            new double[] {0.0, block_y},
-                            new double[] {block_x, block_y},
-                            new double[] {block_x, 0.0}
+                            new double[] {0.0, 1-0.0},
+                            new double[] {0.0, 1-block_y},
+                            new double[] {block_x, 1-block_y},
+                            new double[] {block_x, 1-0.0}
                     };
                 }
                 else {
@@ -86,6 +106,9 @@ public class SignBlockTESR extends TileEntitySpecialRenderer<SignBlockTE> {
                     double origin_y = block_y * te.offset_y;
                     block_x *= te.offset_x + 1;
                     block_y *= te.offset_y + 1;
+
+                    block_y = 1 - block_y;
+                    origin_y = 1 - origin_y;
 
                     real_tex = new double[][] {
                             new double[] {origin_x, origin_y},
@@ -226,10 +249,14 @@ public class SignBlockTESR extends TileEntitySpecialRenderer<SignBlockTE> {
 
             myBuffer.begin(GL_QUADS, vf);
 
-            myBuffer.pos(x1, y1, z1).color(color[0], color[1], color[2], 1).tex(tex[0][0], tex[0][1]).endVertex();
-            myBuffer.pos(x2, y2, z2).color(color[0], color[1], color[2], 1).tex(tex[1][0], tex[1][1]).endVertex();
-            myBuffer.pos(x3, y3, z3).color(color[0], color[1], color[2], 1).tex(tex[2][0], tex[2][1]).endVertex();
-            myBuffer.pos(x4, y4, z4).color(color[0], color[1], color[2], 1).tex(tex[3][0], tex[3][1]).endVertex();
+            GlStateManager.enableLighting();
+            GlStateManager.enableCull();
+            myBuffer.pos(x1, y1, z1).tex(tex[3][0], tex[3][1]).color(color[0], color[1], color[2], 1f).endVertex();
+            myBuffer.pos(x2, y2, z2).tex(tex[2][0], tex[2][1]).color(color[0], color[1], color[2], 1f).endVertex();
+            myBuffer.pos(x3, y3, z3).tex(tex[1][0], tex[1][1]).color(color[0], color[1], color[2], 1f).endVertex();
+            myBuffer.pos(x4, y4, z4).tex(tex[0][0], tex[0][1]).color(color[0], color[1], color[2], 1f).endVertex();
+            GlStateManager.disableCull();
+            GlStateManager.disableLighting();
 
             Tessellator.getInstance().draw();
         }

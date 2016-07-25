@@ -63,6 +63,17 @@ public class SignBlock extends Block implements ITileEntityProvider{
         }
 
         for (SignBlockTE te : nextTos) {
+            if (te.direction == null) {
+                origins.add(te);
+                continue;
+            }
+            else {
+                if (te.offset_x == 0 && te.offset_y == 0){
+                    origins.add(te);
+                    continue;
+                }
+            }
+
             EnumFacing axis_x = te.direction.getAxisX();
             EnumFacing axis_y = te.direction.getAxisY();
 
@@ -91,6 +102,7 @@ public class SignBlock extends Block implements ITileEntityProvider{
             for (SignBlockTE origin : origins) {
                 if (origin.direction == null) {
                     possibleOKS.add(origin);
+                    continue;
                 }
 
                 EnumFacing axis_x = origin.direction.getAxisX();
@@ -112,8 +124,8 @@ public class SignBlock extends Block implements ITileEntityProvider{
                     startPosition.offset(axis_y, offset_y);
                 }
                 BlockPos endPosition = startPosition;
-                endPosition = endPosition.offset(axis_x, possible_width);
-                endPosition = endPosition.offset(axis_y, possible_height);
+                endPosition = endPosition.offset(axis_x, possible_width-1);
+                endPosition = endPosition.offset(axis_y, possible_height-1);
 
                 boolean flag = true;
                 for (BlockPos test : BlockPos.getAllInBox(startPosition, endPosition)) {
@@ -137,6 +149,7 @@ public class SignBlock extends Block implements ITileEntityProvider{
                         largest_area = 2;
                         biggest = origin;
                     }
+                    continue;
                 }
                 EnumFacing axis_x = origin.direction.getAxisX();
                 EnumFacing axis_y = origin.direction.getAxisY();
@@ -158,11 +171,25 @@ public class SignBlock extends Block implements ITileEntityProvider{
             }
 
             SignBlockTE origin = biggest;
+
+            if (origin == null) {
+                me.offset_x = 0;
+                me.offset_y = 0;
+
+                me.width = 1;
+                me.height = 1;
+
+                me.front = BPHelp.getFFE(worldIn, pos, placer, false);
+                me.state = SignBlockTE.State.SINGULAR;
+                return;
+            }
+
             if (origin.direction == null) {
                 Vec3i distance = pos.subtract(origin.getPos());
 
                 for (EnumFacing possibleDirectionX : EnumFacing.VALUES) {
-                    if (possibleDirectionX.getDirectionVec() == distance) {
+                    Vec3i test = possibleDirectionX.getDirectionVec();
+                    if (test.getX() == distance.getX() && test.getY() == distance.getY() && test.getZ() == distance.getZ()) {
                         origin.direction = new SignBlockTE.DirectionData(possibleDirectionX);
                     }
                 }
@@ -179,6 +206,73 @@ public class SignBlock extends Block implements ITileEntityProvider{
                 me.front = BPHelp.getFFE(worldIn, pos, placer, false);
                 me.state = SignBlockTE.State.COMPLETE;
                 me.direction = origin.direction;
+            }
+            else {
+                EnumFacing axis_x = origin.direction.getAxisX();
+                EnumFacing axis_y = origin.direction.getAxisY();
+
+                BlockPos distance = pos.subtract(origin.getPos());
+
+                EnumFacing nextToDirection = null;
+
+                for (EnumFacing possibleDirectionX : EnumFacing.VALUES) {
+                    Vec3i test = possibleDirectionX.getDirectionVec();
+                    if (test.getX() == distance.getX() && test.getY() == distance.getY() && test.getZ() == distance.getZ()) {
+                        nextToDirection = possibleDirectionX;
+                    }
+                }
+
+                int offset_x = offsetDistanceAlongAxisFromBlockPos(distance, axis_x);
+                int offset_y = offsetDistanceAlongAxisFromBlockPos(distance, axis_y);
+
+                int possible_width = Math.max(Math.abs(offset_x) + 1, origin.width);
+                int possible_height = Math.max(Math.abs(offset_y) + 1, origin.height);
+
+                BlockPos startPosition = origin.getPos();
+                if (offset_x < 0) {
+                    startPosition.offset(axis_x, offset_x);
+                }
+                if (offset_y < 0) {
+                    startPosition.offset(axis_y, offset_y);
+                }
+
+                SignBlockTE newOrigin = (SignBlockTE) worldIn.getTileEntity(startPosition);
+
+                newOrigin.offset_x = 0;
+                newOrigin.offset_y = 0;
+
+                newOrigin.width = possible_width;
+                newOrigin.height = possible_height;
+
+                if (!origin.direction.isComplete() && nextToDirection != null) {
+                    newOrigin.direction = origin.direction;
+                    newOrigin.direction.finish(nextToDirection);
+                }
+                else {
+                    newOrigin.direction = origin.direction;
+                }
+
+                newOrigin.state = SignBlockTE.State.COMPLETE;
+
+                BlockPos endPosition = startPosition;
+                endPosition = endPosition.offset(axis_x, possible_width-1);
+                endPosition = endPosition.offset(axis_y, possible_height-1);
+
+                for (BlockPos calculate : BlockPos.getAllInBox(startPosition, endPosition)) {
+                    BlockPos new_distance = calculate.subtract(newOrigin.getPos());
+                    int new_offset_x = offsetDistanceAlongAxisFromBlockPos(new_distance, axis_x);
+                    int new_offset_y = offsetDistanceAlongAxisFromBlockPos(new_distance, axis_y);
+
+                    SignBlockTE calculating = (SignBlockTE) worldIn.getTileEntity(calculate);
+
+                    calculating.direction = newOrigin.direction;
+                    calculating.offset_x = new_offset_x;
+                    calculating.offset_y = new_offset_y;
+                    calculating.state = SignBlockTE.State.COMPLETE;
+                    calculating.front = newOrigin.front;
+
+                }
+
             }
 
         }

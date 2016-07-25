@@ -16,6 +16,7 @@ public class RenderDummy extends RenderLivingBase<EntityDummy> {
 
 
     public static final Factory FACTORY = new Factory();
+    private final boolean smallArms = false;
 
     public RenderDummy(RenderManager redManager) {
         super(redManager, new ModelPlayer(0F, false), 0.5F);
@@ -39,9 +40,21 @@ public class RenderDummy extends RenderLivingBase<EntityDummy> {
 
     public void doRender(EntityDummy entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        //super.doRender(entity, x, y, z, entityYaw, partialTicks);
+        double d0 = y;
 
-        getMainModel().setInvisible(true);
+        if (entity.isSneaking())
+        {
+            d0 = y - 0.125D;
+        }
+
+        this.setModelVisibilities(entity);
+        GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
+        super.doRender(entity, x, d0, z, entityYaw, partialTicks);
+        GlStateManager.disableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
+
+    }
+
+    private void setModelVisibilities(EntityDummy entity) {
         ItemStack itemstack = entity.getHeldItemMainhand();
         ItemStack itemstack1 = entity.getHeldItemOffhand();
         getMainModel().bipedHeadwear.showModel = true;
@@ -68,14 +81,7 @@ public class RenderDummy extends RenderLivingBase<EntityDummy> {
             getMainModel().rightArmPose = modelbiped$armpose1;
             getMainModel().leftArmPose = modelbiped$armpose;
         }
-
-        GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
-        super.doRender(entity, x, y, z, entityYaw, partialTicks);
-        GlStateManager.disableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
     }
-
-
-
 
 
     public static class Factory implements IRenderFactory<EntityDummy> {

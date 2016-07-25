@@ -9,6 +9,8 @@ import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
 import dmfmm.StarvationAhoy.Meat.MeatType;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.Meat.item.MItemLoader;
+import dmfmm.StarvationAhoy.btmstuff.entity.EntityDummy;
+import dmfmm.StarvationAhoy.btmstuff.entity.RenderDummy;
 import dmfmm.StarvationAhoy.btmstuff.render.SignBlockTESR;
 import dmfmm.StarvationAhoy.btmstuff.te.SignBlockTE;
 import net.minecraft.client.Minecraft;
@@ -21,6 +23,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import org.lwjgl.input.Keyboard;
 
 
@@ -47,6 +50,7 @@ public class ClientProxy extends CommonProxy{
     public void preInit() {
         //OBJLoader.INSTANCE.addDomain(ModInfo.MOD_ID);
         MinecraftForge.EVENT_BUS.register(new OverlaySaturationBar(Minecraft.getMinecraft()));
+        RenderingRegistry.registerEntityRenderingHandler(EntityDummy.class, RenderDummy.FACTORY);
     }
 
 
@@ -74,6 +78,8 @@ public class ClientProxy extends CommonProxy{
         MinecraftForgeClient.registerItemRenderer(MItemLoader.deadChicken, new BipedItemRenderer(new ModelChickenSA(), "minecraft:textures/entity/chicken.png"));
         MinecraftForgeClient.registerItemRenderer(MItemLoader.skinlessChicken, new BipedItemRenderer(new ModelChickenSA(), "starvationahoy:textures/entity/skinnedChicken.png"));
         */
+
+
     }
 
 

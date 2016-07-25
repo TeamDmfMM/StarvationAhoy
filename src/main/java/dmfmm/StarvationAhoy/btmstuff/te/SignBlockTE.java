@@ -42,6 +42,9 @@ public class SignBlockTE extends TileEntity{
             return this.axis_y == null ? EnumFacing.DOWN : this.axis_y;
         }
 
+        public boolean isComplete() {
+            return this.complete;
+        }
     }
 
     public enum State {
