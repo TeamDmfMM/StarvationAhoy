@@ -6,6 +6,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.TileFluidHandler;
 
 /**
@@ -52,5 +54,13 @@ public class TileEntityCropWasher extends TileFluidHandler{
     public NBTTagCompound getUpdateTag()
     {
         return this.writeToNBT(new NBTTagCompound());
+    }
+
+    @Override
+    public int fill(EnumFacing from, FluidStack resource, boolean doFill)
+    {
+        int fill = tank.fill(resource, doFill);
+        worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 2);
+        return fill;
     }
 }
