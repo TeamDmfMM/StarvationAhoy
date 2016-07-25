@@ -34,7 +34,7 @@ public class ModuleBTMStuff {
 
         AutomaticRoaster = new AutomaticRoaster();
 
-        EntityRegistry.registerModEntity(EntityDummy.class, "[SA]BTMDummy", 0, StarvationAhoy.instance, 0, 1, false, 000000, 15435844);
+        EntityRegistry.registerModEntity(EntityDummy.class, "[SA]BTMDummy", 0, StarvationAhoy.instance, 256, 1, false, 000000, 15435844);
         if(StarvationAhoy.side == Side.CLIENT){
             RenderingRegistry.registerEntityRenderingHandler(EntityDummy.class, RenderDummy.FACTORY);
         }
