@@ -4,7 +4,7 @@ import dmfmm.StarvationAhoy.StarvationAhoy;
 import dmfmm.StarvationAhoy.btmstuff.blocks.AutomaticRoaster;
 import dmfmm.StarvationAhoy.btmstuff.blocks.SignBlock;
 import dmfmm.StarvationAhoy.btmstuff.entity.EntityDummy;
-import dmfmm.StarvationAhoy.btmstuff.entity.RenderDummy;
+import dmfmm.StarvationAhoy.btmstuff.entity.*;
 import dmfmm.StarvationAhoy.btmstuff.te.AutoRoasterTE;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

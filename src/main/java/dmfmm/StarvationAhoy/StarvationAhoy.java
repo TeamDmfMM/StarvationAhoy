@@ -21,7 +21,7 @@ import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
 import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry;
-import dmfmm.StarvationAhoy.btmstuff.ModuleBTMStuff;
+import dmfmm.StarvationAhoy.btmstuff.*;
 import dmfmm.StarvationAhoy.proxy.CommonProxy;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemArmor.ArmorMaterial;

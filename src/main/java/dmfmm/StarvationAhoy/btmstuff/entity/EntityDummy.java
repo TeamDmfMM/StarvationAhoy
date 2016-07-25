@@ -24,7 +24,7 @@ public class EntityDummy extends EntityMob {
 
     public EntityDummy(World world) {
         super(world);
-        //setSize(1.0F, 1.5F);
+        setSize(1.0F, 1.5F);
     }
 /*
     protected void applyEntityAttributes() {
