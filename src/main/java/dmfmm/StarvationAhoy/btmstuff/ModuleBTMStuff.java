@@ -1,11 +1,19 @@
 package dmfmm.StarvationAhoy.btmstuff;
 
+import dmfmm.StarvationAhoy.StarvationAhoy;
 import dmfmm.StarvationAhoy.btmstuff.blocks.AutomaticRoaster;
 import dmfmm.StarvationAhoy.btmstuff.blocks.SignBlock;
+import dmfmm.StarvationAhoy.btmstuff.entity.EntityDummy;
+import dmfmm.StarvationAhoy.btmstuff.entity.RenderDummy;
 import dmfmm.StarvationAhoy.btmstuff.te.AutoRoasterTE;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Created by TeamDMFMM on 7/22/2016. Code originally written
@@ -25,6 +33,11 @@ public class ModuleBTMStuff {
         signblock.setRegistryName("starvationahoy", "signblock");
 
         AutomaticRoaster = new AutomaticRoaster();
+
+        EntityRegistry.registerModEntity(EntityDummy.class, "[SA]BTMDummy", 0, StarvationAhoy.instance, 0, 1, false, 000000, 15435844);
+        if(StarvationAhoy.side == Side.CLIENT){
+            RenderingRegistry.registerEntityRenderingHandler(EntityDummy.class, RenderDummy.FACTORY);
+        }
     }
 
     public void init() {
