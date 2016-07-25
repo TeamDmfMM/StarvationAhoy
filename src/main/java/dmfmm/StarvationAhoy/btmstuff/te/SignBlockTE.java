@@ -1,6 +1,7 @@
 package dmfmm.StarvationAhoy.btmstuff.te;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 
 /**
  * Created by TeamDMFMM on 7/23/2016. Code originally written
@@ -10,18 +11,58 @@ import net.minecraft.tileentity.TileEntity;
  */
 public class SignBlockTE extends TileEntity{
 
-    public static enum DirectionData {
+    public static class DirectionData {
 
-        ;
+        EnumFacing axis_x;
+        EnumFacing axis_y;
 
-        int axis_tex_x;
-        int axis_tex_y;
+        boolean complete;
 
-        DirectionData (int atx, int aty) {
-            this.axis_tex_x = atx;
-            this.axis_tex_y = aty;
+        public DirectionData(EnumFacing ax) {
+            axis_x = ax;
+            complete = false;
         }
 
+        public DirectionData(EnumFacing ax, EnumFacing ay) {
+            axis_x = ax;
+            axis_y = ay;
+            complete = true;
+        }
+
+        public void finish(EnumFacing ay) {
+            complete = true;
+            axis_y = ay;
+        }
+
+        public EnumFacing getAxisX() {
+            return this.axis_x;
+        }
+
+        public EnumFacing getAxisY() {
+            return this.axis_y == null ? EnumFacing.DOWN : this.axis_y;
+        }
+
+    }
+
+    public enum State {
+        SINGULAR,
+        COMPLETE;
+    }
+
+    public DirectionData direction;
+    public State state;
+    public EnumFacing front;
+
+    public int offset_x = 0;
+    public int offset_y = 0;
+
+    // Only set if offset_x and y are 0
+    public int width;
+    public int height;
+
+    public SignBlockTE(State state, DirectionData direction) {
+        this.state = state;
+        this.direction = direction;
     }
 
 }
