@@ -8,11 +8,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -20,39 +24,40 @@ import javax.annotation.Nullable;
 
 public class EntityDummy extends EntityMob {
 
-    private int type;
+    private static final DataParameter<Integer> DUMMY_VARIANT = EntityDataManager.<Integer>createKey(EntityDummy.class, DataSerializers.VARINT);
 
     public EntityDummy(World world) {
         super(world);
-        setSize(1.0F, 1.5F);
+        setSize(1.0F, 2F);
+        this.setEntityInvulnerable(true);
+        this.setNoAI(true);
     }
 /*
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
     }
-
+*/
 
     @Override
     protected void entityInit() {
-
-    }*/
+        super.entityInit();
+        this.dataManager.register(DUMMY_VARIANT, 0);
+    }
 
     @Override
     public void readEntityFromNBT(NBTTagCompound compound) {
         super.readEntityFromNBT(compound);
-        type = compound.getInteger("typus");
+        this.setType(compound.getInteger("typus"));
     }
 
     @Override
     public void writeEntityToNBT(NBTTagCompound compound) {
         super.writeEntityToNBT(compound);
-        compound.setInteger("typus", type);
+        compound.setInteger("typus", this.getType());
 
     }
 
-    public int getType(){
-        return type;
-    }
+
 
     protected boolean canEquipItem(ItemStack stack)
     {
@@ -68,6 +73,7 @@ public class EntityDummy extends EntityMob {
         }
         if(livingdata instanceof EntityDummy.GroupData){
             GroupData LTData = (EntityDummy.GroupData) livingdata;
+            this.setType(LTData.type);
             if(LTData.type == 0){
                 this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(MItemLoader.filetKnife));
             }else if(LTData.type == 1){
@@ -79,7 +85,14 @@ public class EntityDummy extends EntityMob {
         return livingdata;
     }
 
+    public void setType(int varient)
+    {
+        this.dataManager.set(DUMMY_VARIANT, varient);
+    }
 
+    public int getType(){
+        return ((Integer)this.dataManager.get(DUMMY_VARIANT)).intValue();
+    }
 
 
     class GroupData implements IEntityLivingData
