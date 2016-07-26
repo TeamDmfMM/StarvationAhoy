@@ -5,6 +5,7 @@ import dmfmm.StarvationAhoy.btmstuff.blocks.AutomaticRoaster;
 import dmfmm.StarvationAhoy.btmstuff.blocks.SignBlock;
 import dmfmm.StarvationAhoy.btmstuff.entity.EntityDummy;
 import dmfmm.StarvationAhoy.btmstuff.te.AutoRoasterTE;
+import dmfmm.StarvationAhoy.btmstuff.te.SignBlockTE;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -41,6 +42,7 @@ public class ModuleBTMStuff {
         GameRegistry.register(new ItemBlock(signblock).setRegistryName(signblock.getRegistryName()));
 
         GameRegistry.registerTileEntity(AutoRoasterTE.class, "ARTE");
+        GameRegistry.registerTileEntity(SignBlockTE.class, "SaBTN_Sign");
     }
 
 }
