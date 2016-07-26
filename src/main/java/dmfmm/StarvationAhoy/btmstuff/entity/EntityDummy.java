@@ -10,6 +10,7 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -25,6 +29,7 @@ import javax.annotation.Nullable;
 public class EntityDummy extends EntityMob {
 
     private static final DataParameter<Integer> DUMMY_VARIANT = EntityDataManager.<Integer>createKey(EntityDummy.class, DataSerializers.VARINT);
+    private BlockPos pso;
 
     public EntityDummy(World world) {
         super(world);
@@ -37,6 +42,16 @@ public class EntityDummy extends EntityMob {
         super.applyEntityAttributes();
     }
 */
+    public void onUpdate() {
+    super.onUpdate();
+
+        if(pso == null){
+            pso = getPosition();
+        }
+        if(pso != getPosition()){
+            this.setPosition(pso.getX(), pso.getY(), pso.getZ());
+        }
+    }
 
     @Override
     protected void entityInit() {
@@ -48,12 +63,14 @@ public class EntityDummy extends EntityMob {
     public void readEntityFromNBT(NBTTagCompound compound) {
         super.readEntityFromNBT(compound);
         this.setType(compound.getInteger("typus"));
+        this.pso = BlockPos.fromLong(compound.getLong("BlockPos"));
     }
 
     @Override
     public void writeEntityToNBT(NBTTagCompound compound) {
         super.writeEntityToNBT(compound);
         compound.setInteger("typus", this.getType());
+        compound.setLong("BlockPos", this.pso.toLong());
 
     }
 
@@ -61,6 +78,16 @@ public class EntityDummy extends EntityMob {
 
     protected boolean canEquipItem(ItemStack stack)
     {
+        return true;
+    }
+    protected boolean canDespawn()
+    {
+        return true;
+    }
+
+    public boolean processInteract(EntityPlayer player, EnumHand hand, @Nullable ItemStack stack)
+    {
+        this.rotationYaw = player.rotationYaw;
         return true;
     }
 
