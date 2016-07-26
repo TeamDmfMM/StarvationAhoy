@@ -270,7 +270,7 @@ public class SignBlock extends Block implements ITileEntityProvider{
                     calculating.offset_y = new_offset_y;
                     calculating.state = SignBlockTE.State.COMPLETE;
                     calculating.front = newOrigin.front;
-
+                    calculating.markDirty();
                 }
 
             }
@@ -319,9 +319,6 @@ public class SignBlock extends Block implements ITileEntityProvider{
         BlockPos endPos = originPos.offset(axis_x, origin.width-1).offset(axis_y, origin.height-1);
 
         for (BlockPos breakMe : BlockPos.getAllInBox(originPos, endPos)) {
-            if (breakMe.equals(pos)) {
-                continue;
-            }
             worldIn.setBlockToAir(breakMe);
         }
 

@@ -64,12 +64,12 @@ public class SignBlockTESR extends TileEntitySpecialRenderer<SignBlockTE> {
                         new double[] {0.0, 0.0}
                 };
 
-                renderCubeFace(te, EnumFacing.UP, false, new float[]{0.0f, 0.0f, 0.0f}, tex);
-                renderCubeFace(te, EnumFacing.DOWN, false, new float[]{0.0f, 0.0f, 0.0f}, tex);
-                renderCubeFace(te, EnumFacing.EAST, false, new float[]{0.0f, 0.0f, 0.0f}, tex);
-                renderCubeFace(te, EnumFacing.WEST, false, new float[]{0.0f, 0.0f, 0.0f}, tex);
-                renderCubeFace(te, EnumFacing.NORTH, false, new float[]{0.0f, 0.0f, 0.0f}, tex);
-                renderCubeFace(te, EnumFacing.SOUTH, false, new float[]{0.0f, 0.0f, 0.0f}, tex);
+                renderCubeFace(te, EnumFacing.UP, false, new float[]{0.0f, 0.0f, 1.0f}, tex);
+                renderCubeFace(te, EnumFacing.DOWN, false, new float[]{0.0f, 0.0f, 1.0f}, tex);
+                renderCubeFace(te, EnumFacing.EAST, false, new float[]{0.0f, 0.0f, 1.0f}, tex);
+                renderCubeFace(te, EnumFacing.WEST, false, new float[]{0.0f, 0.0f, 1.0f}, tex);
+                renderCubeFace(te, EnumFacing.NORTH, false, new float[]{0.0f, 0.0f, 1.0f}, tex);
+                renderCubeFace(te, EnumFacing.SOUTH, false, new float[]{0.0f, 0.0f, 1.0f}, tex);
                 break;
             case COMPLETE:
 
@@ -105,26 +105,44 @@ public class SignBlockTESR extends TileEntitySpecialRenderer<SignBlockTE> {
                     BlockPos newpos = te.getPos().offset(axis_x.getOpposite(), te.offset_x).offset(axis_y.getOpposite(), te.offset_y);
                     SignBlockTE origin = (SignBlockTE) te.getWorld().getTileEntity(newpos);
 
-                    assert origin != null;
-                    double block_x = 1.0 / origin.width;
-                    double block_y = 1.0 / origin.height;
+                    try {
+                        double block_x = 1.0 / origin.width;
+                        double block_y = 1.0 / origin.height;
 
-                    double origin_x = block_x * te.offset_x;
-                    double origin_y = block_y * te.offset_y;
-                    block_x *= te.offset_x + 1;
-                    block_y *= te.offset_y + 1;
+                        double origin_x = block_x * te.offset_x;
+                        double origin_y = block_y * te.offset_y;
+                        block_x *= te.offset_x + 1;
+                        block_y *= te.offset_y + 1;
 
-                    block_y = 1 - block_y;
-                    origin_y = 1 - origin_y;
+                        block_y = 1 - block_y;
+                        origin_y = 1 - origin_y;
 
-                    real_tex = new double[][] {
-                            new double[] {origin_x, origin_y},
-                            new double[] {origin_x, block_y},
-                            new double[] {block_x, block_y},
-                            new double[] {block_x, origin_y}
-                    };
+                        real_tex = new double[][]{
+                                new double[]{origin_x, origin_y},
+                                new double[]{origin_x, block_y},
+                                new double[]{block_x, block_y},
+                                new double[]{block_x, origin_y}
+                        };
 
-                    rev = axis_x.getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE;
+                        rev = axis_x.getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE;
+                    }
+                    catch (NullPointerException e) {
+                        tex = new double[][] {
+                                new double[] {0.0, 0.0},
+                                new double[] {0.0, 0.0},
+                                new double[] {0.0, 0.0},
+                                new double[] {0.0, 0.0}
+                        };
+
+                        renderCubeFace(te, EnumFacing.UP, false, new float[]{1.0f, 0.0f, 1.0f}, tex);
+                        renderCubeFace(te, EnumFacing.DOWN, false, new float[]{1.0f, 0.0f, 1.0f}, tex);
+                        renderCubeFace(te, EnumFacing.EAST, false, new float[]{1.0f, 0.0f, 1.0f}, tex);
+                        renderCubeFace(te, EnumFacing.WEST, false, new float[]{1.0f, 0.0f, 1.0f}, tex);
+                        renderCubeFace(te, EnumFacing.NORTH, false, new float[]{1.0f, 0.0f, 1.0f}, tex);
+                        renderCubeFace(te, EnumFacing.SOUTH, false, new float[]{1.0f, 0.0f, 1.0f}, tex);
+                        GlStateManager.popMatrix();
+                        return;
+                    }
                 }
                 for (EnumFacing facing : EnumFacing.VALUES) {
                     if (facing != te.front) {

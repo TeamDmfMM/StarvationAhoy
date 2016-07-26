@@ -1,5 +1,6 @@
 package dmfmm.StarvationAhoy.btmstuff.te;
 
+import dmfmm.StarvationAhoy.btmstuff.blocks.SignBlock;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -96,6 +97,10 @@ public class SignBlockTE extends TileEntity{
         this.direction = direction;
     }
 
+    public SignBlockTE() {
+        this(null, null);
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
@@ -116,6 +121,8 @@ public class SignBlockTE extends TileEntity{
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+
         NBTTagCompound compoundDData = new NBTTagCompound();
         if (this.direction != null) {
             this.direction.save(compoundDData);
@@ -134,11 +141,11 @@ public class SignBlockTE extends TileEntity{
         return compound;
     }
 
-    @Nullable
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(this.getPos(), 0, this.writeToNBT(new NBTTagCompound()));
+    public NBTTagCompound getUpdateTag() {
+        return this.writeToNBT(new NBTTagCompound());
     }
+
 
     @Override
     public void handleUpdateTag(NBTTagCompound tag) {
