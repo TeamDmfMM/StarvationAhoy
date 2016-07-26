@@ -30,7 +30,7 @@ public class HeldItemLayer implements LayerRenderer<EntityLivingBase>
 
         if (itemstack != null || itemstack1 != null)
         {
-            GlStateManager.pushMatrix();
+             GlStateManager.pushMatrix();
 
             if (this.livingEntityRenderer.getMainModel().isChild)
             {

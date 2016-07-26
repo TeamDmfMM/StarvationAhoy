@@ -118,10 +118,10 @@ public class SignBlock extends Block implements ITileEntityProvider{
 
                 BlockPos startPosition = origin.getPos();
                 if (offset_x < 0) {
-                    startPosition.offset(axis_x, offset_x);
+                    startPosition = startPosition.offset(axis_x, offset_x);
                 }
                 if (offset_y < 0) {
-                    startPosition.offset(axis_y, offset_y);
+                    startPosition = startPosition.offset(axis_y, offset_y);
                 }
                 BlockPos endPosition = startPosition;
                 endPosition = endPosition.offset(axis_x, possible_width-1);
@@ -230,10 +230,10 @@ public class SignBlock extends Block implements ITileEntityProvider{
 
                 BlockPos startPosition = origin.getPos();
                 if (offset_x < 0) {
-                    startPosition.offset(axis_x, offset_x);
+                    startPosition = startPosition.offset(axis_x, offset_x);
                 }
                 if (offset_y < 0) {
-                    startPosition.offset(axis_y, offset_y);
+                    startPosition = startPosition.offset(axis_y, offset_y);
                 }
 
                 SignBlockTE newOrigin = (SignBlockTE) worldIn.getTileEntity(startPosition);
@@ -290,5 +290,41 @@ public class SignBlock extends Block implements ITileEntityProvider{
             return pos.getZ();
         }
         return 0;
+    }
+
+    public Vec3i extendAlongAxis(Vec3i axis, BlockPos distance) {
+        int compX = axis.getX() * distance.getX();
+        int compY = axis.getY() * distance.getY();
+        int compZ = axis.getZ() * distance.getZ();
+        return new Vec3i(compX, compY, compZ);
+    }
+
+    @SuppressWarnings("NullableProblems")
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        SignBlockTE te = (SignBlockTE) worldIn.getTileEntity(pos);
+        if (te == null || te.direction == null || te.front == null) {
+            super.breakBlock(worldIn, pos, state);
+            return;
+        }
+
+        EnumFacing axis_x = te.direction.getAxisX();
+        EnumFacing axis_y = te.direction.getAxisY();
+
+        BlockPos newpos = te.getPos().offset(axis_x.getOpposite(), te.offset_x).offset(axis_y.getOpposite(), te.offset_y);
+        SignBlockTE origin = (SignBlockTE) te.getWorld().getTileEntity(newpos);
+
+        assert origin != null;
+        BlockPos originPos = origin.getPos();
+        BlockPos endPos = originPos.offset(axis_x, origin.width-1).offset(axis_y, origin.height-1);
+
+        for (BlockPos breakMe : BlockPos.getAllInBox(originPos, endPos)) {
+            if (breakMe.equals(pos)) {
+                continue;
+            }
+            worldIn.setBlockToAir(breakMe);
+        }
+
+        super.breakBlock(worldIn, pos, state);
     }
 }

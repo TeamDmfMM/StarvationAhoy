@@ -51,6 +51,7 @@ public class SignBlockTESR extends TileEntitySpecialRenderer<SignBlockTE> {
             renderCubeFace(te, EnumFacing.NORTH, false, new float[]{1.0f, 0.0f, 0.0f}, tex);
             renderCubeFace(te, EnumFacing.SOUTH, false, new float[]{1.0f, 0.0f, 0.0f}, tex);
             GlStateManager.popMatrix();
+           // GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
             return;
         }
 
@@ -80,16 +81,22 @@ public class SignBlockTESR extends TileEntitySpecialRenderer<SignBlockTE> {
                         new double[] {0.0, 0.0}
                 };
                 double[][] real_tex;
+                boolean rev = false;
+
                 if (te.offset_x == 0 && te.offset_y == 0) {
                     double block_x = 1.0 / te.width;
                     double block_y = 1.0 / te.height;
 
+                    EnumFacing axis_x = te.direction.getAxisX();
+                    
                     real_tex = new double[][] {
                             new double[] {0.0, 1-0.0},
                             new double[] {0.0, 1-block_y},
                             new double[] {block_x, 1-block_y},
                             new double[] {block_x, 1-0.0}
                     };
+
+                    rev = axis_x.getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE;
                 }
                 else {
                     EnumFacing axis_x = te.direction.getAxisX();
@@ -116,13 +123,15 @@ public class SignBlockTESR extends TileEntitySpecialRenderer<SignBlockTE> {
                             new double[] {block_x, block_y},
                             new double[] {block_x, origin_y}
                     };
+
+                    rev = axis_x.getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE;
                 }
                 for (EnumFacing facing : EnumFacing.VALUES) {
                     if (facing != te.front) {
                         renderCubeFace(te, facing, false, new float[]{0.0f, 0.0f, 0.0f}, blank_tex);
                     }
                     else {
-                        renderCubeFace(te, facing, false, new float[]{1f, 1f, 1f}, real_tex);
+                        renderCubeFace(te, facing, !rev, new float[]{1f, 1f, 1f}, real_tex);
                     }
                 }
 
@@ -264,10 +273,14 @@ public class SignBlockTESR extends TileEntitySpecialRenderer<SignBlockTE> {
 
             myBuffer.begin(GL_QUADS, vf);
 
-            myBuffer.pos(x1, y1, z1).color(color[0], color[1], color[2], color[3]).tex(tex[3][0], tex[3][1]).endVertex();
-            myBuffer.pos(x2, y2, z2).color(color[0], color[1], color[2], color[3]).tex(tex[2][0], tex[2][1]).endVertex();
-            myBuffer.pos(x3, y3, z3).color(color[0], color[1], color[2], color[3]).tex(tex[1][0], tex[1][1]).endVertex();
-            myBuffer.pos(x4, y4, z4).color(color[0], color[1], color[2], color[3]).tex(tex[0][0], tex[0][1]).endVertex();
+            GlStateManager.enableLighting();
+            GlStateManager.enableCull();
+            myBuffer.pos(x1, y1, z1).tex(tex[0][0], tex[3][1]).color(color[0], color[1], color[2], 1f).endVertex();
+            myBuffer.pos(x2, y2, z2).tex(tex[1][0], tex[2][1]).color(color[0], color[1], color[2], 1f).endVertex();
+            myBuffer.pos(x3, y3, z3).tex(tex[2][0], tex[1][1]).color(color[0], color[1], color[2], 1f).endVertex();
+            myBuffer.pos(x4, y4, z4).tex(tex[3][0], tex[0][1]).color(color[0], color[1], color[2], 1f).endVertex();
+            GlStateManager.disableCull();
+            GlStateManager.disableLighting();
 
             Tessellator.getInstance().draw();
         }
