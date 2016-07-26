@@ -19,17 +19,24 @@ public class RenderDummy extends RenderLivingBase<EntityDummy> {
     private final boolean smallArms = false;
 
     public RenderDummy(RenderManager redManager) {
-        super(redManager, new ModelPlayer(0F, false), 0.5F);
+        super(redManager, new ModelSAPlayer(), 0.5F);
         this.addLayer(new HeldItemLayer(this));
     }
 
-    public ModelPlayer getMainModel()
+    public ModelSAPlayer getMainModel()
     {
-        return (ModelPlayer) super.getMainModel();
+        return (ModelSAPlayer) super.getMainModel();
     }
 
     @Override
     protected ResourceLocation getEntityTexture(EntityDummy entity) {
+        if(entity.getType() == 0){
+            return new ResourceLocation("starvationahoy", "textures/btm/butcherB.png");
+        }else if(entity.getType() == 1){
+            return new ResourceLocation("starvationahoy", "textures/btm/chefA.png");
+        }else if(entity.getType() == 2){
+            return new ResourceLocation("starvationahoy", "textures/btm/FarmerA.png");
+        }
         return new ResourceLocation("textures/entity/steve.png");
     }
 
@@ -47,14 +54,16 @@ public class RenderDummy extends RenderLivingBase<EntityDummy> {
             d0 = y - 0.125D;
         }
 
-        this.setModelVisibilities(entity);
+        //this.setModelVisibilities(entity);
         GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
+        getMainModel().field_178723_h.rotateAngleX = getMainModel().field_178723_h.rotateAngleX * 0.5F - ((float)Math.PI / 10F);
+        getMainModel().field_178723_h.rotateAngleY = 0.0F;
         super.doRender(entity, x, d0, z, entityYaw, partialTicks);
         GlStateManager.disableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
 
     }
 
-    private void setModelVisibilities(EntityDummy entity) {
+    /*private void setModelVisibilities(EntityDummy entity) {
         ItemStack itemstack = entity.getHeldItemMainhand();
         ItemStack itemstack1 = entity.getHeldItemOffhand();
         getMainModel().bipedHeadwear.showModel = true;
@@ -81,6 +90,10 @@ public class RenderDummy extends RenderLivingBase<EntityDummy> {
             getMainModel().rightArmPose = modelbiped$armpose1;
             getMainModel().leftArmPose = modelbiped$armpose;
         }
+    }*/
+    protected boolean canRenderName(EntityDummy entity)
+    {
+        return false;
     }
 
 

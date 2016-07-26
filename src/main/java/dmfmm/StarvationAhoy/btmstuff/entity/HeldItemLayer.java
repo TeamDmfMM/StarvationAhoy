@@ -57,11 +57,11 @@ public class HeldItemLayer implements LayerRenderer<EntityLivingBase>
                 GlStateManager.translate(0.0F, 0.2F, 0.0F);
             }
             // Forge: moved this call down, fixes incorrect offset while sneaking.
-            ((ModelBiped)this.livingEntityRenderer.getMainModel()).postRenderArm(0.0625F, handSide);
+            //((ModelBiped)this.livingEntityRenderer.getMainModel()).postRenderArm(0.0625F, handSide);
             GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
             boolean flag = handSide == EnumHandSide.LEFT;
-            GlStateManager.translate(flag ? -0.0625F : 0.0625F, 0.125F, -0.625F);
+            GlStateManager.translate(flag ? -0.0625F : 0.4F, 0.45F, -0.625F);
             if(p_188358_1_ instanceof EntityDummy){
                 EntityDummy dummy = (EntityDummy)p_188358_1_;
                 if(dummy.getType() == 1){
