@@ -18,9 +18,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -36,12 +38,14 @@ public class EntityDummy extends EntityMob {
         setSize(1.0F, 2F);
         this.setEntityInvulnerable(true);
         this.setNoAI(true);
+
     }
 /*
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
     }
 */
+
     public void onUpdate() {
     super.onUpdate();
 
@@ -87,7 +91,25 @@ public class EntityDummy extends EntityMob {
 
     public boolean processInteract(EntityPlayer player, EnumHand hand, @Nullable ItemStack stack)
     {
-        this.rotationYaw = player.rotationYaw;
+        this.rotationYaw = -player.rotationYaw;
+        int t = this.getType();
+        String l;
+        switch (t){
+            case 0:
+                l = "Fresh cut meat! Get it here!";
+                break;
+            case 1:
+                l = "Roasting all this meat! Gotta love the hunt!";
+                break;
+            case 2:
+                l = "Just keep washin'. Just keep washin'. Just keep washin', washin', washin'";
+                break;
+            default:
+                l = "Hola/Hi/Bonjour/Ciao. I'm a dummy";
+        }
+        if(!worldObj.isRemote) {
+            player.addChatComponentMessage(new TextComponentString(l));
+        }
         return true;
     }
 

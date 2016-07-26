@@ -18,10 +18,9 @@ import dmfmm.StarvationAhoy.Meat.Block.tileentity.MeatHangerTileEntity;
 public class MeatHangerRenderer extends TileEntitySpecialRenderer {
     
     //The model of your block
-    private final MeatHangerModel model;
+    private final MeatHangerModel model = new MeatHangerModel();
     
     public MeatHangerRenderer() {
-            this.model = new MeatHangerModel();
     }
 
     

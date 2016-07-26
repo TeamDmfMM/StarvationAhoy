@@ -29,13 +29,15 @@ import org.lwjgl.input.Keyboard;
 
 public class ClientProxy extends CommonProxy{
 
+    private ModelBiped armor = new HTArmor();
+
     @Override
     public ModelBiped getArmorModel(ModelBiped model, EntityEquipmentSlot slot) {
         switch(slot){
             case HEAD:
                 return model;
             case CHEST:
-                return new HTArmor();
+                return armor;
             default:
                 return null;
         }
