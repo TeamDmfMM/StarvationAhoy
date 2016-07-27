@@ -19,6 +19,8 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
     
     //The model of your block
     private final MeatHangerModel model = new MeatHangerModel();
+	private final ModelSheepSA sheepy = new ModelSheepSA();
+	private final ModelSheepSA.ModelSheepSA2 sheepyz = new ModelSheepSA.ModelSheepSA2();
     
     public MeatHangerRenderer() {
     }
@@ -67,14 +69,12 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
             case 4:
             	//Sheep
 				if(meatState == MeatHangerTileEntity.MeatStates.NORMAL){
-					ModelSheepSA sheepy = new ModelSheepSA();
 					sheepy.modelTransformations();
 					sheepy.glTransformations();
 					Minecraft.getMinecraft().renderEngine.bindTexture(getTexture(ModuleMeat.MEATTYPE_SHEEP, meatState));
 					sheepy.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 					break;
 				}else{
-					ModelSheepSA.ModelSheepSA2 sheepyz = new ModelSheepSA.ModelSheepSA2();
 					sheepyz.modelTransformations();
 					sheepyz.glTransformations();
 					Minecraft.getMinecraft().renderEngine.bindTexture(getTexture(ModuleMeat.MEATTYPE_SHEEP, meatState));
