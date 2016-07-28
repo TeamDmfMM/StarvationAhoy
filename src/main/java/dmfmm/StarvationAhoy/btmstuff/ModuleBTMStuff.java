@@ -5,12 +5,9 @@ import dmfmm.StarvationAhoy.btmstuff.blocks.AutomaticRoaster;
 import dmfmm.StarvationAhoy.btmstuff.blocks.SignBlock;
 import dmfmm.StarvationAhoy.btmstuff.entity.EntityDummy;
 import dmfmm.StarvationAhoy.btmstuff.te.AutoRoasterTE;
-import dmfmm.StarvationAhoy.btmstuff.te.SignBlockTE;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Created by TeamDMFMM on 7/22/2016. Code originally written
@@ -26,23 +23,20 @@ public class ModuleBTMStuff {
     Block signblock;
 
     public void preinit() {
-        signblock = new SignBlock();
-        signblock.setRegistryName("starvationahoy", "signblock");
+        //signblock = new SignBlock();
+        //signblock.setRegistryName("starvationahoy", "signblock");
 
         AutomaticRoaster = new AutomaticRoaster();
 
         EntityRegistry.registerModEntity(EntityDummy.class, "[SA]BTMDummy", 0, StarvationAhoy.instance, 256, 1, false, 000000, 15435844);
-        if(StarvationAhoy.side == Side.CLIENT){
-
-        }
     }
 
     public void init() {
-        GameRegistry.register(signblock);
-        GameRegistry.register(new ItemBlock(signblock).setRegistryName(signblock.getRegistryName()));
+        //GameRegistry.register(signblock);
+        //GameRegistry.register(new ItemBlock(signblock).setRegistryName(signblock.getRegistryName()));
 
         GameRegistry.registerTileEntity(AutoRoasterTE.class, "ARTE");
-        GameRegistry.registerTileEntity(SignBlockTE.class, "SaBTN_Sign");
+        //GameRegistry.registerTileEntity(SignBlockTE.class, "SaBTN_Sign");
     }
 
 }

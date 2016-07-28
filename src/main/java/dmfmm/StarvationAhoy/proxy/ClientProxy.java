@@ -68,7 +68,7 @@ public class ClientProxy extends CommonProxy{
         ClientRegistry.bindTileEntitySpecialRenderer(MeatHangerTileEntity.class, new MeatHangerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(HoldingStickTileEntity.class, new HoldingStickRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCropWasher.class, new WashBarrelRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(SignBlockTE.class, new SignBlockTESR());
+        //ClientRegistry.bindTileEntitySpecialRenderer(SignBlockTE.class, new SignBlockTESR());
         /*
         //Cow Items
         MinecraftForgeClient.registerItemRenderer(MItemLoader.deadPig, new QuadrupedItemRenderer(new ModelPigSA(), "minecraft:textures/entity/pig/pig.png"));

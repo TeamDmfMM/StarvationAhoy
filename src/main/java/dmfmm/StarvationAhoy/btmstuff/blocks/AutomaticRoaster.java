@@ -47,7 +47,9 @@ public class AutomaticRoaster extends Block implements ITileEntityProvider{
         if (ModuleMeat.registry.isSkinnedItem(player.inventory.mainInventory[player.inventory.currentItem]).value) {
             if(world.getTileEntity(pos) instanceof AutoRoasterTE){
                 ((AutoRoasterTE)world.getTileEntity(pos)).setEntity(player.inventory.mainInventory[player.inventory.currentItem]);
-                player.addChatComponentMessage(new TextComponentString("Added "+ player.inventory.mainInventory[player.inventory.currentItem].getItem().getUnlocalizedName() +" as Roasting Item"));
+                if(!world.isRemote) {
+                    player.addChatComponentMessage(new TextComponentString("Added " + player.inventory.mainInventory[player.inventory.currentItem].getItem().getUnlocalizedName() + " as Roasting Item"));
+                }
                 return true;
             }
         }

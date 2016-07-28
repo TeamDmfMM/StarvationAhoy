@@ -24,7 +24,7 @@ public class MeatTextureRegistry {
         register(MItemLoader.filetKnife, 0);
         register(MItemLoader.pigleg, 0);
 
-
+        registerBlock("autoroaster", 0);
     }
 
     public static void preinitTextures(){
