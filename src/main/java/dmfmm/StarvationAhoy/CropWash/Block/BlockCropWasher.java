@@ -47,13 +47,13 @@ public class BlockCropWasher extends Block implements ITileEntityProvider{
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
-        SALog.error(((TileEntityCropWasher) world.getTileEntity(pos)).getFluidAmount());
+        //SALog.error(((TileEntityCropWasher) world.getTileEntity(pos)).getFluidAmount());
         ItemStack stack = player.getHeldItemMainhand();
         if (stack == null){
             return false;
         }
         else if (stack.getItem() == Items.WATER_BUCKET){
-            ((TileEntityCropWasher) world.getTileEntity(pos)).fill(EnumFacing.UP, new FluidStack(FluidRegistry.getFluid("water"), 1000), true);
+            ((TileEntityCropWasher) world.getTileEntity(pos)).fill();
             ItemStack bucket = new ItemStack(Items.BUCKET);
             player.inventory.setInventorySlotContents(player.inventory.currentItem, bucket);
             return true;

@@ -9,12 +9,12 @@ import dmfmm.StarvationAhoy.CropWash.Crossmod.CrossMod;
 import dmfmm.StarvationAhoy.CropWash.item.CropItemLoader;
 import dmfmm.StarvationAhoy.CropWash.modelbake.TextureInjector;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -89,7 +89,7 @@ public class ModuleCropWash {
                     if (tagz.tagCount() == 2) {
                         if (Block.getBlockFromItem(ItemStack.loadItemStackFromNBT(tagz.getCompoundTagAt(0)).getItem()) instanceof Block && ItemStack.loadItemStackFromNBT(tagz.getCompoundTagAt(1)).getItem() instanceof Item) {
                             DirtyBlocks.addReplace(Block.getBlockFromItem(ItemStack.loadItemStackFromNBT(tagz.getCompoundTagAt(0)).getItem()), ItemStack.loadItemStackFromNBT(tagz.getCompoundTagAt(1)).getItem());
-                            SALog.fatal("Successfully switched breaking " + I18n.translateToLocal(ItemStack.loadItemStackFromNBT(tagz.getCompoundTagAt(0)).getItem().getUnlocalizedName()) + " with " + I18n.translateToLocal(ItemStack.loadItemStackFromNBT(tagz.getCompoundTagAt(1)).getItem().getUnlocalizedName()));
+                            SALog.fatal("Successfully switched breaking " + I18n.format(ItemStack.loadItemStackFromNBT(tagz.getCompoundTagAt(0)).getItem().getUnlocalizedName()) + " with " + I18n.format(ItemStack.loadItemStackFromNBT(tagz.getCompoundTagAt(1)).getItem().getUnlocalizedName()));
                         } else {
                             SALog.fatal("Error overriding crop, Either not block or Item");
                         }

@@ -32,7 +32,7 @@ public class VillagerCropOverride {
     public void overideDirtyCropCreation(EntityEvent e){
         if(e.getEntity() instanceof EntityVillager){
             EntityVillager villager = (EntityVillager)e.getEntity();
-            if(villager.getProfession() == 0){
+            if(villager.getProfessionForge().getCareer(0).getName()  == "farmer"){
                 EntityItem item = isItemstackInRange(villager.getEntityWorld(), villager.posX, villager.posY, villager.posZ, 2);
                 if(item != null){
                     if (item.getEntityItem().getItem() instanceof DirtyItem){

@@ -6,13 +6,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraftforge.fluids.TileFluidHandler;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.TileFluidHandler;
+
 
 /**
  * Created by mincrmatt12. Do not copy this or you will have to face
  * our legal team. (dmf444)
  */
-public class TileEntityCropWasher extends TileFluidHandler{
+public class TileEntityCropWasher extends TileFluidHandler {
 
 
     public TileEntityCropWasher(){
@@ -30,7 +33,9 @@ public class TileEntityCropWasher extends TileFluidHandler{
         }
         return item;
     }
-
+    public void fill(){
+        this.tank.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
+    }
 
     public float getFluidAmount() {
         return this.tank.getFluidAmount();

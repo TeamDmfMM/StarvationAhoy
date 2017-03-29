@@ -2,6 +2,7 @@ package dmfmm.StarvationAhoy.CropWash.item;
 
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,7 +11,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 
@@ -50,7 +50,7 @@ public class DirtyItem extends Item {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        String dirty = I18n.translateToLocal("starvationahoy.misc.dirty");
+        String dirty = I18n.format("starvationahoy.misc.dirty");
         String original = "";
         if(stack.hasTagCompound()) {
              original = ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag("Original")).getDisplayName();

@@ -40,17 +40,11 @@ public class BlockContainerRotate extends Block implements ITileEntityProvider {
         super.onBlockPlacedBy(world, pos, state, entity, stack);
         world.setBlockState(pos, state.withProperty(FACING, BPHelp.getFFE(world, pos, entity, true)), 2);
     }
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack)
     {
-        return this.getDefaultState().withProperty(FACING, BPHelp.getFFE(worldIn, pos, placer, true));
+        return this.getDefaultState().withProperty(FACING, BPHelp.getFFE(world, pos, placer, true));
     }
 
-    //Copy for 1.8
-    @SideOnly(Side.CLIENT)
-    public IBlockState getStateForEntityRender(IBlockState state)
-    {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH);
-    }
 
     public IBlockState getStateFromMeta(int meta)
     {

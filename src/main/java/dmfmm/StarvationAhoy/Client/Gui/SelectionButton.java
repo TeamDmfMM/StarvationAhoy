@@ -7,9 +7,9 @@ import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.translation.I18n;
+
 
 /**
  * Created by dmf444 on 3/5/2016. Code originally written
@@ -44,7 +44,7 @@ public class SelectionButton extends GuiButton{
             GlStateManager.popMatrix();
         }
 
-        fontrenderer.drawString(I18n.translateToLocal("infobook.title." + text), (int) xPosition+15, yPosition, color);
+        fontrenderer.drawString(I18n.format("infobook.title." + text), (int) xPosition+15, yPosition, color);
         fontrenderer.setUnicodeFlag(false);
     }
 

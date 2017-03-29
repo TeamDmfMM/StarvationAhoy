@@ -3,13 +3,13 @@ package dmfmm.StarvationAhoy.Core;
 import dmfmm.StarvationAhoy.FoodEdit.FoodSet.FoodChanger;
 import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketFoodUpdate;
 import dmfmm.StarvationAhoy.StarvationAhoy;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.command.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.translation.I18n;
 
 import java.io.IOError;
 import java.io.IOException;
@@ -61,7 +61,7 @@ public class FoodModifyCommand implements ICommand{
 			if (server.isSinglePlayer()) {
 				try {
 					FoodChanger.change(item, hunger, saturation);
-					sender.sendMessage(new TextComponentString(I18n.translateToLocal(item.getUnlocalizedName() + ".name") + " was sucessfully changed to the new levels!"));
+					sender.sendMessage(new TextComponentString(I18n.format(item.getUnlocalizedName() + ".name") + " was sucessfully changed to the new levels!"));
 				} catch (IOError | IOException e) {
 					throw new WrongUsageException(e.getMessage(), new Object[0]);
 				} catch (FoodChanger.FoodNotFoundException e){
