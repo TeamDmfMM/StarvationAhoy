@@ -28,9 +28,9 @@ public abstract class TileEntityMultiBlock extends TileEntity implements ITickab
     public void update(){
 
 
-        if (multiBlockStructure != null && r == true) multiBlockStructure.updateStructure(worldObj);
+        if (multiBlockStructure != null && r == true) multiBlockStructure.updateStructure(world);
         if (timeAfter == 120 && multiBlockStructure != null ) {
-            if (!worldObj.isRemote) StarvationAhoy.MultiBlockChannel.sendToAllAround(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z), new NetworkRegistry.TargetPoint(worldObj.provider.getDimension(), this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), 40));
+            if (!world.isRemote) StarvationAhoy.MultiBlockChannel.sendToAllAround(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z), new NetworkRegistry.TargetPoint(world.provider.getDimension(), this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), 40));
             r = true;}
         timeAfter++;
         if (timeAfter == 240){

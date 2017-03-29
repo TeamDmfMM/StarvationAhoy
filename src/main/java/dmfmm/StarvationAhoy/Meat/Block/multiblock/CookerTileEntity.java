@@ -97,7 +97,7 @@ public class CookerTileEntity extends TileEntityMultiBlock implements IInventory
             stack.stackSize = getInventoryStackLimit();
         }
         multiBlockStructure.sharedData.setTag("MeatItem", meat.writeToNBT(new NBTTagCompound()));
-        multiBlockStructure.syncData(multiBlockStructure, multiBlockStructure.bPos, pos, worldObj);
+        multiBlockStructure.syncData(multiBlockStructure, multiBlockStructure.bPos, pos, world);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class CookerTileEntity extends TileEntityMultiBlock implements IInventory
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+    public boolean isUsableByPlayer(EntityPlayer p_70300_1_) {
         return false;
     }
 
@@ -133,7 +133,7 @@ public class CookerTileEntity extends TileEntityMultiBlock implements IInventory
     @Override
     public void closeInventory(EntityPlayer p) {
         multiBlockStructure.sharedData.setTag("MeatItem", meat.writeToNBT(new NBTTagCompound()));
-        multiBlockStructure.syncData(multiBlockStructure, multiBlockStructure.bPos, pos, worldObj);
+        multiBlockStructure.syncData(multiBlockStructure, multiBlockStructure.bPos, pos, world);
     }
 
     @Override

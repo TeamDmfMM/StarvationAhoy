@@ -102,7 +102,7 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
             stack.stackSize = getInventoryStackLimit();
         }
         multiBlockStructure.sharedData.setTag("MeatItem", meat.writeToNBT(new NBTTagCompound()));
-        multiBlockStructure.syncData(multiBlockStructure, multiBlockStructure.bPos, this.pos, worldObj);
+        multiBlockStructure.syncData(multiBlockStructure, multiBlockStructure.bPos, this.pos, world);
     }
 
     @Override
@@ -126,9 +126,7 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-        return false;
-    }
+    public boolean isUsableByPlayer(EntityPlayer player) {return false;}
 
     @Override
     public void openInventory(EntityPlayer e) {
@@ -138,7 +136,7 @@ public class HoldingStickTileEntity extends TileEntityMultiBlock implements IInv
     @Override
     public void closeInventory(EntityPlayer e) {
         multiBlockStructure.sharedData.setTag("MeatItem", meat.writeToNBT(new NBTTagCompound()));
-        multiBlockStructure.syncData(multiBlockStructure, multiBlockStructure.bPos, this.pos, worldObj);
+        multiBlockStructure.syncData(multiBlockStructure, multiBlockStructure.bPos, this.pos, world);
     }
 
     @Override

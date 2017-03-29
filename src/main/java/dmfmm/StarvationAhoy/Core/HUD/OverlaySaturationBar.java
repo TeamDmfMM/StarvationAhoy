@@ -42,14 +42,14 @@ public class OverlaySaturationBar extends Gui {
 	    }
 		int count = 0;
 		for (int i : new int[] {3,2}){
-			if (this.mc.thePlayer.inventory.armorInventory[i] == null){
+			if (this.mc.player.inventory.armorInventory[i] == null){
 				continue;
 			}
-			if (i == 3 && this.mc.thePlayer.inventory.armorInventory[3].getItem() == ItemLoad.stat_helm){
+			if (i == 3 && this.mc.player.inventory.armorInventory[3].getItem() == ItemLoad.stat_helm){
 				count += 1;
 				continue;
 			}
-			if (i == 2 && this.mc.thePlayer.inventory.armorInventory[2].getItem() == ItemLoad.stat_chest){
+			if (i == 2 && this.mc.player.inventory.armorInventory[2].getItem() == ItemLoad.stat_chest){
 				count += 1;
 				continue;
 			}
@@ -59,14 +59,14 @@ public class OverlaySaturationBar extends Gui {
 		}
 		if (count == 2){
 			drawSaturationBar();
-            getCurrentFoodStat(this.mc.thePlayer);
+            getCurrentFoodStat(this.mc.player);
 		}
 	  }
 
     private void drawSaturationBar(){
         this.mc.renderEngine.bindTexture(new ResourceLocation("starvationahoy", "textures/gui/SaturationBar.png"));
         this.drawTexturedModalRect(EXHAUSTION_BAR_X, EXHAUSTION_BAR_Y, 0, 0, 62, 9);
-        float Sat = this.mc.thePlayer.getFoodStats().getSaturationLevel();
+        float Sat = this.mc.player.getFoodStats().getSaturationLevel();
         if(Sat >= 20){
             this.drawTexturedModalRect(EXHAUSTION_BAR_X + 50, EXHAUSTION_BAR_Y + 2, 0, 9, 1, 5);
         } else if (Sat < 20){

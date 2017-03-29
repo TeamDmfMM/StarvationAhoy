@@ -20,7 +20,7 @@ public class event_meatSkinned {
          if(e.getMeattype() == ModuleMeat.MEATTYPE_RABBIT) {
              e.setCanceled(true);
              if (!e.getWorld().isRemote) {
-                 e.getWorld().spawnEntityInWorld(new EntityItem(e.getWorld(), e.getPosition().getX(), e.getPosition().getY()+2, e.getPosition().getZ(), new ItemStack(Items.RABBIT_HIDE, 1)));
+                 e.getWorld().spawnEntity(new EntityItem(e.getWorld(), e.getPosition().getX(), e.getPosition().getY()+2, e.getPosition().getZ(), new ItemStack(Items.RABBIT_HIDE, 1)));
              }
          }
     }

@@ -91,8 +91,8 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		fillWithBlocks(world, sbb, 4, 1, 6, 4, 3, 6, Blocks.COBBLESTONE, Blocks.COBBLESTONE, false);
 		this.placeBlockAtCurrentPosition(world, Blocks.COBBLESTONE, 3, 3, 6, sbb);
 		this.placeBlockAtCurrentPosition(world, Blocks.COBBLESTONE, 5, 3, 6, sbb);
-		this.placeDoorCurrentPosition(world, sbb, rand, 5, 1, 6, EnumFacing.SOUTH);
-		this.placeDoorCurrentPosition(world, sbb, rand, 3, 1, 6, EnumFacing.SOUTH);
+		this.func_189927_a(world, sbb, rand, 5, 1, 6, EnumFacing.SOUTH);//placeDoorCurrentPosition
+		this.func_189927_a(world, sbb, rand, 3, 1, 6, EnumFacing.SOUTH);//placeDoorCurrentPosition
 		
 		//Wooden Log Corners
 		fillWithBlocks(world, sbb, 0, 1, 6, 0, 3, 6, Blocks.LOG, Blocks.LOG, false);
@@ -112,7 +112,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		//this.placeBlockAtCurrentPosition(world, Blocks.STONE_STAIRS, 0, 9, 0, 3, sbb);
 		this.setBlockState(world, Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST), 9, 0, 3, sbb);
 
-		this.placeDoorCurrentPosition(world, sbb, rand, 8, 1, 3, EnumFacing.EAST);
+		this.func_189927_a(world, sbb, rand, 8, 1, 3, EnumFacing.EAST); //placeDoorCurrentPosition
 		
 		//ROOF
 		fillWithBlocks(world, sbb, 0, 6, 3, 8, 6, 3, Blocks.PLANKS, Blocks.PLANKS, false);
@@ -154,46 +154,46 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		if(randomNum == 1){
 			Entity cow = new EntityCow(world);
 			cow.setPosition(j1, k1, l1);
-			world.spawnEntityInWorld(cow);
+			world.spawnEntity(cow);
 			Entity cow4 = new EntityCow(world);
 			cow4.setPosition(j1, k1, l1);
-			world.spawnEntityInWorld(cow4);
+			world.spawnEntity(cow4);
 		} else if(randomNum == 2){
 			Entity pig = new EntityPig(world);
 			pig.setPosition(j1, k1, l1);
-			world.spawnEntityInWorld(pig);
+			world.spawnEntity(pig);
 			Entity pig5 = new EntityPig(world);
 			pig5.setPosition(j1, k1, l1);
-			world.spawnEntityInWorld(pig5);
+			world.spawnEntity(pig5);
 		} else if(randomNum == 3){
 			Entity chicken = new EntityChicken(world);
 			chicken.setPosition(j1, k1, l1);
-			world.spawnEntityInWorld(chicken);
+			world.spawnEntity(chicken);
 			Entity chicken6 = new EntityChicken(world);
 			chicken6.setPosition(j1, k1, l1);
-			world.spawnEntityInWorld(chicken6);
+			world.spawnEntity(chicken6);
 		}
 		if(randomNum1 == 1){
 			Entity cow = new EntityCow(world);
 			cow.setPosition(j2, k1, l2);
-			world.spawnEntityInWorld(cow);
+			world.spawnEntity(cow);
 			Entity cow3 = new EntityCow(world);
 			cow3.setPosition(j2, k1, l2);
-			world.spawnEntityInWorld(cow3);
+			world.spawnEntity(cow3);
 		} else if(randomNum1 == 2){
 			Entity pig = new EntityPig(world);
 			pig.setPosition(j2, k1, l2);
-			world.spawnEntityInWorld(pig);
+			world.spawnEntity(pig);
 			Entity pig2 = new EntityPig(world);
 			pig2.setPosition(j2, k1, l2);
-			world.spawnEntityInWorld(pig2);
+			world.spawnEntity(pig2);
 		} else if(randomNum1 == 3){
 			Entity chicken = new EntityChicken(world);
 			chicken.setPosition(j2, k1, l2);
-			world.spawnEntityInWorld(chicken);
+			world.spawnEntity(chicken);
 			Entity chicken1 = new EntityChicken(world);
 			chicken1.setPosition(j2, k1, l2);
-			world.spawnEntityInWorld(chicken1);
+			world.spawnEntity(chicken1);
 		}
 		hasdone = false;
 		}
@@ -227,7 +227,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 			entityvillager.setLocationAndAngles((double) j + 0.5D, (double) k, (double) l + 0.5D, 0.0F, 0.0F);
 			entityvillager.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData) null);
 			entityvillager.setProfession(VillagerRegistry.instance().getRegistry().getValue(new ResourceLocation("starvationahoy:SAButcher")));
-			world.spawnEntityInWorld(entityvillager);
+			world.spawnEntity(entityvillager);
 		}
 		//spawnVillagers(world, sbb, 1, 1, 5, 1);
 		

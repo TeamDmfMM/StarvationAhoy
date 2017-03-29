@@ -70,7 +70,7 @@ public class CookerMultiBlock extends MultiBlockStructure{
             //SALog.error(sharedData);
             //SALog.error("Ctime (im cooking): " + ctime);
             if (ctime >= 3000 && ctime < 3900){
-                int amt = MathHelper.getRandomIntegerInRange(new Random(), MeatLib.MEAT_LOW_END, MeatLib.MEAT_HIGH_END);
+                int amt = MathHelper.getInt(new Random(), MeatLib.MEAT_LOW_END, MeatLib.MEAT_HIGH_END);
                 ItemStack touse = ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("CookedItem"));
                 touse.stackSize = amt;
                 if (!(ItemStack.loadItemStackFromNBT(sharedData.getCompoundTag("RoastingItem")).getItem() == touse.getItem())){

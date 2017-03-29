@@ -33,17 +33,17 @@ public class FoodModifyCommand implements ICommand{
 	}
 
 	@Override
-	public String getCommandName() {
+	public String getName() {
 		return "editfoodval";
 	}
 
 	@Override
-	public String getCommandUsage(ICommandSender p_71518_1_) {
+	public String getUsage(ICommandSender p_71518_1_) {
 		return "/sa <item> [new Hunger Value] [new Saturation]";
 	}
 
 	@Override
-	public List getCommandAliases() {
+	public List getAliases() {
 		return this.others;
 	}
 
@@ -51,7 +51,7 @@ public class FoodModifyCommand implements ICommand{
 	public void execute(MinecraftServer server, ICommandSender sender, String[] CMDin) throws WrongUsageException, NumberInvalidException {
         if (CMDin.length < 3)
         {
-            throw new WrongUsageException(getCommandUsage(null), new Object[0]);
+            throw new WrongUsageException(getUsage(null), new Object[0]);
         } else {
 			//SALog.error("Hihihihihihihi " + CMDin);
         	Item item = CommandBase.getItemByText(sender, CMDin[0]);
@@ -61,7 +61,7 @@ public class FoodModifyCommand implements ICommand{
 			if (server.isSinglePlayer()) {
 				try {
 					FoodChanger.change(item, hunger, saturation);
-					sender.addChatMessage(new TextComponentString(I18n.translateToLocal(item.getUnlocalizedName() + ".name") + " was sucessfully changed to the new levels!"));
+					sender.sendMessage(new TextComponentString(I18n.translateToLocal(item.getUnlocalizedName() + ".name") + " was sucessfully changed to the new levels!"));
 				} catch (IOError | IOException e) {
 					throw new WrongUsageException(e.getMessage(), new Object[0]);
 				} catch (FoodChanger.FoodNotFoundException e){
@@ -83,13 +83,13 @@ public class FoodModifyCommand implements ICommand{
 
 	@Override
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		return sender.canCommandSenderUseCommand(2, this.getCommandName());
+		return sender.canUseCommand(2, this.getName());
 	}
 
 
 
 	@Override
-	public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
 		return args.length == 1 ? CommandBase.getListOfStringsMatchingLastWord(args, Item.REGISTRY.getKeys()) : null;
 	}
 

@@ -41,7 +41,7 @@ public class VillagerCropOverride {
                         EntityItem newItem = new EntityItem(villager.getEntityWorld(), item.posX, item.posY, item.posZ, new ItemStack(l, item.getEntityItem().stackSize));
                         item.setDead();
                         if(!villager.getEntityWorld().isRemote){
-                            villager.getEntityWorld().spawnEntityInWorld(newItem);
+                            villager.getEntityWorld().spawnEntity(newItem);
                         }
                     }
                 }

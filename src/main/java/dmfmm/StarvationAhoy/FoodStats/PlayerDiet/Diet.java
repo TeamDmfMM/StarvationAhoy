@@ -43,7 +43,7 @@ public class Diet {
             this.load();
         } catch (IOException | NullPointerException e) {
             try {
-                calories = (float) MathHelper.getRandomDoubleInRange(r, 1500, 1700);
+                calories = (float) MathHelper.nextDouble(r, 1500, 1700);
 
                 nutrient1 = 70;
                 nutrient2 = 70;

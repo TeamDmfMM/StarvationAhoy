@@ -98,7 +98,7 @@ public class MeatHanger extends BlockContainerRotate{
 				if(!proceed) {
 					Item drop = ModuleMeat.registry.getMeatTypeForId(((MeatHangerTileEntity) world.getTileEntity(pos)).getMeatType()).items.skinned;
 					if (!world.isRemote) {
-						world.spawnEntityInWorld(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(drop, 1)));
+						world.spawnEntity(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(drop, 1)));
 					}
 					((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatType(0);
 					((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatState(MeatHangerTileEntity.MeatStates.NORMAL);
@@ -111,8 +111,10 @@ public class MeatHanger extends BlockContainerRotate{
 				boolean progress = MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatSkinned(world, ItemType, pos));
 				if(!progress){
 					Item stack = ModuleMeat.registry.getMeatTypeForId(((MeatHangerTileEntity) world.getTileEntity(pos)).getMeatType()).items.skin;
-					int randomNum = world.rand.nextInt((5 - 0) + 1) + 0;
-					if (!world.isRemote) {world.spawnEntityInWorld(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(stack, randomNum)));}
+					if(stack != null) {
+						int randomNum = world.rand.nextInt((5 - 0) + 1) + 0;
+						if (!world.isRemote) {world.spawnEntity(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(stack, randomNum)));}
+					}
 				}
 				((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatState(MeatHangerTileEntity.MeatStates.SKINNED);
 				world.notifyBlockUpdate(pos, state, world.getBlockState(pos), 3);

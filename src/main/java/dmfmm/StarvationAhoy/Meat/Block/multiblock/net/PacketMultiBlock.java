@@ -68,7 +68,7 @@ public class PacketMultiBlock implements IMessage {
         public IMessage onMessage(PacketMultiBlock message, MessageContext ctx) {
 
             //SALog.error("I got sent :)");
-            World w = Minecraft.getMinecraft().theWorld;
+            World w = Minecraft.getMinecraft().world;
             if (!w.isAirBlock(new BlockPos(message.x, message.y, message.z))){
 
                 TileEntityMultiBlock te = (TileEntityMultiBlock) w.getTileEntity(new BlockPos(message.x, message.y, message.z));

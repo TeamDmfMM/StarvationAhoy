@@ -61,7 +61,7 @@ public class Cooker extends BlockContainer {
                 MinecraftForge.EVENT_BUS.post(new MeatCutEvent.SpitRoast(world, te.multiBlockStructure.sharedData.getInteger("EntityID"), new BlockPos(x, y, z), toSpawnInWorld.getItem().equals(Items.BONE), toSpawnInWorld.getItem()));
                 te.multiBlockStructure.sharedData = new NBTTagCompound();
                 EntityItem e = new EntityItem(world, x, y+2, z, toSpawnInWorld);
-                if (!world.isRemote){world.spawnEntityInWorld(e);}
+                if (!world.isRemote){world.spawnEntity(e);}
                 /*(toSpawnInWorld.getItem().equals(Items.cooked_porkchop)){
                     e = new EntityItem(world, x, y+2, z, new ItemStack(MItemLoader.pigleg, 4));
                     if(!world.isRemote){world.spawnEntityInWorld(e);}
