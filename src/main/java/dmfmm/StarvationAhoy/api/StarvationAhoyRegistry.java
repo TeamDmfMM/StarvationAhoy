@@ -3,23 +3,11 @@ package dmfmm.StarvationAhoy.api;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.Item;
-import dmfmm.StarvationAhoy.api.FoodEdit.Module;
 
 public class StarvationAhoyRegistry {
 	
 	public interface IStarvationAhoyProvider {
-		
-		
-		
-		/**
-		 * To maunally add food overrides to Starvation Ahoy, create a class extending {@link dmfmm.StarvationAhoy.api.FoodEdit.Module}, and register with this method.
-		 * This will be injected into Starvation Ahoy's known food list at the begining of Pre-init event
-		 * 
-		 * @param m class of the module to be registerd
-		 * @return nothing
-		 */
-		public void registerModule(Class<? extends Module> m);
-		
+
 		
 		/**
 		 * 

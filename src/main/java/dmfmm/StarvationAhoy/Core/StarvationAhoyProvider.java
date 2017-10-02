@@ -2,9 +2,7 @@ package dmfmm.StarvationAhoy.Core;
 
 
 import dmfmm.StarvationAhoy.Core.util.SALog;
-import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
-import dmfmm.StarvationAhoy.api.FoodEdit.Module;
 import dmfmm.StarvationAhoy.api.Meat.ISAModel;
 import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry.IStarvationAhoyProvider;
 import net.minecraft.client.model.ModelBase;
@@ -19,11 +17,6 @@ public class StarvationAhoyProvider implements IStarvationAhoyProvider {
 
 
 	private Map<String, Item> internalModMapItems;
-	
-	@Override
-	public void registerModule(Class<? extends Module> m) {
-		ModuleLoad.registerModule(m);
-	}
 
 	@Override
 	public int getNextAvailableMeatType() {

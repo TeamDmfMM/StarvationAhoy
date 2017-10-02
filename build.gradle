@@ -44,8 +44,8 @@ version = "${config.minecraft_version}-${config.mod_version}.${System.getenv("DR
 
 dependencies {
 
-    //compile files('libs/AgriCraft-1.7.10-1.4.6-hotfix.jar')
-    //compile files('libs/Pam\'s HarvestCraft 1.9.4a.jar')
+    //compile files('libs/agricraft-2.0.0-0.10.0-a19.jar')
+    compile files('libs/Pam\'s HarvestCraft 1.10.2j.jar')
 
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..

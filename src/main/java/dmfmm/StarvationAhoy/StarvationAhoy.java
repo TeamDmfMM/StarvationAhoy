@@ -3,7 +3,6 @@ package dmfmm.StarvationAhoy;
 import dmfmm.StarvationAhoy.Client.Gui.book_gui.FurnaceHelper;
 import dmfmm.StarvationAhoy.Core.*;
 import dmfmm.StarvationAhoy.Core.EventHandler.event_configChange;
-import dmfmm.StarvationAhoy.Core.HUD.OverlaySaturationBar;
 import dmfmm.StarvationAhoy.Core.Init.CoreTextureRegistry;
 import dmfmm.StarvationAhoy.Core.Init.CropwashTextureRegistry;
 import dmfmm.StarvationAhoy.Core.Init.MeatTextureRegistry;
@@ -13,23 +12,12 @@ import dmfmm.StarvationAhoy.Core.util.CRef;
 import dmfmm.StarvationAhoy.Core.util.ConfigHandler;
 import dmfmm.StarvationAhoy.Core.util.SALog;
 import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
-import dmfmm.StarvationAhoy.FoodEdit.EventHandler.FoodEatenResult;
-import dmfmm.StarvationAhoy.FoodEdit.FoodSet.ModuleLoad;
-import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketFoodUpdate;
-import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketRequestNewFoods;
-import dmfmm.StarvationAhoy.FoodEdit.Packet.PacketResponseNewFoods;
 import dmfmm.StarvationAhoy.Meat.Block.multiblock.net.PacketMultiBlock;
 import dmfmm.StarvationAhoy.Meat.ModuleMeat;
-import dmfmm.StarvationAhoy.api.CropWash.CropWash;
-import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import dmfmm.StarvationAhoy.api.StarvationAhoyRegistry;
 import dmfmm.StarvationAhoy.proxy.CommonProxy;
-//import net.minecraft.client.Minecraft;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityBanner;
-//import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
@@ -91,14 +79,11 @@ public class StarvationAhoy {
 		//Packet Initiation
 		MultiBlockChannel = NetworkRegistry.INSTANCE.newSimpleChannel(ModInfo.MOD_ID);
 		MultiBlockChannel.registerMessage(PacketMultiBlock.Handler.class, PacketMultiBlock.class, 0, Side.CLIENT);
-		MultiBlockChannel.registerMessage(PacketResponseNewFoods.Handler.class, PacketResponseNewFoods.class, 1, Side.CLIENT);
-		MultiBlockChannel.registerMessage(PacketRequestNewFoods.Handler.class, PacketRequestNewFoods.class, 2, Side.SERVER);
-		MultiBlockChannel.registerMessage(PacketFoodUpdate.Handler.class, PacketFoodUpdate.class, 4, Side.CLIENT);
+
         //MultiBlockChannel.registerMessage(ClientGetExhaustPacket.Handler.class, ClientGetExhaustPacket.class, 1, Side.CLIENT);
         //MultiBlockChannel.registerMessage(ServerGetExhaustPacket.Handler.class, ServerGetExhaustPacket.class, 2, Side.SERVER);
 
 		//Secondary Events
-		MinecraftForge.EVENT_BUS.register(new FoodEatenResult());
 		proxy.preInit();
 		proxy.initSounds();
 	}
@@ -113,8 +98,7 @@ public class StarvationAhoy {
 		ModuleMeat.init();
 		//ModuleFoodStats.init();
 
-		//Client Rendering and Food Overrides
-		ModuleLoad.loadModules();
+		//Client Rendering
 		proxy.registerRenderers();
 		//proxy.registerKeyBindings();
 
@@ -137,22 +121,10 @@ public class StarvationAhoy {
 	public void postInit(FMLPostInitializationEvent event){
 		ModuleCropWash.postInit();
 		if (event.getSide() == Side.CLIENT) {
-			KnownFoods.leaveServer();
 			FurnaceHelper.iterate();
 			FurnaceHelper.findFuels();
 		}
 	}
-	
-	@EventHandler
-	public void serverLoad(FMLServerStartingEvent event)
-	{
-	  event.registerServerCommand(new FoodModifyCommand());
-		//ModuleFoodStats.serverStart();
-	}
 
-	@EventHandler
-	public void serverStop(FMLServerStoppingEvent event){
-		//ModuleFoodStats.serverStop();
-	}
 
 }

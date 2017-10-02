@@ -2,7 +2,6 @@ package dmfmm.StarvationAhoy.Core.HUD;
 
 import dmfmm.StarvationAhoy.Core.items.ItemLoad;
 import dmfmm.StarvationAhoy.Core.util.CRef;
-import dmfmm.StarvationAhoy.api.FoodEdit.KnownFoods;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.Gui;
@@ -84,12 +83,12 @@ public class OverlaySaturationBar extends Gui {
             unknown = player.getHeldItemMainhand().getItem();
             if (unknown instanceof ItemFood) {
                 ItemFood food = (ItemFood) unknown;
-                int HealAmt = KnownFoods.getFoodHunger(new ItemStack(food));
-                float Saturation = KnownFoods.getFoodSaturation(new ItemStack(food));
+                int HealAmt = food.getHealAmount(new ItemStack(food));
+                float Saturation = food.getSaturationModifier(new ItemStack(food));
                 this.mc.fontRendererObj.setUnicodeFlag(true);
                 this.mc.fontRendererObj.drawString(I18n.format(FOODHUNGER_TEXT_UNLOCALIZED), SATURATION_BAR_X , SATURATION_BAR_Y + 15, 16430373);
                 drawFoodHunks((float) HealAmt / 2);
-                this.mc.fontRendererObj.drawString(String.format(I18n.format(FOODSAT_TEXT_UNLOCALIZED), Saturation), SATURATION_BAR_X, SATURATION_BAR_Y + 22, 16430373);
+                this.mc.fontRendererObj.drawString(I18n.format(FOODSAT_TEXT_UNLOCALIZED, Saturation), SATURATION_BAR_X, SATURATION_BAR_Y + 22, 16430373);
                 this.mc.fontRendererObj.setUnicodeFlag(false);
             }
         }
