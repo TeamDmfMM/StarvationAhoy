@@ -111,7 +111,7 @@ public class MeatHanger extends BlockContainerRotate{
 				if(!progress){
 					Item stack = ModuleMeat.registry.getMeatTypeForId(((MeatHangerTileEntity) world.getTileEntity(pos)).getMeatType()).items.skin;
 					if(stack != null) {
-						int randomNum = world.rand.nextInt((5 - 0) + 1) + 0;
+						int randomNum = world.rand.nextInt((5 - 0) + 1);
 						if (!world.isRemote) {world.spawnEntity(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(stack, randomNum)));}
 					}
 				}
