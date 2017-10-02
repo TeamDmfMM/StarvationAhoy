@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "starvationahoy:items/PigLegs"
+    "layer0": "starvationahoy:items/pig_legs"
   },
   "display": {
     "thirdperson": {

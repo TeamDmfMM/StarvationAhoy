@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "starvationahoy:blocks/spit_roast_item"
+  }
+}

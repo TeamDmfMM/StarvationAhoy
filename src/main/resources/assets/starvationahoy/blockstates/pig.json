@@ -1,0 +1,64 @@
+{
+  "forge_marker": 1,
+  "defaults": {"transform":"forge:default-item"},
+  "variants": {
+    "type": {
+      "pig": {
+        "model": "starvationahoy:modelpig.obj",
+        "transform": {
+          "thirdperson": {
+            "scale": 0.5,
+            "rotation": [{"x":180}, {"z": 180}],
+            "translation": [-0.2, 0.8, -0.1]
+          },
+          "firstperson": {
+            "scale": 1.5,
+            "rotation": [{"y":180}],
+            "translation": [0, 1, -0.6]
+          },
+          "gui": {
+            "scale": 0.5,
+            "rotation": [{"y":-45}, {"x":45}],
+            "translation": [-0.2, 0.3, 0]
+          },
+          "ground":{
+            "scale": 0.5,
+            "translation": [0.2, 0.6, 0.2]
+          }
+        },
+        "custom": {
+          "flip-v": true
+        }
+      },
+      "skinned_pig": {
+        "model": "starvationahoy:modelpig.obj",
+        "textures": { "#None": "starvationahoy:entity/skinned_pig_item" },
+        "transform": {
+          "thirdperson": {
+            "scale": 0.5,
+            "rotation": [{"x":180}, {"z": 180}],
+            "translation": [-0.2, 0.8, -0.1]
+          },
+          "firstperson": {
+            "scale": 1.5,
+            "rotation": [{"y":180}],
+            "translation": [0, 1, -0.6]
+          },
+          "gui": {
+            "scale": 0.5,
+            "rotation": [{"y":-45}, {"x":45}],
+            "translation": [-0.2, 0.3, 0]
+          },
+          "ground":{
+            "scale": 0.5,
+            "translation": [0.2, 0.6, 0.2]
+          }
+        },
+        "custom": {
+          "flip-v": true
+        }
+      }
+    }
+  }
+}
+

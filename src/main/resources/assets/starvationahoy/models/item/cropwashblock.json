@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "starvationahoy:blocks/WashBarrelItem"
+    "layer0": "starvationahoy:blocks/wash_barrel_item"
   },
   "display": {
     "thirdperson": {
