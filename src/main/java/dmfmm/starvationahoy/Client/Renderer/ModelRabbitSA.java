@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
 
-//@Optional.Interface(iface = "dmfmm.StarvationAhoy.api.Meat.ISAModel", modid = "StarvationAhoy")
+//@Optional.Interface(iface = "dmfmm.starvationahoy.api.Meat.ISAModel", modid = "starvationahoy")
 public class ModelRabbitSA extends ModelBase implements ISAModel, ISpitRoastRender{
     public ModelRenderer rabbitLeftEar;
     public ModelRenderer rabbitNose;

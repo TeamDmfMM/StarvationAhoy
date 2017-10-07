@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 
 /**
  * Created by dmf444 on 3/5/2016. Code originally written
- * for StarvationAhoy. Do not copy without permission,
+ * for starvationahoy. Do not copy without permission,
  * because that is just mean. Code is VISIBLE SOURCE, therfore
  * credit us, just don't steal large portions of this.
  */

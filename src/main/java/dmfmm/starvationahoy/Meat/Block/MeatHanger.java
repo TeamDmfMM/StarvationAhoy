@@ -2,6 +2,7 @@ package dmfmm.starvationahoy.Meat.Block;
 
 import dmfmm.starvationahoy.Core.Blocks.BlockContainerRotate;
 import dmfmm.starvationahoy.Core.SATabs;
+import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerData;
 import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerTileEntity;
 import dmfmm.starvationahoy.Meat.ModuleMeat;
 import dmfmm.starvationahoy.Meat.item.MItemLoader;
@@ -73,10 +74,10 @@ public class MeatHanger extends BlockContainerRotate{
 	public void breakBlock(World world, BlockPos pos, IBlockState state){
 		if(world.getTileEntity(pos) instanceof MeatHangerTileEntity){
 			MeatHangerTileEntity tile = (MeatHangerTileEntity)world.getTileEntity(pos);
-			if(tile.getMeatType() != 0) {
-				if (tile.getMeatState() == MeatHangerTileEntity.MeatStates.NORMAL) {
+			if(tile.getMeatType() > 0) {
+				if (tile.getMeatState() == MeatHangerData.MeatStates.NORMAL) {
 					spawnAsEntity(world, pos, new ItemStack(ModuleMeat.registry.getMeatTypeForId(tile.getMeatType()).items.dead));
-				} else if (tile.getMeatState() == MeatHangerTileEntity.MeatStates.SKINNED) {
+				} else if (tile.getMeatState() == MeatHangerData.MeatStates.SKINNED) {
 					spawnAsEntity(world, pos, new ItemStack(ModuleMeat.registry.getMeatTypeForId(tile.getMeatType()).items.skinned));
 				}
 			}
@@ -84,47 +85,45 @@ public class MeatHanger extends BlockContainerRotate{
 	}
 
 
-    @Override
+	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ){
-    	int ItemType = ((MeatHangerTileEntity) world.getTileEntity(pos)).getMeatType();
-    	MeatHangerTileEntity.MeatStates statez = ((MeatHangerTileEntity) world.getTileEntity(pos)).getMeatState();
+		MeatHangerTileEntity tile = (MeatHangerTileEntity) world.getTileEntity(pos);
+    	int meatType = tile.getMeatType();
+    	MeatHangerData.MeatStates meatState = tile.getMeatState();
 		ItemStack temma = player.inventory.getCurrentItem();
 		if(temma != ItemStack.EMPTY) {
 									/*IS the player attempting to cut the animal down (when skinned)?*/
-			if (temma.getItem() == MItemLoader.ButcherKnife && ItemType != 0 && statez == MeatHangerTileEntity.MeatStates.SKINNED){
+			if (temma.getItem() == MItemLoader.ButcherKnife && meatType > 0 && meatState == MeatHangerData.MeatStates.SKINNED){
 
-				boolean proceed = MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatHanger(world, ItemType, pos));
+				boolean proceed = MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatHanger(world, meatType, pos));
 				if(!proceed) {
-					Item drop = ModuleMeat.registry.getMeatTypeForId(((MeatHangerTileEntity) world.getTileEntity(pos)).getMeatType()).items.skinned;
-					if (!world.isRemote) {
+					Item drop = ModuleMeat.registry.getMeatTypeForId(tile.getMeatType()).items.skinned;
+					if (!world.isRemote)
 						world.spawnEntity(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(drop, 1)));
-					}
-					((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatType(0);
-					((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatState(MeatHangerTileEntity.MeatStates.NORMAL);
+					tile.updateHanger(0, MeatHangerData.MeatStates.EMPTY);
 					world.notifyBlockUpdate(pos, state, world.getBlockState(pos), 3);
 				}
 				return true;
 										/*IS the player Attemping to skin the animal?*/
-			}else if (temma.getItem() == MItemLoader.filetKnife && statez == MeatHangerTileEntity.MeatStates.NORMAL) {
+			}else if (temma.getItem() == MItemLoader.filetKnife && meatState == MeatHangerData.MeatStates.NORMAL) {
 
-				boolean progress = MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatSkinned(world, ItemType, pos));
+				boolean progress = MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatSkinned(world, meatType, pos));
 				if(!progress){
-					Item stack = ModuleMeat.registry.getMeatTypeForId(((MeatHangerTileEntity) world.getTileEntity(pos)).getMeatType()).items.skin;
+					Item stack = ModuleMeat.registry.getMeatTypeForId(tile.getMeatType()).items.skin;
 					if(stack != null) {
-						int randomNum = world.rand.nextInt((5 - 0) + 1);
+						int randomNum = world.rand.nextInt((5) + 1);
 						if (!world.isRemote) {world.spawnEntity(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(stack, randomNum)));}
 					}
 				}
-				((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatState(MeatHangerTileEntity.MeatStates.SKINNED);
+				tile.setMeatState(MeatHangerData.MeatStates.SKINNED);
 				world.notifyBlockUpdate(pos, state, world.getBlockState(pos), 3);
 				return true;
 									/*IS the player attempting to add a dead animal to the hooks?*/
-			} else if (ModuleMeat.registry.isMeatItem(temma).value && ItemType == 0) {
+			} else if (ModuleMeat.registry.isMeatItem(temma).value && meatType == 0) {
 
-				player.inventory.getCurrentItem().shrink(1);
-				((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatType(ModuleMeat.registry.isMeatItem(temma).meatID);
-				((MeatHangerTileEntity) world.getTileEntity(pos)).setMeatState(MeatHangerTileEntity.MeatStates.NORMAL);
+				tile.updateHanger(ModuleMeat.registry.isMeatItem(temma).meatID, MeatHangerData.MeatStates.NORMAL);
 				world.notifyBlockUpdate(pos, state, world.getBlockState(pos), 3);
+				player.inventory.getCurrentItem().shrink(1);
 				return true;
 			}
 			return false;
@@ -142,6 +141,7 @@ public class MeatHanger extends BlockContainerRotate{
 	@Override
 	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos) {return this.defaultABB(world, pos);}
 
+	@SideOnly(Side.CLIENT)
 	private AxisAlignedBB defaultABB(World world, BlockPos pos){
 		int x = pos.getX();
 		int y = pos.getY();

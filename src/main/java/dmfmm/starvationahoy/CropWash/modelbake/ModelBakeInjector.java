@@ -1,7 +1,7 @@
 package dmfmm.starvationahoy.CropWash.modelbake;
 /*
-import dmfmm.StarvationAhoy.Core.Init.CropwashTextureRegistry;
-import dmfmm.StarvationAhoy.CropWash.ModuleCropWash;
+import dmfmm.starvationahoy.Core.Init.CropwashTextureRegistry;
+import dmfmm.starvationahoy.CropWash.ModuleCropWash;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

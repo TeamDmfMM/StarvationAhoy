@@ -19,7 +19,6 @@ import net.minecraftforge.fml.relauncher.Side;
 public class ModuleMeat {
 
 	public static MeatRegistry registry = new MeatRegistry();
-    public static final int  MEATTYPE_COW = 1, MEATTYPE_PIG = 2, MEATTYPE_CHICK = 3, MEATTYPE_SHEEP = 4, MEATTYPE_RABBIT = 5;
 
 
 
@@ -29,7 +28,7 @@ public class ModuleMeat {
 		MBlockLoader.initTileEntity();
 		VillagerRegistry.instance().registerVillageCreationHandler(new BHHandler()); 
         try { 
-            MapGenStructureIO.registerStructureComponent(ButcherHouse.class, "StarvationAhoy:ButcherHouse");
+            MapGenStructureIO.registerStructureComponent(ButcherHouse.class, "starvationahoy:ButcherHouse");
         } catch (Throwable e) { } 
         VillagerTradeAdditions.addVillager(side);
 

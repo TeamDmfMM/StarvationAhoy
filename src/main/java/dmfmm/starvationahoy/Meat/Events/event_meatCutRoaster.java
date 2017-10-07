@@ -1,6 +1,6 @@
 package dmfmm.starvationahoy.Meat.Events;
 
-import dmfmm.starvationahoy.Meat.ModuleMeat;
+import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerData;
 import dmfmm.starvationahoy.Meat.item.MItemLoader;
 import dmfmm.starvationahoy.api.Event.MeatCutEvent;
 import net.minecraft.entity.item.EntityItem;
@@ -18,10 +18,10 @@ public class event_meatCutRoaster {
 
     @SubscribeEvent
     public void roasterCut(MeatCutEvent.SpitRoast e){
-        if(e.getMeattype() == ModuleMeat.MEATTYPE_PIG && e.getItemOut() == Items.COOKED_PORKCHOP){
+        if(e.getMeattype() == MeatHangerData.MEATTYPE_PIG && e.getItemOut() == Items.COOKED_PORKCHOP){
             EntityItem p = new EntityItem(e.getWorld(), e.getPosition().getX(), e.getPosition().getY()+2, e.getPosition().getZ(), new ItemStack(MItemLoader.pigleg, 4));
             if (!e.getWorld().isRemote){e.getWorld().spawnEntity(p);}
-        }else if(e.getMeattype() == ModuleMeat.MEATTYPE_RABBIT && e.getItemOut() == Items.COOKED_RABBIT){
+        }else if(e.getMeattype() == MeatHangerData.MEATTYPE_RABBIT && e.getItemOut() == Items.COOKED_RABBIT){
             EntityItem p = new EntityItem(e.getWorld(), e.getPosition().getX(), e.getPosition().getY()+2, e.getPosition().getZ(), new ItemStack(Items.RABBIT_FOOT, 4));
             if (!e.getWorld().isRemote){e.getWorld().spawnEntity(p);}
         }

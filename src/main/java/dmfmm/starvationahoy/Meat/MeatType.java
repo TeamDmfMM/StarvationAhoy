@@ -76,7 +76,7 @@ public class MeatType {
 
             this.type = true;
 
-            if (this.dead == true && this.type == true) {
+            if (this.dead && this.type) {
                 constructed = true;
             }
         }

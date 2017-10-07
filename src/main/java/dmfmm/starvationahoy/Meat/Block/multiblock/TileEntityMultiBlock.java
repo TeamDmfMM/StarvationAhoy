@@ -82,7 +82,7 @@ public abstract class TileEntityMultiBlock extends TileEntity implements ITickab
 
 
                // SALog.error("I think i should send something");
-               // StarvationAhoy.MultiBlockChannel.sendToAll(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z));
+               // starvationahoy.MultiBlockChannel.sendToAll(new PacketMultiBlock(multiBlockStructure.bPos, multiBlockStructure.orient, multiBlockStructure.sharedData, multiBlockStructure.x, multiBlockStructure.y, multiBlockStructure.z));
 
         }
         catch (NullPointerException e){

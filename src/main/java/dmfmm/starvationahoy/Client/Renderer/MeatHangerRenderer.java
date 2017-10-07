@@ -1,5 +1,8 @@
 package dmfmm.starvationahoy.Client.Renderer;
 
+import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerData;
+import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerTileEntity;
+import dmfmm.starvationahoy.Meat.ModuleMeat;
 import dmfmm.starvationahoy.api.Meat.ISAModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -7,11 +10,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
-import dmfmm.starvationahoy.Meat.ModuleMeat;
-import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerTileEntity;
 
 
 public class MeatHangerRenderer extends TileEntitySpecialRenderer {
@@ -62,22 +61,22 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
     //A reference to your Model file. Again, very important.
             this.model.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
             int meatType = ((MeatHangerTileEntity)te).getMeatType();
-            MeatHangerTileEntity.MeatStates meatState = ((MeatHangerTileEntity)te).getMeatState();
+            MeatHangerData.MeatStates meatState = ((MeatHangerTileEntity)te).getMeatState();
             switch(meatType){
             case 4:
             	//Sheep
-				if(meatState == MeatHangerTileEntity.MeatStates.NORMAL){
+				if(meatState == MeatHangerData.MeatStates.NORMAL){
 					ModelSheepSA sheepy = new ModelSheepSA();
 					sheepy.modelTransformations();
 					sheepy.glTransformations();
-					Minecraft.getMinecraft().renderEngine.bindTexture(getTexture(ModuleMeat.MEATTYPE_SHEEP, meatState));
+					Minecraft.getMinecraft().renderEngine.bindTexture(getTexture(MeatHangerData.SHEEP.getMeatID(), meatState));
 					sheepy.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 					break;
 				}else{
 					ModelSheepSA.ModelSheepSA2 sheepyz = new ModelSheepSA.ModelSheepSA2();
 					sheepyz.modelTransformations();
 					sheepyz.glTransformations();
-					Minecraft.getMinecraft().renderEngine.bindTexture(getTexture(ModuleMeat.MEATTYPE_SHEEP, meatState));
+					Minecraft.getMinecraft().renderEngine.bindTexture(getTexture(MeatHangerData.SHEEP.getMeatID(), meatState));
 					sheepyz.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 					break;
 				}
@@ -94,7 +93,7 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
 							GL11.glTranslatef(0, -2.3F, 0.2F);
 							GL11.glDisable(GL11.GL_CULL_FACE);
 						}
-						ResourceLocation animalTexture =getTexture(meatType, meatState);
+						ResourceLocation animalTexture = getTexture(meatType, meatState);
 						Minecraft.getMinecraft().renderEngine.bindTexture(animalTexture);
 						toDraw.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 					}
@@ -107,7 +106,7 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
     }
 
 
-	private ResourceLocation getTexture(int Animal, MeatHangerTileEntity.MeatStates state) {
+	private ResourceLocation getTexture(int Animal, MeatHangerData.MeatStates state) {
 		switch (state) {
 			case NORMAL:
 
@@ -120,7 +119,8 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
 			case ROTTEN:
 
 				return ModuleMeat.registry.getMeatTypeForId(Animal).textures.rotten;
+			default:
+				return Minecraft.getMinecraft().getTextureMapBlocks().LOCATION_MISSING_TEXTURE;
 		}
-		return null;
 	}
 }

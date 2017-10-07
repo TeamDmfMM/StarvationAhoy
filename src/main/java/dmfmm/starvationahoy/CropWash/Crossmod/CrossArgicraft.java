@@ -2,8 +2,8 @@
 //
 //
 //import cpw.mods.fml.common.Loader;
-//import dmfmm.StarvationAhoy.CropWash.DirtyBlocks;
-//import dmfmm.StarvationAhoy.CropWash.item.DirtyItem;
+//import dmfmm.starvationahoy.CropWash.DirtyBlocks;
+//import dmfmm.starvationahoy.CropWash.item.DirtyItem;
 //
 //
 //import java.util.ArrayList;

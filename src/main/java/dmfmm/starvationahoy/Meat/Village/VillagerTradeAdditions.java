@@ -20,7 +20,7 @@ public class VillagerTradeAdditions {
 		carrer.addTrade(1, TradeHandler.trades[0][0]);
 		carrer.addTrade(2, TradeHandler.trades[0][1]);
 		carrer.addTrade(3, TradeHandler.trades[0][2]);
-		//if(side == Side.CLIENT){VillagerRegistry.instance().registerVillagerSkin(getVID(), new ResourceLocation("starvationahoy:textures/entity/VillageButcher.png"));}
+		//if(side == Side.CLIENT){VillagerRegistry.instance().registerVillagerSkin(getVID(), new ResourceLocation("starvationahoy:textures/entity/villagebutcher.png"));}
 		//VillagerRegistry.instance().registerVillageTradeHandler(getVID(), TradeHandler.INSTANCE);
 	}
 
@@ -59,7 +59,7 @@ public class VillagerTradeAdditions {
 	public static class SAButcher extends VillagerRegistry.VillagerProfession{
 
 		public SAButcher() {
-			super("starvationahoy:SAButcher", "starvationahoy:textures/entity/VillageButcher.png");
+			super("starvationahoy:SAButcher", "starvationahoy:textures/entity/villagebutcher.png");
 		}
 	}
 }

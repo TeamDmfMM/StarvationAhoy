@@ -69,7 +69,7 @@ public class WashBarrelRenderer extends TileEntitySpecialRenderer {
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
 
         GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
-        ResourceLocation textures = (new ResourceLocation("starvationahoy:textures/blocks/WashBarrel.png"));
+        ResourceLocation textures = (new ResourceLocation("starvationahoy:textures/blocks/wash_barrel.png"));
         Minecraft.getMinecraft().renderEngine.bindTexture(textures);
         this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
             //TileEntityMonitorStorageFluid TE = (TileEntityMonitorStorageFluid) tileentity;

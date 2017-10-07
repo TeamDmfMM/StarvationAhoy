@@ -58,10 +58,10 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
         //Wooden Texture & Bind
         ResourceLocation textures;
         if (((TileEntityMultiBlock) te).multiBlockStructure == null) {
-            textures = (new ResourceLocation("starvationahoy:textures/blocks/HoldingStick.png"));
+            textures = (new ResourceLocation("starvationahoy:textures/blocks/holding_stick.png"));
         }
         else {
-           textures = (new ResourceLocation("starvationahoy:textures/blocks/HoldingStick-texture.png"));
+           textures = (new ResourceLocation("starvationahoy:textures/blocks/holdingstick_texture.png"));
         }
         Minecraft.getMinecraft().renderEngine.bindTexture(textures);
 
@@ -170,7 +170,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                     switch (meatType) {
                         case 0:
                             break;
-                        case ModuleMeat.MEATTYPE_RABBIT:
+                        case 4://Rabbit Type
                             ModelBase rabbit = ModuleMeat.registry.getModel(meatType);
                             rabbit.isChild =false;
 

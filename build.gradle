@@ -26,20 +26,20 @@ configFile.withReader {
 }
 
 version = config.mod_version
-group= "dmfmm.StarvationAhoy" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "StarvationAhoy"
+group= "dmfmm.starvationahoy" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "starvationahoy"
 
 minecraft {
 
     version = config.minecraft_version + "-" + config.forge_version
 
     replaceIn "Core/lib/ModInfo.java"
-    replace "@VERSION@", "${config.mod_version}.${System.getenv("BUILD_NUMBER") ?: 0}"
+    replace "@VERSION@", "${config.minecraft_version}-${config.mod_version}.${config.build_number}"
 
     runDir = "run"
 	mappings = "snapshot_20161220"
 }
-version = "${config.minecraft_version}-${config.mod_version}.${System.getenv("DRONE_BUILD_NUMBER") ?: config.build_number}"
+version = "${config.minecraft_version}-${config.mod_version}.${config.build_number}"
 
 
 dependencies {

@@ -5,7 +5,7 @@ import net.minecraft.util.SoundEvent;
 
 /**
  * Created by TeamDMFMM on 4/17/2016. Code originally written
- * for StarvationAhoy. Do not copy without permission,
+ * for starvationahoy. Do not copy without permission,
  * because that is just mean. Code is VISIBLE SOURCE, therefore
  * credit us, just don't steal large portions of this.
  */

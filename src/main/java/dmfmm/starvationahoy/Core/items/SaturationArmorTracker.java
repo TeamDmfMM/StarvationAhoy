@@ -22,7 +22,7 @@ public class SaturationArmorTracker extends ItemArmor{
 	public SaturationArmorTracker(ArmorMaterial material, EntityEquipmentSlot type, String name) {
 		super(material, 0, type);
         this.setCreativeTab(SATabs.INSTANCE);
-		///this.setTextureName("StarvationAhoy:stats_" + type);
+		///this.setTextureName("starvationahoy:stats_" + type);
 		this.setUnlocalizedName(name);
 	}
 

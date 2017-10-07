@@ -23,7 +23,7 @@ public class CropWash {
      *              nbtlist.appendTag(new ItemStack(Blocks.tallgrass).writeToNBT(new NBTTagCompound()));    //Send block that drops item
      *              nbtlist.appendTag(new ItemStack(Items.wheat_seeds).writeToNBT(tag));                    //Send item to make Washable
      *              tag.setTag("add-replace", nbtlist);                                                     //Set the Tag (name it "add-replace" or it won't work)
-     *              FMLInterModComms.sendMessage("StarvationAhoy", CropWash.REPLACE_ACTION, tag);           //Send Over FML IMC
+     *              FMLInterModComms.sendMessage("starvationahoy", CropWash.REPLACE_ACTION, tag);           //Send Over FML IMC
      *
      *
      *

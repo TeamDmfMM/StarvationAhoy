@@ -1,6 +1,6 @@
 package dmfmm.starvationahoy.Meat.Events;
 
-import dmfmm.starvationahoy.Meat.ModuleMeat;
+import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerData;
 import dmfmm.starvationahoy.api.Event.MeatCutEvent;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
@@ -17,7 +17,7 @@ public class event_meatSkinned {
 
     @SubscribeEvent
     public void roasterCut(MeatCutEvent.MeatSkinned e){
-         if(e.getMeattype() == ModuleMeat.MEATTYPE_RABBIT) {
+         if(e.getMeattype() == MeatHangerData.MEATTYPE_RABBIT) {
              e.setCanceled(true);
              if (!e.getWorld().isRemote) {
                  e.getWorld().spawnEntity(new EntityItem(e.getWorld(), e.getPosition().getX(), e.getPosition().getY()+2, e.getPosition().getZ(), new ItemStack(Items.RABBIT_HIDE, 1)));

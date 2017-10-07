@@ -5,35 +5,44 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MeatHangerTileEntity extends TileEntity {
-	private int MeatType = 0;//0-n|1-Cow|2-Pig|3-Chicken
-	private int MeatState = 0;//0-normal|1-Skined|2-Rotten
+
+	private int meatType;  //0-n|1-Cow|2-Pig|3-Chicken
+	private int meatState; //0-normal|1-Skined|2-Rotten
 	
 	public MeatHangerTileEntity(){
-
+		 this.meatType = MeatHangerData.EMPTY.getMeatID();
+		 this.meatState = MeatHangerData.MeatStates.EMPTY.getState();
 	}
 
-	public MeatStates getMeatState(){
-		return MeatStates.values()[MeatState];
+	public MeatHangerData.MeatStates getMeatState(){
+		return MeatHangerData.MeatStates.values()[meatState];
 	}
-	public void setMeatState(MeatStates type){
-		MeatState = type.state;
+	public void setMeatState(MeatHangerData.MeatStates type){
+		meatState = type.getState();
 	}
-	public int getMeatType(){
-		return MeatType;
-	}
+	public int getMeatType(){ return meatType; }
+
 	public void setMeatType(int type){
-		MeatType = type;
+		meatType = type;
 	}
-	   @Override
-	   public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
-	   {
-	       super.writeToNBT(tagCompound);
-	       tagCompound.setInteger("Meattype", MeatType);
-	       tagCompound.setInteger("Meatstate", MeatState);
-		   return tagCompound;
-	   }
+
+	public void updateHanger(int type, MeatHangerData.MeatStates meat){
+		this.setMeatState(meat);
+		this.setMeatType(type);
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
+	{
+		super.writeToNBT(tagCompound);
+		tagCompound.setInteger("Meattype", meatType);
+		tagCompound.setInteger("Meatstate", meatState);
+		return tagCompound;
+	}
 
     @Override
     public AxisAlignedBB getRenderBoundingBox(){
@@ -42,46 +51,37 @@ public class MeatHangerTileEntity extends TileEntity {
 
 
 	@Override
-	   public void readFromNBT(NBTTagCompound tagCompound)
-	   {
-	       super.readFromNBT(tagCompound);
-	       MeatType = tagCompound.getInteger("Meattype");
-	       MeatState = tagCompound.getInteger("Meatstate");
+	public void readFromNBT(NBTTagCompound tagCompound)
+	{
+		super.readFromNBT(tagCompound);
+		meatType = tagCompound.getInteger("Meattype");
+		meatState = tagCompound.getInteger("Meatstate");
 	       
-	       // ... continue reading non-syncable data 
-	   }
+		// ... continue reading non-syncable data
+	}
+
 	public NBTTagCompound getUpdateTag()
 	{
 		return this.writeToNBT(new NBTTagCompound());
 	}
 
-	   @Override
-	   public SPacketUpdateTileEntity getUpdatePacket()
-	   {
-	       NBTTagCompound syncData = new NBTTagCompound();
-	       syncData.setInteger("Meattype", MeatType);
-	       syncData.setInteger("State", MeatState);
-	       return new SPacketUpdateTileEntity(this.pos, 1, syncData);
-	   }
-
-	   @Override
-	   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
-	   {
-	       MeatState = pkt.getNbtCompound().getInteger("State");
-		   MeatType = pkt.getNbtCompound().getInteger("Meattype");
-	   }
-
-
-	public enum MeatStates{
-		NORMAL(0),
-		SKINNED(1),
-		ROTTEN(2);
-
-		private int state;
-
-		MeatStates(int i){
-			this.state = i;
-		}
-
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket()
+	{
+		NBTTagCompound syncData = new NBTTagCompound();
+		syncData.setInteger("Meattype", meatType);
+		syncData.setInteger("State", meatState);
+		return new SPacketUpdateTileEntity(this.pos, 1, syncData);
 	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
+	{
+		meatState = pkt.getNbtCompound().getInteger("State");
+		meatType = pkt.getNbtCompound().getInteger("Meattype");
+	}
+
+
+
 }
