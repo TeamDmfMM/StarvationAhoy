@@ -20,11 +20,10 @@ public class Event_KillAnimal {
 		//SALog.fatal("MEH");
 		//SALog.fatal("IS EP" + e.getEntityLiving());
 		//SALog.fatal("DROPS?" + ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.getEntityLiving()).value);
-    if(e.getEntityLiving() instanceof EntityPlayer){
-    	//How about no messing with player Drops? kk?
-		return;
-	}else if (ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.getEntityLiving()).value == true){
-
+    	if(e.getEntityLiving() instanceof EntityPlayer){
+    		//How about no messing with player Drops? kk?
+			return;
+		}else if (ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.getEntityLiving()).value){
 			e.getDrops().clear();
 			//SALog.fatal(ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.getEntityLiving()Living).meat.items.dead);
 			e.getDrops().add(new EntityItem(e.getEntityLiving().world, e.getEntityLiving().posX, e.getEntityLiving().posY, e.getEntityLiving().posZ, new ItemStack(ModuleMeat.registry.overrideFoodDropsFor((EntityLiving)e.getEntityLiving()).meat.items.dead)));
