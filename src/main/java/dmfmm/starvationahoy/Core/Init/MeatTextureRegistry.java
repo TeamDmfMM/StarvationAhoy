@@ -17,8 +17,8 @@ public class MeatTextureRegistry {
 
 
     public static void initTextures(){
-        registerBlock(MeatLib.bMeatHanger, 0);
-        registerBlock(MeatLib.Hold_Stick, 0);
+        registerBlock(MeatLib.MEAT_HANGER, 0);
+        registerBlock(MeatLib.HOLDING_STICK, 0);
         register(MItemLoader.ButcherKnife, 0);
         register(MItemLoader.cookedpigleg, 0);
         register(MItemLoader.filetKnife, 0);

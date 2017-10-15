@@ -1,4 +1,4 @@
-package dmfmm.starvationahoy.Meat.Village;
+package dmfmm.starvationahoy.Meat.village;
 
 import java.util.List;
 import java.util.Random;

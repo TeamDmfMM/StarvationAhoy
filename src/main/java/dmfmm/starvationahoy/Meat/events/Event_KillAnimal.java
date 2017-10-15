@@ -1,4 +1,4 @@
-package dmfmm.starvationahoy.Meat.Events;
+package dmfmm.starvationahoy.Meat.events;
 
 import dmfmm.starvationahoy.Meat.EnchantmentMeatSlayer;
 import dmfmm.starvationahoy.Meat.ModuleMeat;

@@ -1,7 +1,7 @@
 package dmfmm.starvationahoy.Core;
 
 import dmfmm.starvationahoy.Core.lib.ModInfo;
-import dmfmm.starvationahoy.Meat.Block.MBlockLoader;
+import dmfmm.starvationahoy.Meat.init.MBlockLoader;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 

@@ -1,6 +1,6 @@
-package dmfmm.starvationahoy.Meat.Events;
+package dmfmm.starvationahoy.Meat.events;
 
-import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerData;
+import dmfmm.starvationahoy.Meat.block.tileentity.MeatHangerData;
 import dmfmm.starvationahoy.api.Event.MeatCutEvent;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;

@@ -1,7 +1,7 @@
 package dmfmm.starvationahoy.Meat;
 
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import dmfmm.starvationahoy.Meat.Block.MBlockLoader;
+import dmfmm.starvationahoy.Meat.init.MBlockLoader;
 import dmfmm.starvationahoy.Meat.item.MItemLoader;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

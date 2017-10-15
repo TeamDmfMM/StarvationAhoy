@@ -1,6 +1,6 @@
-package dmfmm.starvationahoy.Meat.Village;
+package dmfmm.starvationahoy.Meat.village;
 
-import dmfmm.starvationahoy.Meat.Block.MBlockLoader;
+import dmfmm.starvationahoy.Meat.init.MBlockLoader;
 import dmfmm.starvationahoy.Meat.item.MItemLoader;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Items;

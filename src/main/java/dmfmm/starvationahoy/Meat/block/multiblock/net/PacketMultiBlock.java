@@ -1,6 +1,6 @@
-package dmfmm.starvationahoy.Meat.Block.multiblock.net;
+package dmfmm.starvationahoy.Meat.block.multiblock.net;
 
-import dmfmm.starvationahoy.Meat.Block.multiblock.TileEntityMultiBlock;
+import dmfmm.starvationahoy.Meat.block.multiblock.TileEntityMultiBlock;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;

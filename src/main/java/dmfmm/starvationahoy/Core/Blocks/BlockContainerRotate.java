@@ -65,4 +65,9 @@ public class BlockContainerRotate extends Block implements ITileEntityProvider {
         return new BlockStateContainer(this, new IProperty[] {FACING});
     }
 
+    protected void setName(String name){
+        this.setRegistryName(name);
+        this.setUnlocalizedName(name);
+    }
+
 }

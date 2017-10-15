@@ -1,4 +1,4 @@
-package dmfmm.starvationahoy.Meat.Block.tileentity;
+package dmfmm.starvationahoy.Meat.block.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;

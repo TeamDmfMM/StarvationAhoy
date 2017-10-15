@@ -1,6 +1,6 @@
 package dmfmm.starvationahoy.Client.Renderer;
 
-import dmfmm.starvationahoy.Meat.Block.multiblock.TileEntityMultiBlock;
+import dmfmm.starvationahoy.Meat.block.multiblock.TileEntityMultiBlock;
 import dmfmm.starvationahoy.Meat.MeatRegistry;
 import dmfmm.starvationahoy.Meat.ModuleMeat;
 import dmfmm.starvationahoy.api.Meat.ISpitRoastRender;

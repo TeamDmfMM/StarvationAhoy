@@ -1,7 +1,7 @@
-package dmfmm.starvationahoy.Meat.Block.multiblock;
+package dmfmm.starvationahoy.Meat.block.multiblock;
 
-import dmfmm.starvationahoy.Meat.Block.MBlockLoader;
-import dmfmm.starvationahoy.Meat.Block.tileentity.HoldingStickTileEntity;
+import dmfmm.starvationahoy.Meat.init.MBlockLoader;
+import dmfmm.starvationahoy.Meat.block.tileentity.HoldingStickTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

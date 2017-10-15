@@ -1,7 +1,8 @@
-package dmfmm.starvationahoy.Meat.Village;
+package dmfmm.starvationahoy.Meat.village;
 
-import dmfmm.starvationahoy.Meat.Block.MBlockLoader;
-import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerTileEntity;
+import dmfmm.starvationahoy.Meat.init.MBlockLoader;
+import dmfmm.starvationahoy.Meat.block.tileentity.MeatHangerData;
+import dmfmm.starvationahoy.Meat.block.tileentity.MeatHangerTileEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -248,7 +249,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
 		if(te instanceof MeatHangerTileEntity){
 			MeatHangerTileEntity MHA = (MeatHangerTileEntity) te;
-			MHA.setMeatType(rand);
+			MHA.updateHanger(rand, MeatHangerData.MeatStates.NORMAL);
 			world.notifyBlockUpdate(new BlockPos(x, y, z), world.getBlockState(new BlockPos(x, y, z)).getBlock().getDefaultState(),
 					world.getBlockState(new BlockPos(x, y, z)).getBlock().getDefaultState(), 3);
 		}

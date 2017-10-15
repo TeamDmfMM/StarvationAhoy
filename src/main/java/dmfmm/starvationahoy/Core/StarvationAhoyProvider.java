@@ -16,7 +16,7 @@ public class StarvationAhoyProvider implements IStarvationAhoyProvider {
 	private int nextId = 6;
 
 
-	private Map<String, Item> internalModMapItems;
+	//private Map<String, Item> internalModMapItems;
 
 	@Override
 	public int getNextAvailableMeatType() {

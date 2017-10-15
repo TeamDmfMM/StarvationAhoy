@@ -6,7 +6,7 @@ import dmfmm.starvationahoy.Core.util.CRef;
 import dmfmm.starvationahoy.Core.util.DualObjectLink;
 import dmfmm.starvationahoy.CropWash.ModuleCropWash;
 import dmfmm.starvationahoy.CropWash.item.DirtyItem;
-import dmfmm.starvationahoy.Meat.Block.MBlockLoader;
+import dmfmm.starvationahoy.Meat.init.MBlockLoader;
 import dmfmm.starvationahoy.Meat.item.MItemLoader;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

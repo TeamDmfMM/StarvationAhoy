@@ -1,10 +1,11 @@
-package dmfmm.starvationahoy.Meat.Block;
+package dmfmm.starvationahoy.Meat.block;
 
 import dmfmm.starvationahoy.Core.Blocks.BlockContainerRotate;
 import dmfmm.starvationahoy.Core.SATabs;
-import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerData;
-import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerTileEntity;
+import dmfmm.starvationahoy.Core.lib.MeatLib;
 import dmfmm.starvationahoy.Meat.ModuleMeat;
+import dmfmm.starvationahoy.Meat.block.tileentity.MeatHangerData;
+import dmfmm.starvationahoy.Meat.block.tileentity.MeatHangerTileEntity;
 import dmfmm.starvationahoy.Meat.item.MItemLoader;
 import dmfmm.starvationahoy.api.Event.MeatCutEvent;
 import dmfmm.starvationahoy.api.Meat.ISAModel;
@@ -28,11 +29,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MeatHanger extends BlockContainerRotate{
 
-	//private boolean hasAnimal = false;
-	
-	protected MeatHanger() {
+	public MeatHanger() {
 		super(Material.IRON);
 		this.setCreativeTab(SATabs.INSTANCE);
+		this.setName(MeatLib.MEAT_HANGER);
 	}
 
 	@Override

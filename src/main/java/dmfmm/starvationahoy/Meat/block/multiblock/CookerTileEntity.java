@@ -1,4 +1,4 @@
-package dmfmm.starvationahoy.Meat.Block.multiblock;
+package dmfmm.starvationahoy.Meat.block.multiblock;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

@@ -11,17 +11,19 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import dmfmm.starvationahoy.Client.Renderer.*;
 import dmfmm.starvationahoy.CropWash.Block.tilentity.TileEntityCropWasher;
-import dmfmm.starvationahoy.Meat.Block.tileentity.HoldingStickTileEntity;
-import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerTileEntity;
+import dmfmm.starvationahoy.Meat.block.tileentity.HoldingStickTileEntity;
+import dmfmm.starvationahoy.Meat.block.tileentity.MeatHangerTileEntity;
 import dmfmm.starvationahoy.Meat.MeatType;
 import dmfmm.starvationahoy.Meat.ModuleMeat;
 import dmfmm.starvationahoy.Meat.item.MItemLoader;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Items;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
-
+@SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy{
 
     @Override
@@ -60,17 +62,6 @@ public class ClientProxy extends CommonProxy{
         ClientRegistry.bindTileEntitySpecialRenderer(MeatHangerTileEntity.class, new MeatHangerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(HoldingStickTileEntity.class, new HoldingStickRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCropWasher.class, new WashBarrelRenderer());
-        /*
-        //Cow Items
-        MinecraftForgeClient.registerItemRenderer(MItemLoader.deadPig, new QuadrupedItemRenderer(new ModelPigSA(), "minecraft:textures/entity/pig/pig.png"));
-        MinecraftForgeClient.registerItemRenderer(MItemLoader.skinlessPig, new QuadrupedItemRenderer(new ModelPigSA(), "starvationahoy:textures/entity/skinned_pig.png"));
-        //Pig Items
-        MinecraftForgeClient.registerItemRenderer(MItemLoader.deadCow, new QuadrupedItemRenderer(new ModelCowSA(), "minecraft:textures/entity/cow/cow.png"));
-        MinecraftForgeClient.registerItemRenderer(MItemLoader.skinlessCow, new QuadrupedItemRenderer(new ModelCowSA(), "starvationahoy:textures/entity/skinned_cow.png"));
-        //Chicken Items
-        MinecraftForgeClient.registerItemRenderer(MItemLoader.deadChicken, new BipedItemRenderer(new ModelChickenSA(), "minecraft:textures/entity/chicken.png"));
-        MinecraftForgeClient.registerItemRenderer(MItemLoader.skinlessChicken, new BipedItemRenderer(new ModelChickenSA(), "starvationahoy:textures/entity/skinned_chicken.png"));
-        */
     }
 
 

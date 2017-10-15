@@ -1,11 +1,12 @@
 package dmfmm.starvationahoy.Client.Renderer;
 
-import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerData;
-import dmfmm.starvationahoy.Meat.Block.tileentity.MeatHangerTileEntity;
+import dmfmm.starvationahoy.Meat.block.tileentity.MeatHangerData;
+import dmfmm.starvationahoy.Meat.block.tileentity.MeatHangerTileEntity;
 import dmfmm.starvationahoy.Meat.ModuleMeat;
 import dmfmm.starvationahoy.api.Meat.ISAModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
@@ -120,7 +121,7 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
 
 				return ModuleMeat.registry.getMeatTypeForId(Animal).textures.rotten;
 			default:
-				return Minecraft.getMinecraft().getTextureMapBlocks().LOCATION_MISSING_TEXTURE;
+				return TextureMap.LOCATION_MISSING_TEXTURE;
 		}
 	}
 }

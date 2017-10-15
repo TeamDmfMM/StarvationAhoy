@@ -1,18 +1,17 @@
 package dmfmm.starvationahoy.Meat;
 
 import dmfmm.starvationahoy.Core.Init.MeatTextureRegistry;
-import dmfmm.starvationahoy.Meat.Events.Event_KillAnimal;
-import dmfmm.starvationahoy.Meat.Events.event_meatCutRoaster;
-import dmfmm.starvationahoy.Meat.Events.event_meatSkinned;
+import dmfmm.starvationahoy.Meat.events.Event_KillAnimal;
+import dmfmm.starvationahoy.Meat.events.event_meatCutRoaster;
+import dmfmm.starvationahoy.Meat.events.event_meatSkinned;
+import dmfmm.starvationahoy.Meat.item.MItemLoader;
+import dmfmm.starvationahoy.Meat.village.BHHandler;
+import dmfmm.starvationahoy.Meat.village.ButcherHouse;
+import dmfmm.starvationahoy.Meat.village.VillagerTradeAdditions;
 import dmfmm.starvationahoy.StarvationAhoy;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
-import dmfmm.starvationahoy.Meat.Block.MBlockLoader;
-import dmfmm.starvationahoy.Meat.Village.BHHandler;
-import dmfmm.starvationahoy.Meat.Village.ButcherHouse;
-import dmfmm.starvationahoy.Meat.Village.VillagerTradeAdditions;
-import dmfmm.starvationahoy.Meat.item.MItemLoader;
 import net.minecraftforge.fml.relauncher.Side;
 
 
@@ -24,8 +23,6 @@ public class ModuleMeat {
 
 	public static void preinit(Side side){
 		MItemLoader.initiateItems();
-		MBlockLoader.initiateBlocks();
-		MBlockLoader.initTileEntity();
 		VillagerRegistry.instance().registerVillageCreationHandler(new BHHandler()); 
         try { 
             MapGenStructureIO.registerStructureComponent(ButcherHouse.class, "starvationahoy:ButcherHouse");

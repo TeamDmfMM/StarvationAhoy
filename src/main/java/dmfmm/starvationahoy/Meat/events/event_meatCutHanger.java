@@ -1,4 +1,4 @@
-package dmfmm.starvationahoy.Meat.Events;
+package dmfmm.starvationahoy.Meat.events;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import dmfmm.starvationahoy.api.Event.MeatCutEvent;

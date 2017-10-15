@@ -23,20 +23,16 @@ public class MeatRegistry {
     public boolean meatTypeExistsAndEditable(int id) {
 
         if (meatTypeMap.containsKey(id)) {
-            if (getMeatTypeForId(id).constructed == false) {
+            if (!getMeatTypeForId(id).constructed) {
                 return true;
             }
         }
-
-
         return false;
-
-
     }
 
     public boolean constructedMeatTypeExists(int id) {
         if (meatTypeExists(id)) {
-            if (getMeatTypeForId(id).constructed == true) {
+            if (getMeatTypeForId(id).constructed) {
                 return true;
             }
         }
@@ -44,9 +40,7 @@ public class MeatRegistry {
     }
 
     public boolean meatTypeExists(int id) {
-        if (meatTypeMap.containsKey(id)) {
-            return true;
-        } else return false;
+        return meatTypeMap.containsKey(id);
     }
 
     public void newMeatType(int id) {
@@ -60,9 +54,9 @@ public class MeatRegistry {
     @SideOnly(Side.CLIENT)
     public void onMeatType(int id, ModelBase modelEntity, String normalTexture, String skinnedTexture, String rottenTexture) {
 
-        if (meatTypeExistsAndEditable(id) == true) {
+        if (meatTypeExistsAndEditable(id)) {
             getMeatTypeForId(id).doMeatType(modelEntity, normalTexture, skinnedTexture, rottenTexture);
-        } else if (meatTypeExists(id) == true) {
+        } else if (meatTypeExists(id)) {
             throw new IllegalArgumentException("The meat type id has already been constructed, therefore it cannot be edited");
         } else {
             newMeatType(id);

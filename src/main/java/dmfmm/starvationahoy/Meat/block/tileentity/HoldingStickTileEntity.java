@@ -1,8 +1,8 @@
-package dmfmm.starvationahoy.Meat.Block.tileentity;
+package dmfmm.starvationahoy.Meat.block.tileentity;
 
-import dmfmm.starvationahoy.Meat.Block.multiblock.CookerMultiBlock;
-import dmfmm.starvationahoy.Meat.Block.multiblock.MultiBlockStructure;
-import dmfmm.starvationahoy.Meat.Block.multiblock.TileEntityMultiBlock;
+import dmfmm.starvationahoy.Meat.block.multiblock.CookerMultiBlock;
+import dmfmm.starvationahoy.Meat.block.multiblock.MultiBlockStructure;
+import dmfmm.starvationahoy.Meat.block.multiblock.TileEntityMultiBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;

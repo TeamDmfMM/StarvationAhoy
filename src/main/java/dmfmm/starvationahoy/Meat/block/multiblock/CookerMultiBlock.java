@@ -1,4 +1,4 @@
-package dmfmm.starvationahoy.Meat.Block.multiblock;
+package dmfmm.starvationahoy.Meat.block.multiblock;
 
 import dmfmm.starvationahoy.Core.lib.MeatLib;
 import net.minecraft.init.Blocks;

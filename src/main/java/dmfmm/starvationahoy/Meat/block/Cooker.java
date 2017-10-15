@@ -1,14 +1,15 @@
-package dmfmm.starvationahoy.Meat.Block;
+package dmfmm.starvationahoy.Meat.block;
 
-import dmfmm.starvationahoy.Meat.Block.multiblock.CookerMultiBlock;
-import dmfmm.starvationahoy.Meat.Block.multiblock.CookerTileEntity;
-import dmfmm.starvationahoy.Meat.Block.multiblock.TileEntityMultiBlock;
+import dmfmm.starvationahoy.Core.lib.MeatLib;
 import dmfmm.starvationahoy.Meat.MeatType;
 import dmfmm.starvationahoy.Meat.ModuleMeat;
+import dmfmm.starvationahoy.Meat.block.multiblock.CookerMultiBlock;
+import dmfmm.starvationahoy.Meat.block.multiblock.CookerTileEntity;
+import dmfmm.starvationahoy.Meat.block.multiblock.TileEntityMultiBlock;
 import dmfmm.starvationahoy.Meat.item.MItemLoader;
 import dmfmm.starvationahoy.api.Event.MeatCutEvent;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -30,10 +31,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 /**
  * Created by Mm12 on 2/28/2015.
  */
-public class Cooker extends BlockContainer {
-    protected Cooker() {
+public class Cooker extends Block implements ITileEntityProvider {
+    public Cooker() {
         super(Material.ANVIL);
-
+        this.setRegistryName(MeatLib.DEV_COOKER);
+        this.setUnlocalizedName(MeatLib.DEV_COOKER);
     }
 
     @Override

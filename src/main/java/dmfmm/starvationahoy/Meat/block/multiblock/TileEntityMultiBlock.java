@@ -1,10 +1,10 @@
-package dmfmm.starvationahoy.Meat.Block.multiblock;
+package dmfmm.starvationahoy.Meat.block.multiblock;
 
 
 import net.minecraft.util.ITickable;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import dmfmm.starvationahoy.Core.util.SALog;
-import dmfmm.starvationahoy.Meat.Block.multiblock.net.PacketMultiBlock;
+import dmfmm.starvationahoy.Meat.block.multiblock.net.PacketMultiBlock;
 import dmfmm.starvationahoy.StarvationAhoy;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

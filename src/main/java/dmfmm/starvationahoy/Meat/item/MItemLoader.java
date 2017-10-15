@@ -33,7 +33,7 @@ private static boolean IRegister=false;
 		ButcherKnife = new ButcherKnife().setUnlocalizedName(MeatLib.iButcherKnife);
 		filetKnife = new FiletKnife().setUnlocalizedName(MeatLib.ifiletKnife);
         pigleg = new StanFood(5, 6.3F).setUnlocalizedName(MeatLib.iPigLeg);
-		cookedpigleg = new StanFood(8, 5.7F).setUnlocalizedName(MeatLib.iCookedPigLeg);
+		cookedpigleg = new StanFood(8, 5.7F).setUnlocalizedName(MeatLib.COOKED_PIG_LEG);
 
 
 		

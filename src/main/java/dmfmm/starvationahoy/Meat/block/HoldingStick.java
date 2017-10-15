@@ -1,10 +1,11 @@
-package dmfmm.starvationahoy.Meat.Block;
+package dmfmm.starvationahoy.Meat.block;
 
 import dmfmm.starvationahoy.Core.Blocks.BlockContainerRotate;
 import dmfmm.starvationahoy.Core.SATabs;
-import dmfmm.starvationahoy.Meat.Block.multiblock.MultiBlockChecking;
-import dmfmm.starvationahoy.Meat.Block.multiblock.TileEntityMultiBlock;
-import dmfmm.starvationahoy.Meat.Block.tileentity.HoldingStickTileEntity;
+import dmfmm.starvationahoy.Core.lib.MeatLib;
+import dmfmm.starvationahoy.Meat.block.multiblock.MultiBlockChecking;
+import dmfmm.starvationahoy.Meat.block.multiblock.TileEntityMultiBlock;
+import dmfmm.starvationahoy.Meat.block.tileentity.HoldingStickTileEntity;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,9 +22,10 @@ import net.minecraft.world.World;
 
 public class HoldingStick extends BlockContainerRotate{
 
-	protected HoldingStick() {
+	public HoldingStick() {
 		super(Material.WOOD);
 		this.setCreativeTab(SATabs.INSTANCE);
+		this.setName(MeatLib.HOLDING_STICK);
 	}
 
 	@Override

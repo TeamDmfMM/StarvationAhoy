@@ -12,7 +12,7 @@ import dmfmm.starvationahoy.Core.util.CRef;
 import dmfmm.starvationahoy.Core.util.ConfigHandler;
 import dmfmm.starvationahoy.Core.util.SALog;
 import dmfmm.starvationahoy.CropWash.ModuleCropWash;
-import dmfmm.starvationahoy.Meat.Block.multiblock.net.PacketMultiBlock;
+import dmfmm.starvationahoy.Meat.block.multiblock.net.PacketMultiBlock;
 import dmfmm.starvationahoy.Meat.ModuleMeat;
 import dmfmm.starvationahoy.api.StarvationAhoyRegistry;
 import dmfmm.starvationahoy.proxy.CommonProxy;
@@ -83,7 +83,7 @@ public class StarvationAhoy {
         //MultiBlockChannel.registerMessage(ClientGetExhaustPacket.Handler.class, ClientGetExhaustPacket.class, 1, Side.CLIENT);
         //MultiBlockChannel.registerMessage(ServerGetExhaustPacket.Handler.class, ServerGetExhaustPacket.class, 2, Side.SERVER);
 
-		//Secondary Events
+		//Secondary events
 		proxy.preInit();
 		proxy.initSounds();
 	}

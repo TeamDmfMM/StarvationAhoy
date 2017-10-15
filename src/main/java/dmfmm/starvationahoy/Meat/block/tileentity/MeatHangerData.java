@@ -1,4 +1,4 @@
-package dmfmm.starvationahoy.Meat.Block.tileentity;
+package dmfmm.starvationahoy.Meat.block.tileentity;
 
 import dmfmm.starvationahoy.api.Meat.IMeatType;
 
@@ -6,6 +6,7 @@ import dmfmm.starvationahoy.api.Meat.IMeatType;
  * Created by dmf444 on 10/6/2017. Code originally written for StarvationAhoy.
  */
 public class MeatHangerData implements IMeatType{
+
   public static final int  MEATTYPE_COW = 1, MEATTYPE_PIG = 2, MEATTYPE_CHICK = 3, MEATTYPE_SHEEP = 4, MEATTYPE_RABBIT = 5;
 
   public static final IMeatType EMPTY = new MeatHangerData(0);
