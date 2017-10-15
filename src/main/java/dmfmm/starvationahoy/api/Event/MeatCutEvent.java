@@ -1,6 +1,6 @@
 package dmfmm.starvationahoy.api.Event;
 
-import dmfmm.starvationahoy.Core.util.SALog;
+import dmfmm.starvationahoy.core.util.SALog;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -55,7 +55,7 @@ public class MeatCutEvent extends Event{
     }
 
     /**
-     * This event is called when a player interacts with the Meat Hanger
+     * This event is called when a player interacts with the meat Hanger
      * Precisely, When a player attempts to cut a skinned entity off.
      *
      *  This event is {@link Cancelable}.
@@ -83,7 +83,7 @@ public class MeatCutEvent extends Event{
     }
 
     /**
-     * This event is called when a player interacts with the Meat Hanger
+     * This event is called when a player interacts with the meat Hanger
      * Precisely, When a player attempts to skin an entity.
      *
      *  This event is {@link Cancelable}.

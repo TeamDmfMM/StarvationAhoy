@@ -20,10 +20,10 @@ public class CropWash {
      * Example:
      *              NBTTagCompound tag = new NBTTagCompound();                                              //Create a NBT Tag
      *              NBTTagList nbtlist = new NBTTagList();                                                  //Create a NBT List
-     *              nbtlist.appendTag(new ItemStack(Blocks.tallgrass).writeToNBT(new NBTTagCompound()));    //Send block that drops item
+     *              nbtlist.appendTag(new ItemStack(blocks.tallgrass).writeToNBT(new NBTTagCompound()));    //Send block that drops item
      *              nbtlist.appendTag(new ItemStack(Items.wheat_seeds).writeToNBT(tag));                    //Send item to make Washable
      *              tag.setTag("add-replace", nbtlist);                                                     //Set the Tag (name it "add-replace" or it won't work)
-     *              FMLInterModComms.sendMessage("starvationahoy", CropWash.REPLACE_ACTION, tag);           //Send Over FML IMC
+     *              FMLInterModComms.sendMessage("starvationahoy", crops.REPLACE_ACTION, tag);           //Send Over FML IMC
      *
      *
      *

@@ -1,7 +1,7 @@
 package dmfmm.starvationahoy.proxy;
 
-import dmfmm.starvationahoy.Core.HUD.OverlaySaturationBar;
-import dmfmm.starvationahoy.Core.Init.SASoundEvent;
+import dmfmm.starvationahoy.core.HUD.OverlaySaturationBar;
+import dmfmm.starvationahoy.core.Init.SASoundEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
@@ -9,13 +9,13 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import dmfmm.starvationahoy.Client.Renderer.*;
-import dmfmm.starvationahoy.CropWash.Block.tilentity.TileEntityCropWasher;
-import dmfmm.starvationahoy.Meat.block.tileentity.HoldingStickTileEntity;
-import dmfmm.starvationahoy.Meat.block.tileentity.MeatHangerTileEntity;
-import dmfmm.starvationahoy.Meat.MeatType;
-import dmfmm.starvationahoy.Meat.ModuleMeat;
-import dmfmm.starvationahoy.Meat.item.MItemLoader;
+import dmfmm.starvationahoy.client.Renderer.*;
+import dmfmm.starvationahoy.crops.Block.tilentity.TileEntityCropWasher;
+import dmfmm.starvationahoy.meat.block.tileentity.HoldingStickTileEntity;
+import dmfmm.starvationahoy.meat.block.tileentity.MeatHangerTileEntity;
+import dmfmm.starvationahoy.meat.MeatType;
+import dmfmm.starvationahoy.meat.ModuleMeat;
+import dmfmm.starvationahoy.meat.item.MItemLoader;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Items;
@@ -58,7 +58,7 @@ public class ClientProxy extends CommonProxy{
 
 	}
 	public void registerRenderers() {
-        //Blocks
+        //blocks
         ClientRegistry.bindTileEntitySpecialRenderer(MeatHangerTileEntity.class, new MeatHangerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(HoldingStickTileEntity.class, new HoldingStickRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCropWasher.class, new WashBarrelRenderer());

@@ -9,7 +9,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 public interface ISAModel {
 
     /**
-     * Function called while Model is on Meat Hanger.
+     * Function called while Model is on meat Hanger.
      * Used to allow modders to make tranformations to the model with GL
      */
     public void glTransformations();
@@ -22,7 +22,7 @@ public interface ISAModel {
     public void modelTransformations();
 
     /**
-     * Function used to render AABB around Model while on Meat Hanger.
+     * Function used to render AABB around Model while on meat Hanger.
      *
      * @return AABB that encompasses entity
      */

@@ -33,7 +33,7 @@ minecraft {
 
     version = config.minecraft_version + "-" + config.forge_version
 
-    replaceIn "Core/lib/ModInfo.java"
+    replaceIn "core/lib/ModInfo.java"
     replace "@VERSION@", "${config.minecraft_version}-${config.mod_version}.${config.build_number}"
 
     runDir = "run"

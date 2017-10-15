@@ -1,8 +1,8 @@
 package dmfmm.starvationahoy.proxy;
 
-import dmfmm.starvationahoy.Meat.MeatType;
-import dmfmm.starvationahoy.Meat.ModuleMeat;
-import dmfmm.starvationahoy.Meat.item.MItemLoader;
+import dmfmm.starvationahoy.meat.MeatType;
+import dmfmm.starvationahoy.meat.ModuleMeat;
+import dmfmm.starvationahoy.meat.item.MItemLoader;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;

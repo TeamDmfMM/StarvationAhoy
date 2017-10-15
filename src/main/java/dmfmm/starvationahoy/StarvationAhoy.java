@@ -1,19 +1,19 @@
 package dmfmm.starvationahoy;
 
-import dmfmm.starvationahoy.Client.Gui.book_gui.FurnaceHelper;
-import dmfmm.starvationahoy.Core.*;
-import dmfmm.starvationahoy.Core.EventHandler.event_configChange;
-import dmfmm.starvationahoy.Core.Init.CoreTextureRegistry;
-import dmfmm.starvationahoy.Core.Init.CropwashTextureRegistry;
-import dmfmm.starvationahoy.Core.Init.MeatTextureRegistry;
-import dmfmm.starvationahoy.Core.items.ItemLoad;
-import dmfmm.starvationahoy.Core.lib.ModInfo;
-import dmfmm.starvationahoy.Core.util.CRef;
-import dmfmm.starvationahoy.Core.util.ConfigHandler;
-import dmfmm.starvationahoy.Core.util.SALog;
-import dmfmm.starvationahoy.CropWash.ModuleCropWash;
-import dmfmm.starvationahoy.Meat.block.multiblock.net.PacketMultiBlock;
-import dmfmm.starvationahoy.Meat.ModuleMeat;
+import dmfmm.starvationahoy.client.Gui.book_gui.FurnaceHelper;
+import dmfmm.starvationahoy.core.*;
+import dmfmm.starvationahoy.core.event.ConfigChangeEvent;
+import dmfmm.starvationahoy.core.Init.CoreTextureRegistry;
+import dmfmm.starvationahoy.core.Init.CropwashTextureRegistry;
+import dmfmm.starvationahoy.core.Init.MeatTextureRegistry;
+import dmfmm.starvationahoy.core.items.ItemLoad;
+import dmfmm.starvationahoy.core.lib.ModInfo;
+import dmfmm.starvationahoy.core.util.CRef;
+import dmfmm.starvationahoy.core.util.ConfigHandler;
+import dmfmm.starvationahoy.core.util.SALog;
+import dmfmm.starvationahoy.crops.ModuleCropWash;
+import dmfmm.starvationahoy.meat.block.multiblock.net.PacketMultiBlock;
+import dmfmm.starvationahoy.meat.ModuleMeat;
 import dmfmm.starvationahoy.api.StarvationAhoyRegistry;
 import dmfmm.starvationahoy.proxy.CommonProxy;
 import net.minecraft.init.SoundEvents;
@@ -65,7 +65,7 @@ public class StarvationAhoy {
 		DIR = event.getModConfigurationDirectory() + File.separator+ "starvationahoy";
 		StarvationAhoyRegistry.init(new StarvationAhoyProvider());
 		ConfigHandler.init(new File(DIR, ModInfo.MOD_ID + ".cfg"));
-		MinecraftForge.EVENT_BUS.register(new event_configChange());
+		MinecraftForge.EVENT_BUS.register(new ConfigChangeEvent());
 
 
 		//Module Initiation
@@ -98,7 +98,7 @@ public class StarvationAhoy {
 		ModuleMeat.init();
 		//ModuleFoodStats.init();
 
-		//Client Rendering
+		//client Rendering
 		proxy.registerRenderers();
 		//proxy.registerKeyBindings();
 
