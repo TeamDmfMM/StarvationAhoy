@@ -1,5 +1,6 @@
 package dmfmm.starvationahoy.Meat.Events;
 
+import dmfmm.starvationahoy.Meat.EnchantmentMeatSlayer;
 import dmfmm.starvationahoy.Meat.ModuleMeat;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
@@ -15,6 +16,9 @@ public class Event_KillAnimal {
 	@SubscribeEvent
 	public void OverrideDropEvent(LivingDropsEvent e){
 		if (!(e.getEntityLiving() instanceof EntityLiving ) ){
+			return;
+		}
+		if(e.getSource() == EnchantmentMeatSlayer.AVOIDANCE){
 			return;
 		}
 		//SALog.fatal("MEH");

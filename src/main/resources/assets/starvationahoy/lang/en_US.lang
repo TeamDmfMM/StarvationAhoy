@@ -11,6 +11,9 @@ item.stat_helm.name=Health Tracking Helmet
 item.stat_chest.name=Health Tracking Chestplate
 item.hungerPotion.name=Badcholo's Brew
 
+#Other
+enchantment.meatslayer=Reverse Rations
+
 #Meat Module Blocks
 tile.HoldingStick.name=Spit Roast Stand
 tile.MeatHanger.name=Meat Hanger
