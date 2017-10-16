@@ -1,21 +1,22 @@
 package dmfmm.starvationahoy.meat.village;
 
-import dmfmm.starvationahoy.meat.init.MeatBlockRegistry;
+import dmfmm.starvationahoy.meat.ModuleMeat;
 import dmfmm.starvationahoy.meat.block.tileentity.MeatHangerData;
 import dmfmm.starvationahoy.meat.block.tileentity.MeatHangerTileEntity;
-import net.minecraft.block.*;
+import dmfmm.starvationahoy.meat.init.MeatBlockRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFenceGate;
+import net.minecraft.block.BlockStairs;
+import net.minecraft.block.BlockTorch;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
@@ -23,12 +24,12 @@ import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ButcherHouse extends StructureVillagePieces.Village {
-    
-	private int villagersSpawned =0;
+
     private boolean hasdone = true;
     private int randomNum;
     private int randomNum1;
@@ -51,12 +52,10 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	
 	@Override
 	public boolean addComponentParts(World world, Random rand, StructureBoundingBox sbb) {
-		if (this.averageGroundLvl < 0)
-		{
+		if (this.averageGroundLvl < 0) {
 			this.averageGroundLvl = this.getAverageGroundLevel(world, sbb);
 
-			if (this.averageGroundLvl < 0)
-			{
+			if (this.averageGroundLvl < 0) {
 				return true;
 			}
 
@@ -126,6 +125,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 			this.setBlockState(world, Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH), i, 4, 0, sbb);
 			
 		}
+
 		fillWithBlocks(world, sbb, 0, 4, 1, 0, 4, 5, Blocks.PLANKS, Blocks.PLANKS, false);
 		fillWithBlocks(world, sbb, 8, 4, 1, 8, 4, 5, Blocks.PLANKS, Blocks.PLANKS, false);
 		this.placeBlockAtCurrentPosition(world, Blocks.PLANKS,  0, 5, 2, sbb);
@@ -140,61 +140,34 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		
 		//Animals
 		if(hasdone){
-		Random randss = new Random();
-		randomNum = randss.nextInt((3 - 1) + 1) + 1;
-		randomNum1 = randss.nextInt((3 - 1) + 1) + 1;
-		
-		 int j1 = this.getXWithOffset(2 + 1, 9);
-         int k1 = this.getYWithOffset(1);
-         int l1 = this.getZWithOffset(2 + 1, 9);
-         int j2 = this.getXWithOffset(6 + 1, 9);
-         int l2 = this.getZWithOffset(6 + 1, 9);
-		
-		if(randomNum == 1){
-			Entity cow = new EntityCow(world);
-			cow.setPosition(j1, k1, l1);
-			world.spawnEntity(cow);
-			Entity cow4 = new EntityCow(world);
-			cow4.setPosition(j1, k1, l1);
-			world.spawnEntity(cow4);
-		} else if(randomNum == 2){
-			Entity pig = new EntityPig(world);
-			pig.setPosition(j1, k1, l1);
-			world.spawnEntity(pig);
-			Entity pig5 = new EntityPig(world);
-			pig5.setPosition(j1, k1, l1);
-			world.spawnEntity(pig5);
-		} else if(randomNum == 3){
-			Entity chicken = new EntityChicken(world);
-			chicken.setPosition(j1, k1, l1);
-			world.spawnEntity(chicken);
-			Entity chicken6 = new EntityChicken(world);
-			chicken6.setPosition(j1, k1, l1);
-			world.spawnEntity(chicken6);
-		}
-		if(randomNum1 == 1){
-			Entity cow = new EntityCow(world);
-			cow.setPosition(j2, k1, l2);
-			world.spawnEntity(cow);
-			Entity cow3 = new EntityCow(world);
-			cow3.setPosition(j2, k1, l2);
-			world.spawnEntity(cow3);
-		} else if(randomNum1 == 2){
-			Entity pig = new EntityPig(world);
-			pig.setPosition(j2, k1, l2);
-			world.spawnEntity(pig);
-			Entity pig2 = new EntityPig(world);
-			pig2.setPosition(j2, k1, l2);
-			world.spawnEntity(pig2);
-		} else if(randomNum1 == 3){
-			Entity chicken = new EntityChicken(world);
-			chicken.setPosition(j2, k1, l2);
-			world.spawnEntity(chicken);
-			Entity chicken1 = new EntityChicken(world);
-			chicken1.setPosition(j2, k1, l2);
-			world.spawnEntity(chicken1);
-		}
-		hasdone = false;
+			Random randss = new Random();
+			int totalTypes = ModuleMeat.registry.meatIds().size();
+			randomNum = randss.nextInt((totalTypes - 1) + 1) + 1;
+			randomNum1 = ((randomNum + 1) % totalTypes) + 1;
+
+			int j1 = this.getXWithOffset(2 + 1, 9);
+			int k1 = this.getYWithOffset(1);
+			int l1 = this.getZWithOffset(2 + 1, 9);
+			int j2 = this.getXWithOffset(6 + 1, 9);
+			int l2 = this.getZWithOffset(6 + 1, 9);
+
+			List<EntityLiving> pastures = this.getPastureEntities(randomNum, world);
+			EntityLiving aniA = pastures.get(0);
+			EntityLiving aniB = pastures.get(1);
+			aniA.setPosition(j1, k1, l1);
+			aniB.setPosition(j1, k1, l1);
+			world.spawnEntity(aniA);
+			world.spawnEntity(aniB);
+
+			pastures = this.getPastureEntities(randomNum1, world);
+			aniA = pastures.get(0);
+			aniB = pastures.get(1);
+			aniA.setPosition(j2, k1, l2);
+			aniB.setPosition(j2, k1, l2);
+			world.spawnEntity(aniA);
+			world.spawnEntity(aniB);
+
+			hasdone = false;
 		}
 		
 		//Interior Decor
@@ -215,51 +188,31 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		this.placeBlockAtCurrentPosition(world, Blocks.OAK_FENCE,  2, 2, 4, sbb);
 
 
-
-		if (this.villagersSpawned < 1) {
-			int j = this.getXWithOffset(1, 5);
-			int k = this.getYWithOffset(1);
-			int l = this.getZWithOffset(1, 5);
-
-			++this.villagersSpawned;
-			EntityVillager entityvillager = new EntityVillager(world);
-			entityvillager.setLocationAndAngles((double) j + 0.5D, (double) k, (double) l + 0.5D, 0.0F, 0.0F);
-			entityvillager.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData) null);
-			entityvillager.setProfession(VillagerRegistry.instance().getRegistry().getValue(new ResourceLocation("starvationahoy:SAButcher")));
-			world.spawnEntity(entityvillager);
-		}
-		//spawnVillagers(world, sbb, 1, 1, 5, 1);
+		spawnVillagers(world, sbb, 1, 1, 5, 1);
 		
 
 		return true;
 	}
-	
-	@Override
-	protected int chooseProfession(int villagersSpawnedIn, int currentVillagerProfession)
-    {
-        return 4;
-		//return VillagerTradeAdditions.getVID();
-    }
-	
-	
-	private void placeHanger(World world, StructureBoundingBox sbb, int x, int y, int z, int rand){ 
 
-		//this.placeBlockAtCurrentPosition(world, MeatBlockRegistry.MeatHanger, 4, 2, 3, 1, sbb);
+	@Override
+	protected net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession chooseForgeProfession(int count, net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession prof)
+	{
+		return VillagerRegistry.instance().getRegistry().getValue(new ResourceLocation("starvationahoy:SAButcher"));
+	}
+	
+	
+	private void placeHanger(World world, StructureBoundingBox sbb, int x, int y, int z, int rand){
+		int placeState = MathHelper.getInt(world.rand, 0, 2);
 		world.setBlockState(new BlockPos(x, y, z), MeatBlockRegistry.MeatHanger.getStateFromMeta(this.coordBaseMode.getIndex()), 2);
 		TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
 		if(te instanceof MeatHangerTileEntity){
 			MeatHangerTileEntity MHA = (MeatHangerTileEntity) te;
-			MHA.updateHanger(rand, MeatHangerData.MeatStates.NORMAL);
-			world.notifyBlockUpdate(new BlockPos(x, y, z), world.getBlockState(new BlockPos(x, y, z)).getBlock().getDefaultState(),
-					world.getBlockState(new BlockPos(x, y, z)).getBlock().getDefaultState(), 3);
+			if(placeState > 0) {
+				MHA.updateHanger(rand, MeatHangerData.MeatStates.values()[placeState]);
+				world.notifyBlockUpdate(new BlockPos(x, y, z), world.getBlockState(new BlockPos(x, y, z)).getBlock().getDefaultState(),
+						world.getBlockState(new BlockPos(x, y, z)).getBlock().getDefaultState(), 3);
+			}
 		}
-
-		
-		//if(MHA != null){MHA.setMeatType(randomNum);}
-		//MeatHangerTileEntity MHB = (MeatHangerTileEntity) world.getTileEntity(getXOff(4, 1), getYOff(3), getZOff(4, 1));
-		//if(MHB != null){MHB.setMeatType(1);}
-		//MeatHangerTileEntity MHC = (MeatHangerTileEntity) world.getTileEntity(getXOff(6, 1), getYOff(3), getZOff(6, 1));
-		//if(MHC != null){MHC.setMeatType(1);}
 	}
 	private int getYOff(int y){
 		return this.getYWithOffset(y);
@@ -274,7 +227,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	private void fillWithBlocks(World world, StructureBoundingBox sbb, int i, int j, int k, int l, int m, int n, Block blockb, Block blocka, boolean bool){
 		this.fillWithBlocks(world, sbb, i, j, k, l, m, n, blockb.getDefaultState(), blocka.getDefaultState(), bool);
 	}
-	private void placeBlockAtCurrentPosition(World world,Block block, int x, int y, int z, StructureBoundingBox sbb){
+	private void placeBlockAtCurrentPosition(World world, Block block, int x, int y, int z, StructureBoundingBox sbb){
 		this.setBlockState(world, block.getDefaultState(), x, y, z, sbb);
 	}
 	private void placeBlockAtCurrentPosition(World world,Block block, int meta, int x, int y, int z, StructureBoundingBox sbb){
@@ -303,6 +256,41 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 				}
 			}
 		}
+	}
+
+	private List<EntityLiving> getPastureEntities(int registryNum, World world){
+		EntityLiving animal1;
+		EntityLiving animal2;
+
+		switch (registryNum){
+			case 1:
+				animal1 = new EntityCow(world);
+				animal2 = new EntityCow(world);
+				break;
+			case 2:
+				animal1 = new EntityPig(world);
+				animal2 = new EntityPig(world);
+				break;
+			case 3:
+				animal1 = new EntityChicken(world);
+				animal2 = new EntityChicken(world);
+				break;
+			case 4:
+				animal1 = new EntitySheep(world);
+				animal2 = new EntitySheep(world);
+				break;
+			case 5:
+				animal1 = new EntityRabbit(world);
+				animal2 = new EntityRabbit(world);
+				break;
+			default:
+				animal1 = new EntityCow(world);
+				animal2 = new EntityCow(world);
+		}
+		List<EntityLiving> entities = new ArrayList<>();
+		entities.add(animal1);
+		entities.add(animal2);
+		return entities;
 	}
 
 }
