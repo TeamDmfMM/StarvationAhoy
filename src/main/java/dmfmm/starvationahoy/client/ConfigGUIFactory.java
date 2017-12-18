@@ -1,11 +1,11 @@
 package dmfmm.starvationahoy.client;
 
-import java.util.Set;
-
 import dmfmm.starvationahoy.client.Gui.SAGuiConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.IModGuiFactory;
+
+import java.util.Set;
 
 public class ConfigGUIFactory implements IModGuiFactory{
 
@@ -25,13 +25,9 @@ public class ConfigGUIFactory implements IModGuiFactory{
 		return new SAGuiConfig(parentScreen);
 	}
 
-	@Override
-	public Class<? extends GuiScreen> mainConfigGuiClass() { return null; }
 
 	@Override
 	public Set<RuntimeOptionCategoryElement> runtimeGuiCategories() { return null; }
 
-	@Override
-	public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element) { return null; }
 
 }

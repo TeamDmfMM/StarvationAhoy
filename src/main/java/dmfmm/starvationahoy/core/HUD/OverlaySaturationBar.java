@@ -72,9 +72,9 @@ public class OverlaySaturationBar extends Gui {
             float i = (float) (Sat * 2.5); //2.5 * 20 = 50 (# of pixels in bar)
             this.drawTexturedModalRect((int) (EXHAUSTION_BAR_X + i), EXHAUSTION_BAR_Y + 2, 0, 9, 1, 5);
         }
-        this.mc.fontRendererObj.setUnicodeFlag(true);
-        this.mc.fontRendererObj.drawString(I18n.format(SATURATION_TEXT_UNLOCALIZED), SATURATION_BAR_X + 7, SATURATION_BAR_Y, 16430373);
-        this.mc.fontRendererObj.setUnicodeFlag(false);
+        this.mc.fontRenderer.setUnicodeFlag(true);
+        this.mc.fontRenderer.drawString(I18n.format(SATURATION_TEXT_UNLOCALIZED), SATURATION_BAR_X + 7, SATURATION_BAR_Y, 16430373);
+        this.mc.fontRenderer.setUnicodeFlag(false);
     }
 
 	public void getCurrentFoodStat(EntityPlayerSP player){
@@ -84,11 +84,11 @@ public class OverlaySaturationBar extends Gui {
                 ItemFood food = (ItemFood) unknown;
                 int HealAmt = food.getHealAmount(new ItemStack(food));
                 float Saturation = food.getSaturationModifier(new ItemStack(food));
-                this.mc.fontRendererObj.setUnicodeFlag(true);
-                this.mc.fontRendererObj.drawString(I18n.format(FOODHUNGER_TEXT_UNLOCALIZED), SATURATION_BAR_X , SATURATION_BAR_Y + 15, 16430373);
+                this.mc.fontRenderer.setUnicodeFlag(true);
+                this.mc.fontRenderer.drawString(I18n.format(FOODHUNGER_TEXT_UNLOCALIZED), SATURATION_BAR_X , SATURATION_BAR_Y + 15, 16430373);
                 drawFoodHunks((float) HealAmt / 2);
-                this.mc.fontRendererObj.drawString(I18n.format(FOODSAT_TEXT_UNLOCALIZED, Saturation), SATURATION_BAR_X, SATURATION_BAR_Y + 22, 16430373);
-                this.mc.fontRendererObj.setUnicodeFlag(false);
+                this.mc.fontRenderer.drawString(I18n.format(FOODSAT_TEXT_UNLOCALIZED, Saturation), SATURATION_BAR_X, SATURATION_BAR_Y + 22, 16430373);
+                this.mc.fontRenderer.setUnicodeFlag(false);
             }
         }
 

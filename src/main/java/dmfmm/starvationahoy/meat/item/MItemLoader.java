@@ -1,8 +1,8 @@
 package dmfmm.starvationahoy.meat.item;
 
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import dmfmm.starvationahoy.core.lib.MeatLib;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -77,6 +77,6 @@ private static boolean IRegister=false;
 
 	private static void registerItem(Item item, String name){
 		item.setRegistryName(name);
-		GameRegistry.register(item);
+		ForgeRegistries.ITEMS.register(item);
 	}
 }

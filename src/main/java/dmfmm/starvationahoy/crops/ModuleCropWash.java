@@ -17,6 +17,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -39,8 +40,9 @@ public class ModuleCropWash {
 
         blockCropWasher = new BlockCropWasher();
         blockCropWasher.setRegistryName("cropwashblock");
-        GameRegistry.register(blockCropWasher);
-        GameRegistry.register(new ItemBlock(blockCropWasher).setRegistryName(blockCropWasher.getRegistryName()));
+        ForgeRegistries.BLOCKS.register(blockCropWasher);
+        ForgeRegistries.ITEMS.register(new ItemBlock(blockCropWasher).setRegistryName(blockCropWasher.getRegistryName()));
+        cropItemLoader.load();
         MinecraftForge.EVENT_BUS.register(new VillagerCropOverride());
         if(side == Side.CLIENT) {
             //ModelLoaderRegistry.registerLoader(DirtyItemSmartModel.Loader.instance);
@@ -60,7 +62,7 @@ public class ModuleCropWash {
             //MinecraftForge.EVENT_BUS.register(new ModelBakeInjector());
             MinecraftForge.EVENT_BUS.register(new TextureInjector());
         }
-        cropItemLoader.load();
+
         MinecraftForge.EVENT_BUS.register(new CropWashEvents());
         d = new DirtyBlocks();
         CrossMod.init();

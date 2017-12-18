@@ -3,10 +3,10 @@ package dmfmm.starvationahoy.core.Init;
 
 import dmfmm.starvationahoy.core.lib.ModInfo;
 import dmfmm.starvationahoy.core.lib.WashLib;
+import dmfmm.starvationahoy.core.util.SALog;
 import dmfmm.starvationahoy.crops.ModuleCropWash;
 import dmfmm.starvationahoy.crops.modelbake.DirtyItemSmartModel;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -16,7 +16,7 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 
 public class CropwashTextureRegistry {
 
-    public static ModelResourceLocation dirty_item_model = new ModelResourceLocation("starvationahoy:dirty_item_model_token", "inventory");
+    public static ModelResourceLocation dirty_item_model = new ModelResourceLocation(ModInfo.MOD_ID + ":dirty_item", "inventory");
 
     public static void initTextures(){
         registerBlock(WashLib.washBarrelName, 0);
@@ -30,7 +30,8 @@ public class CropwashTextureRegistry {
 
 
     public static void doDirtyItem() {
-        ModelLoader.setCustomModelResourceLocation(ModuleCropWash.cropItemLoader.getItem("dirty_item"), 0, new ModelResourceLocation(ModInfo.MOD_ID + ":" + "dirty_item", "inventory"));
+        SALog.error("HI");
+        ModelLoader.setCustomModelResourceLocation(ModuleCropWash.cropItemLoader.getItem("dirty_item"), 0, dirty_item_model);
     }
 
     private static void registerBlock(String blockName, int meta){
@@ -39,9 +40,4 @@ public class CropwashTextureRegistry {
         renderItem.getItemModelMesher().register(itemB, meta, new ModelResourceLocation("starvationahoy:"+ blockName, "inventory"));
     }
 
-    private static void register(Item item, int meta){
-        ItemModelMesher modelRegistry = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
-        //EFLog.fatal((ResourceLocation) Item.itemRegistry.getNameForObject(item));
-        modelRegistry.register(item, 0, new ModelResourceLocation((ResourceLocation) Item.REGISTRY.getNameForObject(item), "inventory"));
-    }
 }

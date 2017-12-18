@@ -1,19 +1,17 @@
 package dmfmm.starvationahoy.meat;
 
-import dmfmm.starvationahoy.meat.init.MeatBlockRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import dmfmm.starvationahoy.meat.item.MItemLoader;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 
 public class MeatRecipieHandler {
 
     public static void registerCraftingRecipies(){
         smelt(MItemLoader.pigleg, MItemLoader.cookedpigleg, 0.5F);
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MItemLoader.filetKnife), new Object[]{
+        /*GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MItemLoader.filetKnife), new Object[]{
                 "ii ",
                 " i ",
                 " s ", 'i', "ingotIron", 's', "stickWood"}));
@@ -28,7 +26,7 @@ public class MeatRecipieHandler {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeatBlockRegistry.HoldingStick), new Object[]{
                 " s ",
                 " s ",
-                "sps", 's', "stickWood", 'p', "plankWood"}));
+                "sps", 's', "stickWood", 'p', "plankWood"}));*/
     }
 
     private static void smelt(Object in, Item out, Float value){

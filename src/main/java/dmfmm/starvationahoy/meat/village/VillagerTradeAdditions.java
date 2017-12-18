@@ -5,6 +5,7 @@ import dmfmm.starvationahoy.meat.item.MItemLoader;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -15,7 +16,7 @@ public class VillagerTradeAdditions {
 
 	public static void addVillager(Side side) {
 		VillagerRegistry.VillagerProfession prof = new SAButcher();
-		VillagerRegistry.instance().register(prof);
+		ForgeRegistries.VILLAGER_PROFESSIONS.register(prof);
 		VillagerRegistry.VillagerCareer carrer = new VillagerRegistry.VillagerCareer(prof, "butcher");
 		carrer.addTrade(1, TradeHandler.trades[0][0]);
 		carrer.addTrade(2, TradeHandler.trades[0][1]);
@@ -59,7 +60,8 @@ public class VillagerTradeAdditions {
 	public static class SAButcher extends VillagerRegistry.VillagerProfession{
 
 		public SAButcher() {
-			super("starvationahoy:SAButcher", "starvationahoy:textures/entity/villagebutcher.png");
+			//TODO: ZOMBIE TEXTURE?
+			super("starvationahoy:SAButcher", "starvationahoy:textures/entity/villagebutcher.png", "starvationahoy:textures/entity/ded.png");
 		}
 	}
 }

@@ -1,7 +1,7 @@
 package dmfmm.starvationahoy.core.items;
 
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +40,6 @@ public class GenericItemLoader {
 
     private static void registerItem(Item item, String name){
         item.setRegistryName(name);
-        GameRegistry.register(item);
+        ForgeRegistries.ITEMS.register(item);
     }
 }

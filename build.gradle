@@ -7,15 +7,15 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 ext.configFile = file "build.properties"
 
@@ -37,7 +37,7 @@ minecraft {
     replace "@VERSION@", "${config.minecraft_version}-${config.mod_version}.${config.build_number}"
 
     runDir = "run"
-	mappings = "snapshot_20161220"
+    mappings = "snapshot_20171003"
 }
 version = "${config.minecraft_version}-${config.mod_version}.${config.build_number}"
 
@@ -45,7 +45,7 @@ version = "${config.minecraft_version}-${config.mod_version}.${config.build_numb
 dependencies {
 
     //compile files('libs/agricraft-2.0.0-0.10.0-a19.jar')
-    compile files('libs/Pam\'s HarvestCraft 1.11.2h.jar')
+    compile files('libs/Pam\'s HarvestCraft 1.12.2a.jar')
 
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..

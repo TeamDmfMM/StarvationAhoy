@@ -1,0 +1,60 @@
+#Tab Name
+itemGroup.StarvationAhoy=Starvation Ahoy
+
+#Armour Overlay Text
+hud.statarmor.saturation=Sättigung
+hud.statarmor.foodSat=Sättigung: %s
+hud.statarmor.hunger=Wiederherstellungsmenge:
+
+#Items
+item.stat_helm.name=Gesundheitsüberwachender Helm
+item.stat_chest.name=Gesundheitsüberwachende Brustplatte
+item.hungerPotion.name=Badcholos Gebräu
+
+#Meat Module Blocks
+tile.HoldingStick.name=Bratspießständer
+tile.MeatHanger.name=Fleischhaken
+
+#Meat Module Items
+item.FiletKnife.name=Filetmesser
+item.ButcherKnife.name=Metzgermesser
+item.Chicken_Skinned.name=Gehäutetes Huhn
+item.Pig_Skinned.name=Gehäutetes Schwein
+item.Cow_Skinned.name=Gehäutete Kuh
+item.Rabbit_Skinned.name=Gehäuteter Hase
+item.Sheep_Skinned.name=Gehäutetes Schaf
+item.Chicken_Dead.name=Hühnerleiche
+item.Pig_Dead.name=Schweineleiche
+item.Cow_Dead.name=Kuhleiche
+item.Rabbit_Dead.name=Hasenleiche
+item.Sheep_Dead.name=Schafsleiche
+item.PigLegs.name=Schweinebeine
+item.CookedPigLeg.name=Gekochte Schweinebeine
+item.infoBook.name=Starvation Ahoy: Infobuch [WIP]
+starvationahoy.misc.dirty=Schmutzig
+tile.cropwashblock.name=Waschfass
+
+#pages
+infobook.title.gettingStarted=Erste Schritte
+infobook.title.starvePotion=Sofortiger Hunger
+infobook.title.healthArmor=Gesundheitsüberwachende Rüstung
+infobook.title.prepingFood=Essen zubereiten
+infobook.title.animalKilling=Tiere schlachten
+infobook.title.animalSkinning=Tiere häuten
+infobook.title.animalCooking=Tiere kochen
+infobook.title.pigLeg=Schweinebeine
+infobook.title.washBarrel=Waschfass
+infobook.title.dirtyItems=Ernte waschen
+infobook.title.levelReduction=Reduzierte Eigenschaften des Essens
+infobook.title.editLevels=Eigenschaften des Essens editieren
+infobook.header.baseModule=Grundlegende Gegenstände
+infobook.header.moduleMeat=Verarbeitung von Tieren
+infobook.header.moduleCropwash=Verarbeitung von Ernte
+infobook.header.moduleMisc=Beliebige Extras
+
+#page Text
+starvationahoy.book_data.page.gettingStarted=<TextBlock|-1|-1|-1|1>{color:orange}{style:bold}Erste Schritte des Infobuchs</><TextBlock|-1|-1|-1>{color:black}Das Infobuch in Starvation Ahoy ist ein einfacher Weg, um herauszufinden, wie diese Modifikation funktioniert. Wenn das Menü dieses Buches nicht offensichtlich sein sollte, hier ein grober Überblick.</><TextBlock|0|-10|1|2>{color:orange}Umblättern, um mehr zu erfahren</><TextBlock|0|-10|3|1>{color:blue}== Die Hauptseite ==</><TextBlock|-1|-1|-1|2>{color:black}Die Hauptseite des Infobuches ist die erste Seite, die beim Öffnen des Buches erscheint. Diese Seite enthält Weiterleitungen zu allen anderen Seiten des Buches.</><Image|0|-10|2|90|120|starvationahoy:textures/gui/book/mainpage.png></>
+starvationahoy.book_data.page.starvePotion=<TextBlock|-1|-9|-1>{color:black}Es könnte gestern gewesen sein, als du noch erbittert versucht hast, deine Hungerleiste zu füllen und nun hast du etwas erschaffen, diese zu leeren! Wirklich jetzt? Dieses Getränk wird 4 Hungerkeulen leeren. Damit du vielleicht mehr essen kannst?</><Crafting|-1|-1|0|starvationahoy:HungerPotion></>
+starvationahoy.book_data.page.healthArmor=<TextBlock|-1|-9|-1>{color:black}Ist das Magie? Nö, nur Wissenschaft. Diese zweiteilige Rüstung macht es möglich, deine Sättigung zu überwachen. Streng genommen ist nur ein Rüstungsteil dafür notwendig. Ziehe die komplette Rüstung an und du kannst Informationen über Essen und Sättigung jedes gehaltenen Essens sehen. Dies könnte ziemlich nützlich sein!</><Crafting|-1|-1|-1|starvationahoy:stat_helm></><Crafting|-1|-1|-1|starvationahoy:stat_chest></>
+starvationahoy.book_data.page.washBarrel=<TextBlock|-1|-9|-1>{color:black}Du hast jeden Tag schmutziges Essen gegessen! Warum würdest du dir so etwas antun? Bitte, baue dir ein einfaches Fass und fülle es mit einem Wassereimer. Du kannst es benutzen, um deine Ernte zu waschen (Rechtsklick mit der schmutzigen Ernte) und um sie essbar zu machen.</><Crafting|-1|-1|-1|starvationahoy:cropwashblock></>
+starvationahoy.book_data.page.dirtyItems=<TextBlock|-1|-9|-1>{color:black}TEST {link:washBarrel}WashBarrel{endlink}</>

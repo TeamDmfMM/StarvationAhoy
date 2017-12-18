@@ -37,7 +37,7 @@ public class InfoBookGUI extends GuiScreen{
         this.interpretBookPages();
         for (int i = 0; i < this.buttonList.size(); ++i)
         {
-            ((GuiButton)this.buttonList.get(i)).drawButton(this.mc, mouseX, mouseY);
+            ((GuiButton)this.buttonList.get(i)).drawButton(this.mc, mouseX, mouseY, partialTicks);
         }
 
     }
@@ -54,7 +54,7 @@ public class InfoBookGUI extends GuiScreen{
             boolean displayPage = obj.getB();
             ItemStack stack = obj.getA();
 
-            this.fontRendererObj.setUnicodeFlag(true);
+            this.fontRenderer.setUnicodeFlag(true);
             if(displayPage) {
                 if (stack != null) {
                     GlStateManager.pushMatrix();
@@ -71,14 +71,14 @@ public class InfoBookGUI extends GuiScreen{
                     //this.fontRendererObj.drawString(StatCollector.translateToLocal("infobook.title." + page), left + 25, top + 6, 000000);
                     top += 9;
                 } else {
-                    int size = this.fontRendererObj.getStringWidth(I18n.format("infobook.header." + page));
+                    int size = this.fontRenderer.getStringWidth(I18n.format("infobook.header." + page));
                     int lefts = width / 2 - size / 2;
-                    this.fontRendererObj.drawString("§n§l"+ I18n.format("infobook.header." + page), lefts -6, top + 6, 000000);
+                    this.fontRenderer.drawString("§n§l"+ I18n.format("infobook.header." + page), lefts -6, top + 6, 000000);
                     top += 11;
                     topItems += 11;
                 }
             }
-            this.fontRendererObj.setUnicodeFlag(false);
+            this.fontRenderer.setUnicodeFlag(false);
         }
 
 

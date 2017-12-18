@@ -307,26 +307,26 @@ public class BookPageGui extends GuiScreen {
             GL11.glPopMatrix();
             GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glDisable(GL11.GL_BLEND);
-            //FontRenderer fontr = this.fontRendererObj;
-            fontRendererObj.setUnicodeFlag(true);
-            fontRendererObj.drawStringWithShadow("Hunger Stats:", x + 19, y, 0x3333FF);
-            fontRendererObj.setUnicodeFlag(false);
+            //FontRenderer fontr = this.fontRenderer;
+            fontRenderer.setUnicodeFlag(true);
+            fontRenderer.drawStringWithShadow("Hunger Stats:", x + 19, y, 0x3333FF);
+            fontRenderer.setUnicodeFlag(false);
 
             ArrayList<String> args = element.args;
 
             if (args.size() > 2) {
                 if (args.get(2).toString().length() > 5) {
                     if (args.get(2).toString().length() > 12) {
-                        fontRendererObj.drawString((String) args.get(2), x + (fontRendererObj.getStringWidth((String) args.get(2)) / 5 - 4), y + 15, 0x0000000);
+                        fontRenderer.drawString((String) args.get(2), x + (fontRenderer.getStringWidth((String) args.get(2)) / 5 - 4), y + 15, 0x0000000);
                     } else {
-                        fontRendererObj.drawString((String) args.get(2), x + (fontRendererObj.getStringWidth((String) args.get(2)) / 5), y + 15, 0x0000000);
+                        fontRenderer.drawString((String) args.get(2), x + (fontRenderer.getStringWidth((String) args.get(2)) / 5), y + 15, 0x0000000);
                     }
                 } else {
-                    fontRendererObj.drawString((String) args.get(2), x + (fontRendererObj.getStringWidth((String) args.get(2)) / 1), y + 15, 0x0000000);
+                    fontRenderer.drawString((String) args.get(2), x + (fontRenderer.getStringWidth((String) args.get(2)) / 1), y + 15, 0x0000000);
                 }
             }
-            fontRendererObj.drawString(String.valueOf(args.get(0)), x + 16 + 50, y + 32, 0x0000000);
-            fontRendererObj.drawString(String.valueOf(args.get(1)), x + 16 + 50, y + 52, 0x0000000);
+            fontRenderer.drawString(String.valueOf(args.get(0)), x + 16 + 50, y + 32, 0x0000000);
+            fontRenderer.drawString(String.valueOf(args.get(1)), x + 16 + 50, y + 52, 0x0000000);
 
             return;
         }
@@ -349,7 +349,7 @@ public class BookPageGui extends GuiScreen {
         int VERTICAL_LEFT_A = 47;
 
 
-        this.fontRendererObj.setUnicodeFlag(false);
+        this.fontRenderer.setUnicodeFlag(false);
         this.mc.getTextureManager().bindTexture(ADDITIVES);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glEnable(GL11.GL_BLEND);
@@ -471,7 +471,7 @@ public class BookPageGui extends GuiScreen {
                         inputs.add(new ItemStack(input.getItem(), input.getCount(), input.getMetadata()));
                     } else {
                         NonNullList<ItemStack> list = NonNullList.create();
-                        input.getItem().getSubItems(input.getItem(), input.getItem().getCreativeTab(), list);
+                        input.getItem().getSubItems(input.getItem().getCreativeTab(), list);
                         inputs.addAll(new ArrayList<>(Arrays.asList(list.toArray(new ItemStack[list.size()]))));
                     }
                 }
@@ -552,10 +552,10 @@ public class BookPageGui extends GuiScreen {
                     BookElement.Token new_token = new BookElement.Token("");
                     for (String word : words) {
                         String next_word = word + " ";
-                        int x_disp = Minecraft.getMinecraft().fontRendererObj.getStringWidth(word) + Minecraft.getMinecraft().fontRendererObj.getCharWidth(' ');
+                        int x_disp = Minecraft.getMinecraft().fontRenderer.getStringWidth(word) + Minecraft.getMinecraft().fontRenderer.getCharWidth(' ');
                         if (xpos + x_disp > maximum) {
                             xpos = -x_disp;
-                            if (ypos + Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT > remain && !nosplit) {
+                            if (ypos + Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT > remain && !nosplit) {
                                 ypos = 0;
                                 xpos = -x_disp;
                                 page += 1;
@@ -565,7 +565,7 @@ public class BookPageGui extends GuiScreen {
                                 elements.add(current);
                                 current = new BookElement("TextBlock", 0, 0, page, element.args, (ArrayList<BookElement.Token>) ctrlTokens.clone());
                             } else {
-                                ypos += Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
+                                ypos += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
                             }
 
                         }
@@ -585,7 +585,7 @@ public class BookPageGui extends GuiScreen {
                     if (!token.data.equals("newline")) {
                         ctrlTokens.add(token);
                     } else {
-                        if (ypos + Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT > remain) {
+                        if (ypos + Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT > remain) {
                             ypos = 0;
                             xpos = 0;
                             page += 1;
@@ -593,16 +593,16 @@ public class BookPageGui extends GuiScreen {
                             elements.add(current);
                             current = new BookElement("TextBlock", 0, 0, page, element.args, (ArrayList<BookElement.Token>) ctrlTokens.clone());
                         } else {
-                            ypos += Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
+                            ypos += Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
                         }
                     }
                     break;
                 case 2:
                     if (Objects.equals(token.value, "align")) {
                         if (token.data.equals("center")) {
-                            ypos += fontRendererObj.FONT_HEIGHT;
+                            ypos += fontRenderer.FONT_HEIGHT;
                         } else {
-                            ypos += fontRendererObj.FONT_HEIGHT;
+                            ypos += fontRenderer.FONT_HEIGHT;
                         }
                     }
                     current.data.add(token);
@@ -616,7 +616,7 @@ public class BookPageGui extends GuiScreen {
         }
         int style = Integer.parseInt(element.args.get(0));
         if (style == 1) {
-            //  ypos += mc.fontRendererObj.FONT_HEIGHT;
+            //  ypos += mc.fontRenderer.FONT_HEIGHT;
         }
         elements.add(current);
         elements.add(new BookElement("EndMarker", xpos, ypos, page, null, null));
@@ -631,7 +631,7 @@ public class BookPageGui extends GuiScreen {
         // 1 = drawSegment1
         // 2+ = drawSegment2+
 
-        this.fontRendererObj.setUnicodeFlag(true);
+        this.fontRenderer.setUnicodeFlag(true);
 
         HashMap<String, Integer> colors = new HashMap<String, Integer>() {{
             this.put("red", toArmorCode(255, 85, 85));
@@ -676,14 +676,14 @@ public class BookPageGui extends GuiScreen {
         HashMap<Integer, Integer> lens = new HashMap<>();
         int i = 0;
         if (style != 0) {
-            ypos -= fontRendererObj.FONT_HEIGHT;
+            ypos -= fontRenderer.FONT_HEIGHT;
 
-            for (String s : fontRendererObj.listFormattedStringToWidth(BookPage.tokenized(element.data, new HashMap<String, String>() {{
+            for (String s : fontRenderer.listFormattedStringToWidth(BookPage.tokenized(element.data, new HashMap<String, String>() {{
                         put("newline", "\n");
                     }}
             ), maximum)) {
                 if (Objects.equals(s, " ")) { continue; }
-                lens.put(i, fontRendererObj.getStringWidth(s));
+                lens.put(i, fontRenderer.getStringWidth(s));
                 i += 1;
             }
         }
@@ -720,10 +720,10 @@ public class BookPageGui extends GuiScreen {
                             if ((line_status & 16) == 16) {
                                 origString = "§k" + origString;
                             }
-                            int x_displacement = fontRendererObj.getStringWidth(word) + fontRendererObj.getCharWidth(' ');
+                            int x_displacement = fontRenderer.getStringWidth(word) + fontRenderer.getCharWidth(' ');
                             if (xpos + x_displacement > maximum) {
                                 xpos = element.x;
-                                ypos += this.fontRendererObj.FONT_HEIGHT;
+                                ypos += this.fontRenderer.FONT_HEIGHT;
                                 if (drawing_link) {
                                     if (!initLists) {
 
@@ -731,7 +731,7 @@ public class BookPageGui extends GuiScreen {
                                         links.put(new int[]{line_start_x + x_x, line_start_y + y_y, line_end_x + x_x, line_end_y + y_y}, link_id);
                                         line_start_x = xpos;
                                         line_start_y = ypos;
-                                        line_end_y = ypos + this.fontRendererObj.FONT_HEIGHT;
+                                        line_end_y = ypos + this.fontRenderer.FONT_HEIGHT;
                                         line_end_x = xpos;
                                     }
                                 }
@@ -746,7 +746,7 @@ public class BookPageGui extends GuiScreen {
                                 line_end_x += x_displacement;
                             }
 
-                            fontRendererObj.drawString(origString + " ", xpos + x_x, ypos + y_y, docolor);
+                            fontRenderer.drawString(origString + " ", xpos + x_x, ypos + y_y, docolor);
                             xpos += x_displacement;
                         }
 
@@ -768,7 +768,7 @@ public class BookPageGui extends GuiScreen {
 
                         }
                         cent_extra = xpos - element.x;
-                        String last = this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).get(this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).size() - 1);
+                        String last = this.fontRenderer.listFormattedStringToWidth(origString, maximum - cent_extra).get(this.fontRenderer.listFormattedStringToWidth(origString, maximum - cent_extra).size() - 1);
                         String[] words = origString.split(" ");
                         for (String s : words) {
                             String str = (String) s + " ";
@@ -788,17 +788,17 @@ public class BookPageGui extends GuiScreen {
                                 str = "§k" + str;
 
                             }
-                            int len = fontRendererObj.getStringWidth(str);
+                            int len = fontRenderer.getStringWidth(str);
                             int remain = (lens.get(j) - len) + 1;
                             if (lens.get(j) == lens2.get(j)) {
                                 xpos = element.x + (maximum / 2) - (lens2.get(j) / 2);
                             }
                             lens.put(j, remain);
-                            fontRendererObj.drawString(str, xpos + x_x, ypos + y_y, currcolor);
+                            fontRenderer.drawString(str, xpos + x_x, ypos + y_y, currcolor);
                             xpos += len;
                             if (remain < 0) {
                                 j += 1;
-                                ypos += fontRendererObj.FONT_HEIGHT;
+                                ypos += fontRenderer.FONT_HEIGHT;
                             }
                         }
 
@@ -820,21 +820,21 @@ public class BookPageGui extends GuiScreen {
 
                         }
                         cent_extra = xpos - element.x;
-                        String last = this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).get(this.fontRendererObj.listFormattedStringToWidth(origString, maximum - cent_extra).size() - 1);
+                        String last = this.fontRenderer.listFormattedStringToWidth(origString, maximum - cent_extra).get(this.fontRenderer.listFormattedStringToWidth(origString, maximum - cent_extra).size() - 1);
                         String[] words = origString.split(" ");
                         for (String s : words) {
                             String str = (String) s + " ";
-                            int len = fontRendererObj.getStringWidth(str);
+                            int len = fontRenderer.getStringWidth(str);
                             int remain = lens.get(j) - len;
                             if (lens.get(j) == lens2.get(j)) {
                                 xpos = element.x + maximum - lens2.get(j);
                             }
                             lens.put(j, remain);
-                            fontRendererObj.drawString(str, xpos + x_x, ypos + y_y, currcolor);
+                            fontRenderer.drawString(str, xpos + x_x, ypos + y_y, currcolor);
                             xpos += len;
                             if (remain <= 0) {
                                 j += 1;
-                                ypos += fontRendererObj.FONT_HEIGHT;
+                                ypos += fontRenderer.FONT_HEIGHT;
                             }
                         }
 
@@ -847,7 +847,7 @@ public class BookPageGui extends GuiScreen {
                     switch (t.data) {
                         case "newline":
                             if (style == 0) {
-                                ypos += this.fontRendererObj.FONT_HEIGHT;
+                                ypos += this.fontRenderer.FONT_HEIGHT;
                             }
 
                             xpos = element.x;
@@ -858,7 +858,7 @@ public class BookPageGui extends GuiScreen {
                                 links.put(new int[]{line_start_x + x_x, line_start_y + y_y, line_end_x + x_x, line_end_y + y_y}, link_id);
                                 line_start_x = xpos;
                                 line_start_y = ypos;
-                                line_end_y = ypos + this.fontRendererObj.FONT_HEIGHT;
+                                line_end_y = ypos + this.fontRenderer.FONT_HEIGHT;
                                 line_end_x = xpos;
                             }
                             break;
@@ -916,14 +916,14 @@ public class BookPageGui extends GuiScreen {
                             line_start_x = xpos;
                             line_start_y = ypos;
                             line_end_x = xpos;
-                            line_end_y = ypos + this.fontRendererObj.FONT_HEIGHT;
+                            line_end_y = ypos + this.fontRenderer.FONT_HEIGHT;
                             drawing_link = true;
                     }
             }
         }
 
 
-        this.fontRendererObj.setUnicodeFlag(false);
+        this.fontRenderer.setUnicodeFlag(false);
         initLists = false;
         return null;
 

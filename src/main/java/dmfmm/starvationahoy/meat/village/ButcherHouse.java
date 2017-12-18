@@ -22,7 +22,7 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
-import net.minecraftforge.fml.common.registry.VillagerRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -197,7 +197,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	@Override
 	protected net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession chooseForgeProfession(int count, net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession prof)
 	{
-		return VillagerRegistry.instance().getRegistry().getValue(new ResourceLocation("starvationahoy:SAButcher"));
+		return ForgeRegistries.VILLAGER_PROFESSIONS.getValue(new ResourceLocation("starvationahoy:SAButcher"));
 	}
 	
 	

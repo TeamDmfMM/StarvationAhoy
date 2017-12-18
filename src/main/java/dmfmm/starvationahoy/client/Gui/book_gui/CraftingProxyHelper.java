@@ -2,11 +2,9 @@ package dmfmm.starvationahoy.client.Gui.book_gui;
 
 import dmfmm.starvationahoy.core.util.SALog;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.item.crafting.*;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -24,7 +22,7 @@ public class CraftingProxyHelper {
     ArrayList<ArrayList<ItemStack>> items = new ArrayList<>();
 
     public CraftingProxyHelper(ItemStack target) {
-        for (IRecipe r : CraftingManager.getInstance().getRecipeList()) {
+        for (IRecipe r : ForgeRegistries.RECIPES.getValues()) {
             try {
                 if (r.getRecipeOutput().getItem() == target.getItem()) {
                     if (!(r instanceof ShapelessRecipes || r instanceof ShapedRecipes || r instanceof ShapedOreRecipe || r instanceof ShapelessOreRecipe)) {
@@ -47,7 +45,8 @@ public class CraftingProxyHelper {
 
     private void eat(){
         if (recipe instanceof ShapedRecipes) {
-            for (final ItemStack i : ((ShapedRecipes) recipe).recipeItems) {
+            for (final Ingredient z : ((ShapedRecipes) recipe).getIngredients()) {
+                ItemStack i = z.getMatchingStacks()[0];
                 if (i == null) {
                     items.add(new ArrayList<ItemStack>() {{add(null);}});
                 }
@@ -57,14 +56,15 @@ public class CraftingProxyHelper {
                     }
                     else {
                         NonNullList<ItemStack> subItems = NonNullList.create();
-                        i.getItem().getSubItems(i.getItem(), i.getItem().getCreativeTab(), subItems);
+                        i.getItem().getSubItems(i.getItem().getCreativeTab(), subItems);
                         items.add(new ArrayList<>(Arrays.asList(subItems.toArray(new ItemStack[subItems.size()]))));
                     }
                 }
             }
         }
         else if (recipe instanceof ShapelessRecipes){
-            for (final ItemStack i : ((ShapelessRecipes) recipe).recipeItems) {
+            for (final Ingredient z : ((ShapedRecipes) recipe).getIngredients()) {
+                ItemStack i = z.getMatchingStacks()[0];
                 if (i == null) {
                     items.add(new ArrayList<ItemStack>() {{add(null);}});
                 }
@@ -74,7 +74,7 @@ public class CraftingProxyHelper {
                     }
                     else {
                         NonNullList<ItemStack> subItems = NonNullList.create();
-                        i.getItem().getSubItems(i.getItem(), i.getItem().getCreativeTab(), subItems);
+                        i.getItem().getSubItems(i.getItem().getCreativeTab(), subItems);
                         items.add(new ArrayList<>(Arrays.asList(subItems.toArray(new ItemStack[subItems.size()]))));
                     }
                 }
@@ -84,47 +84,36 @@ public class CraftingProxyHelper {
             }
         }
         else if (recipe instanceof ShapedOreRecipe){
-            for (Object object: ((ShapedOreRecipe) recipe).getInput()){
-                if (object instanceof ItemStack) {
-                    final ItemStack i = (ItemStack) object;
-                    if (i.getMetadata() != 32767){
-                        items.add(new ArrayList<ItemStack>() {{add(i);}});
-                    }
-                    else {
-                        NonNullList<ItemStack> subItems = NonNullList.create();
-                        i.getItem().getSubItems(i.getItem(), i.getItem().getCreativeTab(), subItems);
-                        items.add(new ArrayList<>(Arrays.asList(subItems.toArray(new ItemStack[subItems.size()]))));
-                    }
-                }
-                else if (object instanceof List){
+            for (Ingredient z : ((ShapedOreRecipe) recipe).getIngredients()) {
+                ItemStack[] object = z.getMatchingStacks();
+                if (object == null) {
+                    items.add(new ArrayList<ItemStack>() {{add(null);}});
+                }else {
                     ArrayList<ItemStack> newItems = new ArrayList<>();
-                    for (ItemStack istack : (List<ItemStack>)object){
+                    for (ItemStack istack : object){
                         if (istack.getMetadata() != 32767){
                             newItems.add(istack);
                         }
                         else {
                             NonNullList<ItemStack> subItems = NonNullList.create();
-                            istack.getItem().getSubItems(istack.getItem(), istack.getItem().getCreativeTab(), subItems);
+                            istack.getItem().getSubItems(istack.getItem().getCreativeTab(), subItems);
                             newItems.addAll(subItems);
                         }
                     }
                     items.add(newItems);
                 }
-                else if (object == null) {
-                    items.add(new ArrayList<ItemStack>() {{add(null);}});
-                }
             }
         }
         else if (recipe instanceof ShapelessOreRecipe){
-            for (Object object: ((ShapelessOreRecipe) recipe).getInput()){
-                if (object instanceof ItemStack) {
-                    final ItemStack i = (ItemStack) object;
+            for (Ingredient object: ((ShapelessOreRecipe) recipe).getIngredients()){
+                if (object.getMatchingStacks()[0] instanceof ItemStack) {
+                    final ItemStack i = (ItemStack) object.getMatchingStacks()[0];
                     if (i.getMetadata() != 32767){
                         items.add(new ArrayList<ItemStack>() {{add(i);}});
                     }
                     else {
                         NonNullList<ItemStack> subItems = NonNullList.create();
-                        i.getItem().getSubItems(i.getItem(), i.getItem().getCreativeTab(), subItems);
+                        i.getItem().getSubItems(i.getItem().getCreativeTab(), subItems);
                         items.add(new ArrayList<>(Arrays.asList(subItems.toArray(new ItemStack[subItems.size()]))));
                     }
                 }
@@ -136,7 +125,7 @@ public class CraftingProxyHelper {
                         }
                         else {
                             NonNullList<ItemStack> subItems = NonNullList.create();
-                            istack.getItem().getSubItems(istack.getItem(), istack.getItem().getCreativeTab(), subItems);
+                            istack.getItem().getSubItems(istack.getItem().getCreativeTab(), subItems);
                             newItems.addAll(subItems);
                         }
                     }

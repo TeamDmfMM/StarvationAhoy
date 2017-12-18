@@ -1,24 +1,27 @@
 package dmfmm.starvationahoy.proxy;
 
-import dmfmm.starvationahoy.core.HUD.OverlaySaturationBar;
-import dmfmm.starvationahoy.core.Init.SASoundEvent;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.passive.*;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import dmfmm.starvationahoy.client.Renderer.*;
+import dmfmm.starvationahoy.core.HUD.OverlaySaturationBar;
+import dmfmm.starvationahoy.core.Init.CoreTextureRegistry;
+import dmfmm.starvationahoy.core.Init.SASoundEvent;
 import dmfmm.starvationahoy.crops.Block.tilentity.TileEntityCropWasher;
-import dmfmm.starvationahoy.meat.block.tileentity.HoldingStickTileEntity;
-import dmfmm.starvationahoy.meat.block.tileentity.MeatHangerTileEntity;
 import dmfmm.starvationahoy.meat.MeatType;
 import dmfmm.starvationahoy.meat.ModuleMeat;
+import dmfmm.starvationahoy.meat.block.tileentity.HoldingStickTileEntity;
+import dmfmm.starvationahoy.meat.block.tileentity.MeatHangerTileEntity;
 import dmfmm.starvationahoy.meat.item.MItemLoader;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.passive.*;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
@@ -26,13 +29,15 @@ import org.lwjgl.input.Keyboard;
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy{
 
+    private HTArmor armorModel = new HTArmor();
+
     @Override
     public ModelBiped getArmorModel(ModelBiped model, EntityEquipmentSlot slot) {
         switch(slot){
             case HEAD:
                 return model;
             case CHEST:
-                return new HTArmor();
+                return armorModel;
             default:
                 return null;
         }
@@ -47,6 +52,7 @@ public class ClientProxy extends CommonProxy{
     public void preInit() {
         //OBJLoader.INSTANCE.addDomain(ModInfo.MOD_ID);
         MinecraftForge.EVENT_BUS.register(new OverlaySaturationBar(Minecraft.getMinecraft()));
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
 
@@ -90,4 +96,8 @@ public class ClientProxy extends CommonProxy{
 	}
 
 
+	@SubscribeEvent
+    public void registerItemModels(ModelRegistryEvent event) {
+        CoreTextureRegistry.initTextures();
+    }
 }

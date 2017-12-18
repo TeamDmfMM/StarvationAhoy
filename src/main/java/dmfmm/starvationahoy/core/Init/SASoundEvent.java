@@ -1,7 +1,9 @@
 package dmfmm.starvationahoy.core.Init;
 
+import dmfmm.starvationahoy.core.lib.ModInfo;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 /**
  * Created by TeamDMFMM on 4/17/2016. Code originally written
@@ -14,10 +16,7 @@ public class SASoundEvent {
 
     public static SoundEvent pageFlip;
 
-    private static int size = 0;
-
     public static void init() {
-        size = SoundEvent.REGISTRY.getKeys().size();
 
         pageFlip = register("pageFlip");
     }
@@ -25,9 +24,9 @@ public class SASoundEvent {
     public static SoundEvent register(String name) {
         ResourceLocation loc = new ResourceLocation("starvationahoy:" + name);
         SoundEvent e = new SoundEvent(loc);
+        e.setRegistryName(ModInfo.MOD_ID + ":" + name);
 
-        SoundEvent.REGISTRY.register(size, loc, e);
-        size++;
+        ForgeRegistries.SOUND_EVENTS.register(e);
 
         return e;
     }

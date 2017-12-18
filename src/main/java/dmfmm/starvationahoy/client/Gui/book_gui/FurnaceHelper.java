@@ -66,11 +66,11 @@ public class FurnaceHelper {
         LinkedList<ItemStack> items = new LinkedList<ItemStack>();
         for (Item item : (Iterable<Item>) Item.REGISTRY) {
 
-            if (item == null)
+            if (item == null || item.getCreativeTab() == null)
                 continue;
 
             NonNullList<ItemStack> list = NonNullList.create();
-            item.getSubItems(item, item.getCreativeTab(), list);
+            item.getSubItems(item.getCreativeTab(), list);
             items.addAll(new ArrayList<>(Arrays.asList(list.toArray(new ItemStack[list.size()]))));
         }
         iteml = items;

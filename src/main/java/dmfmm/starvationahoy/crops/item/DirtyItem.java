@@ -21,10 +21,7 @@ import net.minecraftforge.common.IPlantable;
 public class DirtyItem extends Item {
 
 
-//    IIcon dirtyOverlay;
-
     public DirtyItem() {
-        //this.setTextureName("starvationahoy:dirty_overlay");
     }
 
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)

@@ -1,14 +1,15 @@
 package dmfmm.starvationahoy.meat;
 
+import dmfmm.starvationahoy.StarvationAhoy;
 import dmfmm.starvationahoy.core.Init.MeatTextureRegistry;
 import dmfmm.starvationahoy.meat.events.AnimalDeathEvent;
 import dmfmm.starvationahoy.meat.events.MeatCutRoasterEvent;
 import dmfmm.starvationahoy.meat.events.MeatSkinnedEvent;
+import dmfmm.starvationahoy.meat.init.MeatEnchantRegistry;
 import dmfmm.starvationahoy.meat.item.MItemLoader;
 import dmfmm.starvationahoy.meat.village.BHHandler;
 import dmfmm.starvationahoy.meat.village.ButcherHouse;
 import dmfmm.starvationahoy.meat.village.VillagerTradeAdditions;
-import dmfmm.starvationahoy.StarvationAhoy;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
@@ -22,6 +23,7 @@ public class ModuleMeat {
 
 
 	public static void preinit(Side side){
+		MeatEnchantRegistry.registerEnchantments();
 		MItemLoader.initiateItems();
 		VillagerRegistry.instance().registerVillageCreationHandler(new BHHandler()); 
         try { 

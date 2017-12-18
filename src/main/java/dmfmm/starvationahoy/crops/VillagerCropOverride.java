@@ -26,10 +26,10 @@ public class VillagerCropOverride {
             if(villager.getProfessionForge().getCareer(0).getName().equals("farmer")){
                 EntityItem item = isItemstackInRange(villager.getEntityWorld(), villager.posX, villager.posY, villager.posZ, 2);
                 if(item != null){
-                    if (item.getEntityItem().getItem() instanceof DirtyItem){
-                        Item l = new ItemStack(item.getEntityItem().getTagCompound().getCompoundTag("Original")).getItem();
+                    if (item.getItem().getItem() instanceof DirtyItem){
+                        Item l = new ItemStack(item.getItem().getTagCompound().getCompoundTag("Original")).getItem();
 
-                        EntityItem newItem = new EntityItem(villager.getEntityWorld(), item.posX, item.posY, item.posZ, new ItemStack(l, item.getEntityItem().getCount()));
+                        EntityItem newItem = new EntityItem(villager.getEntityWorld(), item.posX, item.posY, item.posZ, new ItemStack(l, item.getItem().getCount()));
                         item.setDead();
                         if(!villager.getEntityWorld().isRemote){
                             villager.getEntityWorld().spawnEntity(newItem);

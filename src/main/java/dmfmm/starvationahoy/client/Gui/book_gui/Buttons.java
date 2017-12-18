@@ -37,9 +37,10 @@ public class Buttons {
             isForward = par4;
         }
 
-        public void drawButton(Minecraft mc, int par2, int par3){
+        @Override
+        public void drawButton(Minecraft mc, int par2, int par3, float partialTicks){
             if (this.visible){
-                boolean flag = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
+                boolean flag = par2 >= this.x && par3 >= this.y && par2 < this.x + this.width && par3 < this.y + this.height;
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 GL11.glEnable(GL11.GL_BLEND);
 
@@ -56,7 +57,7 @@ public class Buttons {
                     l += ARROW_BUTTON_HEIGHT;
                 }
 
-                this.drawTexturedModalRect(this.xPosition, this.yPosition, k, l, ARROW_BUTTON_WIDTH, ARROW_BUTTON_HEIGHT);
+                this.drawTexturedModalRect(this.x, this.y, k, l, ARROW_BUTTON_WIDTH, ARROW_BUTTON_HEIGHT);
                 GL11.glDisable(GL11.GL_BLEND);
             }
         }

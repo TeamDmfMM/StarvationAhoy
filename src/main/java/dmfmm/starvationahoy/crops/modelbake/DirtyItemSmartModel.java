@@ -2,7 +2,6 @@ package dmfmm.starvationahoy.crops.modelbake;
 
 
 import com.google.common.base.Function;
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -10,6 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,19 +23,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
-import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.util.vector.Vector3f;
 
-import javax.vecmath.Matrix4f;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by mincrmatt12. Do not copy this or you will have to face
  * our legal team. (dmf444)
  */
-public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetexturableModel {
+public class DirtyItemSmartModel implements IModel {
 
     ResourceLocation orig_tex = new ResourceLocation("starvationahoy", "items/dirty_overlay");
 
@@ -44,7 +43,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
     static DirtyItemSmartModel MODEL = new DirtyItemSmartModel();
 
     public DirtyItemSmartModel() {
-        this(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(Items.APPLE))); // # should be a missingtex.
+        this(ModelLoaderRegistry.getMissingModel().bake(ModelLoaderRegistry.getMissingModel().getDefaultState(), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter())); // # should be a missingtex.
     }
 
     public DirtyItemSmartModel(IBakedModel mimic) {
@@ -108,8 +107,8 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
     }
 
     @Override
-    public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-        ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper.getTransforms(BakedDirtyModel.getItemCameraTransforms2());
+    public IBakedModel bake(IModelState state, VertexFormat format, java.util.function.Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+        ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = PerspectiveMapWrapper.getTransforms(BakedDirtyModel.getItemCameraTransforms2());
         TextureAtlasSprite baseSprite;
         try {
             baseSprite = this.mimicky.getParticleTexture();
@@ -120,8 +119,8 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         TextureAtlasSprite overlaySprite = bakedTextureGetter.apply(this.orig_tex);
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
 
-        builder.addAll(ItemLayerModel.getQuadsForSprite(0, baseSprite, format, Optional.<TRSRTransformation>absent()));
-        builder.addAll(ItemLayerModel.getQuadsForSprite(1, overlaySprite, format, Optional.<TRSRTransformation>absent()));
+        builder.addAll(ItemLayerModel.getQuadsForSprite(0, baseSprite, format, Optional.empty()));
+        builder.addAll(ItemLayerModel.getQuadsForSprite(1, overlaySprite, format, Optional.empty()));
 
         return new BakedDirtyModel(this, builder.build(), baseSprite, format, transformMap);
 
@@ -133,7 +132,7 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         return TRSRTransformation.identity();
     }
 
-    public static class BakedDirtyModel implements IPerspectiveAwareModel {
+    public static class BakedDirtyModel extends BakedItemModel {
 
         private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
         private final Map<Item, IBakedModel> cache;
@@ -143,17 +142,13 @@ public class DirtyItemSmartModel implements IModel, IModelCustomData, IRetextura
         private final DirtyItemSmartModel parent;
 
         public BakedDirtyModel(DirtyItemSmartModel parent, ImmutableList<BakedQuad> quadrilaterals, TextureAtlasSprite particle, VertexFormat fmt, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
+            super(quadrilaterals, particle, transforms, DirtyOverrides.INSTANCE);
             this.quads = quadrilaterals;
             this.particle = particle;
             this.format = fmt;
             this.parent = parent;
             this.transforms = transforms;
             this.cache = Maps.newHashMap();
-        }
-
-        @Override
-        public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-            return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, transforms, cameraTransformType);
         }
 
         @Override

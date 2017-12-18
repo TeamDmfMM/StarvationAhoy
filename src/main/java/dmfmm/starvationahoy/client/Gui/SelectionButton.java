@@ -30,21 +30,23 @@ public class SelectionButton extends GuiButton{
     public String getPageName(){
         return text;
     }
-    public void drawButton(Minecraft mc, int mouseX, int mouseY){
-        FontRenderer fontrenderer = mc.fontRendererObj;
+
+    @Override
+    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks){
+        FontRenderer fontrenderer = mc.fontRenderer;
 
         fontrenderer.setUnicodeFlag(true);
         int color=000000;
-        if(mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height){
+        if(mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height){
             color = 10066431;
             GlStateManager.pushMatrix();
             Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("starvationahoy", "textures/gui/infobookmain.png"));
             GlStateManager.color(1f, 1f, 0.8f);
-            this.drawTexturedModalRect(xPosition, yPosition, 0, 180, 118, 9);
+            this.drawTexturedModalRect(x, y, 0, 180, 118, 9);
             GlStateManager.popMatrix();
         }
 
-        fontrenderer.drawString(I18n.format("infobook.title." + text), (int) xPosition+15, yPosition, color);
+        fontrenderer.drawString(I18n.format("infobook.title." + text), (int) x+15, y, color);
         fontrenderer.setUnicodeFlag(false);
     }
 

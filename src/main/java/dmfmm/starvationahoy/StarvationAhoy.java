@@ -1,20 +1,22 @@
 package dmfmm.starvationahoy;
 
+import dmfmm.starvationahoy.api.StarvationAhoyRegistry;
 import dmfmm.starvationahoy.client.Gui.book_gui.FurnaceHelper;
-import dmfmm.starvationahoy.core.*;
-import dmfmm.starvationahoy.core.event.ConfigChangeEvent;
-import dmfmm.starvationahoy.core.Init.CoreTextureRegistry;
+import dmfmm.starvationahoy.core.CoreRecipies;
+import dmfmm.starvationahoy.core.GuiHandler;
+import dmfmm.starvationahoy.core.IMCRerouter;
 import dmfmm.starvationahoy.core.Init.CropwashTextureRegistry;
 import dmfmm.starvationahoy.core.Init.MeatTextureRegistry;
+import dmfmm.starvationahoy.core.StarvationAhoyProvider;
+import dmfmm.starvationahoy.core.event.ConfigChangeEvent;
 import dmfmm.starvationahoy.core.items.ItemLoad;
 import dmfmm.starvationahoy.core.lib.ModInfo;
 import dmfmm.starvationahoy.core.util.CRef;
 import dmfmm.starvationahoy.core.util.ConfigHandler;
 import dmfmm.starvationahoy.core.util.SALog;
 import dmfmm.starvationahoy.crops.ModuleCropWash;
-import dmfmm.starvationahoy.meat.block.multiblock.net.PacketMultiBlock;
 import dmfmm.starvationahoy.meat.ModuleMeat;
-import dmfmm.starvationahoy.api.StarvationAhoyRegistry;
+import dmfmm.starvationahoy.meat.block.multiblock.net.PacketMultiBlock;
 import dmfmm.starvationahoy.proxy.CommonProxy;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
@@ -24,7 +26,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -92,7 +97,6 @@ public class StarvationAhoy {
 	public void load(FMLInitializationEvent event){
 
 		//Module Loading
-		ItemLoad.registerItems();
 		CoreRecipies.registerRecipies();
 		ModuleCropWash.init(event.getSide());
 		ModuleMeat.init();
@@ -103,18 +107,13 @@ public class StarvationAhoy {
 		//proxy.registerKeyBindings();
 
 		if(event.getSide() == Side.CLIENT){
-			CoreTextureRegistry.initTextures();
 			if(CRef.useCropwash()) {
 				CropwashTextureRegistry.initTextures();
 			}
 			if(CRef.useMeatOverride()){
 				MeatTextureRegistry.initTextures();
 			}
-
-
 		}
-
-
     }
 	
 	@EventHandler
