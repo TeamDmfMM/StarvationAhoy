@@ -24,10 +24,10 @@ public class MultiBlockChecking {
         }
 
         public void crtn_a(World w){
-            w.setBlockState(new BlockPos(x, y, z), MeatBlockRegistry.Cooker.getDefaultState());
+            w.setBlockState(new BlockPos(x, y, z), MeatBlockRegistry.COOKER.getDefaultState());
         }
         public void crtn_b(World w){
-            w.setBlockState(new BlockPos(x, y, z), MeatBlockRegistry.HoldingStick.getDefaultState());
+            w.setBlockState(new BlockPos(x, y, z), MeatBlockRegistry.HOLDING_STICK.getDefaultState());
         }
 
     }
@@ -37,27 +37,27 @@ public class MultiBlockChecking {
         BC bpos0, bpos1, bpos2, bpos3;
         int or = 0;
 
-        if (w.getBlockState(new BlockPos(x, y, z + 3)).getBlock() == MeatBlockRegistry.HoldingStick){
+        if (w.getBlockState(new BlockPos(x, y, z + 3)).getBlock() == MeatBlockRegistry.HOLDING_STICK){
             bpos0 = new BC(x, y, z);
             bpos3 = new BC(x, y, z+3);
             bpos2 = new BC(x, y, z+2);
             bpos1 = new BC(x, y, z+1);
             or = 1;
         }
-        else if (getBlock(w, x, y, z - 3) == MeatBlockRegistry.HoldingStick){
+        else if (getBlock(w, x, y, z - 3) == MeatBlockRegistry.HOLDING_STICK){
             bpos3 = new BC(x, y, z);
             bpos0 = new BC(x, y, z-3);
             bpos1 = new BC(x, y, z-2);
             bpos2 = new BC(x, y, z-1);
             or = 1;
         }
-        else if (getBlock(w, x + 3, y, z) == MeatBlockRegistry.HoldingStick){
+        else if (getBlock(w, x + 3, y, z) == MeatBlockRegistry.HOLDING_STICK){
             bpos0 = new BC(x, y, z);
             bpos3 = new BC(x+3, y, z);
             bpos2 = new BC(x+2, y, z);
             bpos1 = new BC(x+1, y, z);
 
-        }else if (getBlock(w, x - 3, y, z) == MeatBlockRegistry.HoldingStick){
+        }else if (getBlock(w, x - 3, y, z) == MeatBlockRegistry.HOLDING_STICK){
             bpos3 = new BC(x, y, z);
             bpos0 = new BC(x-3, y, z);
             bpos1 = new BC(x-2, y, z);

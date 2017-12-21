@@ -5,11 +5,11 @@ package dmfmm.starvationahoy.core.lib;
  */
 public class CoreLib {
 
-    public static final String Helmet = "stat_helm";
-    public static final String Chestplate = "stat_chest";
+    public static final String STAT_HELM = "stat_helm";
+    public static final String STAT_CHEST = "stat_chest";
 
-    public static final String potion = "hungerPotion";
-    public static final String book = "infoBook";
+    public static final String HUNGER_POTION = "hungerPotion";
+    public static final String INFO_BOOK = "infoBook";
 
-    public static final int bookGUIID = 444;
+    public static final int BOOK_GUI_ID = 444;
 }

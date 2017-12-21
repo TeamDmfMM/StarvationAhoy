@@ -1,15 +1,17 @@
 package dmfmm.starvationahoy.proxy;
 
 import dmfmm.starvationahoy.client.Renderer.*;
-import dmfmm.starvationahoy.core.HUD.OverlaySaturationBar;
-import dmfmm.starvationahoy.core.Init.CoreTextureRegistry;
-import dmfmm.starvationahoy.core.Init.SASoundEvent;
-import dmfmm.starvationahoy.crops.Block.tilentity.TileEntityCropWasher;
+import dmfmm.starvationahoy.client.gui.hud.OverlaySaturationBar;
+import dmfmm.starvationahoy.client.TextureRegistry;
+import dmfmm.starvationahoy.core.init.SoundRegistry;
+import dmfmm.starvationahoy.core.util.ConfigHandler;
+import dmfmm.starvationahoy.crops.block.tilentity.TileEntityCropWasher;
+import dmfmm.starvationahoy.client.modelbake.TextureInjector;
 import dmfmm.starvationahoy.meat.MeatType;
 import dmfmm.starvationahoy.meat.ModuleMeat;
 import dmfmm.starvationahoy.meat.block.tileentity.HoldingStickTileEntity;
 import dmfmm.starvationahoy.meat.block.tileentity.MeatHangerTileEntity;
-import dmfmm.starvationahoy.meat.item.MItemLoader;
+import dmfmm.starvationahoy.meat.init.MeatItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.settings.KeyBinding;
@@ -45,14 +47,19 @@ public class ClientProxy extends CommonProxy{
 
     @Override
     public void initSounds() {
-        SASoundEvent.init();
+        SoundRegistry.init();
     }
 
     @Override
     public void preInit() {
-        //OBJLoader.INSTANCE.addDomain(ModInfo.MOD_ID);
+        super.preInit();
+
         MinecraftForge.EVENT_BUS.register(new OverlaySaturationBar(Minecraft.getMinecraft()));
         MinecraftForge.EVENT_BUS.register(this);
+
+        if(ConfigHandler.useCropwash()) {
+            MinecraftForge.EVENT_BUS.register(new TextureInjector());
+        }
     }
 
 
@@ -75,29 +82,29 @@ public class ClientProxy extends CommonProxy{
 
 		MeatType mt = new MeatType(1);
 		mt.doMeatType(new ModelCowSA(), "minecraft:textures/entity/cow/cow.png", "starvationahoy:textures/entity/skinned_cow.png", "starvationahoy:textures/entity/rottenCow.png");
-		mt.doDeadEntity(EntityCow.class, MItemLoader.deadCow, Items.LEATHER, Items.COOKED_BEEF, MItemLoader.skinlessCow);
+		mt.doDeadEntity(EntityCow.class, MeatItemRegistry.DEAD_COW, Items.LEATHER, Items.COOKED_BEEF, MeatItemRegistry.SKINLESS_COW);
 		ModuleMeat.registry.addMeatType(mt);
 		mt = new MeatType(2);
 		mt.doMeatType(new ModelPigSA(), "minecraft:textures/entity/pig/pig.png", "starvationahoy:textures/entity/skinned_pig.png", "starvationahoy:textures/entity/rottenPig.png");
-		mt.doDeadEntity(EntityPig.class, MItemLoader.deadPig, null, Items.COOKED_PORKCHOP, MItemLoader.skinlessPig);
+		mt.doDeadEntity(EntityPig.class, MeatItemRegistry.DEAD_PIG, null, Items.COOKED_PORKCHOP, MeatItemRegistry.SKINLESS_PIG);
 		ModuleMeat.registry.addMeatType(mt);
 		mt = new MeatType(3);
 		mt.doMeatType(new ModelChickenSA(), "minecraft:textures/entity/chicken.png", "starvationahoy:textures/entity/skinned_chicken.png", "starvationahoy:textures/entity/rottenChicken.png");
-		mt.doDeadEntity(EntityChicken.class, MItemLoader.deadChicken, Items.FEATHER, Items.COOKED_CHICKEN, MItemLoader.skinlessChicken);
+		mt.doDeadEntity(EntityChicken.class, MeatItemRegistry.DEAD_CHICKEN, Items.FEATHER, Items.COOKED_CHICKEN, MeatItemRegistry.SKINLESS_CHICKEN);
 		ModuleMeat.registry.addMeatType(mt);
         mt = new MeatType(4);
         mt.doMeatType(new ModelSheepSA.ModelSheepSA2(), "starvationahoy:textures/entity/model_sheep.png", "minecraft:textures/entity/sheep/sheep.png", "starvationahoy:textures/entity/rottenChicken.png");
-        mt.doDeadEntity(EntitySheep.class, MItemLoader.deadSheep, Item.getItemFromBlock(Blocks.WOOL), Items.COOKED_MUTTON, MItemLoader.skinlessSheep);
+        mt.doDeadEntity(EntitySheep.class, MeatItemRegistry.DEAD_SHEEP, Item.getItemFromBlock(Blocks.WOOL), Items.COOKED_MUTTON, MeatItemRegistry.SKINLESS_SHEEP);
         ModuleMeat.registry.addMeatType(mt);
         mt = new MeatType(5);
         mt.doMeatType(new ModelRabbitSA(), "minecraft:textures/entity/rabbit/brown.png", "starvationahoy:textures/entity/skinned_rabbit.png", "starvationahoy:textures/entity/rottenChicken.png");
-        mt.doDeadEntity(EntityRabbit.class, MItemLoader.deadRabbit, Items.RABBIT_HIDE, Items.COOKED_RABBIT, MItemLoader.skinlessRabbit);
+        mt.doDeadEntity(EntityRabbit.class, MeatItemRegistry.DEAD_RABBIT, Items.RABBIT_HIDE, Items.COOKED_RABBIT, MeatItemRegistry.SKINLESS_RABBIT);
         ModuleMeat.registry.addMeatType(mt);
 	}
 
 
 	@SubscribeEvent
     public void registerItemModels(ModelRegistryEvent event) {
-        CoreTextureRegistry.initTextures();
+        TextureRegistry.initTextures();
     }
 }

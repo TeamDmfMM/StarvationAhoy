@@ -18,11 +18,13 @@ public class InfoBook extends Item {
 
     public InfoBook(){
         this.setCreativeTab(SATabs.INSTANCE);
+        this.setUnlocalizedName(CoreLib.INFO_BOOK);
+        this.setRegistryName(CoreLib.INFO_BOOK);
     }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand){
-        player.openGui(StarvationAhoy.instance, CoreLib.bookGUIID, world, 0, 0, 0);
+        player.openGui(StarvationAhoy.instance, CoreLib.BOOK_GUI_ID, world, 0, 0, 0);
         return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
     }
 

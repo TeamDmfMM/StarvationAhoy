@@ -8,7 +8,7 @@ public class SkinnedEntity extends Item{
 	public SkinnedEntity(String name){
 		super();
 		this.setUnlocalizedName(name);
-		//this.setTextureName(texture);
+		this.setRegistryName(name);
 		this.setCreativeTab(SATabs.INSTANCE);
 	}
 }

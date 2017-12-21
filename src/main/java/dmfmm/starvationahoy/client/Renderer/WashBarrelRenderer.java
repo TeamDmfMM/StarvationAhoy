@@ -1,6 +1,6 @@
 package dmfmm.starvationahoy.client.Renderer;
 
-import dmfmm.starvationahoy.crops.Block.tilentity.TileEntityCropWasher;
+import dmfmm.starvationahoy.crops.block.tilentity.TileEntityCropWasher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

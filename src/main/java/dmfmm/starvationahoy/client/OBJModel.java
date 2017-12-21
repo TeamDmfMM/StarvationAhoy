@@ -332,13 +332,13 @@
 //                        if (!unknownObjectCommands.contains(key))
 //                        {
 //                            unknownObjectCommands.add(key);
-//                            FMLLog.info("OBJLoader.Parser: command '%s' (model: '%s') is not currently supported, skipping. Line: %d '%s'", key, objFrom, lineNum, currentLine);
+//                            FMLLog.info("OBJLoader.Parser: command '%s' (model: '%s') is not currently supported, skipping. Line: %replaceableBlockRegistry '%s'", key, objFrom, lineNum, currentLine);
 //                        }
 //                    }
 //                }
 //                catch (RuntimeException e)
 //                {
-//                    throw new RuntimeException(String.format("OBJLoader.Parser: Exception parsing line #%d: `%s`", lineNum, currentLine), e);
+//                    throw new RuntimeException(String.format("OBJLoader.Parser: Exception parsing line #%replaceableBlockRegistry: `%s`", lineNum, currentLine), e);
 //                }
 //            }
 //
@@ -536,9 +536,9 @@
 //                        FMLLog.info("OBJModel: A texture has already been defined for material '%s' in '%s'. The texture defined by key '%s' will not be applied!", material.getName(), new ResourceLocation(domain, path).toString(), key);
 //                    }
 //                }
-//                else if (key.equalsIgnoreCase("d") || key.equalsIgnoreCase("Tr"))
+//                else if (key.equalsIgnoreCase("replaceableBlockRegistry") || key.equalsIgnoreCase("Tr"))
 //                {
-//                    //d <-optional key here> float[0.0:1.0, 1.0]
+//                    //replaceableBlockRegistry <-optional key here> float[0.0:1.0, 1.0]
 //                    //Tr r g b OR Tr spectral map file OR Tr xyz r g b (CIEXYZ colorspace)
 //                    String[] splitData = WHITE_SPACE.split(data);
 //                    float alpha = Float.parseFloat(splitData[splitData.length - 1]);

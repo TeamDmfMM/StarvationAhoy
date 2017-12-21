@@ -14,13 +14,14 @@ import net.minecraft.item.ItemFood;
 public class StanFood extends ItemFood {
 
 
-    public StanFood(int foodBar, float saturation, boolean WolfFood){
+    public StanFood(int foodBar, float saturation, boolean WolfFood, String name){
         super(foodBar, saturation, WolfFood);
         this.setCreativeTab(SATabs.INSTANCE);
+        this.setUnlocalizedName(name);
+        this.setRegistryName(name);
     }
-    public StanFood(int foodBar, float saturation){
-        super(foodBar, saturation, false);
-        this.setCreativeTab(SATabs.INSTANCE);
+    public StanFood(int foodBar, float saturation, String name){
+        this(foodBar, saturation, false, name);
     }
 
 

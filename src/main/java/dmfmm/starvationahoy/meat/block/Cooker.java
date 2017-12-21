@@ -6,8 +6,8 @@ import dmfmm.starvationahoy.meat.ModuleMeat;
 import dmfmm.starvationahoy.meat.block.multiblock.CookerMultiBlock;
 import dmfmm.starvationahoy.meat.block.multiblock.CookerTileEntity;
 import dmfmm.starvationahoy.meat.block.multiblock.TileEntityMultiBlock;
-import dmfmm.starvationahoy.meat.item.MItemLoader;
 import dmfmm.starvationahoy.api.Event.MeatCutEvent;
+import dmfmm.starvationahoy.meat.init.MeatItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -53,7 +53,7 @@ public class Cooker extends Block implements ITileEntityProvider {
         int y = pos.getY();
         int z = pos.getZ();
         //TODO CLEAN THIS CODE !!!!!!!!!!!!!
-        if (player.inventory.mainInventory.get(player.inventory.currentItem).getItem() == MItemLoader.ButcherKnife){
+        if (player.inventory.mainInventory.get(player.inventory.currentItem).getItem() == MeatItemRegistry.BUTCHERS_KNIFE){
             TileEntityMultiBlock te = (TileEntityMultiBlock) world.getTileEntity(new BlockPos(x, y, z));
             if (te.multiBlockStructure.sharedData.hasKey("RoastingItem")){
                 ItemStack toSpawnInWorld = new ItemStack(te.multiBlockStructure.sharedData.getCompoundTag("RoastingItem"));

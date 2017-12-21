@@ -5,11 +5,11 @@ import dmfmm.starvationahoy.core.SATabs;
 
 public class FiletKnife extends Item{
 	
-	public FiletKnife()
-	{
+	public FiletKnife(String name) {
         super();
         this.maxStackSize = 1;
-        //this.setTextureName("starvationahoy:filetknife");
+        this.setUnlocalizedName(name);
+        this.setRegistryName(name);
         this.setContainerItem(this);
         this.setCreativeTab(SATabs.INSTANCE);
     }

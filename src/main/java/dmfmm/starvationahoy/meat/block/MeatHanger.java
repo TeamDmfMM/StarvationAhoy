@@ -6,9 +6,9 @@ import dmfmm.starvationahoy.core.lib.MeatLib;
 import dmfmm.starvationahoy.meat.ModuleMeat;
 import dmfmm.starvationahoy.meat.block.tileentity.MeatHangerData;
 import dmfmm.starvationahoy.meat.block.tileentity.MeatHangerTileEntity;
-import dmfmm.starvationahoy.meat.item.MItemLoader;
 import dmfmm.starvationahoy.api.Event.MeatCutEvent;
 import dmfmm.starvationahoy.api.Meat.ISAModel;
+import dmfmm.starvationahoy.meat.init.MeatItemRegistry;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -93,7 +93,7 @@ public class MeatHanger extends BlockContainerRotate{
 		ItemStack temma = player.inventory.getCurrentItem();
 		if(temma != ItemStack.EMPTY) {
 									/*IS the player attempting to cut the animal down (when skinned)?*/
-			if (temma.getItem() == MItemLoader.ButcherKnife && meatType > 0 && meatState == MeatHangerData.MeatStates.SKINNED){
+			if (temma.getItem() == MeatItemRegistry.BUTCHERS_KNIFE && meatType > 0 && meatState == MeatHangerData.MeatStates.SKINNED){
 
 				boolean proceed = MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatHanger(world, meatType, pos));
 				if(!proceed) {
@@ -105,7 +105,7 @@ public class MeatHanger extends BlockContainerRotate{
 				}
 				return true;
 										/*IS the player Attemping to skin the animal?*/
-			}else if (temma.getItem() == MItemLoader.filetKnife && meatState == MeatHangerData.MeatStates.NORMAL) {
+			}else if (temma.getItem() == MeatItemRegistry.FILET_KNIFE && meatState == MeatHangerData.MeatStates.NORMAL) {
 
 				boolean progress = MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatSkinned(world, meatType, pos));
 				if(!progress){

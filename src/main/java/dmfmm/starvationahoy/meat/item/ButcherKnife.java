@@ -7,12 +7,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import dmfmm.starvationahoy.core.SATabs;
 
 public class ButcherKnife extends Item{
-	public ButcherKnife()
+	public ButcherKnife(String name)
 	{
         super();
         this.maxStackSize = 1;
         this.setMaxDamage(10);
-        //this.setTextureName("starvationahoy:knife");
+        this.setUnlocalizedName(name);
+		this.setRegistryName(name);
         this.setContainerItem(this);
         this.setCreativeTab(SATabs.INSTANCE);
     }

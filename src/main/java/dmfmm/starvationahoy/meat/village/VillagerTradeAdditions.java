@@ -1,20 +1,19 @@
 package dmfmm.starvationahoy.meat.village;
 
 import dmfmm.starvationahoy.meat.init.MeatBlockRegistry;
-import dmfmm.starvationahoy.meat.item.MItemLoader;
+import dmfmm.starvationahoy.meat.init.MeatItemRegistry;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Random;
 
 public class VillagerTradeAdditions {
 
 
-	public static void addVillager(Side side) {
+	public static void addVillager() {
 		VillagerRegistry.VillagerProfession prof = new SAButcher();
 		ForgeRegistries.VILLAGER_PROFESSIONS.register(prof);
 		VillagerRegistry.VillagerCareer carrer = new VillagerRegistry.VillagerCareer(prof, "butcher");
@@ -34,17 +33,17 @@ public class VillagerTradeAdditions {
 		private static final EntityVillager.ITradeList[][] trades =
 				{
 						{
-								new EntityVillager.ListItemForEmeralds(MItemLoader.deadChicken, new EntityVillager.PriceInfo(3, 4)),
-								new EntityVillager.ListItemForEmeralds(MItemLoader.deadPig, new EntityVillager.PriceInfo(5, 6)),
-								new EntityVillager.ListItemForEmeralds(MItemLoader.deadCow, new EntityVillager.PriceInfo(7, 8))
+								new EntityVillager.ListItemForEmeralds(MeatItemRegistry.DEAD_CHICKEN, new EntityVillager.PriceInfo(3, 4)),
+								new EntityVillager.ListItemForEmeralds(MeatItemRegistry.DEAD_PIG, new EntityVillager.PriceInfo(5, 6)),
+								new EntityVillager.ListItemForEmeralds(MeatItemRegistry.DEAD_COW, new EntityVillager.PriceInfo(7, 8))
 						},
 						{
-								new EntityVillager.ListItemForEmeralds(MItemLoader.deadRabbit, new EntityVillager.PriceInfo(10, 11)),
-								new EntityVillager.ListItemForEmeralds(MItemLoader.deadSheep, new EntityVillager.PriceInfo(3, 8))
+								new EntityVillager.ListItemForEmeralds(MeatItemRegistry.DEAD_RABBIT, new EntityVillager.PriceInfo(10, 11)),
+								new EntityVillager.ListItemForEmeralds(MeatItemRegistry.DEAD_SHEEP, new EntityVillager.PriceInfo(3, 8))
 						},
 						{
 								new EntityVillager.ListItemForEmeralds(new ItemStack(Items.BEEF, getRandomStackNumber(7, 10)), new EntityVillager.PriceInfo(2, 3)),
-								new EntityVillager.ListItemForEmeralds(new ItemStack(MeatBlockRegistry.MeatHanger), new EntityVillager.PriceInfo(3, 9)),
+								new EntityVillager.ListItemForEmeralds(new ItemStack(MeatBlockRegistry.MEAT_HANGER), new EntityVillager.PriceInfo(3, 9)),
 								new EntityVillager.ListItemForEmeralds(new ItemStack(Items.COOKED_PORKCHOP, getRandomStackNumber(4, 9)), new EntityVillager.PriceInfo(3, 3))
 						}
 

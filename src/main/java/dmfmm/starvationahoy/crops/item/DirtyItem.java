@@ -1,6 +1,8 @@
 package dmfmm.starvationahoy.crops.item;
 
+import dmfmm.starvationahoy.core.lib.WashLib;
 import dmfmm.starvationahoy.crops.ModuleCropWash;
+import dmfmm.starvationahoy.crops.init.CropItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +24,8 @@ public class DirtyItem extends Item {
 
 
     public DirtyItem() {
+        this.setUnlocalizedName(WashLib.DIRTY_ITEM);
+        this.setRegistryName(WashLib.DIRTY_ITEM);
     }
 
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)
@@ -34,7 +38,7 @@ public class DirtyItem extends Item {
                 return EnumActionResult.PASS;
             } else if (world.getBlockState(pos).getBlock().canSustainPlant(world.getBlockState(pos), world, pos, EnumFacing.UP, (IPlantable) new ItemStack(stack.getTagCompound().getCompoundTag("Original")).getItem()) && world.isAirBlock(pos.up())) {
                 Item l = new ItemStack(stack.getTagCompound().getCompoundTag("Original")).getItem();
-                Block b = ModuleCropWash.d.getBlockFromDrop(l);
+                Block b = ModuleCropWash.replaceableBlockRegistry.getBlockFromDrop(l);
                 world.setBlockState(pos.up(), b.getDefaultState());
                 stack.shrink(1);
                 return EnumActionResult.SUCCESS;
@@ -58,7 +62,7 @@ public class DirtyItem extends Item {
 
     public static ItemStack createDirtyItem(ItemStack original){
 
-        ItemStack dirty = new ItemStack(ModuleCropWash.cropItemLoader.items.get("dirty_item"), original.getCount());
+        ItemStack dirty = new ItemStack(CropItemRegistry.DIRTY_ITEM, original.getCount());
         dirty.setTagCompound(new NBTTagCompound());
         dirty.getTagCompound().setTag("Original", original.writeToNBT(new NBTTagCompound()));
         return dirty;

@@ -3,19 +3,19 @@ package dmfmm.starvationahoy.core.lib;
 public class MeatLib {
 
 	
-	public static final String iCowDead = "Cow_Dead";
-	public static final String iPigDead = "Pig_Dead";
-	public static final String iSheepDead = "Sheep_Dead";
-	public static final String iRabbitDead = "Rabbit_Dead";
-	public static final String iChickenDead = "Chicken_Dead";
-	public static final String iCowSkinned = "Cow_Skinned";
-	public static final String iPigSkinned = "Pig_Skinned";
-	public static final String iSheepSkinned = "Sheep_Skinned";
-	public static final String iRabbitSkinned = "Rabbit_Skinned";
-	public static final String iChickenSkinned = "Chicken_Skinned";
-	public static final String iButcherKnife = "ButcherKnife";
-	public static final String ifiletKnife = "FiletKnife";
-    public static final String iPigLeg = "PigLegs";
+	public static final String COW_DEAD = "Cow_Dead";
+	public static final String PIG_DEAD = "Pig_Dead";
+	public static final String SHEEP_DEAD = "Sheep_Dead";
+	public static final String RABBIT_DEAD = "Rabbit_Dead";
+	public static final String CHICKEN_DEAD = "Chicken_Dead";
+	public static final String COW_SKINNED = "Cow_Skinned";
+	public static final String PIG_SKINNED = "Pig_Skinned";
+	public static final String SHEEP_SKINNED = "Sheep_Skinned";
+	public static final String RABBIT_SKINNED = "Rabbit_Skinned";
+	public static final String CHICKEN_SKINNED = "Chicken_Skinned";
+	public static final String BUTCHER_KNIFE = "ButcherKnife";
+	public static final String FILET_KNIFE = "FiletKnife";
+    public static final String PIG_LEGS = "PigLegs";
 	public static final String COOKED_PIG_LEG = "CookedPigLeg";
 	
 	public static final String MEAT_HANGER = "MeatHanger";

@@ -1,25 +1,20 @@
 package dmfmm.starvationahoy.crops;
 
-import dmfmm.starvationahoy.core.Init.CropwashTextureRegistry;
-import dmfmm.starvationahoy.core.util.CRef;
+import dmfmm.starvationahoy.core.util.ConfigHandler;
 import dmfmm.starvationahoy.core.util.SALog;
-import dmfmm.starvationahoy.crops.Block.BlockCropWasher;
-import dmfmm.starvationahoy.crops.Block.tilentity.TileEntityCropWasher;
-import dmfmm.starvationahoy.crops.Crossmod.CrossMod;
-import dmfmm.starvationahoy.crops.item.CropItemLoader;
-import dmfmm.starvationahoy.crops.modelbake.TextureInjector;
+import dmfmm.starvationahoy.crops.crossmod.CrossMod;
+import dmfmm.starvationahoy.crops.events.CropWashEvents;
+import dmfmm.starvationahoy.crops.events.VillagerCropOverride;
+import dmfmm.starvationahoy.crops.init.CropBlockRegistry;
+import dmfmm.starvationahoy.crops.init.CropItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Made by mincrmatt12. Do not copy or you will have to face
@@ -27,46 +22,31 @@ import net.minecraftforge.fml.relauncher.Side;
  */
 public class ModuleCropWash {
 
-    public static CropItemLoader cropItemLoader = new CropItemLoader();
+    public static DirtyBlocks replaceableBlockRegistry;
 
-    public static Block blockCropWasher;
-    public static DirtyBlocks d;
+    public static void preinit() {
 
-    public static void preinit(Side side) {
-
-        if (CRef.useCropwash() == false){
+        if (!ConfigHandler.useCropwash()){
             return;
         }
 
-        blockCropWasher = new BlockCropWasher();
-        blockCropWasher.setRegistryName("cropwashblock");
-        ForgeRegistries.BLOCKS.register(blockCropWasher);
-        ForgeRegistries.ITEMS.register(new ItemBlock(blockCropWasher).setRegistryName(blockCropWasher.getRegistryName()));
-        cropItemLoader.load();
+        CropBlockRegistry.registerBlocks();
+        CropItemRegistry.registerItems();
+
         MinecraftForge.EVENT_BUS.register(new VillagerCropOverride());
-        if(side == Side.CLIENT) {
-            //ModelLoaderRegistry.registerLoader(DirtyItemSmartModel.Loader.instance);
-            CropwashTextureRegistry.preInitTexture();
-            CropwashTextureRegistry.doDirtyItem();
-        }
-        //GameRegistry.registerBlock(blockCropWasher, "cropwashblock");
 
     }
 
-    public static void init(Side side) {
+    public static void init() {
 
-        if (CRef.useCropwash() == false){
+        if (!ConfigHandler.useCropwash()){
             return;
         }
-        if (side == Side.CLIENT) {
-            //MinecraftForge.EVENT_BUS.register(new ModelBakeInjector());
-            MinecraftForge.EVENT_BUS.register(new TextureInjector());
-        }
+
 
         MinecraftForge.EVENT_BUS.register(new CropWashEvents());
-        d = new DirtyBlocks();
+        replaceableBlockRegistry = new DirtyBlocks();
         CrossMod.init();
-        GameRegistry.registerTileEntity(TileEntityCropWasher.class, "tentity_CropWashBlock");
 
         CropCraftingRecipies.registerRecipies();
 
@@ -79,7 +59,7 @@ public class ModuleCropWash {
 
     public static void imc(FMLInterModComms.IMCMessage message) {
 
-        if (CRef.useCropwash() == false){
+        if (ConfigHandler.useCropwash() == false){
             return;
         }
 

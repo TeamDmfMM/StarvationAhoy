@@ -1,5 +1,6 @@
 package dmfmm.starvationahoy.core.items;
 
+import dmfmm.starvationahoy.core.init.CoreItemRegistry;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.util.EnumHand;
@@ -22,14 +23,14 @@ public class SaturationArmorTracker extends ItemArmor{
 	public SaturationArmorTracker(ArmorMaterial material, EntityEquipmentSlot type, String name) {
 		super(material, 0, type);
         this.setCreativeTab(SATabs.INSTANCE);
-		///this.setTextureName("starvationahoy:stats_" + type);
 		this.setUnlocalizedName(name);
+		this.setRegistryName(name);
 	}
 
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-		if(stack.getItem().equals(ItemLoad.stat_helm)){
+		if(stack.getItem().equals(CoreItemRegistry.STAT_HELM)){
 			return "starvationahoy:textures/armor/stats_1.png";
 		}else{
 			return "starvationahoy:textures/armor/body.png";

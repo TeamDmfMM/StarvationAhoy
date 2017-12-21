@@ -17,6 +17,6 @@ public class SATabs extends CreativeTabs {
 
 	@Override
 	public ItemStack getTabIconItem() {//H
-		return new ItemStack(MeatBlockRegistry.MeatHanger);
+		return new ItemStack(MeatBlockRegistry.MEAT_HANGER);
 	}
 }

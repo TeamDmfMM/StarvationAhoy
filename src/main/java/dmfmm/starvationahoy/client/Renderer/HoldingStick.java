@@ -5,7 +5,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 /**
- * HoldingStick - dmf444
+ * HOLDING_STICK - dmf444
  * Created using Tabula 4.1.1
  */
 public class HoldingStick extends ModelBase {

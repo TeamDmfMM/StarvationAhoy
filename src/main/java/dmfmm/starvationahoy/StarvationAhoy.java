@@ -1,17 +1,14 @@
 package dmfmm.starvationahoy;
 
 import dmfmm.starvationahoy.api.StarvationAhoyRegistry;
-import dmfmm.starvationahoy.client.Gui.book_gui.FurnaceHelper;
+import dmfmm.starvationahoy.client.gui.book_gui.FurnaceHelper;
 import dmfmm.starvationahoy.core.CoreRecipies;
 import dmfmm.starvationahoy.core.GuiHandler;
 import dmfmm.starvationahoy.core.IMCRerouter;
-import dmfmm.starvationahoy.core.Init.CropwashTextureRegistry;
-import dmfmm.starvationahoy.core.Init.MeatTextureRegistry;
 import dmfmm.starvationahoy.core.StarvationAhoyProvider;
 import dmfmm.starvationahoy.core.event.ConfigChangeEvent;
-import dmfmm.starvationahoy.core.items.ItemLoad;
+import dmfmm.starvationahoy.core.init.CoreItemRegistry;
 import dmfmm.starvationahoy.core.lib.ModInfo;
-import dmfmm.starvationahoy.core.util.CRef;
 import dmfmm.starvationahoy.core.util.ConfigHandler;
 import dmfmm.starvationahoy.core.util.SALog;
 import dmfmm.starvationahoy.crops.ModuleCropWash;
@@ -36,7 +33,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.io.File;
 
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.VERSION, guiFactory = ModInfo.GUIFactory)
+@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.VERSION, guiFactory = ModInfo.GUI_FACTORY)
 public class StarvationAhoy {
 	
 	@Instance(value = ModInfo.MOD_ID)
@@ -48,7 +45,7 @@ public class StarvationAhoy {
 
 	public static Side side;
 	public static SimpleNetworkWrapper MultiBlockChannel;
-	@SidedProxy(clientSide= ModInfo.Clientproxy, serverSide= ModInfo.Serverproxy)
+	@SidedProxy(clientSide= ModInfo.CLIENT_PROXY, serverSide= ModInfo.SERVER_PROXY)
 	public static CommonProxy proxy;
 
 
@@ -74,12 +71,10 @@ public class StarvationAhoy {
 
 
 		//Module Initiation
-		ModuleCropWash.preinit(side);
-		ItemLoad.initItems();
-		ModuleMeat.preinit(event.getSide());
+		CoreItemRegistry.registerItems();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-		//pattern = addBannerIcon("starvationAhoy", "sta", new ItemStack(ItemLoad.HungerPotion));
+		//pattern = addBannerIcon("starvationAhoy", "sta", new ItemStack(CoreItemRegistry.HUNGER_POTION));
 
 		//Packet Initiation
 		MultiBlockChannel = NetworkRegistry.INSTANCE.newSimpleChannel(ModInfo.MOD_ID);
@@ -98,22 +93,15 @@ public class StarvationAhoy {
 
 		//Module Loading
 		CoreRecipies.registerRecipies();
-		ModuleCropWash.init(event.getSide());
+		ModuleCropWash.init();
 		ModuleMeat.init();
 		//ModuleFoodStats.init();
+
 
 		//client Rendering
 		proxy.registerRenderers();
 		//proxy.registerKeyBindings();
 
-		if(event.getSide() == Side.CLIENT){
-			if(CRef.useCropwash()) {
-				CropwashTextureRegistry.initTextures();
-			}
-			if(CRef.useMeatOverride()){
-				MeatTextureRegistry.initTextures();
-			}
-		}
     }
 	
 	@EventHandler

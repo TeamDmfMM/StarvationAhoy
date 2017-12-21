@@ -203,7 +203,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	
 	private void placeHanger(World world, StructureBoundingBox sbb, int x, int y, int z, int rand){
 		int placeState = MathHelper.getInt(world.rand, 0, 2);
-		world.setBlockState(new BlockPos(x, y, z), MeatBlockRegistry.MeatHanger.getStateFromMeta(this.coordBaseMode.getIndex()), 2);
+		world.setBlockState(new BlockPos(x, y, z), MeatBlockRegistry.MEAT_HANGER.getStateFromMeta(this.coordBaseMode.getIndex()), 2);
 		TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
 		if(te instanceof MeatHangerTileEntity){
 			MeatHangerTileEntity MHA = (MeatHangerTileEntity) te;
