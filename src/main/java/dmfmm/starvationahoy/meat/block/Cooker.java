@@ -127,9 +127,6 @@ public class Cooker extends Block implements ITileEntityProvider {
     @Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
     {
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
         CookerTileEntity tile = (CookerTileEntity)world.getTileEntity(pos);
         if (tile != null) {
             if (tile.multiBlockStructure != null) {

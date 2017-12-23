@@ -170,7 +170,7 @@ public class HoldingStickRenderer extends TileEntitySpecialRenderer{
                     switch (meatType) {
                         case 0:
                             break;
-                        case 4://Rabbit Type
+                        case 5://Rabbit Type
                             ModelBase rabbit = ModuleMeat.registry.getModel(meatType);
                             rabbit.isChild =false;
 
