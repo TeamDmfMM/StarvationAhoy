@@ -16,7 +16,7 @@ public class MeatRecipieHandler {
 
     public static void registerCraftingRecipies(){
         smelt(MeatItemRegistry.PIG_LEG, MeatItemRegistry.COOKED_PIG_LEG, 0.5F);
-
+/*
         ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvationahoy:filet_knife"), new ItemStack(MeatItemRegistry.FILET_KNIFE),
                 new Object[]{
                 "ii ",
@@ -36,7 +36,7 @@ public class MeatRecipieHandler {
                 new Object[]{
                 " s ",
                 " s ",
-                "sps", 's', "stickWood", 'p', "plankWood"}).setRegistryName("starvationahoy:holding_stick"));
+                "sps", 's', "stickWood", 'p', "plankWood"}).setRegistryName("starvationahoy:holding_stick"));*/
     }
 
     private static void smelt(Object in, Item out, Float value){

@@ -21,6 +21,7 @@ import java.util.Map;
 @IFMLLoadingPlugin.Name("StarvationAhoyRecipeBookHack")
 @IFMLLoadingPlugin.DependsOn("forge")
 @IFMLLoadingPlugin.SortingIndex(1001)
+@IFMLLoadingPlugin.MCVersion("1.12.2")
 public class RecipeBookTransformerPlugin implements IFMLLoadingPlugin {
     @Override
     public String[] getASMTransformerClass() {
@@ -68,7 +69,7 @@ public class RecipeBookTransformerPlugin implements IFMLLoadingPlugin {
             classReader.accept(classNode, 0);
 
             for (MethodNode node : classNode.methods) {
-                if (!node.name.equals("getItemStackTab")) continue;
+                if (!node.name.equals("getItemStackTab") && !node.name.equals("func_194084_a")) continue;
 
                 InsnList insnList = node.instructions;
                 AbstractInsnNode aStorePos = null;

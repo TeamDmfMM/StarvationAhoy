@@ -1,0 +1,18 @@
+{
+    "type": "forge:ore_shaped",
+    "pattern": [
+        "   ",
+        "w w",
+        "www"
+    ],
+    "key": {
+        "w": {
+            "type": "forge:ore_dict",
+            "ore": "logWood"
+        }
+    },
+    "result": {
+        "item": "starvationahoy:cropwashblock"
+    },
+    "group": "starvationahoy:cropwasher"
+}

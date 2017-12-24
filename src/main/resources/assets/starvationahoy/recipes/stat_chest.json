@@ -1,0 +1,30 @@
+{
+    "type": "forge:ore_shaped",
+    "pattern": [
+        "bnb",
+        "lcl",
+        "lel"
+    ],
+    "key": {
+        "b": {
+            "item": "minecraft:blaze_rod"
+        },
+        "n": {
+            "type": "forge:ore_dict",
+            "ore": "ingotBrickNether"
+        },
+        "l": {
+            "item": "minecraft:leather"
+        },
+        "c": {
+            "item": "minecraft:iron_chestplate"
+        },
+        "e": {
+            "item": "minecraft:ender_eye"
+        }
+    },
+    "result": {
+        "item": "starvationahoy:stat_chest"
+    },
+    "group": "starvationahoy:stat_chest"
+}

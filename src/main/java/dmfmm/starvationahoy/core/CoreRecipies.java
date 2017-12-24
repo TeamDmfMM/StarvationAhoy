@@ -13,7 +13,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 public class CoreRecipies {
 
     public static void registerRecipies(){
-        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvationahoy:stat_helm"), CoreItemRegistry.STAT_HELM,
+        /*ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvationahoy:stat_helm"), CoreItemRegistry.STAT_HELM,
                 new Object[] {
                         "   ",
                         "ihi",
@@ -27,7 +27,7 @@ public class CoreRecipies {
                         "lel",
                         'b', new ItemStack(Items.BLAZE_ROD), 'n', "ingotBrickNether",
                         'l', new ItemStack(Items.LEATHER), 'c', new ItemStack(Items.IRON_CHESTPLATE),
-                        'e', new ItemStack(Items.ENDER_EYE)}).setRegistryName("starvationahoy:stat_chest"));
+                        'e', new ItemStack(Items.ENDER_EYE)}).setRegistryName("starvationahoy:stat_chest"));*/
     }
 
 

@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 
 public class CoreItemRegistry {
 	
-	public static Item STAT_HELM = new SaturationArmorTracker(StarvationAhoy.StatusArmor, EntityEquipmentSlot.HEAD, CoreLib.STAT_HELM);;
+	public static Item STAT_HELM = new SaturationArmorTracker(StarvationAhoy.StatusArmor, EntityEquipmentSlot.HEAD, CoreLib.STAT_HELM);
 	public static Item STAT_CHEST = new SaturationArmorTracker(StarvationAhoy.StatusArmor, EntityEquipmentSlot.CHEST, CoreLib.STAT_CHEST);
 	public static Item HUNGER_POTION = new HungerPotion().setAlwaysEdible();
 	public static Item INFO_BOOK = new InfoBook();

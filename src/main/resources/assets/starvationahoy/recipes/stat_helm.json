@@ -1,0 +1,29 @@
+{
+    "type": "forge:ore_shaped",
+    "pattern": [
+        "   ",
+        "ihi",
+        "rgr"
+    ],
+    "key": {
+        "i": {
+            "type": "forge:ore_dict",
+            "ore": "ingotIron"
+        },
+        "h": {
+            "item": "minecraft:iron_helmet"
+        },
+        "r": {
+            "type": "forge:ore_dict",
+            "ore": "dustRedstone"
+        },
+        "g": {
+            "type": "forge:ore_dict",
+            "ore": "paneGlass"
+        }
+    },
+    "result": {
+        "item": "starvationahoy:stat_helm"
+    },
+    "group": "starvationahoy:stat_helm"
+}
