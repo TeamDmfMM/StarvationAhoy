@@ -26,6 +26,7 @@ public class HoldingStick extends BlockContainerRotate{
 		super(Material.WOOD);
 		this.setCreativeTab(SATabs.INSTANCE);
 		this.setName(MeatLib.HOLDING_STICK);
+		this.setHardness(1.0F);
 	}
 
 	@Override

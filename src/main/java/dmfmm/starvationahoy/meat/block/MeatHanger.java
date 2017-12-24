@@ -33,6 +33,7 @@ public class MeatHanger extends BlockContainerRotate{
 		super(Material.IRON);
 		this.setCreativeTab(SATabs.INSTANCE);
 		this.setName(MeatLib.MEAT_HANGER);
+		this.setHardness(1.0f);
 	}
 
 	@Override

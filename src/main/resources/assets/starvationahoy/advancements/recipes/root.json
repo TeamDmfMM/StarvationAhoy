@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:diamond"
+    },
+    "title": "A Root",
+    "description": "The root of this tree.",
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "sa_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "starvationahoy:infoBook"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": ["starvationahoy:meat_hanger", "starvationahoy:crop_washer", "starvationahoy:holding_stick",
+      "starvationahoy:butcher_knife", "starvationahoy:filet_knife", "starvationahoy:stat_helm", "starvationahoy:stat_chest", "starvationahoy:hunger_potion"]
+  }
+}

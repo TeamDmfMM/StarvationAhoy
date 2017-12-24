@@ -15,6 +15,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -29,6 +30,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Random;
+
 /**
  * Created by Mm12 on 2/28/2015.
  */
@@ -37,6 +40,7 @@ public class Cooker extends Block implements ITileEntityProvider {
         super(Material.ANVIL);
         this.setRegistryName(MeatLib.DEV_COOKER);
         this.setUnlocalizedName(MeatLib.DEV_COOKER);
+        this.setHardness(2.0F);
     }
 
     @Override
@@ -173,5 +177,11 @@ public class Cooker extends Block implements ITileEntityProvider {
         TileEntityMultiBlock tileEntityMultiBlock = (TileEntityMultiBlock) worldIn.getTileEntity(pos);
         CookerMultiBlock multiBlock = (CookerMultiBlock) tileEntityMultiBlock.multiBlockStructure;
         multiBlock.destroy(worldIn);
+    }
+
+    @Override
+    public Item getItemDropped(IBlockState state, Random rand, int fortune)
+    {
+        return Items.AIR;
     }
 }

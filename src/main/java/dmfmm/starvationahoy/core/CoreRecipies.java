@@ -13,14 +13,14 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 public class CoreRecipies {
 
     public static void registerRecipies(){
-        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvationahoy"), CoreItemRegistry.STAT_HELM,
+        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvationahoy:stat_helm"), CoreItemRegistry.STAT_HELM,
                 new Object[] {
                         "   ",
                         "ihi",
                         "rgr",
                         'i', "ingotIron", 'h', new ItemStack(Items.IRON_HELMET),
                         'r', "dustRedstone", 'g', "paneGlass"}).setRegistryName("starvationahoy:stat_helm"));
-        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvationahoy"), CoreItemRegistry.STAT_CHEST,
+        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvationahoy:stat_chest"), CoreItemRegistry.STAT_CHEST,
                 new Object[]{
                         "bnb",
                         "lcl",

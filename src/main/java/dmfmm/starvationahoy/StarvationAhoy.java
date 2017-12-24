@@ -1,6 +1,7 @@
 package dmfmm.starvationahoy;
 
 import dmfmm.starvationahoy.api.StarvationAhoyRegistry;
+import dmfmm.starvationahoy.base.BookTabAddition;
 import dmfmm.starvationahoy.client.gui.book_gui.FurnaceHelper;
 import dmfmm.starvationahoy.core.CoreRecipies;
 import dmfmm.starvationahoy.core.GuiHandler;
@@ -86,6 +87,7 @@ public class StarvationAhoy {
 		//Secondary events
 		proxy.preInit();
 		proxy.initSounds();
+		MinecraftForge.EVENT_BUS.register(new BookTabAddition());
 	}
 	
 	@EventHandler

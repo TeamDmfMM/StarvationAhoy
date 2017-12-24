@@ -17,22 +17,22 @@ public class MeatRecipieHandler {
     public static void registerCraftingRecipies(){
         smelt(MeatItemRegistry.PIG_LEG, MeatItemRegistry.COOKED_PIG_LEG, 0.5F);
 
-        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvartionahoy"), new ItemStack(MeatItemRegistry.FILET_KNIFE),
+        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvationahoy:filet_knife"), new ItemStack(MeatItemRegistry.FILET_KNIFE),
                 new Object[]{
                 "ii ",
                 " i ",
                 " s ", 'i', "ingotIron", 's', "stickWood"}).setRegistryName("starvationahoy:filet_knife"));
-        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvartionahoy"), new ItemStack(MeatItemRegistry.BUTCHERS_KNIFE),
+        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvationahoy:butcher_knife"), new ItemStack(MeatItemRegistry.BUTCHERS_KNIFE),
                 new Object[]{
                 "ii ",
                 "ii ",
                 " s ", 'i', "ingotIron", 's', "stickWood"}).setRegistryName("starvationahoy:butcher_knife"));
-        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvartionahoy"), new ItemStack(MeatBlockRegistry.MEAT_HANGER),
+        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvationahoy:meat_hanger"), new ItemStack(MeatBlockRegistry.MEAT_HANGER),
                 new Object[]{
                 "www",
                 "wiw",
                 " i ", 'i', "ingotIron", 'w', "plankWood"}).setRegistryName("starvationahoy:meat_hanger"));
-        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvartionahoy"), new ItemStack(MeatBlockRegistry.HOLDING_STICK),
+        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(new ResourceLocation("starvationahoy:holding_stick"), new ItemStack(MeatBlockRegistry.HOLDING_STICK),
                 new Object[]{
                 " s ",
                 " s ",
