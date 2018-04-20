@@ -61,23 +61,23 @@ public class MeatHangerRenderer extends TileEntitySpecialRenderer {
             GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
     //A reference to your Model file. Again, very important.
             this.model.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
-            int meatType = ((MeatHangerTileEntity)te).getMeatType();
+            int meatType = ((MeatHangerTileEntity)te).getMeatTypeId();
             MeatHangerData.MeatStates meatState = ((MeatHangerTileEntity)te).getMeatState();
             switch(meatType){
-            case 4:
+            case MeatHangerData.MEATTYPE_SHEEP:
             	//Sheep
 				if(meatState == MeatHangerData.MeatStates.NORMAL){
 					ModelSheepSA sheepy = new ModelSheepSA();
 					sheepy.modelTransformations();
 					sheepy.glTransformations();
-					Minecraft.getMinecraft().renderEngine.bindTexture(getTexture(MeatHangerData.SHEEP.getMeatID(), meatState));
+					Minecraft.getMinecraft().renderEngine.bindTexture(getTexture(MeatHangerData.MEATTYPE_SHEEP, meatState));
 					sheepy.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 					break;
 				}else{
 					ModelSheepSA.ModelSheepSA2 sheepyz = new ModelSheepSA.ModelSheepSA2();
 					sheepyz.modelTransformations();
 					sheepyz.glTransformations();
-					Minecraft.getMinecraft().renderEngine.bindTexture(getTexture(MeatHangerData.SHEEP.getMeatID(), meatState));
+					Minecraft.getMinecraft().renderEngine.bindTexture(getTexture(MeatHangerData.MEATTYPE_SHEEP, meatState));
 					sheepyz.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 					break;
 				}

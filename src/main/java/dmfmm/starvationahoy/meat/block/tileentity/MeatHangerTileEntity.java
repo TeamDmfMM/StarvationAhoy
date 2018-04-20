@@ -14,17 +14,22 @@ public class MeatHangerTileEntity extends TileEntity {
 	private int meatState; //0-normal|1-Skined|2-Rotten
 	
 	public MeatHangerTileEntity(){
-		 this.meatType = MeatHangerData.EMPTY.getMeatID();
+		 this.meatType = MeatHangerData.MeatType.NO_ANIMAL.getMeatID();
 		 this.meatState = MeatHangerData.MeatStates.EMPTY.getState();
 	}
 
 	public MeatHangerData.MeatStates getMeatState(){
 		return MeatHangerData.MeatStates.values()[meatState];
 	}
+
 	public void setMeatState(MeatHangerData.MeatStates type){
 		meatState = type.getState();
 	}
-	public int getMeatType(){ return meatType; }
+	public int getMeatTypeId(){ return meatType; }
+
+	public MeatHangerData.MeatType getMeatType() {
+		return MeatHangerData.MeatType.values()[meatType];
+	}
 
 	public void setMeatType(int type){
 		meatType = type;

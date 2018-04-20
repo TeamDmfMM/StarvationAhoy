@@ -75,11 +75,11 @@ public class MeatHanger extends BlockContainerRotate{
 	public void breakBlock(World world, BlockPos pos, IBlockState state){
 		if(world.getTileEntity(pos) instanceof MeatHangerTileEntity){
 			MeatHangerTileEntity tile = (MeatHangerTileEntity)world.getTileEntity(pos);
-			if(tile.getMeatType() > 0) {
+			if(tile.getMeatType() != MeatHangerData.MeatType.NO_ANIMAL) {
 				if (tile.getMeatState() == MeatHangerData.MeatStates.NORMAL) {
-					spawnAsEntity(world, pos, new ItemStack(ModuleMeat.registry.getMeatTypeForId(tile.getMeatType()).items.dead));
+					spawnAsEntity(world, pos, new ItemStack(ModuleMeat.registry.getMeatTypeForId(tile.getMeatTypeId()).items.dead));
 				} else if (tile.getMeatState() == MeatHangerData.MeatStates.SKINNED) {
-					spawnAsEntity(world, pos, new ItemStack(ModuleMeat.registry.getMeatTypeForId(tile.getMeatType()).items.skinned));
+					spawnAsEntity(world, pos, new ItemStack(ModuleMeat.registry.getMeatTypeForId(tile.getMeatTypeId()).items.skinned));
 				}
 			}
 		}
@@ -89,7 +89,7 @@ public class MeatHanger extends BlockContainerRotate{
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ){
 		MeatHangerTileEntity tile = (MeatHangerTileEntity) world.getTileEntity(pos);
-    	int meatType = tile.getMeatType();
+    	int meatType = tile.getMeatTypeId();
     	MeatHangerData.MeatStates meatState = tile.getMeatState();
 		ItemStack temma = player.inventory.getCurrentItem();
 		if(temma != ItemStack.EMPTY) {
@@ -98,7 +98,7 @@ public class MeatHanger extends BlockContainerRotate{
 
 				boolean proceed = MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatHanger(world, meatType, pos));
 				if(!proceed) {
-					Item drop = ModuleMeat.registry.getMeatTypeForId(tile.getMeatType()).items.skinned;
+					Item drop = ModuleMeat.registry.getMeatTypeForId(tile.getMeatTypeId()).items.skinned;
 					if (!world.isRemote)
 						world.spawnEntity(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(drop, 1)));
 					tile.updateHanger(0, MeatHangerData.MeatStates.EMPTY);
@@ -110,7 +110,7 @@ public class MeatHanger extends BlockContainerRotate{
 
 				boolean progress = MinecraftForge.EVENT_BUS.post(new MeatCutEvent.MeatSkinned(world, meatType, pos));
 				if(!progress){
-					Item stack = ModuleMeat.registry.getMeatTypeForId(tile.getMeatType()).items.skin;
+					Item stack = ModuleMeat.registry.getMeatTypeForId(tile.getMeatTypeId()).items.skin;
 					if(stack != null) {
 						int randomNum = world.rand.nextInt((5) + 1);
 						if (!world.isRemote) {world.spawnEntity(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(stack, randomNum)));}
@@ -149,7 +149,7 @@ public class MeatHanger extends BlockContainerRotate{
 		int z = pos.getZ();
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof MeatHangerTileEntity) {
-			int Meat = ((MeatHangerTileEntity) tile).getMeatType();
+			int Meat = ((MeatHangerTileEntity) tile).getMeatTypeId();
 			if(Meat > 0 && ModuleMeat.registry.getModel(Meat) instanceof ISAModel){
 				//TODO: CHANGE API TO USE AABB w/out GIVING 1 & 0
 				return ((ISAModel)ModuleMeat.registry.getModel(Meat)).getMeatAABB(x, 0, 1, y, 0, 1, z, 0, 1) != null ? ((ISAModel)ModuleMeat.registry.getModel(Meat)).getMeatAABB(x, 0, 1, y,0, 1, z, 0, 1) : this.defaultRender(world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)), x, y, z);
