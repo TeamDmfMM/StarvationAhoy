@@ -1,5 +1,6 @@
 package dmfmm.starvationahoy.meat.village;
 
+import dmfmm.starvationahoy.core.blocks.BlockContainerRotate;
 import dmfmm.starvationahoy.meat.ModuleMeat;
 import dmfmm.starvationahoy.meat.block.tileentity.MeatHangerData;
 import dmfmm.starvationahoy.meat.block.tileentity.MeatHangerTileEntity;
@@ -34,14 +35,16 @@ public class ButcherHouse extends StructureVillagePieces.Village {
     private int randomNum;
     private int randomNum1;
 	private EnumFacing coordBaseMode;
+	private Random random;
 	
 	public ButcherHouse(){}
 	
-	public ButcherHouse(Start villagePiece, int par2, Random par3Random, StructureBoundingBox sbb, EnumFacing facing) {
+	public ButcherHouse(Start villagePiece, int par2, Random random, StructureBoundingBox sbb, EnumFacing facing) {
          super(villagePiece, par2);
 		this.setCoordBaseMode(facing);
          this.coordBaseMode = facing;
-         this.boundingBox = sbb; 
+         this.boundingBox = sbb;
+         this.random = random;
 	}
 
 	 public static ButcherHouse buildComponent(Start villagePiece, List pieces, Random random, int x, int y, int z, EnumFacing facing, int p5) {
@@ -140,9 +143,9 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		
 		//Animals
 		if(hasdone){
-			Random randss = new Random();
+
 			int totalTypes = ModuleMeat.registry.meatIds().size();
-			randomNum = randss.nextInt((totalTypes - 1) + 1) + 1;
+			randomNum = random.nextInt((totalTypes - 1) + 1) + 1;
 			randomNum1 = ((randomNum + 1) % totalTypes) + 1;
 
 			int j1 = this.getXWithOffset(2 + 1, 9);
@@ -184,7 +187,6 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 		fillWithBlocks(world, sbb, 2, 3, 4, 2, 3, 5, Blocks.GLASS_PANE, Blocks.GLASS_PANE, false);
 		this.placeBlockAtCurrentPosition(world, Blocks.GLASS_PANE,  1, 3, 4, sbb);
 		this.setBlockState(world, Blocks.OAK_FENCE_GATE.getDefaultState().withProperty(BlockFenceGate.FACING, EnumFacing.NORTH).withProperty(BlockFenceGate.OPEN, Boolean.FALSE), 1, 1, 4, sbb);
-		//this.placeBlockAtCurrentPosition(world, blocks.OAK_FENCE_gate, this.coordBaseMode.rotateY().getIndex(), 1, 1, 4, sbb);
 		this.placeBlockAtCurrentPosition(world, Blocks.OAK_FENCE,  2, 2, 4, sbb);
 
 
@@ -202,8 +204,8 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 	
 	
 	private void placeHanger(World world, StructureBoundingBox sbb, int x, int y, int z, int rand){
-		int placeState = MathHelper.getInt(world.rand, 0, 2);
-		world.setBlockState(new BlockPos(x, y, z), MeatBlockRegistry.MEAT_HANGER.getStateFromMeta(this.coordBaseMode.getIndex()), 2);
+		int placeState = MathHelper.getInt(random, 0, 2);
+		world.setBlockState(new BlockPos(x, y, z), MeatBlockRegistry.MEAT_HANGER.getDefaultState().withProperty(BlockContainerRotate.FACING, this.coordBaseMode), 2);
 		TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
 		if(te instanceof MeatHangerTileEntity){
 			MeatHangerTileEntity MHA = (MeatHangerTileEntity) te;
@@ -214,6 +216,7 @@ public class ButcherHouse extends StructureVillagePieces.Village {
 			}
 		}
 	}
+
 	private int getYOff(int y){
 		return this.getYWithOffset(y);
 	}
